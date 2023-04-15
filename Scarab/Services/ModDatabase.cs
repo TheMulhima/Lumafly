@@ -63,7 +63,8 @@ namespace Scarab.Services
                     if (name == "Disabled")
                         continue;
                     
-                    if (_itemNames.Contains(name))
+                    // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
+                    if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)
                         continue;
                     
                     _items.Add(new ModItem(new NotInModLinksState(),

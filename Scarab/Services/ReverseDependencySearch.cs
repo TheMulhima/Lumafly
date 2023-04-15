@@ -11,7 +11,9 @@ public class ReverseDependencySearch
 
     public ReverseDependencySearch(IEnumerable<ModItem> allModItems)
     {
-        _items = allModItems.ToDictionary(x => x.Name, x => x);
+        // no need to add non modlinks mod because they dont have a dependency tree
+        _items = allModItems.Where(x => x.State is not NotInModLinksState)
+            .ToDictionary(x => x.Name, x => x);
     }
 
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item)

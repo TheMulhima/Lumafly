@@ -244,6 +244,14 @@ namespace Scarab.ViewModels
             
             try
             {
+                // ensure no duplicate mods
+                if (item.State is NotInstalledState)
+                {
+                    foreach (var similarItem in _items.Where(x => x.Name == item.Name && x.State is InstalledState or NotInModLinksState).ToList())
+                    {
+                        await _installer.Uninstall(similarItem);
+                    }
+                }
                 await f
                 (
                     _installer,
