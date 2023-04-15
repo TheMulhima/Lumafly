@@ -205,7 +205,10 @@ namespace Scarab
 
         public void Save()
         {
-            string content = JsonSerializer.Serialize(this);
+            string content = JsonSerializer.Serialize(this, new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+            });
 
             GetOrCreateDirPath();
 
