@@ -83,7 +83,7 @@ namespace Scarab.Models
         public bool HasIntegrations => Integrations.Length > 0;
         public bool HasTags => Tags.Length > 0;
 
-        public bool UpdateAvailable => State is InstalledState s && s.Version < Version;
+        public bool UpdateAvailable => State is InstalledState { Updated: false };
 
         public string UpdateText  => $"\u279E {Version}";
 

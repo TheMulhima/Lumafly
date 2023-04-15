@@ -411,11 +411,29 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable All.
+        /// </summary>
+        internal static string XAML_Disable_All_Installed {
+            get {
+                return ResourceManager.GetString("XAML_Disable_All_Installed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         internal static string XAML_Donate {
             get {
                 return ResourceManager.GetString("XAML_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force Update All.
+        /// </summary>
+        internal static string XAML_Force_Update_All {
+            get {
+                return ResourceManager.GetString("XAML_Force_Update_All", resourceCulture);
             }
         }
         
@@ -492,6 +510,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bulk Actions.
+        /// </summary>
+        internal static string XAML_Open_Bulk_Action {
+            get {
+                return ResourceManager.GetString("XAML_Open_Bulk_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Mods.
         /// </summary>
         internal static string XAML_OpenMods {
@@ -524,6 +551,15 @@ namespace Scarab {
         internal static string XAML_Tags {
             get {
                 return ResourceManager.GetString("XAML_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall All.
+        /// </summary>
+        internal static string XAML_Uninstall_All {
+            get {
+                return ResourceManager.GetString("XAML_Uninstall_All", resourceCulture);
             }
         }
         

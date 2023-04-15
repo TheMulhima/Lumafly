@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using JetBrains.Annotations;
@@ -21,6 +22,13 @@ namespace Scarab.Views
             this.FindControl<UserControl>(nameof(UserControl)).KeyDown += OnKeyDown;
             
             _search = this.FindControl<TextBox>("Search");
+            
+            var _bulkActions = this.FindControl<MenuItem>("BulkActions");
+
+            _bulkActions.PointerPressed += (sender, _) =>
+            {
+                FlyoutBase.ShowAttachedFlyout((sender as Control)!);
+            };
         }
 
         private void OnKeyDown(object? sender, KeyEventArgs e)

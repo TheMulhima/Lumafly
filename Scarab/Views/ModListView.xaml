@@ -67,11 +67,31 @@
                 IsEnabled="{Binding ApiOutOfDate}"
                 DockPanel.Dock="Bottom"
                 VerticalAlignment="Bottom" />
-            <MenuItem 
-                Command="{Binding UpdateUnupdated}" 
-                Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
-                DockPanel.Dock="Bottom"
-                IsEnabled="{Binding CanUpdateAll}" />
+            <MenuItem
+                Header="{ext:Localize XAML_Open_Bulk_Action}"
+                Name="BulkActions"
+                DockPanel.Dock="Bottom">
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout Placement="Right">
+                        <MenuItem 
+                            Command="{Binding UpdateUnupdated}" 
+                            Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
+                            IsEnabled="{Binding CanUpdateAll}" />
+                        <MenuItem
+                            Header="{ext:Localize XAML_Disable_All_Installed}"
+                            Command="{Binding DisableAllInstalled}"
+                            IsEnabled="{Binding CanDisableAll}" />
+                        <MenuItem
+                            Header="{ext:Localize XAML_Uninstall_All}"
+                            Command="{Binding UninstallAll}"
+                            IsEnabled="{Binding CanUninstallAll}" />
+                        <MenuItem
+                            Header="{ext:Localize XAML_Force_Update_All}"
+                            Command="{Binding ForceUpdateAll}"
+                            IsEnabled="{Binding CanUninstallAll}" />
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
+            </MenuItem>
             <MenuItem
                 Command="{Binding Donate}"
                 Header="{ext:Localize XAML_Donate}"

@@ -106,7 +106,9 @@ namespace Scarab.ViewModels
         };
         
         public bool CanUpdateAll => _items.Any(x => x.State is InstalledState { Updated: false }) && !_updating;
-
+        public bool CanUninstallAll => _items.Any(x => x.State is InstalledState or NotInModLinksState);
+        public bool CanDisableAll => _items.Any(x => x.State is InstalledState {Enabled: true} or NotInModLinksState {Enabled: true});
+        public bool CanEnableAll => _items.Any(x => x.State is InstalledState {Enabled: false} or NotInModLinksState {Enabled: false});
         // Needed for source generator to find it.
         private void RaisePropertyChanged(string name) => IReactiveObjectExtensions.RaisePropertyChanged(this, name);
 
@@ -160,7 +162,7 @@ namespace Scarab.ViewModels
 
         public void SelectEnabled() => SelectedItems = _items.Where(x => x.State is InstalledState { Enabled: true });
         
-        public async void UpdateUnupdated()
+        public async Task UpdateUnupdated()
         {
             _updating = false;
             
@@ -178,6 +180,52 @@ namespace Scarab.ViewModels
             }
         }
 
+        private async Task UninstallAll()
+        {
+            var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
+            foreach (ModItem mod in toUninstall)
+            {
+                if (mod.State is not (InstalledState or NotInModLinksState))
+                    continue;
+                
+                await InternalUpdateInstallAsync(mod, mod.OnInstall);
+            }
+        }
+
+        public void DisableAllInstalled()
+        {
+            var toDisable = _items.Where(x => x.State is InstalledState {Enabled:true} or NotInModLinksState{Enabled:true}).ToList();
+
+            foreach (ModItem mod in toDisable)
+            {
+                if (mod.State is not (InstalledState {Enabled:true} or NotInModLinksState {Enabled:true}))
+                    continue;
+
+                _installer.Toggle(mod);
+            }
+
+            RaisePropertyChanged(nameof(CanDisableAll));
+            RaisePropertyChanged(nameof(CanEnableAll));
+        }
+        
+        public async Task ForceUpdateAll()
+        {
+            var toUpdate = _items.Where(x => x.State is InstalledState).ToList();
+            
+            foreach (ModItem mod in toUpdate)
+            {
+                var state = (InstalledState) mod.State;
+                mod.State = new InstalledState(state.Enabled, new Version(0,0,0,0), false);
+                await _mods.RecordInstalledState(mod);
+                mod.CallOnPropertyChanged(nameof(mod.UpdateAvailable));
+                mod.CallOnPropertyChanged(nameof(mod.VersionText));
+            }
+            
+            RaisePropertyChanged(nameof(FilteredItems));
+            RaisePropertyChanged(nameof(SelectedItems));
+            await UpdateUnupdated();
+        }
+
         private async Task OnEnableAsync(ModItem item)
         {
             try
@@ -193,6 +241,8 @@ namespace Scarab.ViewModels
 
                 // to reset the visuals of the toggle to the correct value
                 item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
+                RaisePropertyChanged(nameof(CanDisableAll));
+                RaisePropertyChanged(nameof(CanEnableAll));
                 
             }
             catch (Exception e)
@@ -303,6 +353,9 @@ namespace Scarab.ViewModels
 
             RaisePropertyChanged(nameof(SelectedItems));
             RaisePropertyChanged(nameof(FilteredItems));
+            RaisePropertyChanged(nameof(CanUninstallAll));
+            RaisePropertyChanged(nameof(CanDisableAll));
+            RaisePropertyChanged(nameof(CanEnableAll));
             
             _items.SortBy(Comparer);
         }
