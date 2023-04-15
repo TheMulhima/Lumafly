@@ -31,4 +31,6 @@ namespace Scarab.Models
     }
 
     public record NotInstalledState(bool Installing = false) : ModState;
+    
+    public record NotInModLinksState(bool Enabled = true, bool Installed = true) : ModState;
 }

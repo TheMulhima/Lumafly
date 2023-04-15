@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
@@ -23,11 +24,12 @@ namespace Scarab.Services
 
         public (string Url, int Version, string SHA256) Api { get; }
 
-        public IEnumerable<ModItem> Items => _items;
+        public List<ModItem> Items => _items;
 
         private readonly List<ModItem> _items = new();
+        private readonly List<string> _itemNames = new();
 
-        private ModDatabase(IModSource mods, ModLinks ml, ApiLinks al)
+        private ModDatabase(IModSource mods, ModLinks ml, ApiLinks al, ISettings? settings = null)
         {
             foreach (var mod in ml.Manifests)
             {
@@ -49,6 +51,33 @@ namespace Scarab.Services
                 );
                 
                 _items.Add(item);
+                _itemNames.Add(mod.Name);
+            }
+
+
+            if (settings is not null && Directory.Exists(settings.ModsFolder))
+            {
+                foreach (var dir in Directory.GetDirectories(settings.ModsFolder))
+                {
+                    var name = dir.Replace(settings.ModsFolder + "\\", "");
+                    if (name == "Disabled")
+                        continue;
+                    
+                    if (_itemNames.Contains(name))
+                        continue;
+                    
+                    _items.Add(new ModItem(new NotInModLinksState(),
+                        new Version(0, 0, 0, 0),
+                        Array.Empty<string>(),
+                        "",
+                        "",
+                        name!,
+                        "This mod is not from official modlinks",
+                        "",
+                        Array.Empty<string>(),
+                        Array.Empty<string>()));
+
+                }
             }
 
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));
@@ -56,7 +85,7 @@ namespace Scarab.Services
             Api = (al.Manifest.Links.OSUrl, al.Manifest.Version, al.Manifest.Links.SHA256);
         }
 
-        public ModDatabase(IModSource mods, (ModLinks ml, ApiLinks al) links) : this(mods, links.ml, links.al) { }
+        public ModDatabase(IModSource mods, (ModLinks ml, ApiLinks al) links, ISettings settings) : this(mods, links.ml, links.al, settings) { }
 
         public ModDatabase(IModSource mods, string modlinks, string apilinks) : this(mods, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         

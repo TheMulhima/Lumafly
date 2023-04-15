@@ -85,11 +85,13 @@ namespace Scarab.Services
 
         public void Toggle(ModItem mod)
         {
-            if (mod.State is not InstalledState state)
+            if (mod.State is not (InstalledState or NotInModLinksState))
                 throw new InvalidOperationException("Cannot enable mod which is not installed!");
+
+            var enabled = mod.State is InstalledState ? ((InstalledState)mod.State).Enabled : ((NotInModLinksState)mod.State).Enabled;
             
             // Enable dependents when enabling a mod
-            if (!state.Enabled) 
+            if (!enabled) 
             {
                 foreach (ModItem dep in mod.Dependencies.Select(x => _db.Items.First(i => i.Name == x)))
                 {
@@ -102,7 +104,7 @@ namespace Scarab.Services
 
             CreateNeededDirectories();
 
-            var (prev, after) = !state.Enabled
+            var (prev, after) = !enabled
                 ? (_config.DisabledFolder, _config.ModsFolder)
                 : (_config.ModsFolder, _config.DisabledFolder);
 
@@ -115,8 +117,15 @@ namespace Scarab.Services
             if (_fs.Directory.Exists(prev) && !_fs.Directory.Exists(after))
                 _fs.Directory.Move(prev, after);
 
-            mod.State = state with { Enabled = !state.Enabled };
-
+            if (mod.State is InstalledState installedState)
+            {
+                mod.State = installedState with { Enabled = !installedState.Enabled };
+            }
+            else if (mod.State is NotInModLinksState notInModLinksState)
+            {
+                mod.State = notInModLinksState with { Enabled = !notInModLinksState.Enabled };
+            }
+            
             _installed.RecordInstalledState(mod);
         }
 
@@ -434,9 +443,10 @@ namespace Scarab.Services
 
         private async Task _Uninstall(ModItem mod)
         {
+            var enabled = mod.State is InstalledState ? ((InstalledState)mod.State).Enabled : ((NotInModLinksState)mod.State).Enabled;
             string dir = Path.Combine
             (
-                mod.State is InstalledState { Enabled: true }
+                enabled
                     ? _config.ModsFolder
                     : _config.DisabledFolder,
                 mod.Name
@@ -451,9 +461,17 @@ namespace Scarab.Services
                 /* oh well, it's uninstalled anyways */
             }
 
-            mod.State = new NotInstalledState();
+            if (mod.State is NotInModLinksState notInModLinksState)
+            {
+                mod.State = notInModLinksState with { Installed = false };
+                _db.Items.Remove(mod);
+            }
+            else
+            {
+                mod.State = new NotInstalledState();
 
-            await _installed.RecordUninstall(mod);
+                await _installed.RecordUninstall(mod);
+            }
 
             if (!_config.AutoRemoveDeps)
                 return;

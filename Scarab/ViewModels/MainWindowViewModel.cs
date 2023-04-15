@@ -129,7 +129,7 @@ namespace Scarab.ViewModels
                   settings,
                   content.ml
               ))
-              .AddSingleton<IModDatabase, ModDatabase>(sp => new ModDatabase(sp.GetRequiredService<IModSource>(), content))
+              .AddSingleton<IModDatabase, ModDatabase>(sp => new ModDatabase(sp.GetRequiredService<IModSource>(), content, settings))
               .AddSingleton<IInstaller, Installer>()
               .AddSingleton<ModListViewModel>();
             

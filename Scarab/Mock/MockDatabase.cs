@@ -11,7 +11,7 @@ public class MockDatabase : IModDatabase
     {
         Api = ("...", 256, "?");
 
-        Items = new ModItem[]
+        Items = new List<ModItem>
         {
             // Installed and up to date
             new
@@ -72,6 +72,6 @@ public class MockDatabase : IModDatabase
         };
     }
 
-    public IEnumerable<ModItem>                     Items { get; }
+    public List<ModItem>                           Items { get; }
     public (string Url, int Version, string SHA256) Api   { get; }
 }

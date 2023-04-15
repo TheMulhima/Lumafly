@@ -284,7 +284,18 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(EnableApiButton));
 
             static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
+            
+            var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
+            foreach (var _item in removeList)
+            {
+                _items.Remove(_item);
+                _selectedItems = _selectedItems.Where(x => x != _item);
+            }
+            _items.SortBy(Comparer);
 
+            RaisePropertyChanged(nameof(SelectedItems));
+            RaisePropertyChanged(nameof(FilteredItems));
+            
             _items.SortBy(Comparer);
         }
         private async Task InternalInstallWithConfirmationAsync(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> f)

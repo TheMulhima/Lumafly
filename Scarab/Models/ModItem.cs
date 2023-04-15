@@ -62,7 +62,7 @@ namespace Scarab.Models
         public bool EnabledIsChecked => State switch
         {
             InstalledState { Enabled: var x } => x,
-
+            NotInModLinksState {Enabled: var x} => x,
             // Can't enable what isn't installed.
             _ => false
         };
@@ -73,10 +73,11 @@ namespace Scarab.Models
         {
             InstalledState => Resources.MI_InstallText_Installed,
             NotInstalledState => Resources.MI_InstallText_NotInstalled,
+            NotInModLinksState => Resources.MI_InstallText_NotInModlinks,
             _ => throw new InvalidOperationException("Unreachable")
         };
 
-        public bool Installed => State is InstalledState;
+        public bool Installed => State is InstalledState or NotInModLinksState;
 
         public bool HasDependencies => Dependencies.Length > 0;
         public bool HasIntegrations => Integrations.Length > 0;
@@ -90,6 +91,7 @@ namespace Scarab.Models
         {
             InstalledState st => st.Version.ToString(),
             NotInstalledState => Version.ToString(),
+            NotInModLinksState => Version.ToString(),
             _ => throw new ArgumentOutOfRangeException(nameof(_state))
         };
 
@@ -121,7 +123,7 @@ namespace Scarab.Models
             
             try
             {
-                if (State is InstalledState)
+                if (State is InstalledState or NotInModLinksState)
                 {
                     await inst.Uninstall(this);
                 }
