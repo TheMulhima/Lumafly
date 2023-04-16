@@ -72,7 +72,9 @@
                 Name="BulkActions"
                 DockPanel.Dock="Bottom">
                 <FlyoutBase.AttachedFlyout>
-                    <MenuFlyout Placement="Right">
+                    <MenuFlyout 
+                        Placement="RightEdgeAlignedTop"
+                        ShowMode="TransientWithDismissOnPointerMoveAway">
                         <MenuItem 
                             Command="{Binding UpdateUnupdated}" 
                             Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
