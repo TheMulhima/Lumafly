@@ -393,6 +393,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authors.
+        /// </summary>
+        internal static string XAML_Authors {
+            get {
+                return ResourceManager.GetString("XAML_Authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Path.
         /// </summary>
         internal static string XAML_ChangPath {

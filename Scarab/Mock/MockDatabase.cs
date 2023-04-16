@@ -25,6 +25,7 @@ public class MockDatabase : IModDatabase
                 "An example", 
                 "github.com/fifty-six/no",
                 Array.Empty<string>(),
+                Array.Empty<string>(),
                 Array.Empty<string>()
             ),
             // Installed but out of date
@@ -38,6 +39,7 @@ public class MockDatabase : IModDatabase
                 "OutOfDateEx",
                 "An example",
                 "https://github.com/fifty-six/yup",
+                Array.Empty<string>(),
                 Array.Empty<string>(),
                 Array.Empty<string>()
             ),
@@ -53,6 +55,7 @@ public class MockDatabase : IModDatabase
                 "An example",
                 "example.com",
                 Array.Empty<string>(),
+                Array.Empty<string>(),
                 Array.Empty<string>()
             ),
             // Example with a really long name and tags and integrations
@@ -67,7 +70,8 @@ public class MockDatabase : IModDatabase
                 "An example",
                 "example.com",
                 new[] { "Library" },
-                new[] { "NormalEx" }
+                new[] { "NormalEx" },
+                new[] { "Some Person" }
             )
         };
     }

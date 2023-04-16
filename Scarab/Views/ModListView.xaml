@@ -218,6 +218,10 @@
                                         </TextBlock>
                                     </StackPanel>
 
+                                    <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
+                                        <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
+                                    </StackPanel>
                                     <StackPanel IsVisible="{Binding HasDependencies}">
                                         <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
                                         <TextBlock Text="{Binding DependenciesDesc}" />

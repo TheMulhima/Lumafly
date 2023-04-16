@@ -45,6 +45,7 @@ namespace Scarab.Services
                     
                     tags: mod.Tags,
                     integrations: mod.Integrations,
+                    authors: mod.Authors,
                     
                     state: mods.FromManifest(mod)
                     
@@ -75,6 +76,7 @@ namespace Scarab.Services
                         name!,
                         "This mod is not from official modlinks",
                         "",
+                        Array.Empty<string>(),
                         Array.Empty<string>(),
                         Array.Empty<string>()));
 

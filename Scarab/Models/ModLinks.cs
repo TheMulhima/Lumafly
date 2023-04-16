@@ -59,6 +59,10 @@ namespace Scarab.Models
         [XmlArrayItem(ElementName = "Integration")]
         public string[] Integrations { get; set; } = Array.Empty<string>();
 
+        [XmlArray(ElementName = "Authors")]
+        [XmlArrayItem(ElementName = "Author")]
+        public string[] Authors { get; set; } = Array.Empty<string>();
+
         public override string ToString()
         {
             return "{\n"

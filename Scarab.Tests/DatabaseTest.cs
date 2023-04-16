@@ -115,6 +115,7 @@ namespace Scarab.Tests
                     "A collection of various quality of life improvements.",
                     "https://github.com/fifty-six/HollowKnight.QoL",
                     Array.Empty<string>(),
+                    Array.Empty<string>(),
                     Array.Empty<string>()
                 ),
                 db.Items.First(x => x.Name == "QoL")
