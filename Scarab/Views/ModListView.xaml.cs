@@ -76,34 +76,5 @@ namespace Scarab.Views
         {
             e.Element.VisualChildren.OfType<Expander>().First().IsExpanded = false;
         }
-
-        [UsedImplicitly]
-        private void RepositoryTextClick(object? sender, PointerReleasedEventArgs _)
-        {
-            if (sender is not TextBlock txt)
-            {
-                Trace.TraceWarning($"{nameof(RepositoryTextClick)} called with non TextBlock sender!");
-                return;
-            }
-
-            Trace.WriteLine(txt.Text);
-
-            try
-            {
-                var modlistviewmodel = (ModListViewModel) ((StyledElement)this).DataContext!;
-                var link = modlistviewmodel.GetRepoLink(txt.Text);
-                Process.Start
-                (
-                    new ProcessStartInfo(link)
-                    {
-                        UseShellExecute = true
-                    }
-                );
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"{nameof(RepositoryTextClick)} process spawn failed with error {e}");
-            }
-        }
     }
 }

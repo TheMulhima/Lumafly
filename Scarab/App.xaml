@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Scarab"
+             xmlns:avalonia="clr-namespace:HyperText.Avalonia;assembly=HyperText.Avalonia"
              x:Class="Scarab.App">
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -9,5 +10,6 @@
     <Application.Styles>
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
+        <avalonia:HyperLinkStyle/>
     </Application.Styles>
 </Application>

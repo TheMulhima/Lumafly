@@ -431,14 +431,5 @@ namespace Scarab.ViewModels
             m.State is InstalledState { Updated : false } ? -1 : 1,
             m.Name
         );
-
-        public string GetRepoLink(string shortenedRepoLink)
-        {
-            var mod = _items.FirstOrDefault(x => x.ShortenedRepository == shortenedRepoLink);
-            if (mod == null) return shortenedRepoLink;
-
-            return mod.Repository;
-        }
-        
     }
 }

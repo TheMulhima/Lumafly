@@ -9,6 +9,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:mock="clr-namespace:Scarab.Mock;assembly=Scarab"
             xmlns:util="clr-namespace:Scarab.Util"
+            xmlns:controls="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:ext="clr-namespace:Scarab.Extensions"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
@@ -170,16 +171,12 @@
                                         Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
                                         <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                                        <TextBlock 
-                                            Text="{Binding ShortenedRepository}" 
-                                            TextWrapping="Wrap" 
-                                            Margin="0 4 4 0" 
-                                            PointerReleased="RepositoryTextClick"
-                                            Foreground="{DynamicResource Highlight}">
-                                            <TextBlock.Resources>
-                                                <SolidColorBrush x:Key="Highlight" Color="#1ebbff"/>
-                                            </TextBlock.Resources>
-                                        </TextBlock>
+                                        <controls:Hyperlink 
+                                            Alias="{Binding ShortenedRepository}" 
+                                            Url="{Binding Repository}" 
+                                            Foreground="#1ebbff"
+                                            TextWrapping="Wrap"
+                                            />
 
                                         <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
                                         <StackPanel Orientation="Horizontal">
