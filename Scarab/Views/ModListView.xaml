@@ -71,9 +71,12 @@
             <MenuItem
                 Header="{ext:Localize XAML_Open_Bulk_Action}"
                 Name="BulkActions"
+                PointerPressed="OpenBulkActionsMenu"
                 DockPanel.Dock="Bottom">
                 <FlyoutBase.AttachedFlyout>
                     <MenuFlyout 
+                        Opened="BulkActionsFlyoutOpened"
+                        Closed="BulkActionsFlyoutClosed"
                         Placement="RightEdgeAlignedTop"
                         ShowMode="TransientWithDismissOnPointerMoveAway">
                         <MenuItem 
@@ -166,9 +169,10 @@
                                 <Grid 
                                     RowDefinitions="Auto, *"
                                     ColumnDefinitions="*,*" 
-                                    Margin="12,0">
-                                    <TextBlock Grid.ColumnSpan="2" Grid.Row="0" 
+                                    Margin="12 0 12 10">
+                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" 
                                         Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
+                                    
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
                                         <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
                                         <controls:Hyperlink 

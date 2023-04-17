@@ -63,7 +63,7 @@ namespace Scarab.Util
                 AllowMultiple = false
             };
 
-            dialog.Filters.Add(new FileDialogFilter { Extensions = { "app" } });
+            dialog.Filters?.Add(new FileDialogFilter { Extensions = { "app" } });
 
             while (true)
             {

@@ -111,6 +111,7 @@ namespace Scarab.ViewModels
         public bool CanEnableAll => _items.Any(x => x.State is InstalledState {Enabled: false} or NotInModLinksState {Enabled: false});
         // Needed for source generator to find it.
         private void RaisePropertyChanged(string name) => IReactiveObjectExtensions.RaisePropertyChanged(this, name);
+        private void RaisePropertyChanging(string name) => IReactiveObjectExtensions.RaisePropertyChanging(this, name);
 
         private async void ToggleApiCommand()
         {
