@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
@@ -37,9 +38,9 @@ namespace Scarab.Models
             Integrations = integrations;
             Authors = authors;
 
-            DependenciesDesc = string.Join(Environment.NewLine, Dependencies);
-            TagDesc          = string.Join(Environment.NewLine, Tags);
-            IntegrationsDesc = string.Join(Environment.NewLine, Integrations);
+            DependenciesDesc = string.Join(", ", Dependencies);
+            TagDesc          = string.Join(", ", Tags);
+            IntegrationsDesc = string.Join(", ", Integrations);
             AuthorsDesc      = string.Join(", ", Authors);
         }
 

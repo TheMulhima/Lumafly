@@ -184,57 +184,61 @@
                                     </TextBlock>
                                 </Expander.Header>
                                 
-                                <StackPanel Margin="12 0 0 0">
-                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
-
-                                    <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                                    <StackPanel Orientation="Horizontal">
+                                <Grid 
+                                    RowDefinitions="Auto, *"
+                                    ColumnDefinitions="*,*" 
+                                    Margin="12,0">
+                                    <TextBlock Grid.ColumnSpan="2" Grid.Row="0" 
+                                        Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                        <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
                                         <TextBlock 
                                             Text="{Binding Repository}" 
-                                            TextWrapping="Wrap" 
+                                            TextWrapping="WrapWithOverflow" 
                                             Margin="0 4 4 0" 
                                             PointerReleased="RepositoryTextClick"
-                                            Foreground="{DynamicResource Highlight}"
-                                        >
+                                            Foreground="{DynamicResource Highlight}">
                                             <TextBlock.Resources>
                                                 <SolidColorBrush x:Key="Highlight" Color="#1ebbff"/>
                                             </TextBlock.Resources>
                                         </TextBlock>
-                                    </StackPanel>
 
-                                    <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding VersionText}" />
-                                        <TextBlock
-                                            Text="{Binding UpdateText}"
-                                            IsVisible="{Binding UpdateAvailable}"
-                                            Foreground="{DynamicResource Highlight}" 
-                                            Margin="4 0 0 0" 
-                                            FontWeight="Bold"
-                                        >
-                                            <TextBlock.Resources>
-                                                <SolidColorBrush x:Key="Highlight" Color="#f49107" />
-                                            </TextBlock.Resources>
-                                        </TextBlock>
-                                    </StackPanel>
+                                        <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding VersionText}" />
+                                            <TextBlock
+                                                Text="{Binding UpdateText}"
+                                                IsVisible="{Binding UpdateAvailable}"
+                                                Foreground="{DynamicResource Highlight}" 
+                                                Margin="4 0 0 0" 
+                                                FontWeight="Bold"
+                                            >
+                                                <TextBlock.Resources>
+                                                    <SolidColorBrush x:Key="Highlight" Color="#f49107" />
+                                                </TextBlock.Resources>
+                                            </TextBlock>
+                                        </StackPanel>
 
-                                    <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
-                                        <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
+                                        <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
+                                            <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel IsVisible="{Binding HasDependencies}">
-                                        <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding DependenciesDesc}" />
+                                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="10,0,0,0">
+                                        <StackPanel IsVisible="{Binding HasDependencies}" Margin="0 10 0 0">
+                                            <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding DependenciesDesc}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
+                                            <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding IntegrationsDesc}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
+                                            <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding TagDesc}" TextWrapping="Wrap"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
-                                        <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding IntegrationsDesc}" />
-                                    </StackPanel>
-                                    <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
-                                        <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding TagDesc}" />
-                                    </StackPanel>
-                                </StackPanel>
+                                </Grid>
                             </Expander>
 
                             <ToggleSwitch
