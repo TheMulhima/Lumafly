@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
@@ -89,10 +90,11 @@ namespace Scarab.Views
 
             try
             {
-
+                var modlistviewmodel = (ModListViewModel) ((StyledElement)this).DataContext!;
+                var link = modlistviewmodel.GetRepoLink(txt.Text);
                 Process.Start
                 (
-                    new ProcessStartInfo(txt.Text)
+                    new ProcessStartInfo(link)
                     {
                         UseShellExecute = true
                     }

@@ -193,7 +193,7 @@
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
                                         <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
                                         <TextBlock 
-                                            Text="{Binding Repository}" 
+                                            Text="{Binding ShortenedRepository}" 
                                             TextWrapping="WrapWithOverflow" 
                                             Margin="0 4 4 0" 
                                             PointerReleased="RepositoryTextClick"
