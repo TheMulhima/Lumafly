@@ -3,13 +3,11 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-            xmlns:sys="clr-namespace:System;assembly=netstandard"
             xmlns:models="clr-namespace:Scarab.Models"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:mock="clr-namespace:Scarab.Mock;assembly=Scarab"
-            xmlns:util="clr-namespace:Scarab.Util"
-            xmlns:controls="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
+            xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:ext="clr-namespace:Scarab.Extensions"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
@@ -71,32 +69,23 @@
             <MenuItem
                 Header="{ext:Localize XAML_Open_Bulk_Action}"
                 Name="BulkActions"
-                PointerPressed="OpenBulkActionsMenu"
                 DockPanel.Dock="Bottom">
-                <FlyoutBase.AttachedFlyout>
-                    <MenuFlyout 
-                        Opened="BulkActionsFlyoutOpened"
-                        Closed="BulkActionsFlyoutClosed"
-                        Placement="RightEdgeAlignedTop"
-                        ShowMode="TransientWithDismissOnPointerMoveAway">
-                        <MenuItem 
-                            Command="{Binding UpdateUnupdated}" 
-                            Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
-                            IsEnabled="{Binding CanUpdateAll}" />
-                        <MenuItem
-                            Header="{ext:Localize XAML_Disable_All_Installed}"
-                            Command="{Binding DisableAllInstalled}"
-                            IsEnabled="{Binding CanDisableAll}" />
-                        <MenuItem
-                            Header="{ext:Localize XAML_Uninstall_All}"
-                            Command="{Binding UninstallAll}"
-                            IsEnabled="{Binding CanUninstallAll}" />
-                        <MenuItem
-                            Header="{ext:Localize XAML_Force_Update_All}"
-                            Command="{Binding ForceUpdateAll}"
-                            IsEnabled="{Binding CanUninstallAll}" />
-                    </MenuFlyout>
-                </FlyoutBase.AttachedFlyout>
+                <MenuItem 
+                    Command="{Binding UpdateUnupdated}" 
+                    Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
+                    IsEnabled="{Binding CanUpdateAll}" />
+                <MenuItem
+                    Header="{ext:Localize XAML_Disable_All_Installed}"
+                    Command="{Binding DisableAllInstalled}"
+                    IsEnabled="{Binding CanDisableAll}" />
+                <MenuItem
+                    Header="{ext:Localize XAML_Uninstall_All}"
+                    Command="{Binding UninstallAll}"
+                    IsEnabled="{Binding CanUninstallAll}" />
+                <MenuItem
+                    Header="{ext:Localize XAML_Force_Update_All}"
+                    Command="{Binding ForceUpdateAll}"
+                    IsEnabled="{Binding CanUninstallAll}" />
             </MenuItem>
             <MenuItem
                 Command="{Binding Donate}"
@@ -175,7 +164,7 @@
                                     
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
                                         <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                                        <controls:Hyperlink 
+                                        <hypertext:Hyperlink 
                                             Alias="{Binding ShortenedRepository}" 
                                             Url="{Binding Repository}" 
                                             Foreground="#1ebbff"
