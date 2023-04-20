@@ -393,7 +393,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authors.
+        ///   Looks up a localized string similar to Authors:.
         /// </summary>
         internal static string XAML_Authors {
             get {
@@ -447,7 +447,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integrations.
+        ///   Looks up a localized string similar to Integrations:.
         /// </summary>
         internal static string XAML_Integrations {
             get {
@@ -555,7 +555,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tags.
+        ///   Looks up a localized string similar to Tags:.
         /// </summary>
         internal static string XAML_Tags {
             get {

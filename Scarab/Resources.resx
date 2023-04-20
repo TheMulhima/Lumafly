@@ -235,10 +235,10 @@
     <value>\nVersion:\n</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integrations</value>
+    <value>Integrations:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Tags</value>
+    <value>Tags:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
     <value>On</value>
@@ -295,6 +295,6 @@
     <value>Force Update All</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Authors</value>
+    <value>Authors:</value>
   </data>
 </root>

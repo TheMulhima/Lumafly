@@ -279,4 +279,7 @@
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Atualizar Tudo</value>
   </data>
+  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
+    <value>Desinstalar</value>
+  </data>
 </root>
