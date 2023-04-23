@@ -438,6 +438,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exact Search.
+        /// </summary>
+        internal static string XAML_Exact_Search {
+            get {
+                return ResourceManager.GetString("XAML_Exact_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force Update All.
         /// </summary>
         internal static string XAML_Force_Update_All {
@@ -501,6 +510,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normal Search.
+        /// </summary>
+        internal static string XAML_Normal_Search {
+            get {
+                return ResourceManager.GetString("XAML_Normal_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string XAML_Off {
@@ -546,11 +564,47 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by Dependency.
+        /// </summary>
+        internal static string XAML_Search_Dependents {
+            get {
+                return ResourceManager.GetString("XAML_Search_Dependents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string XAML_Search_Options {
+            get {
+                return ResourceManager.GetString("XAML_Search_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Type.
+        /// </summary>
+        internal static string XAML_Search_Type {
+            get {
+                return ResourceManager.GetString("XAML_Search_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mod Search.
         /// </summary>
         internal static string XAML_SearchMark {
             get {
                 return ResourceManager.GetString("XAML_SearchMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Tags.
+        /// </summary>
+        internal static string XAML_Select_Tags {
+            get {
+                return ResourceManager.GetString("XAML_Select_Tags", resourceCulture);
             }
         }
         

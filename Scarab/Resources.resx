@@ -297,4 +297,22 @@
   <data name="XAML_Authors" xml:space="preserve">
     <value>Authors:</value>
   </data>
+  <data name="XAML_Search_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="XAML_Search_Type" xml:space="preserve">
+    <value>Search Type</value>
+  </data>
+  <data name="XAML_Select_Tags" xml:space="preserve">
+    <value>Select Tags</value>
+  </data>
+  <data name="XAML_Exact_Search" xml:space="preserve">
+    <value>Exact Search</value>
+  </data>
+  <data name="XAML_Normal_Search" xml:space="preserve">
+    <value>Normal Search</value>
+  </data>
+  <data name="XAML_Search_Dependents" xml:space="preserve">
+    <value>Search by Dependency</value>
+  </data>
 </root>

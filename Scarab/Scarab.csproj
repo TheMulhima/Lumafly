@@ -35,6 +35,7 @@
         <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
         <PackageReference Include="Avalonia.Diagnostics" Version="0.10.19" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
+        <PackageReference Include="FluentIcons.Avalonia" Version="1.1.181.1" />
         <PackageReference Include="HyperText.Avalonia" Version="1.0.0" />
         <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
