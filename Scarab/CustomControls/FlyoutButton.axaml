@@ -1,0 +1,41 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:customControls="using:Scarab.CustomControls"
+        xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
+    <Design.PreviewWith>
+        <customControls:FlyoutButton />
+    </Design.PreviewWith>
+
+    <Style Selector="customControls|FlyoutButton">
+        <!-- Set Defaults -->
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource DefaultButtonColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button
+                    Padding="{TemplateBinding Padding}"
+                    Margin="{TemplateBinding Margin}"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Name="Button">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="{DynamicResource DefaultButtonColor}"></Setter>
+                        </Style>
+                    </Button.Styles>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{TemplateBinding Header}" Padding="3 0"/>
+                        <avalonia:SymbolIcon 
+                            Name="Icon" 
+                            Symbol="ChevronDown"
+                            IsFilled="True"
+                            FontSize="15"
+                            Margin="5 0 2 0"/>
+                    </StackPanel>
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

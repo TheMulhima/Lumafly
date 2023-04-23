@@ -11,6 +11,7 @@
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
         <avalonia:HyperLinkStyle/>
+        <StyleInclude Source="avares://Scarab/CustomControls/FlyoutButton.axaml"/>
     </Application.Styles>
     
     <Application.Resources>
