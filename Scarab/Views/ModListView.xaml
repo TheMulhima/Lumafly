@@ -211,14 +211,14 @@
             DockPanel.Dock="Top"
             Height="1"
             Background="#a9a9a9" />
-
-        <StackPanel>
-            <TextBlock
-                IsVisible="{Binding NoFilteredItems}"
-                Text="{ext:Localize XAML_No_Items}" 
-                Margin="15"
-                Foreground="Gray"/>
-            <ScrollViewer>
+        
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock
+                    IsVisible="{Binding NoFilteredItems}"
+                    Text="{ext:Localize XAML_No_Items}" 
+                    Margin="15"
+                    Foreground="Gray"/>
                 <ItemsRepeater Items="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate DataType="models:ModItem">
@@ -349,7 +349,7 @@
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
-            </ScrollViewer>
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </views:View>
