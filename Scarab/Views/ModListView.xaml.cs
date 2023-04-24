@@ -86,10 +86,13 @@ namespace Scarab.Views
         {
             if (sender is not MenuItem menuItem)
                 return;
-            
-            _modFilterItems.ForEach(x => x.Background = new SolidColorBrush(Colors.Transparent));
 
-            menuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            {
+                _modFilterItems.ForEach(x => x.Background = new SolidColorBrush(Colors.Transparent));
+
+                menuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+            }
         }
     }
 }
