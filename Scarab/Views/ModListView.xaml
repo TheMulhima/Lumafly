@@ -36,13 +36,31 @@
                 </Style>
             </Menu.Styles>
 
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_All}" Command="{Binding SelectAll}" DockPanel.Dock="Top" />
+            <MenuItem Header="{ext:Localize XAML_ModsFilter_All}" 
+                      Command="{Binding SelectMods}" 
+                      CommandParameter="{x:Static models:ModFilterState.All}"
+                      DockPanel.Dock="Top"/>
+            
             <MenuItem Header="-" DockPanel.Dock="Top" />
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_Installed}" Command="{Binding SelectInstalled}" DockPanel.Dock="Top" />
+            
+            <MenuItem Header="{ext:Localize XAML_ModsFilter_Installed}"
+                      Command="{Binding SelectMods}"
+                      CommandParameter="{x:Static models:ModFilterState.Installed}"
+                      DockPanel.Dock="Top"/>
+            
             <MenuItem Header="-" DockPanel.Dock="Top" />
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_Enabled}" Command="{Binding SelectEnabled}" DockPanel.Dock="Top" />
+            
+            <MenuItem Header="{ext:Localize XAML_ModsFilter_Enabled}" 
+                      Command="{Binding SelectMods}"
+                      CommandParameter="{x:Static models:ModFilterState.Enabled}"
+                      DockPanel.Dock="Top"/>
+            
             <MenuItem Header="-" DockPanel.Dock="Top" />
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_OutOfDate}" Command="{Binding SelectUnupdated}" DockPanel.Dock="Top" />
+            
+            <MenuItem Header="{ext:Localize XAML_ModsFilter_OutOfDate}" 
+                      Command="{Binding FilterMods}"
+                      CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
+                      DockPanel.Dock="Top"/>
             
             <MenuItem
                 Command="{Binding ChangePath}"

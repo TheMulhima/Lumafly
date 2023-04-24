@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -48,6 +49,8 @@ namespace Scarab.ViewModels
         private string? _search;
         
         private bool _updating;
+        
+        private ModFilterState _modFilterState = ModFilterState.All;
         
         public ReactiveCommand<ModItem, Unit> OnUpdate { get; }
         public ReactiveCommand<ModItem, Unit> OnInstall { get; }
@@ -109,6 +112,7 @@ namespace Scarab.ViewModels
         public bool CanUninstallAll => _items.Any(x => x.State is InstalledState or NotInModLinksState);
         public bool CanDisableAll => _items.Any(x => x.State is InstalledState {Enabled: true} or NotInModLinksState {Enabled: true});
         public bool CanEnableAll => _items.Any(x => x.State is InstalledState {Enabled: false} or NotInModLinksState {Enabled: false});
+
         // Needed for source generator to find it.
         private void RaisePropertyChanged(string name) => IReactiveObjectExtensions.RaisePropertyChanged(this, name);
         private void RaisePropertyChanging(string name) => IReactiveObjectExtensions.RaisePropertyChanging(this, name);
@@ -154,15 +158,27 @@ namespace Scarab.ViewModels
         }
 
         public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/ybham") { UseShellExecute = true });
+
+        [UsedImplicitly]
+        public void SelectMods(ModFilterState modFilterState)
+        {
+            _modFilterState = modFilterState;
+            FilterMods();
+        }
         
-        public void SelectAll() => SelectedItems = _items;
+        private void FilterMods()
+        {
+            SelectedItems = _modFilterState switch
+            {
+                ModFilterState.All => _items,
+                ModFilterState.Installed => _items.Where(x => x.Installed),
+                ModFilterState.Enabled => _items.Where(x => x.State is InstalledState { Enabled: true } or NotInModLinksState { Enabled: true }),
+                ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
+                _ => throw new InvalidOperationException("Invalid mod filter state")
+            };
+            RaisePropertyChanged(nameof(FilteredItems));
+        }
 
-        public void SelectInstalled() => SelectedItems = _items.Where(x => x.Installed);
-
-        public void SelectUnupdated() => SelectedItems = _items.Where(x => x.State is InstalledState { Updated: false });
-
-        public void SelectEnabled() => SelectedItems = _items.Where(x => x.State is InstalledState { Enabled: true });
-        
         public async Task UpdateUnupdated()
         {
             _updating = false;
@@ -181,6 +197,7 @@ namespace Scarab.ViewModels
             }
         }
 
+        [UsedImplicitly]
         private async Task UninstallAll()
         {
             var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
@@ -244,6 +261,7 @@ namespace Scarab.ViewModels
                 item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
                 RaisePropertyChanged(nameof(CanDisableAll));
                 RaisePropertyChanged(nameof(CanEnableAll));
+                RaisePropertyChanged(nameof(FilteredItems));
                 
             }
             catch (Exception e)
@@ -348,11 +366,10 @@ namespace Scarab.ViewModels
             foreach (var _item in removeList)
             {
                 _items.Remove(_item);
-                _selectedItems = _selectedItems.Where(x => x != _item);
+                SelectedItems = SelectedItems.Where(x => x != _item);
             }
             _items.SortBy(Comparer);
 
-            RaisePropertyChanged(nameof(SelectedItems));
             RaisePropertyChanged(nameof(FilteredItems));
             RaisePropertyChanged(nameof(CanUninstallAll));
             RaisePropertyChanged(nameof(CanDisableAll));
