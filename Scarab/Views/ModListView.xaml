@@ -36,31 +36,47 @@
                 </Style>
             </Menu.Styles>
 
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_All}" 
-                      Command="{Binding SelectMods}" 
-                      CommandParameter="{x:Static models:ModFilterState.All}"
-                      DockPanel.Dock="Top"/>
+            <!-- The PointerPressed unhighlights all the filter buttons except the one thats pressed
+                    the name prefix "ModFilter_" helps find all buttons in code behind. The All button is 
+                    highlighted by default on app open-->
+            <MenuItem 
+                Name="ModFilter_All"
+                PointerPressed="ModFilterPressed"
+                Background="{DynamicResource HighlightBlue}"
+                Header="{ext:Localize XAML_ModsFilter_All}" 
+                Command="{Binding SelectMods}" 
+                CommandParameter="{x:Static models:ModFilterState.All}"
+                DockPanel.Dock="Top"/>
             
             <MenuItem Header="-" DockPanel.Dock="Top" />
             
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_Installed}"
-                      Command="{Binding SelectMods}"
-                      CommandParameter="{x:Static models:ModFilterState.Installed}"
-                      DockPanel.Dock="Top"/>
+            <MenuItem 
+                Name="ModFilter_Installed"
+                PointerPressed="ModFilterPressed"
+                Header="{ext:Localize XAML_ModsFilter_Installed}"
+                Command="{Binding SelectMods}"
+                CommandParameter="{x:Static models:ModFilterState.Installed}"
+                DockPanel.Dock="Top"/>
             
             <MenuItem Header="-" DockPanel.Dock="Top" />
             
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_Enabled}" 
-                      Command="{Binding SelectMods}"
-                      CommandParameter="{x:Static models:ModFilterState.Enabled}"
-                      DockPanel.Dock="Top"/>
+            <MenuItem 
+                Name="ModFilter_Enabled"
+                PointerPressed="ModFilterPressed"
+                Header="{ext:Localize XAML_ModsFilter_Enabled}" 
+                Command="{Binding SelectMods}"
+                CommandParameter="{x:Static models:ModFilterState.Enabled}"
+                DockPanel.Dock="Top"/>
             
             <MenuItem Header="-" DockPanel.Dock="Top" />
             
-            <MenuItem Header="{ext:Localize XAML_ModsFilter_OutOfDate}" 
-                      Command="{Binding FilterMods}"
-                      CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
-                      DockPanel.Dock="Top"/>
+            <MenuItem 
+                Name="ModFilter_OutOfDate"
+                PointerPressed="ModFilterPressed"
+                Header="{ext:Localize XAML_ModsFilter_OutOfDate}" 
+                Command="{Binding SelectMods}"
+                CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
+                DockPanel.Dock="Top"/>
             
             <MenuItem
                 Command="{Binding ChangePath}"
@@ -186,8 +202,7 @@
                                             Alias="{Binding ShortenedRepository}" 
                                             Url="{Binding Repository}" 
                                             Foreground="#1ebbff"
-                                            TextWrapping="Wrap"
-                                            />
+                                            TextWrapping="Wrap"/>
 
                                         <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
                                         <StackPanel Orientation="Horizontal">

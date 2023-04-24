@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
@@ -8,6 +10,7 @@ using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using JetBrains.Annotations;
 using Scarab.ViewModels;
 
@@ -18,6 +21,9 @@ namespace Scarab.Views
     {
         private readonly TextBox _search;
         private readonly MenuItem _bulkActions;
+        private readonly List<MenuItem> _modFilterItems;
+
+        private ModListViewModel ModListViewModel => (((StyledElement)this).DataContext as ModListViewModel)!;
 
         public ModListView()
         {
@@ -27,6 +33,11 @@ namespace Scarab.Views
             
             _search = this.FindControl<TextBox>("Search");
             _bulkActions = this.FindControl<MenuItem>("BulkActions");
+            
+            _modFilterItems= this.GetLogicalDescendants()
+                .Where(x => x is MenuItem menuItem && (menuItem.Name?.StartsWith("ModFilter") ?? false))
+                .Select(x => (MenuItem)x).ToList();
+
         }
 
         // MenuItem's Popup is not created when ctor is run. I randomly overrided methods until
@@ -54,7 +65,9 @@ namespace Scarab.Views
         private void OnKeyDown(object? sender, KeyEventArgs e)
         {
             if (!_search.IsFocused)
+            {
                 _search.Focus();
+            }
         }
 
         private void InitializeComponent()
@@ -66,6 +79,16 @@ namespace Scarab.Views
         private void PrepareElement(object? sender, ItemsRepeaterElementPreparedEventArgs e)
         {
             e.Element.VisualChildren.OfType<Expander>().First().IsExpanded = false;
+        }
+
+        private void ModFilterPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (sender is not MenuItem menuItem)
+                return;
+            
+            _modFilterItems.ForEach(x => x.Background = new SolidColorBrush(Colors.Transparent));
+
+            menuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
         }
     }
 }
