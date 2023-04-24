@@ -318,4 +318,7 @@
   <data name="XAML_Select_Mod" xml:space="preserve">
     <value>Select Mod</value>
   </data>
+  <data name="XAML_No_Items" xml:space="preserve">
+    <value>No mods to display</value>
+  </data>
 </root>

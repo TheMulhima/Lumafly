@@ -121,6 +121,9 @@ namespace Scarab.ViewModels
             Search = "";
             DependencySearchItem = "";
         }
+        
+        [UsedImplicitly]
+        private bool NoFilteredItems => !FilteredItems.Any();
 
         [UsedImplicitly]
         private IEnumerable<ModItem> FilteredItems

@@ -510,6 +510,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No mods to display.
+        /// </summary>
+        internal static string XAML_No_Items {
+            get {
+                return ResourceManager.GetString("XAML_No_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Normal Search.
         /// </summary>
         internal static string XAML_Normal_Search {

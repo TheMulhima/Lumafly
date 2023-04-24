@@ -212,137 +212,144 @@
             Height="1"
             Background="#a9a9a9" />
 
-        <ScrollViewer>
-            <ItemsRepeater Items="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate DataType="models:ModItem">
-                        <Grid Margin="8 12 12 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" MaxWidth="260" />
-                                <ColumnDefinition Width="*" MaxWidth="260" />
-                                <ColumnDefinition Width="*" MaxWidth="260" />
-                                <ColumnDefinition Width="*" MaxWidth="100" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <Expander Grid.Column="0" Grid.ColumnSpan="4">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" MaxWidth="260" />
-                                            <ColumnDefinition Width="3*" MaxWidth="620" />
-                                        </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"
-                                        TextWrapping="Wrap"
-                                        Margin="0 0 20 0"
-                                        Text="{Binding Name}"/>
-                                    </Grid>
-                                </Expander.Header>
+        <StackPanel>
+            <TextBlock
+                IsVisible="{Binding NoFilteredItems}"
+                Text="{ext:Localize XAML_No_Items}" 
+                Margin="15"
+                Foreground="Gray"/>
+            <ScrollViewer>
+                <ItemsRepeater Items="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate DataType="models:ModItem">
+                            <Grid Margin="8 12 12 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MaxWidth="260" />
+                                    <ColumnDefinition Width="*" MaxWidth="260" />
+                                    <ColumnDefinition Width="*" MaxWidth="260" />
+                                    <ColumnDefinition Width="*" MaxWidth="100" />
+                                </Grid.ColumnDefinitions>
                                 
-                                <Grid 
-                                    RowDefinitions="Auto, *"
-                                    ColumnDefinitions="*,*" 
-                                    Margin="12 0 12 10">
-                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" 
-                                        Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
+                                <Expander Grid.Column="0" Grid.ColumnSpan="4">
+                                    <Expander.Header>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" MaxWidth="260" />
+                                                <ColumnDefinition Width="3*" MaxWidth="620" />
+                                            </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                            TextWrapping="Wrap"
+                                            Margin="0 0 20 0"
+                                            Text="{Binding Name}"/>
+                                        </Grid>
+                                    </Expander.Header>
                                     
-                                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
-                                        <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                                        <hypertext:Hyperlink 
-                                            Alias="{Binding ShortenedRepository}" 
-                                            Url="{Binding Repository}" 
-                                            Foreground="#1ebbff"
-                                            TextWrapping="Wrap"/>
+                                    <Grid 
+                                        RowDefinitions="Auto, *"
+                                        ColumnDefinitions="*,*" 
+                                        Margin="12 0 12 10">
+                                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" 
+                                            Text="{Binding Description}" TextWrapping="Wrap" Margin="0 4 4 0"/>
+                                        
+                                        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                                            <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
+                                            <hypertext:Hyperlink 
+                                                Alias="{Binding ShortenedRepository}" 
+                                                Url="{Binding Repository}" 
+                                                Foreground="#1ebbff"
+                                                TextWrapping="Wrap"/>
 
-                                        <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding VersionText}" />
-                                            <TextBlock
-                                                Text="{Binding UpdateText}"
-                                                IsVisible="{Binding UpdateAvailable}"
-                                                Foreground="{DynamicResource Highlight}" 
-                                                Margin="4 0 0 0" 
-                                                FontWeight="Bold"
-                                            >
-                                                <TextBlock.Resources>
-                                                    <SolidColorBrush x:Key="Highlight" Color="#f49107" />
-                                                </TextBlock.Resources>
-                                            </TextBlock>
-                                        </StackPanel>
+                                            <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding VersionText}" />
+                                                <TextBlock
+                                                    Text="{Binding UpdateText}"
+                                                    IsVisible="{Binding UpdateAvailable}"
+                                                    Foreground="{DynamicResource Highlight}" 
+                                                    Margin="4 0 0 0" 
+                                                    FontWeight="Bold"
+                                                >
+                                                    <TextBlock.Resources>
+                                                        <SolidColorBrush x:Key="Highlight" Color="#f49107" />
+                                                    </TextBlock.Resources>
+                                                </TextBlock>
+                                            </StackPanel>
 
-                                        <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
-                                            <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
-                                            <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
+                                            <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
+                                                <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
+                                                <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="10,0,0,0">
-                                        <StackPanel IsVisible="{Binding HasDependencies}" Margin="0 10 0 0">
-                                            <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
-                                            <TextBlock Text="{Binding DependenciesDesc}" TextWrapping="Wrap"/>
+                                        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="10,0,0,0">
+                                            <StackPanel IsVisible="{Binding HasDependencies}" Margin="0 10 0 0">
+                                                <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
+                                                <TextBlock Text="{Binding DependenciesDesc}" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
+                                                <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
+                                                <TextBlock Text="{Binding IntegrationsDesc}" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
+                                                <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
+                                                <TextBlock Text="{Binding TagDesc}" TextWrapping="Wrap"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
-                                            <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
-                                            <TextBlock Text="{Binding IntegrationsDesc}" TextWrapping="Wrap"/>
-                                        </StackPanel>
-                                        <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
-                                            <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
-                                            <TextBlock Text="{Binding TagDesc}" TextWrapping="Wrap"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Grid>
-                            </Expander>
+                                    </Grid>
+                                </Expander>
 
-                            <ToggleSwitch
-                                Grid.Column = "1"
-                                Margin = "0 -2 0 0"
-                                VerticalAlignment="Top"
-                                CommandParameter="{Binding .}"
-                                OnContent="{ext:Localize XAML_On}"
-                                OffContent="{ext:Localize XAML_Off}"
-                                Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
-                                IsChecked="{Binding EnabledIsChecked}"
-                                IsEnabled = "{Binding Installed}"
-                                VerticalContentAlignment="Center"
-                            />
-                            
-                            <Button 
-                                Grid.Column="2"
-                                MaxWidth="60"
-                                CommandParameter="{Binding .}"
-                                Content="{Binding InstallText}"
-                                IsEnabled="{Binding !Installing}"
-                                Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
-                                VerticalAlignment="Top"
-                            />
-
-                            <Grid 
-                                Grid.Column="3" 
-                                ColumnDefinitions="Auto,*" 
-                                IsVisible="{Binding UpdateAvailable}"
-                                VerticalAlignment="Top"
-                            >
-                                <Button
-                                    MaxHeight="18"
-                                    MaxWidth="18"
-                                    Margin="0 4 0 0"
-                                    Background="Transparent"
-                                    BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                                    Command="{Binding $parent[views:ModListView].DataContext.OnUpdate}"
+                                <ToggleSwitch
+                                    Grid.Column = "1"
+                                    Margin = "0 -2 0 0"
+                                    VerticalAlignment="Top"
                                     CommandParameter="{Binding .}"
-                                >
-                                    <Image 
-                                        Source="avares://Scarab/Assets/update.png" 
-                                        Height="12" Width="12" 
-                                        VerticalAlignment="Center" 
-                                        HorizontalAlignment="Center" 
-                                    />
-                                </Button>
+                                    OnContent="{ext:Localize XAML_On}"
+                                    OffContent="{ext:Localize XAML_Off}"
+                                    Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
+                                    IsChecked="{Binding EnabledIsChecked}"
+                                    IsEnabled = "{Binding Installed}"
+                                    VerticalContentAlignment="Center"
+                                />
                                 
-                                <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
+                                <Button 
+                                    Grid.Column="2"
+                                    MaxWidth="60"
+                                    CommandParameter="{Binding .}"
+                                    Content="{Binding InstallText}"
+                                    IsEnabled="{Binding !Installing}"
+                                    Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
+                                    VerticalAlignment="Top"
+                                />
+
+                                <Grid 
+                                    Grid.Column="3" 
+                                    ColumnDefinitions="Auto,*" 
+                                    IsVisible="{Binding UpdateAvailable}"
+                                    VerticalAlignment="Top"
+                                >
+                                    <Button
+                                        MaxHeight="18"
+                                        MaxWidth="18"
+                                        Margin="0 4 0 0"
+                                        Background="Transparent"
+                                        BorderBrush="{DynamicResource ThemeBorderMidBrush}"
+                                        Command="{Binding $parent[views:ModListView].DataContext.OnUpdate}"
+                                        CommandParameter="{Binding .}"
+                                    >
+                                        <Image 
+                                            Source="avares://Scarab/Assets/update.png" 
+                                            Height="12" Width="12" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" 
+                                        />
+                                    </Button>
+                                    
+                                    <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
-        </ScrollViewer>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </StackPanel>
     </DockPanel>
 </views:View>
