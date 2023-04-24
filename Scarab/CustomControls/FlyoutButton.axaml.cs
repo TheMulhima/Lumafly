@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -34,7 +35,11 @@ public class FlyoutButton : TemplatedControl
             ShowMode = FlyoutShowMode,
             Content = Content
         };
-
+        var popup_object = typeof(FlyoutBase).GetProperty(nameof(Popup), BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Button.Flyout);
+        var popup = popup_object as Popup ?? throw new Exception("FlyoutButton popup not found");
+        
+        popup.HorizontalOffset = HorizontalOffset;
+        
         Button.Flyout.Opened += OnFlyoutOpened;
         Button.Flyout.Closing += OnFlyoutClosing;
         Button.Flyout.Closed += OnFlyoutClosed;
@@ -154,6 +159,17 @@ public class FlyoutButton : TemplatedControl
     {
         get => GetValue(OnHoverColorProperty);
         set => SetValue(OnHoverColorProperty, value);
+    }
+    #endregion
+
+    #region HorizontalOffset
+    public static readonly StyledProperty<float> HorizontalOffsetProperty = AvaloniaProperty.Register<FlyoutButton, float>(
+        "HorizontalOffset");
+
+    public float HorizontalOffset
+    {
+        get => GetValue(HorizontalOffsetProperty);
+        set => SetValue(HorizontalOffsetProperty, value);
     }
     #endregion
     

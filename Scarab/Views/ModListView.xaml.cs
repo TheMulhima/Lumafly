@@ -54,7 +54,8 @@ namespace Scarab.Views
             var menuItem_popup = typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(_bulkActions);
 
             var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");
-            
+
+            popup.HorizontalOffset = 2;
             popup.PlacementMode = PlacementMode.Right;
             popup.PlacementAnchor = PopupAnchor.TopRight;
             popup.PlacementGravity = PopupGravity.TopRight;
