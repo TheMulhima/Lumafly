@@ -114,6 +114,13 @@ namespace Scarab.ViewModels
 
             TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => new TagItem(x, false)));
         }
+        
+        [UsedImplicitly]
+        public void ClearSearch()
+        {
+            Search = "";
+            DependencySearchItem = "";
+        }
 
         [UsedImplicitly]
         private IEnumerable<ModItem> FilteredItems

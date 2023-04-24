@@ -10,6 +10,7 @@
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.CustomControls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
+            xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
             d:DataContext="{x:Static mock:MockViewModel.DesignInstance}"
@@ -154,6 +155,7 @@
             DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="400"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto" MinWidth="75"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox
@@ -178,6 +180,19 @@
                 SelectedItem="{Binding DependencySearchItem}"
                 Items="{Binding ModNames}" />
             
+            <Button
+                Grid.Column="1"
+                Background="Transparent"
+                HorizontalAlignment="Right"
+                BorderThickness="0"
+                Command="{Binding ClearSearch}"
+                Margin="0 0 0 0">
+            <avalonia:SymbolIcon
+                Symbol="Delete"
+                IsFilled="True"
+                FontSize="15"/>
+            </Button>
+            
             <customControls:FlyoutButton 
                 FlyoutPlacement="BottomEdgeAlignedRight"
                 FlyoutShowMode="Transient"
@@ -185,7 +200,7 @@
                 Header="{ext:Localize XAML_Search_Options}"
                 Background="{DynamicResource DefaultButtonColor}"
                 OnHoverColor="{DynamicResource DefaultButtonColor}"
-                Grid.Column="1">
+                Grid.Column="2">
                 
                 <views:SearchOptionsMenu/>
                 
