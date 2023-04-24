@@ -8,6 +8,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:mock="clr-namespace:Scarab.Mock;assembly=Scarab"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
+            xmlns:customControls="clr-namespace:Scarab.CustomControls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
@@ -149,14 +150,47 @@
             Maximum="100"
             Value="{Binding Progress}" />
 
-        <TextBox
-            x:Name="Search"
-            Name="Search"
-            Watermark="{ext:Localize XAML_SearchMark}"
-            DockPanel.Dock="Top"
-            BorderThickness="0"
-            Margin="6 6"
-            Text="{Binding Search}" />
+        <Grid 
+            DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="400"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" MinWidth="75"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox
+                Grid.Column="0"
+                x:Name="Search"
+                Name="Search"
+                IsVisible="{Binding IsNormalSearch}"
+                Watermark="{ext:Localize XAML_SearchMark}"
+                BorderThickness="0"
+                Margin="6 6"
+                Text="{Binding Search}" />
+            
+            <ComboBox
+                Grid.Column="0"
+                Name="SearchByDependency"
+                IsVisible="{Binding IsDependencySearch}"
+                PlaceholderText="{ext:Localize XAML_Select_Mod}"
+                PlaceholderForeground="Gray"
+                BorderThickness="0"
+                Margin="6 6"
+                IsTextSearchEnabled = "True"
+                SelectedItem="{Binding DependencySearchItem}"
+                Items="{Binding ModNames}" />
+            
+            <customControls:FlyoutButton 
+                FlyoutPlacement="BottomEdgeAlignedRight"
+                FlyoutShowMode="Transient"
+                Padding="6 0 0 0"
+                Header="{ext:Localize XAML_Search_Options}"
+                Background="{DynamicResource DefaultButtonColor}"
+                OnHoverColor="{DynamicResource DefaultButtonColor}"
+                Grid.Column="1">
+                
+                <views:SearchOptionsMenu/>
+                
+            </customControls:FlyoutButton>
+        </Grid>
 
         <Separator
             DockPanel.Dock="Top"

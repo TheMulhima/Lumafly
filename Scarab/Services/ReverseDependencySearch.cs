@@ -16,6 +16,28 @@ public class ReverseDependencySearch
             .ToDictionary(x => x.Name, x => x);
     }
 
+    public IEnumerable<ModItem> GetAllDependentAndIntegratedMods(ModItem item)
+    {
+        var dependants = new List<ModItem>();
+        
+        foreach (var mod in _items.Values)
+        {
+            if (mod.HasIntegrations)
+            {
+                if (mod.Integrations.Contains(item.Name))
+                {
+                    dependants.Add(mod);
+                }
+            }
+            
+            if (IsDependent(mod, item))
+            {
+                dependants.Add(mod);
+            }
+        }
+        return dependants;
+    }
+    
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item)
     {
         var dependants = new List<ModItem>();

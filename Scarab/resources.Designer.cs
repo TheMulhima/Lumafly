@@ -573,7 +573,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options.
+        ///   Looks up a localized string similar to Search Options.
         /// </summary>
         internal static string XAML_Search_Options {
             get {
@@ -596,6 +596,15 @@ namespace Scarab {
         internal static string XAML_SearchMark {
             get {
                 return ResourceManager.GetString("XAML_SearchMark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Mod.
+        /// </summary>
+        internal static string XAML_Select_Mod {
+            get {
+                return ResourceManager.GetString("XAML_Select_Mod", resourceCulture);
             }
         }
         

@@ -1,0 +1,66 @@
+﻿<views:View x:TypeArguments="viewModels:ModListViewModel"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:Scarab.Extensions"
+             xmlns:models="clr-namespace:Scarab.Models"
+             xmlns:views="clr-namespace:Scarab.Views"
+             xmlns:customControls="clr-namespace:Scarab.CustomControls"
+             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="150"
+             x:Class="Scarab.Views.SearchOptionsMenu">
+    <StackPanel
+        Margin="1">
+        <StackPanel.Styles>
+            <Style Selector="customControls|FlyoutButton">
+                <Setter Property="FlyoutShowMode" Value="TransientWithDismissOnPointerMoveAway"/>
+                <Setter Property="FlyoutPlacement" Value="RightEdgeAlignedTop"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Padding" Value="0 6"/>
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="OnHoverColor" Value="{DynamicResource HighlightBlue}"/>
+            </Style>
+        </StackPanel.Styles>
+        
+        <customControls:FlyoutButton
+            HorizontalOffset="12"
+            Header="{ext:Localize XAML_Search_Type}">
+            <StackPanel>
+                <RadioButton 
+                    Margin="2 2 2 5"
+                    IsChecked="{Binding $parent[views:ModListView].DataContext.IsNormalSearch}" 
+                    GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
+                    ToolTip.Tip="Search by the mod name"/>
+                <RadioButton 
+                    Margin="2 5 2 2"
+                    IsChecked="{Binding $parent[views:ModListView].DataContext.IsDependencySearch}" 
+                    GroupName="SearchMode" 
+                    Content="{ext:Localize XAML_Search_Dependents}" 
+                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
+            </StackPanel>
+        </customControls:FlyoutButton>
+        
+        <customControls:MenuCheckBox
+            Margin="2 1"
+            Header="{ext:Localize XAML_Exact_Search}"
+            IsSelected="{Binding $parent[views:ModListView].DataContext.IsExactSearch}"/>
+        
+        <customControls:FlyoutButton
+            HorizontalOffset="12"
+            Header="{ext:Localize XAML_Select_Tags}">
+            <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.TagList}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="models:TagItem">
+                        <customControls:MenuCheckBox
+                            Margin="2 1"
+                            IsSelected="{Binding IsSelected}" 
+                            OnSelect="{Binding $parent[views:ModListView].DataContext.OnTagSelect}"
+                            Header="{Binding TagName}"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </customControls:FlyoutButton>
+    </StackPanel>
+</views:View>

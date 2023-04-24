@@ -298,7 +298,7 @@
     <value>Authors:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Options</value>
+    <value>Search Options</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
     <value>Search Type</value>
@@ -314,5 +314,8 @@
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
     <value>Search by Dependency</value>
+  </data>
+  <data name="XAML_Select_Mod" xml:space="preserve">
+    <value>Select Mod</value>
   </data>
 </root>

@@ -26,7 +26,7 @@ namespace Scarab.ViewModels
     public partial class ModListViewModel : ViewModelBase
     {
         private readonly SortableObservableCollection<ModItem> _items;
-        
+
         private readonly ISettings _settings;
         private readonly IInstaller _installer;
         private readonly IModSource _mods;
@@ -49,12 +49,28 @@ namespace Scarab.ViewModels
         private string? _search;
         
         private bool _updating;
+
+        [Notify]
+        private bool _isExactSearch;
+
+        [Notify]
+        private bool _isNormalSearch = true;
+
+        [Notify]
+        private bool _isDependencySearch = false;
         
+        [Notify]
+        private string _dependencySearchItem;
+
+        [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
-        
+
+        public IEnumerable<string> ModNames { get; }
+        public ObservableCollection<TagItem> TagList { get; }
         public ReactiveCommand<ModItem, Unit> OnUpdate { get; }
         public ReactiveCommand<ModItem, Unit> OnInstall { get; }
         public ReactiveCommand<ModItem, Unit> OnEnable { get; }
+        public ReactiveCommand<TagItem, Unit> OnTagSelect { get; }
         
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; }
@@ -74,19 +90,61 @@ namespace Scarab.ViewModels
             
             _reverseDependencySearch = new (_items);
 
+            _dependencySearchItem = "";
+
+            ModNames = _items.Where(x => x.State is not NotInModLinksState).Select(x => x.Name);
+
             OnInstall = ReactiveCommand.CreateFromTask<ModItem>(OnInstallAsync);
             OnUpdate = ReactiveCommand.CreateFromTask<ModItem>(OnUpdateAsync);
             OnEnable = ReactiveCommand.CreateFromTask<ModItem>(OnEnableAsync);
+            OnTagSelect = ReactiveCommand.Create<TagItem>(OnTagSelectFilter);
             ToggleApi = ReactiveCommand.Create(ToggleApiCommand);
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
+
+            HashSet<string> tagsInModlinks = new();
+            foreach (var mod in _items)
+            {
+                if (!mod.HasTags) continue;
+                foreach (var tag in mod.Tags)
+                {
+                    tagsInModlinks.Add(tag);
+                }
+            }
+
+            TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => new TagItem(x, false)));
         }
 
         [UsedImplicitly]
-        private IEnumerable<ModItem> FilteredItems =>
-            string.IsNullOrEmpty(Search)
-                ? SelectedItems
-                : SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
+        private IEnumerable<ModItem> FilteredItems
+        {
+            get
+            {
+                if (IsNormalSearch)
+                {
+                    if (string.IsNullOrEmpty(Search)) 
+                        return SelectedItems;
+                    
+                    if (IsExactSearch)
+                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                    else 
+                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
+                                                         x.Description.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                }
+                if (IsDependencySearch)
+                {
+                    if (string.IsNullOrEmpty(DependencySearchItem))
+                        return SelectedItems;
+                    
+                    // this isnt user input so we can do normal comparison
+                    var mod = _items.First(x => x.Name == DependencySearchItem);
+                    return SelectedItems
+                        .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
+                }
+
+                return SelectedItems;
+            }
+        }
 
         public string ApiButtonText   => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
@@ -162,7 +220,7 @@ namespace Scarab.ViewModels
         [UsedImplicitly]
         public void SelectMods(ModFilterState modFilterState)
         {
-            _modFilterState = modFilterState;
+            ModFilterState = modFilterState;
             FilterMods();
         }
         
@@ -176,6 +234,20 @@ namespace Scarab.ViewModels
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
             };
+            
+            var selectedTags = TagList
+                .Where(x => x.IsSelected)
+                .Select(x => x.TagName)
+                .ToList();
+
+            if (selectedTags.Count > 0)
+            {
+                SelectedItems = SelectedItems
+                    .Where(x => x.HasTags && 
+                                x.Tags.Any(tagsDefined => selectedTags
+                                    .Any(tagsSelected => tagsSelected == tagsDefined)));
+            }
+            
             RaisePropertyChanged(nameof(FilteredItems));
         }
 
@@ -392,6 +464,9 @@ namespace Scarab.ViewModels
         private async Task OnUpdateAsync(ModItem item) => await InternalUpdateInstallAsync(item, item.OnUpdate);
 
         private async Task OnInstallAsync(ModItem item) => await InternalInstallWithConfirmationAsync(item, item.OnInstall);
+        
+        private void OnTagSelectFilter(TagItem _) => FilterMods();
+        
 
         private static async Task DisplayHashMismatch(HashMismatchException e)
         {

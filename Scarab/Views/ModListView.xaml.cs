@@ -65,7 +65,7 @@ namespace Scarab.Views
         
         private void OnKeyDown(object? sender, KeyEventArgs e)
         {
-            if (!_search.IsFocused)
+            if (!_search.IsFocused && ModListViewModel.IsNormalSearch)
             {
                 _search.Focus();
             }
