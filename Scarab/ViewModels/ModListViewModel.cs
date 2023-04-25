@@ -343,7 +343,7 @@ namespace Scarab.ViewModels
                 item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
                 RaisePropertyChanged(nameof(CanDisableAll));
                 RaisePropertyChanged(nameof(CanEnableAll));
-                RaisePropertyChanged(nameof(FilteredItems));
+                FilterMods();
                 
             }
             catch (Exception e)
@@ -452,10 +452,11 @@ namespace Scarab.ViewModels
             }
             _items.SortBy(Comparer);
 
-            RaisePropertyChanged(nameof(FilteredItems));
             RaisePropertyChanged(nameof(CanUninstallAll));
             RaisePropertyChanged(nameof(CanDisableAll));
             RaisePropertyChanged(nameof(CanEnableAll));
+            
+            FilterMods();
             
             _items.SortBy(Comparer);
         }
