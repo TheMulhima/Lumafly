@@ -274,12 +274,12 @@ namespace Scarab.ViewModels
         private async Task UninstallAll()
         {
             var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
-            foreach (ModItem mod in toUninstall)
+            foreach (var mod in toUninstall)
             {
                 if (mod.State is not (InstalledState or NotInModLinksState))
                     continue;
-                
-                await InternalUpdateInstallAsync(mod, mod.OnInstall);
+
+                await InternalModDownload(mod, mod.OnInstall);
             }
         }
 
@@ -325,7 +325,7 @@ namespace Scarab.ViewModels
 
                 if (!item.EnabledIsChecked ||
                     dependents.Count == 0 ||
-                    await DisplayHasDependentsWarning(item.Name, dependents))
+                    await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents))
                 {
                     _installer.Toggle(item);
                 }
@@ -339,7 +339,7 @@ namespace Scarab.ViewModels
             }
             catch (Exception e)
             {
-                await DisplayGenericError("toggling", item.Name, e);
+                await DisplayErrors.DisplayGenericError("toggling", item.Name, e);
             }
         }
 
@@ -351,11 +351,11 @@ namespace Scarab.ViewModels
             }
             catch (HashMismatchException e)
             {
-                await DisplayHashMismatch(e);
+                await DisplayErrors.DisplayHashMismatch(e);
             }
             catch (Exception e)
             {
-                await DisplayGenericError("updating", name: "the API", e);
+                await DisplayErrors.DisplayGenericError("updating", name: "the API", e);
             }
 
             RaisePropertyChanged(nameof(ApiOutOfDate));
@@ -363,7 +363,7 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(EnableApiButton));
         }
 
-        private async Task InternalUpdateInstallAsync(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> f)
+        private async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
         {
             static bool IsHollowKnight(Process p) => (
                    p.ProcessName.StartsWith("hollow_knight")
@@ -394,7 +394,7 @@ namespace Scarab.ViewModels
                         await _installer.Uninstall(similarItem);
                     }
                 }
-                await f
+                await downloader
                 (
                     _installer,
                     progress =>
@@ -415,16 +415,16 @@ namespace Scarab.ViewModels
             catch (HashMismatchException e)
             {
                 Trace.WriteLine($"Mod {item.Name} had a hash mismatch! Expected: {e.Expected}, got {e.Actual}");
-                await DisplayHashMismatch(e);
+                await DisplayErrors.DisplayHashMismatch(e);
             }
             catch (HttpRequestException e)
             {
-                await DisplayNetworkError(item.Name, e);
+                await DisplayErrors.DisplayNetworkError(item.Name, e);
             }
             catch (Exception e)
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
-                await DisplayGenericError("installing or uninstalling", item.Name, e);
+                await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, e);
             }
 
             // Even if we threw, stop the progress bar.
@@ -451,78 +451,23 @@ namespace Scarab.ViewModels
             
             _items.SortBy(Comparer);
         }
-        private async Task InternalInstallWithConfirmationAsync(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> f)
+
+        [UsedImplicitly]
+        private async Task OnUpdate(ModItem item) => await InternalModDownload(item, item.OnUpdate);
+
+        [UsedImplicitly]
+        private async Task OnInstall(ModItem item)
         {
             var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
-
-            if (!item.Installed ||
-                dependents.Count == 0 ||
-                await DisplayHasDependentsWarning(item.Name, dependents))
-            {
-                await InternalUpdateInstallAsync(item, f);
-            }
+            
+            await DisplayErrors.DoActionAfterConfirmation(
+                shouldAskForConfirmation: item.Installed && dependents.Count >= 0, // if its installed rn and has dependents
+                warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
+                action: () => InternalModDownload(item, item.OnInstall));
         }
 
-        [UsedImplicitly]
-        private async Task OnUpdate(ModItem item) => await InternalUpdateInstallAsync(item, item.OnUpdate);
-
-        [UsedImplicitly]
-        private async Task OnInstall(ModItem item) => await InternalInstallWithConfirmationAsync(item, item.OnInstall);
-        
         [UsedImplicitly]
         private void OnTagSelect() => FilterMods();
-        
-
-        private static async Task DisplayHashMismatch(HashMismatchException e)
-        {
-            await MessageBoxManager.GetMessageBoxStandardWindow
-            (
-                title: Resources.MLVM_DisplayHashMismatch_Msgbox_Title,
-                text: string.Format(Resources.MLVM_DisplayHashMismatch_Msgbox_Text, e.Name, e.Actual, e.Expected),
-                icon: Icon.Error
-            ).Show();
-        }
-
-        private static async Task DisplayGenericError(string action, string name, Exception e)
-        {
-            Trace.TraceError(e.ToString());
-
-            await MessageBoxManager.GetMessageBoxStandardWindow
-            (
-                title: "Error!",
-                text: $"An exception occured while {action} {name}.",
-                icon: Icon.Error
-            ).Show();
-        }
-
-        private static async Task DisplayNetworkError(string name, HttpRequestException e)
-        {
-            Trace.WriteLine($"Failed to download {name}, {e}");
-
-            await MessageBoxManager.GetMessageBoxStandardWindow
-            (
-                title: Resources.MLVM_DisplayNetworkError_Msgbox_Title,
-                text: string.Format(Resources.MLVM_DisplayNetworkError_Msgbox_Text, name),
-                icon: Icon.Error
-            ).Show();
-        }
-        
-        // asks user for confirmation on whether or not they want to uninstall/disable mod.
-        // returns whether or not user presses yes on the message box
-        private static async Task<bool> DisplayHasDependentsWarning(string modName, IEnumerable<ModItem> dependents)
-        {
-            var dependentsString = string.Join(", ", dependents.Select(x => x.Name));
-            var result = await MessageBoxManager.GetMessageBoxStandardWindow
-            (
-                title: "Warning! This mod is required for other mods to function!",
-                text: $"{modName} is required for {dependentsString} to function properly. Do you still want to continue?",
-                icon: Icon.Stop,
-                @enum: ButtonEnum.YesNo
-            ).Show();
-
-            // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
-            return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
-        }
 
         private static (int priority, string name) ModToOrderedTuple(ModItem m) =>
         (
