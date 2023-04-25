@@ -67,11 +67,6 @@ namespace Scarab.ViewModels
 
         public IEnumerable<string> ModNames { get; }
         public ObservableCollection<TagItem> TagList { get; }
-        public ReactiveCommand<ModItem, Unit> OnUpdate { get; }
-        public ReactiveCommand<ModItem, Unit> OnInstall { get; }
-        public ReactiveCommand<ModItem, Unit> OnEnable { get; }
-        public ReactiveCommand<TagItem, Unit> OnTagSelect { get; }
-        
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; }
         
@@ -94,10 +89,6 @@ namespace Scarab.ViewModels
 
             ModNames = _items.Where(x => x.State is not NotInModLinksState).Select(x => x.Name);
 
-            OnInstall = ReactiveCommand.CreateFromTask<ModItem>(OnInstallAsync);
-            OnUpdate = ReactiveCommand.CreateFromTask<ModItem>(OnUpdateAsync);
-            OnEnable = ReactiveCommand.CreateFromTask<ModItem>(OnEnableAsync);
-            OnTagSelect = ReactiveCommand.Create<TagItem>(OnTagSelectFilter);
             ToggleApi = ReactiveCommand.Create(ToggleApiCommand);
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
@@ -275,7 +266,7 @@ namespace Scarab.ViewModels
                 if (mod.State is not InstalledState { Updated: false })
                     continue;
                 
-                await OnUpdateAsync(mod);
+                await OnUpdate(mod);
             }
         }
 
@@ -326,7 +317,7 @@ namespace Scarab.ViewModels
             await UpdateUnupdated();
         }
 
-        private async Task OnEnableAsync(ModItem item)
+        private async Task OnEnable(ModItem item)
         {
             try
             {
@@ -472,11 +463,14 @@ namespace Scarab.ViewModels
             }
         }
 
-        private async Task OnUpdateAsync(ModItem item) => await InternalUpdateInstallAsync(item, item.OnUpdate);
+        [UsedImplicitly]
+        private async Task OnUpdate(ModItem item) => await InternalUpdateInstallAsync(item, item.OnUpdate);
 
-        private async Task OnInstallAsync(ModItem item) => await InternalInstallWithConfirmationAsync(item, item.OnInstall);
+        [UsedImplicitly]
+        private async Task OnInstall(ModItem item) => await InternalInstallWithConfirmationAsync(item, item.OnInstall);
         
-        private void OnTagSelectFilter(TagItem _) => FilterMods();
+        [UsedImplicitly]
+        private void OnTagSelect() => FilterMods();
         
 
         private static async Task DisplayHashMismatch(HashMismatchException e)
