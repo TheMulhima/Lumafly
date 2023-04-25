@@ -273,14 +273,19 @@ namespace Scarab.ViewModels
         [UsedImplicitly]
         private async Task UninstallAll()
         {
-            var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
-            foreach (var mod in toUninstall)
-            {
-                if (mod.State is not (InstalledState or NotInModLinksState))
-                    continue;
+            await DisplayErrors.DoActionAfterConfirmation(true,
+                () => DisplayErrors.DisplayAreYouSureWarning("Are you sure you want to uninstall all mods?"),
+                async () =>
+                {
+                    var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
+                    foreach (var mod in toUninstall)
+                    {
+                        if (mod.State is not (InstalledState or NotInModLinksState))
+                            continue;
 
-                await InternalModDownload(mod, mod.OnInstall);
-            }
+                        await InternalModDownload(mod, mod.OnInstall);
+                    }
+                });
         }
 
         public void DisableAllInstalled()
