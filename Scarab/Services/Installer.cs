@@ -5,7 +5,6 @@ using System.IO.Abstractions;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,6 +71,8 @@ namespace Scarab.Services
             _db = db;
             _fs = fs;
             _hc = hc;
+
+            CheckAPI().Wait();
         }
 
         private void CreateNeededDirectories()
@@ -136,6 +137,7 @@ namespace Scarab.Services
 
             try
             {
+                await CheckAPI();
                 if (_installed.ApiInstall is InstalledState { Enabled: false })
                 {
                     // Don't have the toggle update it for us, as that'll infinitely loop.
@@ -153,10 +155,9 @@ namespace Scarab.Services
         private async Task _InstallApi((string Url, int Version, string SHA256) manifest)
         {
             bool was_vanilla = true;
-
-            if (_installed.ApiInstall is InstalledState { Version: var version })
+            if (await CheckAPI())
             {
-                if (version.Major > manifest.Version)
+                if (((InstalledState)_installed.ApiInstall).Version.Major > manifest.Version)
                     return;
 
                 was_vanilla = false;
@@ -195,11 +196,15 @@ namespace Scarab.Services
 
         private async Task _ToggleApi(Update update = Update.ForceUpdate)
         {
+            if (!await CheckAPI()) return;
+            
             string managed = _config.ManagedFolder;
 
             Contract.Assert(_installed.ApiInstall is InstalledState);
 
             var st = (InstalledState) _installed.ApiInstall;
+            
+            if (st.Enabled && !_installed.HasVanilla) return;
 
             var (move_to, move_from) = st.Enabled
                 // If the api is enabled, move the current (modded) dll
@@ -486,6 +491,39 @@ namespace Scarab.Services
 
                 dep.State = new NotInstalledState();
             }
+        }
+        
+        public async Task<bool> CheckAPI()
+        {
+            _installed.HasVanilla =
+                CheckValidityOfAssemblies.CheckVanillaFileValidity(_fs, _config.ManagedFolder, Vanilla);
+            
+            int? current_version = CheckValidityOfAssemblies.GetAPIVersion(_fs, _config.ManagedFolder, Current);
+            bool enabled = true;
+            if(current_version == null)
+            {
+                enabled = false;
+                current_version = CheckValidityOfAssemblies.GetAPIVersion(_fs, _config.ManagedFolder, Modded);
+            }
+            
+            if (current_version == null)
+            {
+                await _installed.RecordApiState(new NotInstalledState());
+                return false;
+            }
+            
+            if (_installed.ApiInstall is not InstalledState api_state)
+            {
+                await _installed.RecordApiState(new InstalledState(enabled, new((int)current_version, 0, 0), false));
+                return true;
+            }
+            
+            if (api_state.Version.Major != current_version || api_state.Enabled != enabled)
+            {
+                await _installed.RecordApiState(new InstalledState(enabled, new((int)current_version, 0, 0), api_state.Updated));
+            }
+            
+            return true;
         }
     }
 }

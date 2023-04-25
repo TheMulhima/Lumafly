@@ -21,6 +21,8 @@ namespace Scarab.Services
         internal static readonly string ConfigPath = Path.Combine(Settings.GetOrCreateDirPath(), FILE_NAME);
 
         public Dictionary<string, InstalledState> Mods { get; init; } = new();
+        
+        public bool HasVanilla { get; set; }
 
         public ModState ApiInstall
         {
