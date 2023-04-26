@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
+using Scarab.Services;
 using Scarab.Util;
 
 namespace Scarab.Models
@@ -112,6 +114,23 @@ namespace Scarab.Models
 
         public string UpdateText  => $"\u279E {Version}";
 
+        private string _settingsFile = string.Empty;
+        public string SettingsFile
+        {
+            get
+            {
+                // dont find it if its already found
+                if (string.IsNullOrEmpty(_settingsFile))
+                {
+                    _settingsFile = GlobalSettingsFinder.HasSettingsFile(this) ?? string.Empty;
+                }
+
+                return _settingsFile;
+            }
+        }
+        
+        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(SettingsFile);
+
         public string VersionText => State switch
         {
             InstalledState st => st.Version.ToString(),
@@ -173,6 +192,33 @@ namespace Scarab.Models
         public void CallOnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void OpenSettingsFile()
+        {
+            try
+            {
+                if (HasSettings && File.Exists(SettingsFile))
+                {
+                    var process = new Process();
+                    process.StartInfo = new ProcessStartInfo()
+                    {
+                        UseShellExecute = true,
+                        FileName = SettingsFile
+                    };
+
+                    process.Start();
+                }
+                else
+                {
+                    throw new Exception("Settings not there");
+                }
+            }
+            catch (Exception)
+            {
+                _settingsFile = string.Empty;
+                CallOnPropertyChanged(nameof(HasSettings));
+            }
         }
 
         #region Equality

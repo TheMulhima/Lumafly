@@ -239,20 +239,10 @@ namespace Scarab.ViewModels
         
         public void OpenSavesDirectory()
         {
-            var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var savesFolder = string.Empty;
-
-            if (OperatingSystem.IsWindows())
-                savesFolder = Path.Combine(userProfile, "AppData", "LocalLow", "Team Cherry", "Hollow Knight");
-            if (OperatingSystem.IsMacOS())
-                savesFolder = Path.Combine(userProfile, "Library", "Application Support", "unity.Team Cherry.Hollow Knight");
-            if (OperatingSystem.IsMacOS())
-                savesFolder = Path.Combine(userProfile, ".config", "unity3d", "Team Cherry", "Hollow Knight");
-            
             // try catch just incase it doesn't exist
             try
             {
-                Process.Start(new ProcessStartInfo(savesFolder) {
+                Process.Start(new ProcessStartInfo(GlobalSettingsFinder.GetSavesFolder()) {
                     UseShellExecute = true 
                 });
             }
@@ -499,6 +489,8 @@ namespace Scarab.ViewModels
                 SelectedItems = SelectedItems.Where(x => x != _item);
             }
             _items.SortBy(Comparer);
+            
+            item.CallOnPropertyChanged(nameof(ModItem.HasSettings));
 
             RaisePropertyChanged(nameof(CanUninstallAll));
             RaisePropertyChanged(nameof(CanDisableAll));

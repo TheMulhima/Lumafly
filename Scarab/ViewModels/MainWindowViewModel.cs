@@ -62,6 +62,8 @@ namespace Scarab.ViewModels
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
                 settings = await ResetSettings();
 
+            GlobalSettingsFinder.Settings = settings;
+
             Trace.WriteLine("Fetching links");
             
             (ModLinks ml, ApiLinks al) content;
