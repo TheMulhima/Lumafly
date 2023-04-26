@@ -321,7 +321,10 @@
   <data name="XAML_No_Items" xml:space="preserve">
     <value>No mods to display</value>
   </data>
-  <data name="XAML_Settings" xml:space="preserve">
-    <value>Settings</value>
+  <data name="XAML_Additional" xml:space="preserve">
+    <value>Additional</value>
+  </data>
+  <data name="XAML_SavesFolder" xml:space="preserve">
+    <value>Open Saves Folder</value>
   </data>
 </root>

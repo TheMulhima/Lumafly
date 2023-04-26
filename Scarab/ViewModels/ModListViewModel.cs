@@ -214,6 +214,31 @@ namespace Scarab.ViewModels
                     UseShellExecute = true
             });
         }
+        
+        public void OpenSavesDirectory()
+        {
+            var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var savesFolder = string.Empty;
+
+            if (OperatingSystem.IsWindows())
+                savesFolder = Path.Combine(userProfile, "AppData", "LocalLow", "Team Cherry", "Hollow Knight");
+            if (OperatingSystem.IsMacOS())
+                savesFolder = Path.Combine(userProfile, "Library", "Application Support", "unity.Team Cherry.Hollow Knight");
+            if (OperatingSystem.IsMacOS())
+                savesFolder = Path.Combine(userProfile, ".config", "unity3d", "Team Cherry", "Hollow Knight");
+            
+            // try catch just incase it doesn't exist
+            try
+            {
+                Process.Start(new ProcessStartInfo(savesFolder) {
+                    UseShellExecute = true 
+                });
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Failed to open saves directory. {e}");
+            }
+        }
 
         public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/ybham") { UseShellExecute = true });
 

@@ -393,20 +393,20 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional.
+        /// </summary>
+        internal static string XAML_Additional {
+            get {
+                return ResourceManager.GetString("XAML_Additional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authors:.
         /// </summary>
         internal static string XAML_Authors {
             get {
                 return ResourceManager.GetString("XAML_Authors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auto Remove Dependencies.
-        /// </summary>
-        internal static string XAML_AutoRemoveDeps {
-            get {
-                return ResourceManager.GetString("XAML_AutoRemoveDeps", resourceCulture);
             }
         }
         
@@ -582,6 +582,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Saves Folder.
+        /// </summary>
+        internal static string XAML_SavesFolder {
+            get {
+                return ResourceManager.GetString("XAML_SavesFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by Dependency.
         /// </summary>
         internal static string XAML_Search_Dependents {
@@ -632,15 +641,6 @@ namespace Scarab {
         internal static string XAML_Select_Tags {
             get {
                 return ResourceManager.GetString("XAML_Select_Tags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        internal static string XAML_Settings {
-            get {
-                return ResourceManager.GetString("XAML_Settings", resourceCulture);
             }
         }
         

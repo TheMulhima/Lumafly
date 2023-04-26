@@ -84,7 +84,7 @@
             
             <MenuItem
                 Name="Flyout_Settings"
-                Header="{ext:Localize XAML_Settings}"
+                Header="{ext:Localize XAML_Additional}"
                 DockPanel.Dock="Bottom"
                 VerticalAlignment="Bottom">
                 <MenuItem
@@ -92,11 +92,16 @@
                     Header="{ext:Localize XAML_ChangPath}"
                     DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom"/>
-                <MenuItem
-                Command="{Binding OpenModsDirectory}"
-                Header="{ext:Localize XAML_OpenMods}"
-                DockPanel.Dock="Bottom"
-                VerticalAlignment="Bottom" />
+                    <MenuItem
+                    Command="{Binding OpenModsDirectory}"
+                    Header="{ext:Localize XAML_OpenMods}"
+                    DockPanel.Dock="Bottom"
+                    VerticalAlignment="Bottom" />
+                    <MenuItem
+                    Command="{Binding OpenSavesDirectory}"
+                    Header="{ext:Localize XAML_SavesFolder}"
+                    DockPanel.Dock="Bottom"
+                    VerticalAlignment="Bottom" />
             </MenuItem>
             <MenuItem
                 Command="{Binding ToggleApi}"
