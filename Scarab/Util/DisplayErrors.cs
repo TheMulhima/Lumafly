@@ -108,4 +108,19 @@ public static class DisplayErrors
             await action();
         }
     }
+    
+    public static async Task DoActionAfterConfirmation(bool shouldAskForConfirmation, Func<Task<bool>> warningPopupDisplayer, Action action)
+    {
+        if (shouldAskForConfirmation)
+        {
+            if (await warningPopupDisplayer())
+            {
+                action();
+            }
+        }
+        else
+        {
+            action();
+        }
+    }
 }

@@ -20,7 +20,7 @@ namespace Scarab.Views
     public class ModListView : View<ModListViewModel>
     {
         private readonly TextBox _search;
-        private readonly MenuItem _bulkActions;
+        private readonly List<MenuItem> _flyoutMenus;
         private readonly List<MenuItem> _modFilterItems;
 
         private ModListViewModel ModListViewModel => (((StyledElement)this).DataContext as ModListViewModel)!;
@@ -32,10 +32,12 @@ namespace Scarab.Views
             this.FindControl<UserControl>(nameof(UserControl)).KeyDown += OnKeyDown;
             
             _search = this.FindControl<TextBox>("Search");
-            _bulkActions = this.FindControl<MenuItem>("BulkActions");
             
-            _modFilterItems= this.GetLogicalDescendants()
+            _modFilterItems = this.GetLogicalDescendants()
                 .Where(x => x is MenuItem menuItem && (menuItem.Name?.StartsWith("ModFilter") ?? false))
+                .Select(x => (MenuItem)x).ToList();
+            _flyoutMenus = this.GetLogicalDescendants()
+                .Where(x => x is MenuItem menuItem && (menuItem.Name?.StartsWith("Flyout") ?? false))
                 .Select(x => (MenuItem)x).ToList();
 
         }
@@ -45,22 +47,29 @@ namespace Scarab.Views
         protected override void ArrangeCore(Rect finalRect)
         {
             base.ArrangeCore(finalRect);
-            SetUpBulkActionsPopup();
+            SetUpFlyoutPopup();
         }
 
         // I havent found a way to set these properties normally
-        private void SetUpBulkActionsPopup()
+        private void SetUpFlyoutPopup()
         {
-            var menuItem_popup = typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(_bulkActions);
+            foreach (var flyoutMenu in _flyoutMenus)
+            {
 
-            var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");
 
-            popup.HorizontalOffset = 2;
-            popup.PlacementMode = PlacementMode.Right;
-            popup.PlacementAnchor = PopupAnchor.TopRight;
-            popup.PlacementGravity = PopupGravity.TopRight;
-            popup.OverlayDismissEventPassThrough = true;
-            popup.IsLightDismissEnabled = true;
+                var menuItem_popup =
+                    typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(
+                        flyoutMenu);
+
+                var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");
+
+                popup.HorizontalOffset = 2;
+                popup.PlacementMode = PlacementMode.Right;
+                popup.PlacementAnchor = PopupAnchor.TopRight;
+                popup.PlacementGravity = PopupGravity.TopRight;
+                popup.OverlayDismissEventPassThrough = true;
+                popup.IsLightDismissEnabled = true;
+            }
         }
         
         private void OnKeyDown(object? sender, KeyEventArgs e)

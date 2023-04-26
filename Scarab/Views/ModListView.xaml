@@ -80,16 +80,24 @@
                 CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
                 DockPanel.Dock="Top"/>
             
+            <!-- the name prefix "Flyout_" helps find all buttons in code behind. To set properties-->
+            
             <MenuItem
-                Command="{Binding ChangePath}"
-                Header="{ext:Localize XAML_ChangPath}"
+                Name="Flyout_Settings"
+                Header="{ext:Localize XAML_Settings}"
                 DockPanel.Dock="Bottom"
-                VerticalAlignment="Bottom" />
-            <MenuItem
+                VerticalAlignment="Bottom">
+                <MenuItem
+                    Command="{Binding ChangePath}"
+                    Header="{ext:Localize XAML_ChangPath}"
+                    DockPanel.Dock="Bottom"
+                    VerticalAlignment="Bottom"/>
+                <MenuItem
                 Command="{Binding OpenModsDirectory}"
                 Header="{ext:Localize XAML_OpenMods}"
                 DockPanel.Dock="Bottom"
                 VerticalAlignment="Bottom" />
+            </MenuItem>
             <MenuItem
                 Command="{Binding ToggleApi}"
                 Header="{Binding ApiButtonText}"
@@ -104,7 +112,7 @@
                 VerticalAlignment="Bottom" />
             <MenuItem
                 Header="{ext:Localize XAML_Open_Bulk_Action}"
-                Name="BulkActions"
+                Name="Flyout_BulkActions"
                 DockPanel.Dock="Bottom">
                 <MenuItem 
                     Command="{Binding UpdateUnupdated}" 

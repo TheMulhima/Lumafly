@@ -402,6 +402,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Remove Dependencies.
+        /// </summary>
+        internal static string XAML_AutoRemoveDeps {
+            get {
+                return ResourceManager.GetString("XAML_AutoRemoveDeps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Path.
         /// </summary>
         internal static string XAML_ChangPath {
@@ -623,6 +632,15 @@ namespace Scarab {
         internal static string XAML_Select_Tags {
             get {
                 return ResourceManager.GetString("XAML_Select_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string XAML_Settings {
+            get {
+                return ResourceManager.GetString("XAML_Settings", resourceCulture);
             }
         }
         
