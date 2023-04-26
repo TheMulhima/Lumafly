@@ -12,7 +12,7 @@
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
         <avalonia:HyperLinkStyle/>
         <StyleInclude Source="avares://Scarab/CustomControls/MenuCheckBox.axaml"/>
-        <StyleInclude Source="avares://Scarab/CustomControls/FlyoutButton.axaml"/>
+        <StyleInclude Source="avares://Scarab/CustomControls/TextButtonFlyout.axaml"/>
     </Application.Styles>
     
     <Application.Resources>

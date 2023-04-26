@@ -205,7 +205,7 @@
                 FontSize="15"/>
             </Button>
             
-            <customControls:FlyoutButton 
+            <customControls:TextButtonFlyout 
                 FlyoutPlacement="BottomEdgeAlignedRight"
                 FlyoutShowMode="Transient"
                 Padding="6 0 0 0"
@@ -216,7 +216,7 @@
                 
                 <views:SearchOptionsMenu/>
                 
-            </customControls:FlyoutButton>
+            </customControls:TextButtonFlyout>
         </Grid>
 
         <Separator

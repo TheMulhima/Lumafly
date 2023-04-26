@@ -183,9 +183,8 @@ namespace Scarab.ViewModels
                 // this is the only case we cant handle as we can't get vanilla assembly from anywhere
                 if (installedState.Enabled && !_mods.HasVanilla)
                 {
-                    await DisplayErrors.DisplayGenericError($"Cannot toggle API because vanilla assembly not found.\n" +
+                    await DisplayErrors.DisplayGenericError("Cannot toggle API because vanilla assembly not found.\n" +
                                                          "Please verify integrity of your game files and try again.");
-
                     return;
                 }
     

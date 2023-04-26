@@ -13,7 +13,7 @@
     <StackPanel
         Margin="1">
         <StackPanel.Styles>
-            <Style Selector="customControls|FlyoutButton">
+            <Style Selector="customControls|TextButtonFlyout">
                 <Setter Property="FlyoutShowMode" Value="TransientWithDismissOnPointerMoveAway"/>
                 <Setter Property="FlyoutPlacement" Value="RightEdgeAlignedTop"/>
                 <Setter Property="Background" Value="Transparent"/>
@@ -24,7 +24,7 @@
             </Style>
         </StackPanel.Styles>
         
-        <customControls:FlyoutButton
+        <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Search_Type}">
             <StackPanel>
@@ -40,14 +40,14 @@
                     Content="{ext:Localize XAML_Search_Dependents}" 
                     ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
             </StackPanel>
-        </customControls:FlyoutButton>
+        </customControls:TextButtonFlyout>
         
         <customControls:MenuCheckBox
             Margin="2 1"
             Header="{ext:Localize XAML_Exact_Search}"
             IsSelected="{Binding $parent[views:ModListView].DataContext.IsExactSearch}"/>
         
-        <customControls:FlyoutButton
+        <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Select_Tags}">
             <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.TagList}">
@@ -61,6 +61,6 @@
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
-        </customControls:FlyoutButton>
+        </customControls:TextButtonFlyout>
     </StackPanel>
 </views:View>

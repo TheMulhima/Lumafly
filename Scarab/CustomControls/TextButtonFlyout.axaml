@@ -3,10 +3,10 @@
         xmlns:customControls="using:Scarab.CustomControls"
         xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
     <Design.PreviewWith>
-        <customControls:FlyoutButton />
+        <customControls:TextButtonFlyout />
     </Design.PreviewWith>
 
-    <Style Selector="customControls|FlyoutButton">
+    <Style Selector="customControls|TextButtonFlyout">
         <!-- Set Defaults -->
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="0"/>

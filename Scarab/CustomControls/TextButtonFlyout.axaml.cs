@@ -17,7 +17,7 @@ namespace Scarab.CustomControls;
 /// Creates a button with an attached flyout.
 /// Only supports FlyoutPlacementMode.Bottom and FlyoutPlacementMode.Right.
 /// </summary>
-public class FlyoutButton : TemplatedControl
+public class TextButtonFlyout : TemplatedControl
 {
     private readonly Stopwatch lastOpenedStopwatch = new();
     private SymbolIcon? Icon;
@@ -119,7 +119,7 @@ public class FlyoutButton : TemplatedControl
     #region FlyoutPlacement
     private FlyoutPlacementMode _flyoutPlacement;
 
-    public static readonly DirectProperty<FlyoutButton, FlyoutPlacementMode> FlyoutPlacementProperty = AvaloniaProperty.RegisterDirect<FlyoutButton, FlyoutPlacementMode>(
+    public static readonly DirectProperty<TextButtonFlyout, FlyoutPlacementMode> FlyoutPlacementProperty = AvaloniaProperty.RegisterDirect<TextButtonFlyout, FlyoutPlacementMode>(
         "FlyoutPlacement", o => o.FlyoutPlacement, (o, v) => o.FlyoutPlacement = v, FlyoutPlacementMode.Bottom);
 
     public FlyoutPlacementMode FlyoutPlacement
@@ -130,7 +130,7 @@ public class FlyoutButton : TemplatedControl
     #endregion
 
     #region FlyoutShowMode
-    public static readonly StyledProperty<FlyoutShowMode> FlyoutShowModeProperty = AvaloniaProperty.Register<FlyoutButton, FlyoutShowMode>(
+    public static readonly StyledProperty<FlyoutShowMode> FlyoutShowModeProperty = AvaloniaProperty.Register<TextButtonFlyout, FlyoutShowMode>(
         "FlyoutShowMode", FlyoutShowMode.TransientWithDismissOnPointerMoveAway);
 
     public FlyoutShowMode FlyoutShowMode
@@ -141,7 +141,7 @@ public class FlyoutButton : TemplatedControl
     #endregion
 
     #region Header
-    public static readonly StyledProperty<string> HeaderProperty = AvaloniaProperty.Register<FlyoutButton, string>(
+    public static readonly StyledProperty<string> HeaderProperty = AvaloniaProperty.Register<TextButtonFlyout, string>(
         "Header");
 
     public string Header
@@ -152,7 +152,7 @@ public class FlyoutButton : TemplatedControl
     #endregion
 
     #region OnHoverColor
-    public static readonly StyledProperty<IBrush?> OnHoverColorProperty = AvaloniaProperty.Register<FlyoutButton, IBrush?>(
+    public static readonly StyledProperty<IBrush?> OnHoverColorProperty = AvaloniaProperty.Register<TextButtonFlyout, IBrush?>(
         "OnHoverColor");
 
     public IBrush? OnHoverColor
@@ -163,7 +163,7 @@ public class FlyoutButton : TemplatedControl
     #endregion
 
     #region HorizontalOffset
-    public static readonly StyledProperty<float> HorizontalOffsetProperty = AvaloniaProperty.Register<FlyoutButton, float>(
+    public static readonly StyledProperty<float> HorizontalOffsetProperty = AvaloniaProperty.Register<TextButtonFlyout, float>(
         "HorizontalOffset");
 
     public float HorizontalOffset
@@ -174,7 +174,7 @@ public class FlyoutButton : TemplatedControl
     #endregion
     
     #region Content
-    public static readonly StyledProperty<object> ContentProperty = AvaloniaProperty.Register<FlyoutButton, object>(
+    public static readonly StyledProperty<object> ContentProperty = AvaloniaProperty.Register<TextButtonFlyout, object>(
         "Content");
     [Content]
     public object Content
