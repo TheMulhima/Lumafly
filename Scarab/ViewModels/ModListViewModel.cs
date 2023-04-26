@@ -155,17 +155,6 @@ namespace Scarab.ViewModels
 
         public bool ApiOutOfDate => _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version;
 
-        public bool EnableApiButton => _mods.ApiInstall switch
-        {
-            NotInstalledState => false,
-            // Disabling, so we're putting back the vanilla assembly
-            InstalledState { Enabled: true } => File.Exists(Path.Combine(_settings.ManagedFolder, Installer.Vanilla)),
-            // Enabling, so take the modded one.
-            InstalledState { Enabled: false } => File.Exists(Path.Combine(_settings.ManagedFolder, Installer.Modded)),
-            // Unreachable
-            _ => throw new InvalidOperationException()
-        };
-        
         public bool CanUpdateAll => _items.Any(x => x.State is InstalledState { Updated: false }) && !_updating;
         public bool CanUninstallAll => _items.Any(x => x.State is InstalledState or NotInModLinksState);
         public bool CanDisableAll => _items.Any(x => x.State is InstalledState {Enabled: true} or NotInModLinksState {Enabled: true});
@@ -177,20 +166,44 @@ namespace Scarab.ViewModels
 
         private async void ToggleApiCommand()
         {
-            if (_mods.ApiInstall is InstalledState { Enabled: true })
+            bool shouldInstallAndToggle = false;
+            if (_mods.ApiInstall is InstalledState installedState)
             {
-                await _installer.CheckAPI();
-                if (!_mods.HasVanilla)
+                //returns false only when api state is installed but it isnt when we check
+                bool isApiActuallyInstalled = await _installer.CheckAPI();
+
+                /* this accounts for edge case when:
+                - api state here is said to be installed
+                - when we check api version, it isn't installed (i.e no modding.modhooks type was found on either dlls current or .m)
+                - user wants to toggle (doesnt matter which way)
+                - so we first install to ensure scarab's state matches with reality and then we toggle to do what user wants
+                */
+                shouldInstallAndToggle = !isApiActuallyInstalled && installedState.Enabled;
+
+                // this is the only case we cant handle as we can't get vanilla assembly from anywhere
+                if (installedState.Enabled && !_mods.HasVanilla)
                 {
-                    //TODO: after merge to master add warning
+                    await DisplayErrors.DisplayGenericError($"Cannot toggle API because vanilla assembly not found.\n" +
+                                                         "Please verify integrity of your game files and try again.");
+
                     return;
                 }
+    
             }
 
-            await _installer.ToggleApi();
-            
+            if (_mods.ApiInstall is not InstalledState)
+            {
+                await _installer.InstallApi();
+                if (shouldInstallAndToggle)
+                    await _installer.ToggleApi();
+            }
+            else
+            {
+                await _installer.ToggleApi();
+            }
+
             RaisePropertyChanged(nameof(ApiButtonText));
-            RaisePropertyChanged(nameof(EnableApiButton));
+            RaisePropertyChanged(nameof(ApiOutOfDate));
         }
         
         private async Task ChangePathAsync()
@@ -400,7 +413,6 @@ namespace Scarab.ViewModels
 
             RaisePropertyChanged(nameof(ApiOutOfDate));
             RaisePropertyChanged(nameof(ApiButtonText));
-            RaisePropertyChanged(nameof(EnableApiButton));
         }
 
         private async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
@@ -478,7 +490,6 @@ namespace Scarab.ViewModels
             ProgressBarVisible = false;
 
             RaisePropertyChanged(nameof(ApiButtonText));
-            RaisePropertyChanged(nameof(EnableApiButton));
 
             static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
             

@@ -106,7 +106,6 @@
             <MenuItem
                 Command="{Binding ToggleApi}"
                 Header="{Binding ApiButtonText}"
-                IsEnabled="{Binding EnableApiButton}"
                 DockPanel.Dock="Bottom"
                 VerticalAlignment="Bottom" />
             <MenuItem

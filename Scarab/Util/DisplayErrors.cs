@@ -39,9 +39,10 @@ public static class DisplayErrors
         ).Show();
     }
     
-    public static async Task DisplayGenericError(string errorText, Exception e)
+    public static async Task DisplayGenericError(string errorText, Exception? e = null)
     {
-        Trace.TraceError(e.ToString());
+        if (e != null)
+            Trace.TraceError(e.ToString());
 
         await MessageBoxManager.GetMessageBoxStandardWindow
         (
