@@ -505,7 +505,7 @@ namespace Scarab.ViewModels
             var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
             
             await DisplayErrors.DoActionAfterConfirmation(
-                shouldAskForConfirmation: item.Installed && dependents.Count >= 0, // if its installed rn and has dependents
+                shouldAskForConfirmation: item.Installed && dependents.Count > 0, // if its installed rn and has dependents
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
                 action: () => InternalModDownload(item, item.OnInstall));
         }
