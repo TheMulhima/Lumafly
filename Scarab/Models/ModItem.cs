@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
+using Scarab.Util;
 
 namespace Scarab.Models
 {
@@ -90,7 +91,7 @@ namespace Scarab.Models
             _ => false
         };
 
-        public bool Installing => State is NotInstalledState { Installing: true };
+        public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true } || DisplayErrors.IsLoadingAnError;
 
         public string InstallText => State switch
         {

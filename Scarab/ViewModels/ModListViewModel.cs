@@ -57,14 +57,13 @@ namespace Scarab.ViewModels
         private bool _isNormalSearch = true;
 
         [Notify]
-        private bool _isDependencySearch = false;
+        private bool _isDependencySearch;
         
         [Notify]
         private string _dependencySearchItem;
 
         [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
-
         public IEnumerable<string> ModNames { get; }
         public ObservableCollection<TagItem> TagList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
@@ -322,6 +321,7 @@ namespace Scarab.ViewModels
             await UpdateUnupdated();
         }
 
+        [UsedImplicitly]
         private async Task OnEnable(ModItem item)
         {
             try
@@ -429,7 +429,14 @@ namespace Scarab.ViewModels
             catch (Exception e)
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
-                await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, e);
+                if (e is IOException)
+                {
+                    await HandleIOExceptionWhenDownloading(item, e);
+                }
+                else
+                {
+                    await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, e);
+                }
             }
 
             // Even if we threw, stop the progress bar.
@@ -455,6 +462,38 @@ namespace Scarab.ViewModels
             FilterMods();
             
             _items.SortBy(Comparer);
+        }
+
+        private async Task HandleIOExceptionWhenDownloading(ModItem item, Exception e)
+        {
+            // no need to run progress bar
+            ProgressBarVisible = false;
+
+            DisplayErrors.IsLoadingAnError = true;
+            item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
+
+            string additionalText = "";
+            try
+            {
+                var processess = await FileAccessLookup.GetProcessesThatAreLocking(e.Message.Split('\'')[1]);
+                if (!string.IsNullOrEmpty(processess))
+                {
+                    additionalText = $"\n\nThe following processes are locking the file:\n {processess}";
+                }
+            }
+            catch (Exception)
+            {
+                //ignored as its not a requirement
+            }
+
+            DisplayErrors.IsLoadingAnError = true;
+            item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
+
+            await DisplayErrors.DisplayGenericError(
+                $"Unable to install or uninstall {item.Name}.\n" +
+                $"Scarab was unable to access the file in the mods folder.\n" +
+                $"Please make sure to close all other apps that could be using the mods folder\n" +
+                additionalText, e);
         }
 
         [UsedImplicitly]

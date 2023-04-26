@@ -315,7 +315,7 @@
                                     MaxWidth="60"
                                     CommandParameter="{Binding .}"
                                     Content="{Binding InstallText}"
-                                    IsEnabled="{Binding !Installing}"
+                                    IsEnabled="{Binding !InstallingButtonAccessible}"
                                     Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
                                     VerticalAlignment="Top"
                                 />
