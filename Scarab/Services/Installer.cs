@@ -498,12 +498,12 @@ namespace Scarab.Services
             _installed.HasVanilla =
                 CheckValidityOfAssemblies.CheckVanillaFileValidity(_fs, _config.ManagedFolder, Vanilla);
             
-            int? current_version = CheckValidityOfAssemblies.GetAPIVersion(_fs, _config.ManagedFolder, Current);
+            int? current_version = CheckValidityOfAssemblies.GetAPIVersion(_config.ManagedFolder, Current);
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
-                current_version = CheckValidityOfAssemblies.GetAPIVersion(_fs, _config.ManagedFolder, Modded);
+                current_version = CheckValidityOfAssemblies.GetAPIVersion(_config.ManagedFolder, Modded);
             }
             
             if (current_version == null)

@@ -122,7 +122,7 @@ namespace Scarab.Models
                 // dont find it if its already found
                 if (string.IsNullOrEmpty(_settingsFile))
                 {
-                    _settingsFile = GlobalSettingsFinder.HasSettingsFile(this) ?? string.Empty;
+                    _settingsFile = GlobalSettingsFinder.GetSettingsFile(this) ?? string.Empty;
                 }
 
                 return _settingsFile;
@@ -219,6 +219,35 @@ namespace Scarab.Models
                 _settingsFile = string.Empty;
                 CallOnPropertyChanged(nameof(HasSettings));
             }
+        }
+
+        public static ModItem Empty(
+            ModState? state = null,
+            Version? version = null,
+            string[]? dependencies = null ,
+            string? link = null ,
+            string? shasum = null ,
+            string? name = null ,
+            string? description = null ,
+            string? repository = null ,
+            string[]? tags = null ,
+            string[]? integrations = null ,
+            string[]? authors = null
+        )
+        {
+            return new ModItem(
+                state ?? new NotInModLinksState(),
+                version ?? new Version(0, 0, 0),
+                dependencies ?? Array.Empty<string>(),
+                link ?? string.Empty,
+                shasum ?? string.Empty,
+                name ?? string.Empty,
+                description ?? string.Empty,
+                repository ?? string.Empty,
+                tags ?? Array.Empty<string>(),
+                integrations ?? Array.Empty<string>(),
+                authors ?? Array.Empty<string>()
+            );
         }
 
         #region Equality

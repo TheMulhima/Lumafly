@@ -23,6 +23,9 @@ namespace Scarab.Views
         private readonly List<MenuItem> _flyoutMenus;
         private readonly List<MenuItem> _modFilterItems;
 
+        public static FieldInfo MenuItemPopup =>
+            typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
         private ModListViewModel ModListViewModel => (((StyledElement)this).DataContext as ModListViewModel)!;
 
         public ModListView()
@@ -57,9 +60,7 @@ namespace Scarab.Views
             {
 
 
-                var menuItem_popup =
-                    typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(
-                        flyoutMenu);
+                var menuItem_popup = MenuItemPopup.GetValue(flyoutMenu);
 
                 var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");
 

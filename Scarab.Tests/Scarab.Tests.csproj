@@ -23,5 +23,13 @@
     <ItemGroup>
       <ProjectReference Include="..\Scarab\Scarab.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <AssetsSourceFiles Include="Resources\*.dll" />
+    </ItemGroup>
+
+    <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+        <Copy SourceFiles="@(AssetsSourceFiles)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+        <Move SourceFiles="$(OutDir)\MockModWithDifferentName.dll" DestinationFolder="$(OutDir)\MockModWithDifferentName" />
+    </Target>
 
 </Project>

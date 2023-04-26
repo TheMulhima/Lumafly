@@ -10,12 +10,12 @@ namespace Scarab.Util;
 
 public static class CheckValidityOfAssemblies
 {
-    public static int? GetAPIVersion(IFileSystem _fs, string managedFolder, string asmName)
+    public static int? GetAPIVersion(string managedFolder, string asmName)
     {
         try
         {
             string asm = Path.Combine(managedFolder, asmName);
-            if (!_fs.File.Exists(asm)) 
+            if (!File.Exists(asm)) 
                 return null;
 
             using AssemblyDefinition asmDefinition = AssemblyDefinition.ReadAssembly(asm);
@@ -41,6 +41,6 @@ public static class CheckValidityOfAssemblies
     {
         // check if the file is there and the file doesnt have monomod
         return _fs.File.Exists(Path.Combine(managedFolder, vanillaAssembly)) && 
-               GetAPIVersion(_fs, managedFolder, vanillaAssembly) == null;
+               GetAPIVersion(managedFolder, vanillaAssembly) == null;
     }
 }
