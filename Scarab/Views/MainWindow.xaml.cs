@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Diagnostics;
 using Avalonia.Markup.Xaml;
 
 namespace Scarab.Views
@@ -10,9 +12,21 @@ namespace Scarab.Views
             InitializeComponent();
         }
 
-        private void InitializeComponent()
+        private void InitializeComponent(bool loadXaml = true, bool attachDevTools = true)
         {
-            AvaloniaXamlLoader.Load(this);
+            #if DEBUG
+            if (attachDevTools)
+            {
+                this.AttachDevTools(new DevToolsOptions
+                {
+                    Size = new Size(640, 480)
+                }); // press f12 to open
+            }
+            #endif
+            if (loadXaml)
+            {
+                AvaloniaXamlLoader.Load(this);
+            }
         }
     }
 }
