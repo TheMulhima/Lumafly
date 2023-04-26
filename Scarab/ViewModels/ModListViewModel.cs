@@ -88,7 +88,7 @@ namespace Scarab.ViewModels
 
             ModNames = _items.Where(x => x.State is not NotInModLinksState).Select(x => x.Name);
 
-            ToggleApi = ReactiveCommand.Create(ToggleApiCommand);
+            ToggleApi = ReactiveCommand.CreateFromTask(ToggleApiCommand);
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
 
@@ -164,7 +164,7 @@ namespace Scarab.ViewModels
         private void RaisePropertyChanged(string name) => IReactiveObjectExtensions.RaisePropertyChanged(this, name);
         private void RaisePropertyChanging(string name) => IReactiveObjectExtensions.RaisePropertyChanging(this, name);
 
-        private async void ToggleApiCommand()
+        private async Task ToggleApiCommand()
         {
             bool shouldInstallAndToggle = false;
             if (_mods.ApiInstall is InstalledState installedState)
