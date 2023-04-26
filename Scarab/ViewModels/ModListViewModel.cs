@@ -146,13 +146,13 @@ namespace Scarab.ViewModels
             }
         }
 
-        public string ApiButtonText   => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
+        public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
                 enabled ? Resources.MLVM_ApiButtonText_DisableAPI 
-                        : Resources.MLVM_ApiButtonText_EnableAPI 
+                    : Resources.MLVM_ApiButtonText_EnableAPI 
             )
             : Resources.MLVM_ApiButtonText_ToggleAPI;
-        
+
         public bool ApiOutOfDate => _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version;
 
         public bool EnableApiButton => _mods.ApiInstall switch
@@ -177,6 +177,16 @@ namespace Scarab.ViewModels
 
         private async void ToggleApiCommand()
         {
+            if (_mods.ApiInstall is InstalledState { Enabled: true })
+            {
+                await _installer.CheckAPI();
+                if (!_mods.HasVanilla)
+                {
+                    //TODO: after merge to master add warning
+                    return;
+                }
+            }
+
             await _installer.ToggleApi();
             
             RaisePropertyChanged(nameof(ApiButtonText));

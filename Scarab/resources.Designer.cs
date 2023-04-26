@@ -114,6 +114,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vanilla not found.
+        /// </summary>
+        internal static string MLVM_ApiButtonText_VanillaNotFound {
+            get {
+                return ResourceManager.GetString("MLVM_ApiButtonText_VanillaNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Re-open the installer to use your new path..
         /// </summary>
         internal static string MLVM_ChangePathAsync_Msgbox_Text {
