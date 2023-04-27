@@ -22,7 +22,7 @@
         
         <TextBlock 
             Grid.Row="1"
-            Text="Loading Mods..."
+            Text="{Binding LoadingText}"
             FontSize="26"
             TextAlignment="Center"/>
         

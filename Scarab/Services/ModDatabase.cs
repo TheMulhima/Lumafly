@@ -21,6 +21,8 @@ namespace Scarab.Services
         
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
+        
+        internal const int TIMEOUT = 30_000;
 
         public (string Url, int Version, string SHA256) Api { get; }
 
@@ -132,12 +134,12 @@ namespace Scarab.Services
         {
             try
             {
-                var cts = new CancellationTokenSource(10000);
+                var cts = new CancellationTokenSource(TIMEOUT);
                 return await hc.GetStringAsync(uri, cts.Token);
             }
             catch (Exception e) when (e is TaskCanceledException or HttpRequestException)
             {
-                var cts = new CancellationTokenSource(10000);
+                var cts = new CancellationTokenSource(TIMEOUT);
                 return await hc.GetStringAsync(fallback, cts.Token);
             }
         }
