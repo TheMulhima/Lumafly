@@ -371,7 +371,7 @@ namespace Scarab.ViewModels
                     dependents.Count == 0 ||
                     await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents))
                 {
-                    _installer.Toggle(item);
+                    await _installer.Toggle(item);
                 }
 
                 // to reset the visuals of the toggle to the correct value
@@ -379,7 +379,11 @@ namespace Scarab.ViewModels
                 RaisePropertyChanged(nameof(CanDisableAll));
                 RaisePropertyChanged(nameof(CanEnableAll));
                 FilterMods();
-                
+
+            }
+            catch (IOException io)
+            {
+                await DisplayErrors.HandleIOExceptionWhenDownloading(item, io, "toggle");
             }
             catch (Exception e)
             {
@@ -426,17 +430,20 @@ namespace Scarab.ViewModels
                 if (res == ButtonResult.Yes)
                     proc.Kill();
             }
-            
+
             try
             {
                 // ensure no duplicate mods
                 if (item.State is NotInstalledState)
                 {
-                    foreach (var similarItem in _items.Where(x => x.Name == item.Name && x.State is InstalledState or NotInModLinksState).ToList())
+                    foreach (var similarItem in _items
+                                 .Where(x => x.Name == item.Name && x.State is InstalledState or NotInModLinksState)
+                                 .ToList())
                     {
                         await _installer.Uninstall(similarItem);
                     }
                 }
+
                 await downloader
                 (
                     _installer,
@@ -464,17 +471,15 @@ namespace Scarab.ViewModels
             {
                 await DisplayErrors.DisplayNetworkError(item.Name, e);
             }
+            catch (IOException io)
+            {
+                Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
+                await DisplayErrors.HandleIOExceptionWhenDownloading(item, io, "installing or uninstalling");
+            }
             catch (Exception e)
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
-                if (e is IOException)
-                {
-                    await HandleIOExceptionWhenDownloading(item, e);
-                }
-                else
-                {
-                    await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, e);
-                }
+                await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, e);
             }
 
             // Even if we threw, stop the progress bar.
@@ -516,38 +521,7 @@ namespace Scarab.ViewModels
             _items.SortBy(Comparer);
         }
 
-        private async Task HandleIOExceptionWhenDownloading(ModItem item, Exception e)
-        {
-            // no need to run progress bar
-            ProgressBarVisible = false;
-
-            string additionalText = "";
-            string filePath = e.Message.Split('\'')[1];
-            if (OperatingSystem.IsWindows())
-            {
-                try
-                {
-                    var processess = FileAccessLookup.WhoIsLocking(filePath);
-                    if (processess.Count > 0)
-                    {
-                        additionalText =
-                            $"\n\nPlease close the following processes as they are locking important files:\n {string.Join("\n", processess.Select(x => x.ProcessName))}";
-                    }
-                }
-                catch (Exception)
-                {
-                    //ignored as its not a requirement
-                }
-            }
-
-            item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
-
-            await DisplayErrors.DisplayGenericError(
-                $"Unable to install or uninstall {item.Name}.\n" +
-                $"Scarab was unable to access the file in the mods folder.\n" +
-                $"Please make sure to close all other apps that could be using the mods folder\n" +
-                additionalText, e);
-        }
+        
 
         [UsedImplicitly]
         private async Task OnUpdate(ModItem item) => await InternalModDownload(item, item.OnUpdate);

@@ -17,6 +17,10 @@
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />
+        <Compile Update="Views\ErrorPopup.axaml.cs">
+          <DependentUpon>ErrorPopup.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
     
     <ItemGroup>

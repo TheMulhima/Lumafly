@@ -4,10 +4,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MessageBox.Avalonia.Models;
+using Scarab.CustomControls;
 using Scarab.Models;
 using Scarab.Services;
+using Scarab.ViewModels;
 
 namespace Scarab.Util;
 
@@ -25,27 +32,21 @@ public static class DisplayErrors
 
     public static async Task DisplayGenericError(string action, string name, Exception e)
     {
-        Trace.TraceError(e.ToString());
-
-        await MessageBoxManager.GetMessageBoxStandardWindow
-        (
-            title: "Error!",
-            text: $"An exception occured while {action} {name}.",
-            icon: Icon.Error
-        ).Show();
+        await DisplayGenericError($"An exception occured while {action} {name}.", e);
     }
     
     public static async Task DisplayGenericError(string errorText, Exception? e = null)
     {
         if (e != null)
             Trace.TraceError(e.ToString());
+        
+        Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                        ?? throw new InvalidOperationException();
 
-        await MessageBoxManager.GetMessageBoxStandardWindow
-        (
-            title: "Error!",
-            text: errorText,
-            icon: Icon.Error
-        ).Show();
+        await new ErrorPopup()
+        {
+            DataContext = new ErrorPopupViewModel(errorText, e)
+        }.ShowDialog(parent);
     }
 
     public static async Task DisplayNetworkError(string name, HttpRequestException e)
@@ -106,18 +107,37 @@ public static class DisplayErrors
         }
     }
     
-    public static async Task DoActionAfterConfirmation(bool shouldAskForConfirmation, Func<Task<bool>> warningPopupDisplayer, Action action)
+    public static async Task HandleIOExceptionWhenDownloading(ModItem item, Exception e, string action)
     {
-        if (shouldAskForConfirmation)
+        string additionalText = "";
+        string filePath = e.Message.Split('\'')[1];
+        List<Process> processess = new List<Process>();
+        if (OperatingSystem.IsWindows())
         {
-            if (await warningPopupDisplayer())
+            try
             {
-                action();
+                processess = FileAccessLookup.WhoIsLocking(filePath);
+                if (processess.Count > 0)
+                {
+                    additionalText =
+                        $"\n\nPlease close the following processes as they are locking important files:\n {string.Join("\n", processess.Select(x => x.ProcessName))}";
+                }
+            }
+            catch (Exception)
+            {
+                //ignored as its not a requirement
             }
         }
-        else
-        {
-            action();
-        }
+
+        item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
+
+        if (processess.Count > 0) Trace.WriteLine($"Following processes is locking the file " +
+                                                  $"\n{string.Join("\n", processess.Select(x => x.ProcessName))}");
+        
+        await DisplayGenericError(
+            $"Unable to {action} {item.Name}.\n" +
+            $"Scarab was unable to access the file in the mods folder.\n" +
+            $"Please make sure to close all other apps that could be using the mods folder\n" +
+            additionalText, e);
     }
 }
