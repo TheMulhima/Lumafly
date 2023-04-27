@@ -22,19 +22,44 @@
         ColumnDefinitions="15,Auto,15,*,15" 
         RowDefinitions="15,*,15,Auto,15">
         <!--Icon-->
-        <Image Grid.Row="1" Grid.Column="1" MaxHeight="50" MaxWidth="50" VerticalAlignment="Top"
+        <Image Grid.Row="1" Grid.Column="1" 
+               MaxHeight="50" 
+               MaxWidth="50"
+               VerticalAlignment="Top"
                Source="/Assets/error.png" />
         
         <!--Error Message-->
         <StackPanel Grid.Row="1" Grid.Column="3">
-            <TextBlock Margin="0 0 0 15" Text="{Binding ErrorExplanation}" 
-                     TextWrapping="Wrap"/>
-            <Expander Header="Click to show full error" IsVisible="{Binding IsExpanderVisible}" MaxHeight="200">
-                <TextBox Margin="0 0 0 0" Text="{Binding FullErrorText}" 
+            
+            <TextBlock Margin="0 0 0 15"
+                       Text="{Binding ErrorExplanation}" 
+                       TextWrapping="Wrap"/>
+            
+            <Expander MaxHeight="200"
+                      IsVisible="{Binding IsExpanderVisible}">
+                <Expander.Header>
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <TextBlock Grid.Column="0" 
+                                   VerticalAlignment="Center"
+                                   Text="Click to show full error"/>
+                        
+                        <Button Grid.Column="2" 
+                                Name="CopyButton"
+                                HorizontalAlignment="Right"
+                                Margin="11 0"
+                                Command="{Binding Copy}"/>
+                    </Grid>
+                </Expander.Header>
+                
+                <TextBox Text="{Binding FullErrorText}" 
                          TextWrapping="Wrap"/>
+                
             </Expander>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="3" Grid.Column="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            
             <Button Content="Report Error"
                     Margin="0 0 15 0"
                     Command="{Binding ReportError}"/>
@@ -44,6 +69,7 @@
             <Button Name="OkButton" 
                     Content="Ok"
                     Margin="0 0 15 0"/>
+            
         </StackPanel>
     </Grid>
 </Window>
