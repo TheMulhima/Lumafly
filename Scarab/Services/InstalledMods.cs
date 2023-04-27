@@ -78,9 +78,16 @@ namespace Scarab.Services
             // Validate that mods are installed in case of manual user intervention
             foreach (string name in db.Mods.Select(x => x.Key))
             {
-                if (ModExists(name, out _))
-                    continue;
-                
+                if (ModExists(name, out var enabled))
+                {
+                    if (db.Mods[name].Enabled != enabled)
+                    {
+                        Trace.WriteLine($"mod {name} enabled state mismatch, fixing!");
+                        db.Mods[name] = db.Mods[name] with { Enabled = enabled };
+                    }
+                    continue;   
+                }
+
                 Trace.TraceWarning($"Removing missing mod {name}!");
                 
                 db.Mods.Remove(name);
