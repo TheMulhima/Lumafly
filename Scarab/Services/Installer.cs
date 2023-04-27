@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.IO.Abstractions;
@@ -84,22 +85,24 @@ namespace Scarab.Services
             _fs.Directory.CreateDirectory(_config.ModsFolder);
         }
 
-        public void Toggle(ModItem mod)
+        public async Task Toggle(ModItem mod)
         {
             if (mod.State is not (InstalledState or NotInModLinksState))
                 throw new InvalidOperationException("Cannot enable mod which is not installed!");
 
-            var enabled = mod.State is InstalledState ? ((InstalledState)mod.State).Enabled : ((NotInModLinksState)mod.State).Enabled;
-            
+            var enabled = mod.State is InstalledState
+                ? ((InstalledState)mod.State).Enabled
+                : ((NotInModLinksState)mod.State).Enabled;
+
             // Enable dependents when enabling a mod
-            if (!enabled) 
+            if (!enabled)
             {
                 foreach (ModItem dep in mod.Dependencies.Select(x => _db.Items.First(i => i.Name == x)))
                 {
                     if (dep.State is InstalledState { Enabled: true } or NotInstalledState)
                         continue;
 
-                    Toggle(dep);
+                    await Toggle(dep);
                 }
             }
 
@@ -113,7 +116,7 @@ namespace Scarab.Services
                 Path.Combine(prev, mod.Name),
                 Path.Combine(after, mod.Name)
             );
-
+            
             // If it's already in the other state due to user usage or an error, let it fix itself.
             if (_fs.Directory.Exists(prev) && !_fs.Directory.Exists(after))
                 _fs.Directory.Move(prev, after);
@@ -126,8 +129,9 @@ namespace Scarab.Services
             {
                 mod.State = notInModLinksState with { Enabled = !notInModLinksState.Enabled };
             }
-            
-            _installed.RecordInstalledState(mod);
+
+            await _installed.RecordInstalledState(mod);
+
         }
 
         /// <remarks> This enables the API if it's installed! </remarks>
@@ -288,7 +292,7 @@ namespace Scarab.Services
                 if (dep.State is InstalledState { Updated: true, Enabled: var enabled })
                 {
                     if (!enabled)
-                        Toggle(dep);
+                        await Toggle(dep);
                     
                     continue;
                 }
