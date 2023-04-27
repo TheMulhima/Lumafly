@@ -22,7 +22,7 @@ public class MiscServicesTest
     {
         var version = Util.CheckValidityOfAssemblies.GetAPIVersion(Directory.GetCurrentDirectory(), "MockMAPI.dll");
         Assert.NotNull(version);
-        Assert.Equal(73, version);
+        Assert.Equal(74, version);
     }
     
     /// <summary>
