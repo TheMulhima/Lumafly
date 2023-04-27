@@ -7,6 +7,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -21,6 +22,8 @@ namespace Scarab.Services
         internal static readonly string ConfigPath = Path.Combine(Settings.GetOrCreateDirPath(), FILE_NAME);
 
         public Dictionary<string, InstalledState> Mods { get; init; } = new();
+        
+        private readonly SemaphoreSlim _semaphore = new (1);
         
         public bool HasVanilla { get; set; }
 
@@ -158,14 +161,23 @@ namespace Scarab.Services
 
         private async Task SaveToDiskAsync()
         {
-            await using Stream fs = _fs.File.Exists(ConfigPath)
-                ? _fs.FileStream.New(ConfigPath, FileMode.Truncate)
-                : _fs.File.Create(ConfigPath);
+            await _semaphore.WaitAsync();
 
-            await JsonSerializer.SerializeAsync(fs, this, new JsonSerializerOptions()
+            try
             {
-                WriteIndented = true
-            });
+                await using Stream fs = _fs.File.Exists(ConfigPath)
+                    ? _fs.FileStream.New(ConfigPath, FileMode.Truncate)
+                    : _fs.File.Create(ConfigPath);
+
+                await JsonSerializer.SerializeAsync(fs, this, new JsonSerializerOptions()
+                {
+                    WriteIndented = true
+                });
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
     }
 }
