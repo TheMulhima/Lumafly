@@ -10,6 +10,8 @@ namespace Scarab.Interfaces
 
         public Task Install(ModItem mod, Action<ModProgressArgs> setProgress, bool enable);
 
+        public Task PlaceMod(ModItem mod, bool enable, string filename, ArraySegment<byte> data);
+
         public Task Uninstall(ModItem mod);
 
         public Task InstallApi();

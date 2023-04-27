@@ -302,9 +302,28 @@ namespace Scarab.Services
 
             ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
 
+            await PlaceMod(mod, enable, filename, data);
+
+            mod.State = mod.State switch {
+                InstalledState => new InstalledState(
+                    Version: mod.Version,
+                    Updated:  true,
+                    Enabled: enable
+                ),
+
+                NotInstalledState => new InstalledState(enable, mod.Version, true),
+
+                _ => throw new InvalidOperationException(mod.State.GetType().Name)
+            };
+
+            await _installed.RecordInstalledState(mod);
+        }
+
+        public async Task PlaceMod(ModItem mod, bool enable, string filename, ArraySegment<byte> data)
+        {
             // Sometimes our filename is quoted, remove those.
             filename = filename.Trim('"');
-            
+
             string ext = Path.GetExtension(filename.ToLower());
 
             // Default to enabling
@@ -337,20 +356,6 @@ namespace Scarab.Services
                     throw new NotImplementedException($"Unknown file type for mod download: {filename}");
                 }
             }
-
-            mod.State = mod.State switch {
-                InstalledState => new InstalledState(
-                    Version: mod.Version,
-                    Updated:  true,
-                    Enabled: enable
-                ),
-
-                NotInstalledState => new InstalledState(enable, mod.Version, true),
-
-                _ => throw new InvalidOperationException(mod.State.GetType().Name)
-            };
-
-            await _installed.RecordInstalledState(mod);
         }
 
         private static void ThrowIfInvalidHash(string name, ArraySegment<byte> data, string modSha256)

@@ -322,9 +322,15 @@
     <value>No mods to display</value>
   </data>
   <data name="XAML_Additional" xml:space="preserve">
-    <value>Additional</value>
+    <value>Extras</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
     <value>Open Saves Folder</value>
+  </data>
+  <data name="XAML_Manual_Install" xml:space="preserve">
+    <value>Manually Install Mod</value>
+  </data>
+  <data name="MLVM_Select_Mod" xml:space="preserve">
+    <value>Select the mod dll or zip</value>
   </data>
 </root>

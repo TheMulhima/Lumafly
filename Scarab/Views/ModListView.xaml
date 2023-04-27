@@ -102,6 +102,11 @@
                     Header="{ext:Localize XAML_SavesFolder}"
                     DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom" />
+                    <MenuItem
+                    Command="{Binding ManuallyInstallMod}"
+                    Header="{ext:Localize XAML_Manual_Install}"
+                    DockPanel.Dock="Bottom"
+                    VerticalAlignment="Bottom" />
             </MenuItem>
             <MenuItem
                 Command="{Binding ToggleApi}"

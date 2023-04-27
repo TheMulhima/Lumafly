@@ -114,15 +114,6 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vanilla not found.
-        /// </summary>
-        internal static string MLVM_ApiButtonText_VanillaNotFound {
-            get {
-                return ResourceManager.GetString("MLVM_ApiButtonText_VanillaNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Re-open the installer to use your new path..
         /// </summary>
         internal static string MLVM_ChangePathAsync_Msgbox_Text {
@@ -191,6 +182,15 @@ namespace Scarab {
         internal static string MLVM_InternalUpdateInstallAsync_Msgbox_W_Title {
             get {
                 return ResourceManager.GetString("MLVM_InternalUpdateInstallAsync_Msgbox_W_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the mod dll or zip.
+        /// </summary>
+        internal static string MLVM_Select_Mod {
+            get {
+                return ResourceManager.GetString("MLVM_Select_Mod", resourceCulture);
             }
         }
         
@@ -402,7 +402,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional.
+        ///   Looks up a localized string similar to Extras.
         /// </summary>
         internal static string XAML_Additional {
             get {
@@ -479,6 +479,15 @@ namespace Scarab {
         internal static string XAML_Integrations {
             get {
                 return ResourceManager.GetString("XAML_Integrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manually Install Mod.
+        /// </summary>
+        internal static string XAML_Manual_Install {
+            get {
+                return ResourceManager.GetString("XAML_Manual_Install", resourceCulture);
             }
         }
         

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using AvaloniaEdit.Highlighting;
 using JetBrains.Annotations;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
@@ -68,6 +69,7 @@ namespace Scarab.ViewModels
         public ObservableCollection<TagItem> TagList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; }
+        public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
         
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
         
@@ -91,6 +93,7 @@ namespace Scarab.ViewModels
             ToggleApi = ReactiveCommand.CreateFromTask(ToggleApiCommand);
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
+            ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
 
             HashSet<string> tagsInModlinks = new();
             foreach (var mod in _items)
@@ -479,25 +482,38 @@ namespace Scarab.ViewModels
             ProgressBarVisible = false;
 
             RaisePropertyChanged(nameof(ApiButtonText));
+            item.CallOnPropertyChanged(nameof(ModItem.HasSettings));
 
+            FixupModList();
+        }
+
+        private void FixupModList(ModItem? itemToAdd = null)
+        {
             static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
-            
+
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
             foreach (var _item in removeList)
             {
                 _items.Remove(_item);
                 SelectedItems = SelectedItems.Where(x => x != _item);
             }
+
+            if (itemToAdd != null)
+            {
+                // no need to actually save to disk because next time we open 
+                // the thing in moddatabase will handle it
+                _db.Items.Add(itemToAdd);
+                _items.Add(itemToAdd);
+            }
+
             _items.SortBy(Comparer);
-            
-            item.CallOnPropertyChanged(nameof(ModItem.HasSettings));
 
             RaisePropertyChanged(nameof(CanUninstallAll));
             RaisePropertyChanged(nameof(CanDisableAll));
             RaisePropertyChanged(nameof(CanEnableAll));
-            
+
             FilterMods();
-            
+
             _items.SortBy(Comparer);
         }
 
@@ -545,6 +561,46 @@ namespace Scarab.ViewModels
                 shouldAskForConfirmation: item.Installed && dependents.Count > 0, // if its installed rn and has dependents
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
                 action: () => InternalModDownload(item, item.OnInstall));
+        }
+
+        [UsedImplicitly]
+        private async Task ManuallyInstallModAsync()
+        {
+            Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                            ?? throw new InvalidOperationException();
+            
+            var dialog = new OpenFileDialog
+            {
+                Title = Resources.MLVM_Select_Mod,
+                Filters = new List<FileDialogFilter> { new () { Extensions = new List<string>() {"dll", "zip"} } }
+            };
+
+            string[]? paths = await dialog.ShowAsync(parent);
+            if (paths is null || paths.Length == 0)
+                return;
+
+            foreach (var path in paths)
+            {
+                try
+                {
+                    var mod = ModItem.Empty(
+                        name: Path.GetFileNameWithoutExtension(path),
+                        description: "This mod was manually installed and is not from official modlinks");
+                    
+                    await _installer.PlaceMod(
+                    mod,
+                    true,
+                    Path.GetFileName(path),
+                    await File.ReadAllBytesAsync(path));
+
+                    FixupModList(mod);
+                    
+                }
+                catch(Exception e)
+                {
+                    await DisplayErrors.DisplayGenericError("Manually installing", Path.GetFileName(path), e);
+                }
+            }
         }
 
         [UsedImplicitly]
