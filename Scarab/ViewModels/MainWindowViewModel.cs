@@ -56,6 +56,7 @@ namespace Scarab.ViewModels
             await CheckUpToDate();
             
             var sc = new ServiceCollection();
+            var fs = new FileSystem();
 
             Trace.WriteLine("Loading settings.");
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
@@ -124,16 +125,18 @@ namespace Scarab.ViewModels
             }
 
             Trace.WriteLine("Fetched links successfully");
+
+            var installedMods = await InstalledMods.Load(
+                fs,
+                settings,
+                content.ml
+            );
             
             sc
               .AddSingleton(hc)
               .AddSingleton<ISettings>(_ => settings)
-              .AddSingleton<IFileSystem, FileSystem>()
-              .AddSingleton<IModSource>(services => InstalledMods.Load(
-                  services.GetRequiredService<IFileSystem>(),
-                  settings,
-                  content.ml
-              ))
+              .AddSingleton<IFileSystem>(_ => fs)
+              .AddSingleton<IModSource>(_ => installedMods)
               .AddSingleton<IModDatabase, ModDatabase>(sp => new ModDatabase(sp.GetRequiredService<IModSource>(), content, settings))
               .AddSingleton<IInstaller, Installer>()
               .AddSingleton<ModListViewModel>();

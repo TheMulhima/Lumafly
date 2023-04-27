@@ -23,7 +23,7 @@ namespace Scarab.Services
 
         public Dictionary<string, InstalledState> Mods { get; init; } = new();
         
-        private readonly SemaphoreSlim _semaphore = new (1);
+        private static readonly SemaphoreSlim _semaphore = new (1);
         
         public bool HasVanilla { get; set; }
 
@@ -39,7 +39,7 @@ namespace Scarab.Services
 
         private readonly IFileSystem _fs;
 
-        public static InstalledMods Load(IFileSystem fs, ISettings config, ModLinks ml)
+        public static async Task<InstalledMods> Load(IFileSystem fs, ISettings config, ModLinks ml)
         {
             InstalledMods db;
 
@@ -109,6 +109,8 @@ namespace Scarab.Services
                 db.ApiInstall = new NotInstalledState();
             }
 
+            await db.SaveToDiskAsync();
+            
             return db;
         }
 
