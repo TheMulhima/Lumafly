@@ -58,29 +58,33 @@ namespace Scarab.Services
 
             if (settings is not null && Directory.Exists(settings.ModsFolder))
             {
-                foreach (var dir in Directory.GetDirectories(settings.ModsFolder))
+                foreach (var dir in Directory.GetDirectories(settings.ModsFolder).Where(x => x != settings.DisabledFolder))
                 {
-                    var name = dir.Replace(settings.ModsFolder + "\\", "");
-                    if (name == "Disabled")
-                        continue;
-                    
-                    // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
-                    if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)
-                        continue;
-                    
-                    _items.Add(new ModItem(new NotInModLinksState(),
-                        new Version(0, 0, 0, 0),
-                        Array.Empty<string>(),
-                        "",
-                        "",
-                        name!,
-                        "This mod is not from official modlinks",
-                        "",
-                        Array.Empty<string>(),
-                        Array.Empty<string>(),
-                        Array.Empty<string>()));
-
+                    AddExternalMod(dir, settings.ModsFolder, true);
                 }
+
+                if (Directory.Exists(settings.DisabledFolder))
+                {
+                    foreach (var dir in Directory.GetDirectories(settings.DisabledFolder))
+                    {
+                        AddExternalMod(dir, settings.DisabledFolder, false);
+                    }
+                }
+            }
+
+            void AddExternalMod(string dir, string baseDir ,bool enabled)
+            {
+                // get only folder name
+                var name = dir.Replace(baseDir + "\\", "");
+
+                // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
+                if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)
+                    return;
+
+                _items.Add(ModItem.Empty(
+                    state: new NotInModLinksState(enabled),
+                    name: name,
+                    description: "This mod is not from official modlinks"));
             }
 
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));
