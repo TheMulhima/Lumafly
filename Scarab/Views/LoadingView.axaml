@@ -1,0 +1,30 @@
+﻿<views:View x:TypeArguments="viewModels:LoadingViewModel"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+            xmlns:views="clr-namespace:Scarab.Views"
+            xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:Class="Scarab.Views.LoadingView">
+    <Grid RowDefinitions="3*, *">
+        
+        <progRing:ProgressRing 
+            Grid.Row="0"
+            Width="150" 
+            Height="150"
+            IsActive="True"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="Ivory"
+            Margin="10,20,0,0"/>
+        
+        <TextBlock 
+            Grid.Row="1"
+            Text="Loading Mods..."
+            FontSize="26"
+            TextAlignment="Center"/>
+        
+    </Grid>
+</views:View>

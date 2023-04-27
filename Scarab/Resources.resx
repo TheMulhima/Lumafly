@@ -160,13 +160,13 @@
     <value>failed with HTTP error {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Unable to fetch modlinks, the operation {0}</value>
+    <value>Unable to get list of mods from modlinks, the operation {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
     <value>Error!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>timed out</value>
+    <value>timed out. Please check your internet connection and try again</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
     <value>Get the latest release</value>

@@ -24,6 +24,7 @@ using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
+using Scarab.Views;
 
 namespace Scarab.ViewModels
 {
@@ -111,6 +112,8 @@ namespace Scarab.ViewModels
                 string failedOp = e switch
                 {
                     TaskCanceledException => Resources.MWVM_Impl_Error_Fetch_ModLinks_Timeout,
+                    HttpRequestException when e.ToString().Contains("No such host is known.")
+                        => string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Error, "Possibly caused by poor or no internet connection. Please check that and try again"),
                     HttpRequestException http => string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Error, http.StatusCode),
                     _ => throw new ArgumentOutOfRangeException()
                 };
@@ -331,8 +334,9 @@ namespace Scarab.ViewModels
                 : await PathUtil.SelectPath();
         }
 
-        public MainWindowViewModel() => Dispatcher.UIThread.InvokeAsync(async () => 
+        public MainWindowViewModel() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
+            Content = new LoadingViewModel();
             try
             {
                 await Impl();

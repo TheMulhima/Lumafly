@@ -222,7 +222,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to fetch modlinks, the operation {0}.
+        ///   Looks up a localized string similar to Unable to get list of mods from modlinks, the operation {0}.
         /// </summary>
         internal static string MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text {
             get {
@@ -240,7 +240,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to timed out.
+        ///   Looks up a localized string similar to timed out. Please check your internet connection and try again.
         /// </summary>
         internal static string MWVM_Impl_Error_Fetch_ModLinks_Timeout {
             get {

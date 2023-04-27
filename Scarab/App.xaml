@@ -10,6 +10,7 @@
     <Application.Styles>
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
+        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
         <avalonia:HyperLinkStyle/>
         <StyleInclude Source="avares://Scarab/CustomControls/MenuCheckBox.axaml"/>
         <StyleInclude Source="avares://Scarab/CustomControls/TextButtonFlyout.axaml"/>
