@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -63,6 +64,8 @@ namespace Scarab.ViewModels
                 settings = await ResetSettings();
 
             GlobalSettingsFinder.Settings = settings;
+            
+            await EnsureAccessToConfigFile();
 
             Trace.WriteLine("Fetching links");
             
@@ -144,6 +147,53 @@ namespace Scarab.ViewModels
 
             Trace.WriteLine("Displaying model");
             Content = sp.GetRequiredService<ModListViewModel>();
+        }
+
+        private static async Task EnsureAccessToConfigFile()
+        {
+            try
+            {
+                bool configAccessSucess = false;
+                while (!configAccessSucess)
+                {
+                    try
+                    {
+                        var configFile = File.Open(InstalledMods.ConfigPath, FileMode.Open, FileAccess.ReadWrite,
+                            FileShare.None);
+                        configFile.Close();
+                        configAccessSucess = true;
+                    }
+                    catch (IOException)
+                    {
+                        string additionalInfo = "";
+                        try
+                        {
+                            if (OperatingSystem.IsWindows())
+                            {
+                                var processes = FileAccessLookup.WhoIsLocking(InstalledMods.ConfigPath);
+                                additionalInfo =
+                                    $"\n\nProcesses that are locking the file:\n{string.Join("\n", processes.Select(x => x.ProcessName))}";
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            //ignored as its not a requirement
+                        }
+
+                        await MessageBoxManager.GetMessageBoxStandardWindow
+                        (
+                            title: "File access error!!",
+                            text: $"Scarab cannot run without being able to access {InstalledMods.ConfigPath}.\n" +
+                                  $"Please close any other apps that could be using that" + additionalInfo,
+                            icon: Icon.Error
+                        ).Show();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Error happened when trying to find out if config files are locked. {e}");
+            }
         }
 
         private static async Task CheckUpToDate()
