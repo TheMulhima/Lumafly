@@ -1,0 +1,17 @@
+name: Feature Request
+description: Request for a feature
+labels: ["enhancement"]
+
+body:
+  - type: markdown
+    attributes: 
+      value: |
+        This is for requesting a new feature that is not already on Scarab.
+        Note that specific mod bugs do not go here, and go to the appropriate mod's repository.
+  - type: textarea
+    id: repro
+    attributes:
+      label: Explanation of the new feature
+      description: What does the new feature entail?
+    validations:
+      required: true
