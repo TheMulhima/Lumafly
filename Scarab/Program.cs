@@ -80,7 +80,15 @@ namespace Scarab
 
             Trace.TraceError(e.ToString());
 
-            File.WriteAllText(dir + $"ModInstaller_Error_{date}.log", e.ToString());
+            try
+            {
+                // in a try just incase scarab is in a proteced folder
+                File.WriteAllText(dir + $"ModInstaller_Error_{date}.log", e.ToString());
+            }
+            catch (Exception)
+            {
+                Trace.TraceError("Unable to log to executable folder");
+            }
             File.WriteAllText(Path.Combine(Settings.GetOrCreateDirPath(), $"ModInstaller_Error_{date}.log"), e.ToString());
 
             Trace.Flush();
