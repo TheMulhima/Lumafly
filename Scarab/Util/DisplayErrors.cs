@@ -111,16 +111,19 @@ public static class DisplayErrors
     {
         string additionalText = "";
         string filePath = e.Message.Split('\'')[1];
-        List<Process> processess = new List<Process>();
+        List<Process> processes = new List<Process>();
+        string listOfProcesses = "";
         if (OperatingSystem.IsWindows())
         {
             try
             {
-                processess = FileAccessLookup.WhoIsLocking(filePath);
-                if (processess.Count > 0)
+                processes = FileAccessLookup.WhoIsLocking(filePath);
+                if (processes.Count > 0)
                 {
+                    listOfProcesses = $"{string.Join("\n-", processes.Select(x => x.ProcessName))}";
+                    Trace.WriteLine($"Following processes is locking the file {listOfProcesses}");
                     additionalText =
-                        $"\n\nPlease close the following processes as they are locking important files:\n {string.Join("\n", processess.Select(x => x.ProcessName))}";
+                        $"\nPlease close the following processes as they are locking important files:\n{listOfProcesses}";
                 }
             }
             catch (Exception)
@@ -131,9 +134,6 @@ public static class DisplayErrors
 
         item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
 
-        if (processess.Count > 0) Trace.WriteLine($"Following processes is locking the file " +
-                                                  $"\n{string.Join("\n", processess.Select(x => x.ProcessName))}");
-        
         await DisplayGenericError(
             $"Unable to {action} {item.Name}.\n" +
             $"Scarab was unable to access the file in the mods folder.\n" +

@@ -14,7 +14,7 @@ public partial class ErrorPopupViewModel: ViewModelBase
     public ErrorPopupViewModel(string errorExplanation, Exception? e = null)
     {
         ErrorExplanation = errorExplanation;
-        FullErrorText = $"Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version} \n {e}";
+        FullErrorText = $"Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}\n\n{e}";
         IsExpanderVisible = !string.IsNullOrEmpty(FullErrorText);
     }
     
