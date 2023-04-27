@@ -51,6 +51,7 @@ namespace Scarab.ViewModels
 
         private async Task Impl()
         {
+            Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             Trace.WriteLine("Checking if up to date...");
             
             await CheckUpToDate();
@@ -208,7 +209,7 @@ namespace Scarab.ViewModels
             if (_Debug)
                 return; 
 
-            const string gh_releases = "https://api.github.com/repos/fifty-six/Scarab/releases/latest";
+            const string gh_releases = "https://api.github.com/repos/TheMulhima/Scarab/releases/latest";
 
             string json;
             
@@ -264,7 +265,7 @@ namespace Scarab.ViewModels
 
             if (res == Resources.MWVM_OutOfDate_GetLatest)
             {
-                Process.Start(new ProcessStartInfo("https://github.com/fifty-six/Scarab/releases/latest") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/releases/latest") { UseShellExecute = true });
                 
                 ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
             }
