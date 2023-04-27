@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using AvaloniaEdit.Highlighting;
 using JetBrains.Annotations;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
@@ -522,24 +521,25 @@ namespace Scarab.ViewModels
             // no need to run progress bar
             ProgressBarVisible = false;
 
-            DisplayErrors.IsLoadingAnError = true;
-            item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
-
             string additionalText = "";
-            try
+            string filePath = e.Message.Split('\'')[1];
+            if (OperatingSystem.IsWindows())
             {
-                var processess = await FileAccessLookup.GetProcessesThatAreLocking(e.Message.Split('\'')[1]);
-                if (!string.IsNullOrEmpty(processess))
+                try
                 {
-                    additionalText = $"\n\nThe following processes are locking the file:\n {processess}";
+                    var processess = FileAccessLookup.WhoIsLocking(filePath);
+                    if (processess.Count > 0)
+                    {
+                        additionalText =
+                            $"\n\nPlease close the following processes as they are locking important files:\n {string.Join("\n", processess.Select(x => x.ProcessName))}";
+                    }
+                }
+                catch (Exception)
+                {
+                    //ignored as its not a requirement
                 }
             }
-            catch (Exception)
-            {
-                //ignored as its not a requirement
-            }
 
-            DisplayErrors.IsLoadingAnError = true;
             item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
 
             await DisplayErrors.DisplayGenericError(

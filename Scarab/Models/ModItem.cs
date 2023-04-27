@@ -93,7 +93,7 @@ namespace Scarab.Models
             _ => false
         };
 
-        public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true } || DisplayErrors.IsLoadingAnError;
+        public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 
         public string InstallText => State switch
         {

@@ -13,10 +13,6 @@ namespace Scarab.Util;
 
 public static class DisplayErrors
 {
-
-    // for long running error loading tasks
-    public static bool IsLoadingAnError { get; set; } = false;
-    
     public static async Task DisplayHashMismatch(HashMismatchException e)
     {
         await MessageBoxManager.GetMessageBoxStandardWindow
