@@ -253,13 +253,13 @@ namespace Scarab.ViewModels
         public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/ybham") { UseShellExecute = true });
 
         [UsedImplicitly]
-        public void SelectMods(ModFilterState modFilterState)
+        public void SelectModsWithFilter(ModFilterState modFilterState)
         {
             ModFilterState = modFilterState;
-            FilterMods();
+            SelectMods();
         }
         
-        private void FilterMods()
+        private void SelectMods()
         {
             SelectedItems = _modFilterState switch
             {
@@ -269,7 +269,7 @@ namespace Scarab.ViewModels
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
             };
-            
+
             var selectedTags = TagList
                 .Where(x => x.IsSelected)
                 .Select(x => x.TagName)
@@ -278,11 +278,12 @@ namespace Scarab.ViewModels
             if (selectedTags.Count > 0)
             {
                 SelectedItems = SelectedItems
-                    .Where(x => x.HasTags && 
+                    .Where(x => x.HasTags &&
                                 x.Tags.Any(tagsDefined => selectedTags
                                     .Any(tagsSelected => tagsSelected == tagsDefined)));
             }
             
+
             RaisePropertyChanged(nameof(FilteredItems));
         }
 
@@ -374,7 +375,7 @@ namespace Scarab.ViewModels
                 item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
                 RaisePropertyChanged(nameof(CanDisableAll));
                 RaisePropertyChanged(nameof(CanEnableAll));
-                FilterMods();
+                SelectMods();
 
             }
             catch (IOException io)
@@ -487,6 +488,7 @@ namespace Scarab.ViewModels
             FixupModList();
         }
 
+        //TODO: dont use normal sorting
         private void FixupModList(ModItem? itemToAdd = null)
         {
             static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
@@ -500,8 +502,8 @@ namespace Scarab.ViewModels
 
             if (itemToAdd != null)
             {
-                // no need to actually save to disk because next time we open 
-                // the thing in moddatabase will handle it
+                // we add notinmodlinks mods so no need to actually save to disk because
+                // next time we open scarab, moddatabase will handle it
                 _db.Items.Add(itemToAdd);
                 _items.Add(itemToAdd);
             }
@@ -512,12 +514,10 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(CanDisableAll));
             RaisePropertyChanged(nameof(CanEnableAll));
 
-            FilterMods();
+            SelectMods();
 
             _items.SortBy(Comparer);
         }
-
-        
 
         [UsedImplicitly]
         private async Task OnUpdate(ModItem item) => await InternalModDownload(item, item.OnUpdate);
@@ -572,9 +572,6 @@ namespace Scarab.ViewModels
                 }
             }
         }
-
-        [UsedImplicitly]
-        private void OnTagSelect() => FilterMods();
 
         private static (int priority, string name) ModToOrderedTuple(ModItem m) =>
         (

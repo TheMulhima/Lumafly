@@ -47,7 +47,7 @@
                 PointerPressed="ModFilterPressed"
                 Background="{DynamicResource HighlightBlue}"
                 Header="{ext:Localize XAML_ModsFilter_All}" 
-                Command="{Binding SelectMods}" 
+                Command="{Binding SelectModsWithFilter}" 
                 CommandParameter="{x:Static models:ModFilterState.All}"
                 DockPanel.Dock="Top"/>
             
@@ -57,7 +57,7 @@
                 Name="ModFilter_Installed"
                 PointerPressed="ModFilterPressed"
                 Header="{ext:Localize XAML_ModsFilter_Installed}"
-                Command="{Binding SelectMods}"
+                Command="{Binding SelectModsWithFilter}"
                 CommandParameter="{x:Static models:ModFilterState.Installed}"
                 DockPanel.Dock="Top"/>
             
@@ -67,7 +67,7 @@
                 Name="ModFilter_Enabled"
                 PointerPressed="ModFilterPressed"
                 Header="{ext:Localize XAML_ModsFilter_Enabled}" 
-                Command="{Binding SelectMods}"
+                Command="{Binding SelectModsWithFilter}"
                 CommandParameter="{x:Static models:ModFilterState.Enabled}"
                 DockPanel.Dock="Top"/>
             
@@ -77,7 +77,7 @@
                 Name="ModFilter_OutOfDate"
                 PointerPressed="ModFilterPressed"
                 Header="{ext:Localize XAML_ModsFilter_OutOfDate}" 
-                Command="{Binding SelectMods}"
+                Command="{Binding SelectModsWithFilter}"
                 CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
                 DockPanel.Dock="Top"/>
             
