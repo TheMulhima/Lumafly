@@ -591,7 +591,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRepository:\n.
+        ///   Looks up a localized string similar to \nRepository and Readme:\n.
         /// </summary>
         internal static string XAML_Repository {
             get {
