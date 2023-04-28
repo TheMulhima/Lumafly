@@ -16,12 +16,15 @@ namespace Scarab.Services
 {
     public class ModDatabase : IModDatabase
     {
-        private const string MODLINKS_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/main/ModLinks.xml";
-        private const string APILINKS_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/main/ApiLinks.xml";
+        private const string MODLINKS_BASE_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/";
+        private const string APILINKS_BASE_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/";
         
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
         
+        public static string GetModlinksUri(string? sha = null) => MODLINKS_BASE_URI + (sha ?? "main") + "/ModLinks.xml";
+        public static string GetAPILinksUri(string? sha = null) => APILINKS_BASE_URI + (sha ?? "main") + "/ApiLinks.xml";
+
         internal const int TIMEOUT = 30_000;
 
         public (string Url, int Version, string SHA256) Api { get; }
@@ -106,7 +109,7 @@ namespace Scarab.Services
             return (await ml, await al);
         }
         
-        private static T FromString<T>(string xml)
+        public static T FromString<T>(string xml)
         {
             var serializer = new XmlSerializer(typeof(T));
             
@@ -122,12 +125,12 @@ namespace Scarab.Services
 
         private static async Task<ApiLinks> FetchApiLinks(HttpClient hc)
         {
-            return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(APILINKS_URI), new Uri(FALLBACK_APILINKS_URI)));
+            return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(GetAPILinksUri()), new Uri(FALLBACK_APILINKS_URI)));
         }
         
         private static async Task<ModLinks> FetchModLinks(HttpClient hc)
         {
-            return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(MODLINKS_URI), new Uri(FALLBACK_MODLINKS_URI)));
+            return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(GetModlinksUri()), new Uri(FALLBACK_MODLINKS_URI)));
         }
 
         private static async Task<string> FetchWithFallback(HttpClient hc, Uri uri, Uri fallback)
