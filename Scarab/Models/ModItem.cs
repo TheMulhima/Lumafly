@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
@@ -46,6 +47,18 @@ namespace Scarab.Models
             IntegrationsDesc = string.Join(", ", Integrations);
             AuthorsDesc      = string.Join(", ", Authors);
             ShortenedRepository = Repository;
+
+            if (!string.IsNullOrEmpty(Description))
+            {
+                Regex urlRegex = new Regex(@"\b(?:https?://|www\.)\S+\b",RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+                foreach (var match in urlRegex.Matches(Description))
+                {
+                    if (match == null) continue;
+                    Description =  Description.Replace(match.ToString()!, $"[{match}]({match})");
+                }
+
+            }
             
             try
             {
