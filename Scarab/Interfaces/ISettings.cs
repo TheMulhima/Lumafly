@@ -8,6 +8,8 @@ namespace Scarab.Interfaces
         
         string ManagedFolder { get; set; }
         
+        bool RequiresWorkaroundClient { get; set; }
+        
         string ModsFolder     => Path.Combine(ManagedFolder, "Mods");
         string DisabledFolder => Path.Combine(ModsFolder, "Disabled");
 
