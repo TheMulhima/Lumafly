@@ -12,6 +12,13 @@ using Scarab.Util;
 
 namespace Scarab.Models
 {
+    public enum ModChangeState
+    {
+        Unchanged,
+        Created,
+        Updated
+    }
+
     public partial class ModItem : INotifyPropertyChanged, IEquatable<ModItem>
     {
         public ModItem
@@ -26,7 +33,9 @@ namespace Scarab.Models
             string repository,
             string[] tags,
             string[] integrations,
-            string[] authors
+            string[] authors,
+            DateTime? lastChanged = null,
+            ModChangeState changeState = ModChangeState.Unchanged
         )
         {
             _state = state;
@@ -41,6 +50,8 @@ namespace Scarab.Models
             Tags = tags;
             Integrations = integrations;
             Authors = authors;
+            LastChanged = lastChanged ?? DateTime.MinValue;
+            ModChangeState = changeState;
 
             DependenciesDesc = string.Join(", ", Dependencies);
             TagDesc          = string.Join(", ", Tags);
@@ -50,16 +61,16 @@ namespace Scarab.Models
 
             if (!string.IsNullOrEmpty(Description))
             {
-                Regex urlRegex = new Regex(@"\b(?:https?://|www\.)\S+\b",RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                var urlRegex = new Regex(@"\b(?:https?://|www\.)\S+\b",
+                    RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
                 foreach (var match in urlRegex.Matches(Description))
                 {
                     if (match == null) continue;
-                    Description =  Description.Replace(match.ToString()!, $"[{match}]({match})");
+                    Description = Description.Replace(match.ToString()!, $"[{match}]({match})");
                 }
-
             }
-            
+
             try
             {
                 // only remove http part if its a github link
@@ -87,12 +98,13 @@ namespace Scarab.Models
         public string[] Tags { get; }
         public string[] Integrations { get; }
         public string[] Authors { get; }
-        
+        public DateTime LastChanged { get; set; }
+        public ModChangeState ModChangeState { get; set; }
+
         public string   ShortenedRepository   { get; }
         public string   DependenciesDesc { get; }
         public string   TagDesc          { get; }
         public string   IntegrationsDesc { get; }
-        
         public string AuthorsDesc { get; }
 
         [Notify]
@@ -101,7 +113,7 @@ namespace Scarab.Models
         public bool EnabledIsChecked => State switch
         {
             InstalledState { Enabled: var x } => x,
-            NotInModLinksState {Enabled: var x} => x,
+            NotInModLinksState { Enabled: var x } => x,
             // Can't enable what isn't installed.
             _ => false
         };
@@ -125,9 +137,10 @@ namespace Scarab.Models
 
         public bool UpdateAvailable => State is InstalledState { Updated: false };
 
-        public string UpdateText  => $"\u279E {Version}";
+        public string UpdateText => $"\u279E {Version}";
 
         private string _settingsFile = string.Empty;
+
         public string SettingsFile
         {
             get
@@ -141,7 +154,7 @@ namespace Scarab.Models
                 return _settingsFile;
             }
         }
-        
+
         public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(SettingsFile);
 
         public string VersionText => State switch
@@ -164,7 +177,7 @@ namespace Scarab.Models
                 setProgress(new ModProgressArgs());
 
                 await inst.Install(this, setProgress, enabled);
-                
+
                 setProgress(new ModProgressArgs { Completed = true });
             }
             catch
@@ -177,7 +190,7 @@ namespace Scarab.Models
         public async Task OnInstall(IInstaller inst, Action<ModProgressArgs> setProgress)
         {
             ModState origState = State;
-            
+
             try
             {
                 if (State is InstalledState or NotInModLinksState)
@@ -201,7 +214,7 @@ namespace Scarab.Models
                 throw;
             }
         }
-        
+
         public void CallOnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
@@ -237,14 +250,14 @@ namespace Scarab.Models
         public static ModItem Empty(
             ModState? state = null,
             Version? version = null,
-            string[]? dependencies = null ,
-            string? link = null ,
-            string? shasum = null ,
-            string? name = null ,
-            string? description = null ,
-            string? repository = null ,
-            string[]? tags = null ,
-            string[]? integrations = null ,
+            string[]? dependencies = null,
+            string? link = null,
+            string? shasum = null,
+            string? name = null,
+            string? description = null,
+            string? repository = null,
+            string[]? tags = null,
+            string[]? integrations = null,
             string[]? authors = null
         )
         {
@@ -264,25 +277,26 @@ namespace Scarab.Models
         }
 
         #region Equality
+
         public bool Equals(ModItem? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            
+
             return _state.Equals(other._state)
-                && Version.Equals(other.Version)
-                && Dependencies.Zip(other.Dependencies).All(tuple => tuple.First == tuple.Second)
-                && Link == other.Link
-                && Name == other.Name
-                && Description == other.Description;
+                   && Version.Equals(other.Version)
+                   && Dependencies.Zip(other.Dependencies).All(tuple => tuple.First == tuple.Second)
+                   && Link == other.Link
+                   && Name == other.Name
+                   && Description == other.Description;
         }
 
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            
-            return obj.GetType() == GetType() && Equals((ModItem) obj);
+
+            return obj.GetType() == GetType() && Equals((ModItem)obj);
         }
 
         public override int GetHashCode()
@@ -299,6 +313,7 @@ namespace Scarab.Models
         {
             return !Equals(left, right);
         }
+
         #endregion
     }
 }
