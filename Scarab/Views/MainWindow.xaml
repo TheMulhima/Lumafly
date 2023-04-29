@@ -9,7 +9,7 @@
         ExtendClientAreaTitleBarHeightHint="-1"
         x:DataType="vm:MainWindowViewModel"
         TransparencyLevelHint="Transparent"
-        Background="Transparent">
+        Background="#282828">
 	<Border 
 		CornerRadius="{CompiledBinding CornerRadius}" 
 		BorderBrush="{CompiledBinding BorderBrush}" 
