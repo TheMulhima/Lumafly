@@ -53,7 +53,7 @@ namespace Scarab.ViewModels
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x20, 0x20, 0x20));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
-        public string AppName => "Scarab";
+        public string AppName => "Scarab+";
 
         private async Task Impl()
         {
