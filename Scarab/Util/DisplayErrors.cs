@@ -68,8 +68,8 @@ public static class DisplayErrors
         var dependentsString = string.Join(", ", dependents.Select(x => x.Name));
         var result = await MessageBoxManager.GetMessageBoxStandardWindow
         (
-            title: "Warning! This mod is required for other mods to function!",
-            text: $"{modName} is required for {dependentsString} to function properly. Do you still want to continue?",
+            title: Resources.MVVM_DependentsWarning_Header,
+            text: string.Format(Resources.MVVM_DependentsWarning_Body, modName, dependentsString),
             icon: Icon.Stop,
             @enum: ButtonEnum.YesNo
         ).Show();
@@ -82,7 +82,7 @@ public static class DisplayErrors
     {
         var result = await MessageBoxManager.GetMessageBoxStandardWindow
         (
-            title: "Warning! Are you sure you want to do this?",
+            title: Resources.MVVM_AreYouSure,
             text: warningText,
             icon: Icon.Stop,
             @enum: ButtonEnum.YesNo
@@ -136,7 +136,7 @@ public static class DisplayErrors
 
         await DisplayGenericError(
             $"Unable to {action} {item.Name}.\n" +
-            $"Scarab was unable to access the file in the mods folder.\n" +
+            $"{Resources.MVVM_SystemIOException_GeneralReason}.\n" +
             additionalText, e);
     }
 
@@ -149,12 +149,12 @@ public static class DisplayErrors
 
     private static string GiveMoreDetailsOnWriteProtectedError(Exception e)
     {
-        var additionalText = $"Please make sure that the mods folder is not in a write protected location.\n";
+        var additionalText = $"{Resources.MVVM_SystemIOException_ProtectedLocation}.\n";
 
         try
         {
             string file = GetFileNameFromError(e.Message, "The media is write protected.");
-            additionalText += $"Scarab cannot access the file: {file}";
+            additionalText += $"{Resources.MVVM_SystemIOException_ScarabCantAccessFile} {file}";
         }
         catch (Exception)
         {
@@ -166,7 +166,7 @@ public static class DisplayErrors
     
     private static string GiveMoreDetailsOnLockedFileError(Exception e)
     {
-        var additionalText = "Please make sure to close all other apps that could be using the mods folder\n";
+        var additionalText = $"{Resources.MVVM_SystemIOException_GeneralFileLock}\n";
         try
         {
             string filePath = GetFileNameFromError(e.Message, "The process cannot access the file");
@@ -178,8 +178,8 @@ public static class DisplayErrors
                 {
                     var listOfProcesses = $"{string.Join("\n-", processes.Select(x => x.ProcessName))}";
                     Trace.WriteLine($"Following processes is locking the file {listOfProcesses}");
-                    additionalText +=
-                        $"\nPlease close the following processes as they are locking important files:\n{listOfProcesses}";
+                    additionalText =
+                        $"\n{Resources.MVVM_SystemIOException_LockingProcessesList}\n{listOfProcesses}";
                 }
 
             }

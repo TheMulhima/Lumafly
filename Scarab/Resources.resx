@@ -363,4 +363,49 @@
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
     <value>Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time.</value>
   </data>
+  <data name="MVVM_DNSError" xml:space="preserve">
+    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
+    <value>Warning! This mod is required for other mods to function!</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
+    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
+  </data>
+  <data name="MVVM_AreYouSure" xml:space="preserve">
+    <value>Warning! Are you sure you want to do this?</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
+    <value>Scarab was unable to access the file in the mods folder</value>
+  </data>
+  <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
+    <value>Please make sure that the mods folder is not in a write protected location</value>
+  </data>
+  <data name="MVVM_SystemIOException_ScarabCantAccessFile" xml:space="preserve">
+    <value>Scarab cannot access the file:</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
+    <value>Please make sure to close all other apps that could be using the mods folder</value>
+  </data>
+  <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
+    <value>Please close the following processes as they are locking important files:</value>
+  </data>
+  <data name="ModLinks_Tags_Boss" xml:space="preserve">
+    <value>Boss</value>
+  </data>
+  <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
+    <value>Gameplay</value>
+  </data>
+  <data name="ModLinks_Tags_Utility" xml:space="preserve">
+    <value>Utility</value>
+  </data>
+  <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
+    <value>Cosmetic</value>
+  </data>
+  <data name="ModLinks_Tags_Library" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="ModLinks_Tags_Expansion" xml:space="preserve">
+    <value>Expansion</value>
+  </data>
 </root>

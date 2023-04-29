@@ -119,7 +119,7 @@ namespace Scarab.ViewModels
                 {
                     TaskCanceledException => Resources.MWVM_Impl_Error_Fetch_ModLinks_Timeout,
                     HttpRequestException when e.ToString().Contains("No such host is known.")
-                        => string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Error, "Possibly caused by poor or no internet connection. Please check that and try again"),
+                        => string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Error, Resources.MVVM_DNSError),
                     HttpRequestException http => string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Error, http.StatusCode),
                     _ => throw new ArgumentOutOfRangeException()
                 };

@@ -76,16 +76,17 @@ public class ModLinksChanges : IModLinksChanges
             
             var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(sha), 
                 new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
+            
+            var commitDate = commit
+                .GetProperty("commit")
+                .GetProperty("committer")
+                .GetProperty("date")
+                .GetDateTime();
+            
             foreach (var mod in _currentItems.Where(x => x.State is not NotInModLinksState))
             {
                 var correspondingOldMod = oldModlinks.Manifests.FirstOrDefault(m => m.Name == mod.Name);
-                
-                var commitDate = commit
-                    .GetProperty("commit")
-                    .GetProperty("committer")
-                    .GetProperty("date")
-                    .GetDateTime();
-                
+
                 if (correspondingOldMod is not null)
                 {
                     if (correspondingOldMod.Version.Value < mod.Version)

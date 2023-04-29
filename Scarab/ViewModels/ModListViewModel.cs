@@ -70,10 +70,19 @@ namespace Scarab.ViewModels
         public IEnumerable<string> ModNames { get; }
         public ObservableCollection<TagItem> TagList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
-        public ReactiveCommand<Unit, Unit> UpdateApi { get; }
+        public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
-        
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
+        
+        private static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
+        {
+            {"Boss", Resources.ModLinks_Tags_Boss},
+            {"Gameplay", Resources.ModLinks_Tags_Gameplay},
+            {"Utility", Resources.ModLinks_Tags_Utility},
+            {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
+            {"Library", Resources.ModLinks_Tags_Library},
+            {"Expansion", Resources.ModLinks_Tags_Expansion},
+        };
         
         public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods)
         {
@@ -120,9 +129,12 @@ namespace Scarab.ViewModels
                 }
             }
 
-            TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => new TagItem(x, false)));
+            TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => 
+                new TagItem(
+                    ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
+                    false)));
         }
-        
+
         [UsedImplicitly]
         public void ClearSearch()
         {

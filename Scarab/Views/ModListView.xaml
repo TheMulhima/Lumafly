@@ -17,7 +17,7 @@
             x:Class="Scarab.Views.ModListView"
             d:DataContext="{x:Static mock:MockViewModel.DesignInstance}"
             Name="UserControl">
-    <DockPanel>
+    <DockPanel Margin="0 0 0 10">
         <!-- Sidebar -->
         <Menu DockPanel.Dock="Left" HorizontalAlignment="Left">
             <Menu.ItemsPanel>

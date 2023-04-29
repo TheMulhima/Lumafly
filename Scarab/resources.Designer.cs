@@ -195,6 +195,96 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Boss.
+        /// </summary>
+        internal static string ModLinks_Tags_Boss {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Boss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cosmetic.
+        /// </summary>
+        internal static string ModLinks_Tags_Cosmetic {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Cosmetic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expansion.
+        /// </summary>
+        internal static string ModLinks_Tags_Expansion {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Expansion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gameplay.
+        /// </summary>
+        internal static string ModLinks_Tags_Gameplay {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Gameplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library.
+        /// </summary>
+        internal static string ModLinks_Tags_Library {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Library", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utility.
+        /// </summary>
+        internal static string ModLinks_Tags_Utility {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Utility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning! Are you sure you want to do this?.
+        /// </summary>
+        internal static string MVVM_AreYouSure {
+            get {
+                return ResourceManager.GetString("MVVM_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is required for {1} to function properly. Do you still want to continue?.
+        /// </summary>
+        internal static string MVVM_DependentsWarning_Body {
+            get {
+                return ResourceManager.GetString("MVVM_DependentsWarning_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning! This mod is required for other mods to function!.
+        /// </summary>
+        internal static string MVVM_DependentsWarning_Header {
+            get {
+                return ResourceManager.GetString("MVVM_DependentsWarning_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Possibly caused by poor or no internet connection. Please check that and try again.
+        /// </summary>
+        internal static string MVVM_DNSError {
+            get {
+                return ResourceManager.GetString("MVVM_DNSError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading the newest mods that are on modlinks....
         /// </summary>
         internal static string MVVM_LoadingWhatsNew {
@@ -209,6 +299,51 @@ namespace Scarab {
         internal static string MVVM_NotAbleToLoadWhatsNew {
             get {
                 return ResourceManager.GetString("MVVM_NotAbleToLoadWhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please make sure to close all other apps that could be using the mods folder.
+        /// </summary>
+        internal static string MVVM_SystemIOException_GeneralFileLock {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_GeneralFileLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab was unable to access the file in the mods folder.
+        /// </summary>
+        internal static string MVVM_SystemIOException_GeneralReason {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_GeneralReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please close the following processes as they are locking important files:.
+        /// </summary>
+        internal static string MVVM_SystemIOException_LockingProcessesList {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_LockingProcessesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please make sure that the mods folder is not in a write protected location.
+        /// </summary>
+        internal static string MVVM_SystemIOException_ProtectedLocation {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_ProtectedLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab cannot access the file:.
+        /// </summary>
+        internal static string MVVM_SystemIOException_ScarabCantAccessFile {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_ScarabCantAccessFile", resourceCulture);
             }
         }
         
