@@ -23,10 +23,14 @@ public class ModlinksChanges
     {
         _currentItems = _items;
         settings = _settings;
-        Task.Run(GetOldModlinks);
+    }
+    
+    public async Task Load()
+    {
+        IsReady = await GetOldModlinks();
     }
 
-    private async Task GetOldModlinks()
+    private async Task<bool> GetOldModlinks()
     {
         var res = await WorkaroundHttpClient.TryWithWorkaroundAsync(
             settings.RequiresWorkaroundClient 
@@ -36,13 +40,13 @@ public class ModlinksChanges
             AddHttpConfig
         );
 
-        IsReady = res.Result.All(x => x);
+        return res.Result.All(x => x);
     }
     
     private async Task<bool[]> FetchContent(HttpClient hc)
     {
         var oneWeekOld = GetModListDifference(hc, DateTime.UtcNow.AddDays(-7));
-        var oneMonthOld = GetModListDifference(hc, DateTime.UtcNow.AddMonths(-1));
+        var oneMonthOld = GetModListDifference(hc, DateTime.UtcNow.AddDays(-30));
 
         return new[]
         {
@@ -57,7 +61,8 @@ public class ModlinksChanges
         {
             JsonDocument result = JsonDocument.Parse(
                 await hc.GetStringAsync(
-                    new Uri($"https://api.github.com/repos/hk-modding/modlinks/commits?since={timeToGet:s}Z&per_page=100")));
+                    new Uri($"https://api.github.com/repos/hk-modding/modlinks/commits?since={timeToGet:s}Z&per_page=100"), 
+                    new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
             
             // we will get back an array of commits so we tell that to the JsonDocument
             var commits = result.RootElement.EnumerateArray();
@@ -69,9 +74,8 @@ public class ModlinksChanges
 
             if (string.IsNullOrEmpty(sha)) return false;
             
-            var cts = new CancellationTokenSource(ModDatabase.TIMEOUT);
-            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(sha), cts.Token));
-
+            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(sha), 
+                new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
             foreach (var mod in _currentItems.Where(x => x.State is not NotInModLinksState))
             {
                 var correspondingOldMod = oldModlinks.Manifests.FirstOrDefault(m => m.Name == mod.Name);
@@ -86,26 +90,20 @@ public class ModlinksChanges
                 {
                     if (correspondingOldMod.Version.Value < mod.Version)
                     {
-                        // use most recent last changed date
-                        mod.LastChanged = mod.LastChanged > commitDate
-                            ? mod.LastChanged
-                            : commitDate;
-                        
-                        mod.ModChangeState = ModChangeState.Updated;
+                        mod.RecentChangeInfo.AddChanges((ModChangeState.Updated, commitDate));
                     }
                 }
                 else
                 {
-                    mod.LastChanged = mod.LastChanged > commitDate
-                        ? mod.LastChanged
-                        : commitDate;
-                    mod.ModChangeState = ModChangeState.Created;
+                    mod.RecentChangeInfo.AddChanges((ModChangeState.Created, commitDate));
                 }
             }
         }
         catch(Exception e)
         {
             // we aren't going to retry because its not important to get this list
+            // also its possible that reopening scarab many times might lead to rate limiting
+            // so this and the latest version check wont work
             Trace.WriteLine($"An exception occured when trying to get the modlinks changes: {e}" );
             return false;
         }
@@ -117,8 +115,8 @@ public class ModlinksChanges
     {
         hc.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
         {
-            NoCache = true,
-            MustRevalidate = true
+            NoCache = false,
+            MustRevalidate = false
         };
                 
         hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");

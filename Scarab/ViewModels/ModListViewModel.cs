@@ -32,6 +32,7 @@ namespace Scarab.ViewModels
         private readonly IModSource _mods;
         private readonly IModDatabase _db;
         private readonly ReverseDependencySearch _reverseDependencySearch;
+        private readonly ModlinksChanges _modlinksChanges;
         
         [Notify("ProgressBarVisible")]
         private bool _pbVisible;
@@ -55,12 +56,14 @@ namespace Scarab.ViewModels
 
         [Notify]
         private bool _isNormalSearch = true;
-
-        [Notify]
-        private bool _isDependencySearch;
         
         [Notify]
         private string _dependencySearchItem;
+
+        [Notify]
+        private bool _new7Days = true, _updated7Days = true;
+        [Notify]
+        private bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
         [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
@@ -83,7 +86,17 @@ namespace Scarab.ViewModels
 
             SelectedItems = _selectedItems = _items;
             
-            _reverseDependencySearch = new (_items);
+            _reverseDependencySearch = new ReverseDependencySearch(_items);
+
+            _modlinksChanges = new ModlinksChanges(_items, settings);
+            
+            Task.Run(async () =>
+            {
+                await _modlinksChanges.Load();
+                RaisePropertyChanged(nameof(LoadedWhatsNew));
+                RaisePropertyChanged(nameof(IsLoadingWhatsNew));
+                RaisePropertyChanged(nameof(WhatsNewLoadingText));
+            });
 
             _dependencySearchItem = "";
 
@@ -115,13 +128,40 @@ namespace Scarab.ViewModels
         }
         
         [UsedImplicitly]
-        private bool NoFilteredItems => !FilteredItems.Any();
+        private bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
+        
+        [UsedImplicitly]
+        private bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
+        
+        [UsedImplicitly]
+        private string WhatsNewLoadingText => _modlinksChanges.IsReady is null
+            ? "Loading the newest mods that are on modlinks..." 
+            : (_modlinksChanges.IsReady.Value ? "Unable to load the newest mods" : "");
+
+        [UsedImplicitly] 
+        private bool IsLoadingWhatsNew => _modlinksChanges.IsReady is null;
+
+        [UsedImplicitly] 
+        private bool LoadedWhatsNew => _modlinksChanges.IsReady ?? false;
 
         [UsedImplicitly]
         private IEnumerable<ModItem> FilteredItems
         {
             get
             {
+                if (IsInWhatsNew)
+                {
+                    return SelectedItems
+                        .Where(x =>
+                            WhatsNew_UpdatedMods &&
+                            x.RecentChangeInfo.IsUpdatedRecently &&
+                            x.RecentChangeInfo.LastUpdated >= DateTime.UtcNow.AddDays(-1 * (Updated7Days ? 8 : 31))
+                            ||
+                            WhatsNew_NewMods &&
+                            x.RecentChangeInfo.IsCreatedRecently &&
+                            x.RecentChangeInfo.LastCreated >= DateTime.UtcNow.AddDays(-1 * (Updated7Days ? 8 : 31)));
+                }
+                
                 if (IsNormalSearch)
                 {
                     if (string.IsNullOrEmpty(Search)) 
@@ -133,7 +173,7 @@ namespace Scarab.ViewModels
                         return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
                                                          x.Description.Contains(Search, StringComparison.OrdinalIgnoreCase));
                 }
-                if (IsDependencySearch)
+                else
                 {
                     if (string.IsNullOrEmpty(DependencySearchItem))
                         return SelectedItems;
@@ -143,8 +183,6 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
                 }
-
-                return SelectedItems;
             }
         }
 
@@ -267,6 +305,7 @@ namespace Scarab.ViewModels
                 ModFilterState.Installed => _items.Where(x => x.Installed),
                 ModFilterState.Enabled => _items.Where(x => x.State is InstalledState { Enabled: true } or NotInModLinksState { Enabled: true }),
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
+                ModFilterState.WhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
             };
 
@@ -282,7 +321,6 @@ namespace Scarab.ViewModels
                                 x.Tags.Any(tagsDefined => selectedTags
                                     .Any(tagsSelected => tagsSelected == tagsDefined)));
             }
-            
 
             RaisePropertyChanged(nameof(FilteredItems));
         }

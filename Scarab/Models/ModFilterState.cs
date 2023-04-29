@@ -5,5 +5,6 @@ public enum ModFilterState
     All,
     Installed,
     Enabled,
-    OutOfDate
+    OutOfDate,
+    WhatsNew,
 }

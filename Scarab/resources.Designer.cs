@@ -483,6 +483,24 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Month.
+        /// </summary>
+        internal static string XAML_LastMonth {
+            get {
+                return ResourceManager.GetString("XAML_LastMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Week.
+        /// </summary>
+        internal static string XAML_LastWeek {
+            get {
+                return ResourceManager.GetString("XAML_LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manually Install Mod.
         /// </summary>
         internal static string XAML_Manual_Install {
@@ -533,6 +551,24 @@ namespace Scarab {
         internal static string XAML_ModsFilter_OutOfDate_Update {
             get {
                 return ResourceManager.GetString("XAML_ModsFilter_OutOfDate_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whats New.
+        /// </summary>
+        internal static string XAML_ModsFilter_WhatsNew {
+            get {
+                return ResourceManager.GetString("XAML_ModsFilter_WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Mods.
+        /// </summary>
+        internal static string XAML_NewMods {
+            get {
+                return ResourceManager.GetString("XAML_NewMods", resourceCulture);
             }
         }
         
@@ -695,6 +731,15 @@ namespace Scarab {
         internal static string XAML_UpdateAPI {
             get {
                 return ResourceManager.GetString("XAML_UpdateAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated Mods.
+        /// </summary>
+        internal static string XAML_UpdatedMods {
+            get {
+                return ResourceManager.GetString("XAML_UpdatedMods", resourceCulture);
             }
         }
         

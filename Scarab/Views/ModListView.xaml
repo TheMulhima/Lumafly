@@ -12,6 +12,7 @@
             xmlns:ext="clr-namespace:Scarab.Extensions"
             xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
+            xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
             d:DataContext="{x:Static mock:MockViewModel.DesignInstance}"
@@ -79,6 +80,16 @@
                 Header="{ext:Localize XAML_ModsFilter_OutOfDate}" 
                 Command="{Binding SelectModsWithFilter}"
                 CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
+                DockPanel.Dock="Top"/>
+            
+            <MenuItem Header="-" DockPanel.Dock="Top" />
+            
+            <MenuItem 
+                Name="ModFilter_WhatsNew"
+                PointerPressed="ModFilterPressed"
+                Header="{ext:Localize XAML_ModsFilter_WhatsNew}" 
+                Command="{Binding SelectModsWithFilter}"
+                CommandParameter="{x:Static models:ModFilterState.WhatsNew}"
                 DockPanel.Dock="Top"/>
             
             <!-- the name prefix "Flyout_" helps find all buttons in code behind. To set properties-->
@@ -189,7 +200,7 @@
             <ComboBox
                 Grid.Column="0"
                 Name="SearchByDependency"
-                IsVisible="{Binding IsDependencySearch}"
+                IsVisible="{Binding !IsNormalSearch}"
                 PlaceholderText="{ext:Localize XAML_Select_Mod}"
                 PlaceholderForeground="Gray"
                 BorderThickness="0"
@@ -232,6 +243,65 @@
         
         <ScrollViewer>
             <StackPanel>
+                <Grid
+                    ColumnDefinitions="Auto * Auto Auto"
+                    RowDefinitions="Auto Auto Auto"
+                    IsVisible="{Binding IsInWhatsNew}">
+                    <Grid.Styles>
+                        <Style Selector="CheckBox, RadioButton">
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                    </Grid.Styles>
+                    <CheckBox
+                        Grid.Column="0" Grid.Row="0"
+                        IsChecked="{Binding WhatsNew_NewMods}"
+                        Content="{ext:Localize XAML_NewMods}"/>
+                    <RadioButton
+                        Grid.Column="2" Grid.Row="0"
+                        IsChecked="{Binding New7Days}" 
+                        GroupName="NewMods" 
+                        Content="{ext:Localize XAML_LastWeek}"/>
+                    <RadioButton
+                        Grid.Column="3" Grid.Row="0"
+                        IsChecked="{Binding !New7Days}" 
+                        GroupName="NewMods" 
+                        Content="{ext:Localize XAML_LastMonth}"/>
+                    <CheckBox
+                        Grid.Column="0" Grid.Row="2"
+                        IsChecked="{Binding WhatsNew_UpdatedMods}"
+                        Content="{ext:Localize XAML_UpdatedMods}"/>
+                    <RadioButton 
+                        Grid.Column="2" Grid.Row="2"
+                        IsChecked="{Binding Updated7Days}" 
+                        GroupName="UpdatedMods" 
+                        Content="{ext:Localize XAML_LastWeek}"/>
+                    <RadioButton
+                        Grid.Column="3" Grid.Row="2"
+                        IsChecked="{Binding !Updated7Days}" 
+                        GroupName="UpdatedMods" 
+                        Content="{ext:Localize XAML_LastMonth}"/>
+                </Grid>
+                <Grid IsVisible="{Binding !LoadedWhatsNew}" 
+                    RowDefinitions="3*, *">
+        
+                    <progRing:ProgressRing 
+                        IsVisible="{Binding IsLoadingWhatsNew}"
+                        Grid.Row="0"
+                        Width="100" 
+                        Height="100"
+                        IsActive="True"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="Ivory"
+                        Margin="10,20,0,0"/>
+        
+                    <TextBlock 
+                        Grid.Row="1"
+                        Text="{Binding WhatsNewLoadingText}"
+                        FontSize="20"
+                        TextAlignment="Center"/>
+                </Grid>
                 <TextBlock
                     IsVisible="{Binding NoFilteredItems}"
                     Text="{ext:Localize XAML_No_Items}" 

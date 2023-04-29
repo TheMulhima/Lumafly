@@ -333,4 +333,19 @@
   <data name="MLVM_Select_Mod" xml:space="preserve">
     <value>Select the mod dll or zip</value>
   </data>
+  <data name="XAML_NewMods" xml:space="preserve">
+    <value>New Mods</value>
+  </data>
+  <data name="XAML_UpdatedMods" xml:space="preserve">
+    <value>Updated Mods</value>
+  </data>
+  <data name="XAML_LastWeek" xml:space="preserve">
+    <value>Last Week</value>
+  </data>
+  <data name="XAML_LastMonth" xml:space="preserve">
+    <value>Last Month</value>
+  </data>
+  <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
+    <value>Whats New</value>
+  </data>
 </root>
