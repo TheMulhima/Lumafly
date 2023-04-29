@@ -169,7 +169,7 @@ namespace Scarab.ViewModels
                             ||
                             WhatsNew_NewMods &&
                             x.RecentChangeInfo.IsCreatedRecently &&
-                            x.RecentChangeInfo.LastCreated >= DateTime.UtcNow.AddDays(-1 * (Updated7Days ? 8 : 31)));
+                            x.RecentChangeInfo.LastCreated >= DateTime.UtcNow.AddDays(-1 * (New7Days ? 8 : 31)));
                 }
                 
                 if (IsNormalSearch)
