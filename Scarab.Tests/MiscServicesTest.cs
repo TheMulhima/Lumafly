@@ -50,10 +50,11 @@ public class MiscServicesTest
         var ModWithDifferentName = ModItem.Empty(name: "MockModWithDifferentName", state: installedState);
         
         //if it returns null it means it didn't find the file
-        Assert.NotNull(GlobalSettingsFinder.GetSettingsFile(normalMod, savesFolder, Directory.GetCurrentDirectory())); 
-        Assert.NotNull(GlobalSettingsFinder.GetSettingsFile(modWithModSuffix, savesFolder, Directory.GetCurrentDirectory())); 
-        Assert.NotNull(GlobalSettingsFinder.GetSettingsFile(modWithSpacesInName, savesFolder, Directory.GetCurrentDirectory())); 
-        Assert.NotNull(GlobalSettingsFinder.GetSettingsFile(ModWithDifferentName, savesFolder, Directory.GetCurrentDirectory()));
+        var gsFinder = new GlobalSettingsFinder(null!);
+        Assert.NotNull(gsFinder.GetSettingsFile(normalMod, savesFolder, Directory.GetCurrentDirectory())); 
+        Assert.NotNull(gsFinder.GetSettingsFile(modWithModSuffix, savesFolder, Directory.GetCurrentDirectory())); 
+        Assert.NotNull(gsFinder.GetSettingsFile(modWithSpacesInName, savesFolder, Directory.GetCurrentDirectory())); 
+        Assert.NotNull(gsFinder.GetSettingsFile(ModWithDifferentName, savesFolder, Directory.GetCurrentDirectory()));
     }
     
     

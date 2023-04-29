@@ -137,7 +137,7 @@ namespace Scarab.Models
                 // dont find it if its already found
                 if (string.IsNullOrEmpty(_settingsFile))
                 {
-                    _settingsFile = GlobalSettingsFinder.GetSettingsFile(this) ?? string.Empty;
+                    _settingsFile = GlobalSettingsFinder.Instance.GetSettingsFile(this) ?? string.Empty;
                 }
 
                 return _settingsFile;

@@ -7,12 +7,19 @@ using Scarab.Models;
 
 namespace Scarab.Services;
 
-public static class GlobalSettingsFinder
+public class GlobalSettingsFinder
 {
+    private readonly ISettings Settings;
 
-    // set by MainWindowViewModel
-    public static ISettings? Settings = null;
-    
+    private static GlobalSettingsFinder? _instance;
+    public static GlobalSettingsFinder Instance => _instance ?? throw new Exception("GlobalSettingsFinder not initialized");
+
+    public GlobalSettingsFinder(ISettings settings)
+    {
+        Settings = settings;
+        _instance = this;
+    }
+
     public static string GetSavesFolder()
     {
         var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -28,7 +35,7 @@ public static class GlobalSettingsFinder
         return savesFolder;
     }
 
-    private static readonly string[] ModBaseClasses = new[]
+    private readonly string[] ModBaseClasses = new[]
     {
         "Modding.Mod", // main one
         "SFCore.Generics.SaveSettingsMod",
@@ -37,7 +44,7 @@ public static class GlobalSettingsFinder
         "Satchel.BetterPreloads.BetterPreloadsMod",
     };
     
-    public static string? GetSettingsFile(ModItem modItem, string? savesFolder = null, string? modsFolder = null)
+    public string? GetSettingsFile(ModItem modItem, string? savesFolder = null, string? modsFolder = null)
     {
         try
         {
@@ -68,18 +75,12 @@ public static class GlobalSettingsFinder
         }
     }
 
-    private static string? TryGettingModClassName(ModItem modItem, string savesFolder, string? modsFolder)
+    private string? TryGettingModClassName(ModItem modItem, string savesFolder, string? modsFolder)
     {
         if (modItem.State is not InstalledState state)
             return null;
 
-        if (modsFolder == null)
-        {
-            if (Settings == null)
-                return null;
-
-            modsFolder = state.Enabled ? Settings.ModsFolder : Settings.DisabledFolder;
-        }
+        modsFolder ??= state.Enabled ? Settings.ModsFolder : Settings.DisabledFolder;
         
         string modItemFolder = Path.Combine(modsFolder, modItem.Name);
 
@@ -101,6 +102,6 @@ public static class GlobalSettingsFinder
         return null;
     }
 
-    private static string GetGSFileName(string savesFolder, string modName) =>
+    private string GetGSFileName(string savesFolder, string modName) =>
         Path.Combine(savesFolder, modName + ".GlobalSettings.json");
 }

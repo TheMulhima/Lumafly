@@ -66,8 +66,9 @@ namespace Scarab.ViewModels
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
                 settings = await ResetSettings();
 
-            GlobalSettingsFinder.Settings = settings;
-            
+            // instantiate the singleton GlobalSettingsFinder 
+            var _ = new GlobalSettingsFinder(settings);
+
             await EnsureAccessToConfigFile();
 
             Trace.WriteLine("Fetching links");
