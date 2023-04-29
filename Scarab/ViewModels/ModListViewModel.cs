@@ -32,7 +32,7 @@ namespace Scarab.ViewModels
         private readonly IModSource _mods;
         private readonly IModDatabase _db;
         private readonly ReverseDependencySearch _reverseDependencySearch;
-        private readonly ModlinksChanges _modlinksChanges;
+        private readonly IModLinksChanges _modlinksChanges;
         
         [Notify("ProgressBarVisible")]
         private bool _pbVisible;
@@ -88,11 +88,11 @@ namespace Scarab.ViewModels
             
             _reverseDependencySearch = new ReverseDependencySearch(_items);
 
-            _modlinksChanges = new ModlinksChanges(_items, settings);
+            _modlinksChanges = new ModLinksChanges(_items, settings);
             
             Task.Run(async () =>
             {
-                await _modlinksChanges.Load();
+                await _modlinksChanges.LoadChanges();
                 RaisePropertyChanged(nameof(LoadedWhatsNew));
                 RaisePropertyChanged(nameof(IsLoadingWhatsNew));
                 RaisePropertyChanged(nameof(WhatsNewLoadingText));

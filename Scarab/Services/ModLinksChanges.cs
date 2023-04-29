@@ -13,19 +13,19 @@ using Scarab.Util;
 
 namespace Scarab.Services;
 
-public class ModlinksChanges
+public class ModLinksChanges : IModLinksChanges
 {
     private readonly ISettings settings;
     private readonly IEnumerable<ModItem> _currentItems;
-    public bool? IsReady;
+    public bool? IsReady { get; set; }
 
-    public ModlinksChanges(IEnumerable<ModItem> _items, ISettings _settings)
+    public ModLinksChanges(IEnumerable<ModItem> _items, ISettings _settings)
     {
         _currentItems = _items;
         settings = _settings;
     }
     
-    public async Task Load()
+    public async Task LoadChanges()
     {
         IsReady = await GetOldModlinks();
     }
