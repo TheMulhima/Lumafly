@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Width="670" Height="450"
         x:Class="Scarab.Views.MainWindow"
-        Icon="/Assets/omegamaggotprime.ico"
+        Icon="/Assets/ConstructionKnight.ico"
         Content="{Binding Content}"
-        Title="Scarab">
+        Title="Scarab+">
 </Window>

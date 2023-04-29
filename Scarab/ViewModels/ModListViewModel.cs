@@ -288,7 +288,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/ybham") { UseShellExecute = true });
+        public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/HussainAzizS") { UseShellExecute = true });
 
         [UsedImplicitly]
         public void SelectModsWithFilter(ModFilterState modFilterState)
