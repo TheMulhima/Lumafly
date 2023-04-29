@@ -23,6 +23,7 @@ public partial class LoadingViewModel : ViewModelBase
 
     private async Task UpdateLoadingText()
     {
+        await Task.Delay(5000);
         foreach (var message in LoadingMessages)
         {
             LoadingText = message;
