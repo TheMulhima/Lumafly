@@ -407,7 +407,7 @@
                                                 IsVisible="{Binding HasSettings}"
                                                 Command="{Binding OpenSettingsFile}"
                                         >
-                                            <TextBlock Text="Edit settings file"/>
+                                            <TextBlock Text="{ext:Localize XAML_EditSettings}"/>
                                         </Button>
                                     </Grid>
                                 </Expander>

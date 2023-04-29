@@ -195,6 +195,24 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading the newest mods that are on modlinks....
+        /// </summary>
+        internal static string MVVM_LoadingWhatsNew {
+            get {
+                return ResourceManager.GetString("MVVM_LoadingWhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time..
+        /// </summary>
+        internal static string MVVM_NotAbleToLoadWhatsNew {
+            get {
+                return ResourceManager.GetString("MVVM_NotAbleToLoadWhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detected Hollow Knight install at {0}. Is this correct?.
         /// </summary>
         internal static string MWVM_DetectedPath_Message {
@@ -429,6 +447,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Error.
+        /// </summary>
+        internal static string XAML_CopyError {
+            get {
+                return ResourceManager.GetString("XAML_CopyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \nDependencies:\n.
         /// </summary>
         internal static string XAML_Dependencies {
@@ -452,6 +479,15 @@ namespace Scarab {
         internal static string XAML_Donate {
             get {
                 return ResourceManager.GetString("XAML_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit settings file.
+        /// </summary>
+        internal static string XAML_EditSettings {
+            get {
+                return ResourceManager.GetString("XAML_EditSettings", resourceCulture);
             }
         }
         
@@ -695,6 +731,15 @@ namespace Scarab {
         internal static string XAML_Select_Tags {
             get {
                 return ResourceManager.GetString("XAML_Select_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to show full error.
+        /// </summary>
+        internal static string XAML_ShowError {
+            get {
+                return ResourceManager.GetString("XAML_ShowError", resourceCulture);
             }
         }
         

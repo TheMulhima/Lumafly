@@ -138,9 +138,8 @@ namespace Scarab.ViewModels
         
         [UsedImplicitly]
         private string WhatsNewLoadingText => _modlinksChanges.IsReady is null
-            ? "Loading the newest mods that are on modlinks..." 
-            : (!_modlinksChanges.IsReady.Value ? "Sorry, Scarab was unable to load the newest mods from modlinks.\n\n" +
-                                                 "Please try again after some time" : "");
+            ? Resources.MVVM_LoadingWhatsNew 
+            : (!_modlinksChanges.IsReady.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
 
         [UsedImplicitly] 
         private bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;

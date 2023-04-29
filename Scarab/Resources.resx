@@ -348,4 +348,19 @@
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
     <value>Whats New</value>
   </data>
+  <data name="XAML_CopyError" xml:space="preserve">
+    <value>Copy Error</value>
+  </data>
+  <data name="XAML_ShowError" xml:space="preserve">
+    <value>Click to show full error</value>
+  </data>
+  <data name="XAML_EditSettings" xml:space="preserve">
+    <value>Edit settings file</value>
+  </data>
+  <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
+    <value>Loading the newest mods that are on modlinks...</value>
+  </data>
+  <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
+    <value>Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time.</value>
+  </data>
 </root>

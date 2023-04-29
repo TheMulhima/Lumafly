@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:ext="clr-namespace:Scarab.Extensions"
         x:Class="Scarab.CustomControls.ErrorPopup"
         SizeToContent="Height"
         Width="500"
@@ -41,10 +42,10 @@
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <TextBlock Grid.Column="0" 
                                    VerticalAlignment="Center"
-                                   Text="Click to show full error"/>
+                                   Text="{ext:Localize XAML_ShowError}"/>
                         
                         <Button Grid.Column="2" 
-                                Name="CopyButton"
+                                Content="{ext:Localize XAML_CopyError}"
                                 HorizontalAlignment="Right"
                                 Margin="11 0"
                                 Command="{Binding Copy}"/>
