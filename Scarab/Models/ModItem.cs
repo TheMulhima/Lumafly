@@ -8,17 +8,9 @@ using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
 using Scarab.Services;
-using Scarab.Util;
 
 namespace Scarab.Models
 {
-    public enum ModChangeState
-    {
-        Unchanged,
-        Created,
-        Updated
-    }
-
     public partial class ModItem : INotifyPropertyChanged, IEquatable<ModItem>
     {
         public ModItem
@@ -34,8 +26,7 @@ namespace Scarab.Models
             string[] tags,
             string[] integrations,
             string[] authors,
-            DateTime? lastChanged = null,
-            ModChangeState changeState = ModChangeState.Unchanged
+            ModRecentChangeInfo? changeInfo = null
         )
         {
             _state = state;
@@ -50,8 +41,7 @@ namespace Scarab.Models
             Tags = tags;
             Integrations = integrations;
             Authors = authors;
-            LastChanged = lastChanged ?? DateTime.MinValue;
-            ModChangeState = changeState;
+            RecentChangeInfo = changeInfo ?? new ModRecentChangeInfo();
 
             DependenciesDesc = string.Join(", ", Dependencies);
             TagDesc          = string.Join(", ", Tags);
@@ -98,8 +88,7 @@ namespace Scarab.Models
         public string[] Tags { get; }
         public string[] Integrations { get; }
         public string[] Authors { get; }
-        public DateTime LastChanged { get; set; }
-        public ModChangeState ModChangeState { get; set; }
+        public ModRecentChangeInfo RecentChangeInfo { get; }
 
         public string   ShortenedRepository   { get; }
         public string   DependenciesDesc { get; }
@@ -314,6 +303,7 @@ namespace Scarab.Models
             return !Equals(left, right);
         }
 
+        public override string ToString() => Name;
         #endregion
     }
 }
