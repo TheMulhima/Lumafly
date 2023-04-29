@@ -14,11 +14,14 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="30" />
+				<RowDefinition Height="1" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<Rectangle Grid.RowSpan="2" Fill="#202020" IsHitTestVisible="False" />
-			<TextBlock Height="30" FontSize="23" FontWeight="Bold" Text="{CompiledBinding AppName}" VerticalAlignment="Center" Margin="5,0,0,0" />
-			<UserControl Content="{Binding Content}" Grid.Row="1"/>
+			<Rectangle Grid.RowSpan="3" Fill="#282828" IsHitTestVisible="False" />
+			<Image Source="/Assets/ConstructionKnight.ico" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,1"/>
+			<TextBlock Height="30" FontSize="23" Text="{CompiledBinding AppName}" VerticalAlignment="Center" Margin="40,0,0,5" />
+			<Rectangle Grid.Row="1" Fill="#a9a9a9"/>
+			<UserControl Content="{Binding Content}" Grid.Row="2"/>
 		</Grid>
 	</Border>
 </Window>

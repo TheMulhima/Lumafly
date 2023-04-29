@@ -50,7 +50,7 @@ namespace Scarab.ViewModels
             get => _content;
             set => this.RaiseAndSetIfChanged(ref _content, value);
         }
-        public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x20, 0x20, 0x20));
+        public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
         public string AppName => "Scarab+";
