@@ -25,6 +25,7 @@ using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
 using Scarab.Views;
+using Avalonia.Media;
 
 namespace Scarab.ViewModels
 {
@@ -49,6 +50,10 @@ namespace Scarab.ViewModels
             get => _content;
             set => this.RaiseAndSetIfChanged(ref _content, value);
         }
+        public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x20, 0x20, 0x20));
+        public Thickness BorderThickness => new(1);
+        public CornerRadius CornerRadius => new(3);
+        public string AppName => "Scarab";
 
         private async Task Impl()
         {

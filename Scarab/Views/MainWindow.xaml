@@ -3,6 +3,22 @@
         Width="670" Height="450"
         x:Class="Scarab.Views.MainWindow"
         Icon="/Assets/ConstructionKnight.ico"
-        Content="{Binding Content}"
-        Title="Scarab+">
+        Title="Scarab+"
+		xmlns:vm="using:Scarab.ViewModels"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        x:DataType="vm:MainWindowViewModel"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent">
+	<Border CornerRadius="{CompiledBinding CornerRadius}" BorderBrush="{CompiledBinding BorderBrush}" BorderThickness="{CompiledBinding BorderThickness}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Rectangle Grid.RowSpan="2" Fill="#202020" IsHitTestVisible="False" />
+			<TextBlock Height="30" FontSize="23" FontWeight="Bold" Text="{CompiledBinding AppName}" VerticalAlignment="Center" Margin="5,0,0,0" />
+			<UserControl Content="{Binding Content}" Grid.Row="1"/>
+		</Grid>
+	</Border>
 </Window>
