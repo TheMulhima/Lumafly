@@ -35,7 +35,7 @@
                     ToolTip.Tip="Search by the mod name"/>
                 <RadioButton 
                     Margin="2 5 2 2"
-                    IsChecked="{Binding $parent[views:ModListView].DataContext.IsDependencySearch}" 
+                    IsChecked="{Binding !$parent[views:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" 
                     Content="{ext:Localize XAML_Search_Dependents}" 
                     ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
