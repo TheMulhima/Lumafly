@@ -95,7 +95,10 @@ namespace Scarab.ViewModels
                 await _modlinksChanges.LoadChanges();
                 RaisePropertyChanged(nameof(LoadedWhatsNew));
                 RaisePropertyChanged(nameof(IsLoadingWhatsNew));
+                RaisePropertyChanged(nameof(ShouldShowWhatsNewInfoText));
                 RaisePropertyChanged(nameof(WhatsNewLoadingText));
+                RaisePropertyChanged(nameof(ShouldShowWhatsNewErrorIcon));
+                SelectMods();
             });
 
             _dependencySearchItem = "";
@@ -136,13 +139,20 @@ namespace Scarab.ViewModels
         [UsedImplicitly]
         private string WhatsNewLoadingText => _modlinksChanges.IsReady is null
             ? "Loading the newest mods that are on modlinks..." 
-            : (_modlinksChanges.IsReady.Value ? "Unable to load the newest mods" : "");
+            : (!_modlinksChanges.IsReady.Value ? "Sorry, Scarab was unable to load the newest mods from modlinks.\n\n" +
+                                                 "Please try again after some time" : "");
 
         [UsedImplicitly] 
-        private bool IsLoadingWhatsNew => _modlinksChanges.IsReady is null;
+        private bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;
+        
+        [UsedImplicitly] 
+        private bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsReady is null || !_modlinksChanges.IsReady.Value);
 
         [UsedImplicitly] 
-        private bool LoadedWhatsNew => _modlinksChanges.IsReady ?? false;
+        private bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
+
+        [UsedImplicitly] 
+        private bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
 
         [UsedImplicitly]
         private IEnumerable<ModItem> FilteredItems

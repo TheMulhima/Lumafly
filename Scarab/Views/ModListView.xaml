@@ -282,12 +282,14 @@
                         GroupName="UpdatedMods" 
                         Content="{ext:Localize XAML_LastMonth}"/>
                 </Grid>
-                <Grid IsVisible="{Binding !LoadedWhatsNew}" 
-                    RowDefinitions="3*, *">
+                <Grid IsVisible="{Binding !LoadedWhatsNew}"
+                      ColumnDefinitions="Auto *"
+                      RowDefinitions="3*, *">
         
                     <progRing:ProgressRing 
                         IsVisible="{Binding IsLoadingWhatsNew}"
-                        Grid.Row="0"
+                        Grid.Row="0" Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Width="100" 
                         Height="100"
                         IsActive="True"
@@ -295,11 +297,24 @@
                         VerticalAlignment="Center"
                         Foreground="Ivory"
                         Margin="10,20,0,0"/>
+                    
+                    <Image
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        IsVisible="{Binding ShouldShowWhatsNewErrorIcon}"
+                        Margin="10,40,0,0"
+                        Source="avares://Scarab/Assets/error.png"
+                        Height="80" Width="80"
+                        />
         
                     <TextBlock 
                         Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,40,0,0"
+                        TextWrapping="Wrap"
+                        IsVisible="{Binding ShouldShowWhatsNewInfoText}"
                         Text="{Binding WhatsNewLoadingText}"
-                        FontSize="20"
+                        FontSize="16"
                         TextAlignment="Center"/>
                 </Grid>
                 <TextBlock
