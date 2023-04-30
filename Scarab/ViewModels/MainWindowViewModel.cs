@@ -164,17 +164,18 @@ namespace Scarab.ViewModels
 
         private static async Task EnsureAccessToConfigFile()
         {
+            if (!File.Exists(InstalledMods.ConfigPath)) return;
             try
             {
-                bool configAccessSucess = false;
-                while (!configAccessSucess)
+                bool configAccessSuccess = false;
+                while (!configAccessSuccess)
                 {
                     try
                     {
                         var configFile = File.Open(InstalledMods.ConfigPath, FileMode.Open, FileAccess.ReadWrite,
                             FileShare.None);
                         configFile.Close();
-                        configAccessSucess = true;
+                        configAccessSuccess = true;
                     }
                     catch (IOException)
                     {
