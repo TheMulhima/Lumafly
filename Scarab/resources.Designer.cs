@@ -348,6 +348,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try running scarab as an administrator, it may fix the issue.
+        /// </summary>
+        internal static string MVVM_RunAsAdmin {
+            get {
+                return ResourceManager.GetString("MVVM_RunAsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please make sure to close all other apps that could be using the mods folder.
         /// </summary>
         internal static string MVVM_SystemIOException_GeneralFileLock {

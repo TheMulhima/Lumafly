@@ -423,4 +423,7 @@
   <data name="MVVM_Loading5" xml:space="preserve">
     <value>Still waiting...</value>
   </data>
+  <data name="MVVM_RunAsAdmin" xml:space="preserve">
+    <value>Try running scarab as an administrator, it may fix the issue</value>
+  </data>
 </root>

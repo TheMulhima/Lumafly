@@ -39,7 +39,7 @@ namespace Scarab.Util
 
                 if (result is null)
                     await MessageBoxManager.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
-                else if (ValidateWithSuffix(result) is not (var managed, var suffix))
+                else if (ValidateWithSuffix(result) is not var (managed, suffix))
                     await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidPathHeader,

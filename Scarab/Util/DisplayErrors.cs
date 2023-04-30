@@ -154,13 +154,15 @@ public static class DisplayErrors
         try
         {
             string file = GetFileNameFromError(e.Message, "The media is write protected.");
-            additionalText += $"{Resources.MVVM_SystemIOException_ScarabCantAccessFile} {file}";
+            additionalText += $"{Resources.MVVM_SystemIOException_ScarabCantAccessFile} {file}\n";
         }
         catch (Exception)
         {
             // ignored as its not a requirement
         }
 
+        additionalText += $"\n{Resources.MVVM_RunAsAdmin}";
+        
         return additionalText;
     }
     

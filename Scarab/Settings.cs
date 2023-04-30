@@ -27,6 +27,7 @@ namespace Scarab
         private static readonly ImmutableList<string> STATIC_PATHS = new List<string>
         {
             "Program Files/Steam/steamapps/common/Hollow Knight",
+            "XboxGames/Hollow Knight/Content",
             "Program Files (x86)/Steam/steamapps/common/Hollow Knight",
             "Program Files/GOG Galaxy/Games/Hollow Knight",
             "Program Files (x86)/GOG Galaxy/Games/Hollow Knight",
