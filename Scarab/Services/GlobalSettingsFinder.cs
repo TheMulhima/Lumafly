@@ -29,7 +29,7 @@ public class GlobalSettingsFinder
             savesFolder = Path.Combine(userProfile, "AppData", "LocalLow", "Team Cherry", "Hollow Knight");
         if (OperatingSystem.IsMacOS())
             savesFolder = Path.Combine(userProfile, "Library", "Application Support", "unity.Team Cherry.Hollow Knight");
-        if (OperatingSystem.IsMacOS())
+        if (OperatingSystem.IsLinux())
             savesFolder = Path.Combine(userProfile, ".config", "unity3d", "Team Cherry", "Hollow Knight");
 
         return savesFolder;

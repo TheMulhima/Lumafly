@@ -1,5 +1,7 @@
+using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Diagnostics;
 using Avalonia.Markup.Xaml;
 
@@ -10,6 +12,8 @@ namespace Scarab.Views
         public MainWindow()
         {
             InitializeComponent();
+            
+            this.FindControl<Rectangle>("MacSpacer").IsVisible = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
         }
 
         private void InitializeComponent(bool loadXaml = true, bool attachDevTools = true)

@@ -55,7 +55,7 @@ namespace Scarab.Services
 
             try
             {
-                db = JsonSerializer.Deserialize<InstalledMods>(File.ReadAllText(ConfigPath))
+                db = JsonSerializer.Deserialize<InstalledMods>(await File.ReadAllTextAsync(ConfigPath))
                     ?? throw new InvalidDataException();
             } catch (Exception e) when (e is InvalidDataException or JsonException or FileNotFoundException)
             {

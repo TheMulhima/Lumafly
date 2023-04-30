@@ -65,22 +65,22 @@ namespace Scarab.Services
             {
                 foreach (var dir in Directory.GetDirectories(settings.ModsFolder).Where(x => x != settings.DisabledFolder))
                 {
-                    AddExternalMod(dir, settings.ModsFolder, true);
+                    AddExternalMod(dir, true);
                 }
 
                 if (Directory.Exists(settings.DisabledFolder))
                 {
                     foreach (var dir in Directory.GetDirectories(settings.DisabledFolder))
                     {
-                        AddExternalMod(dir, settings.DisabledFolder, false);
+                        AddExternalMod(dir, false);
                     }
                 }
             }
 
-            void AddExternalMod(string dir, string baseDir ,bool enabled)
+            void AddExternalMod(string dir, bool enabled)
             {
                 // get only folder name
-                var name = dir.Replace(baseDir + "\\", "");
+                var name = new DirectoryInfo(dir).Name;
 
                 // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
                 if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)

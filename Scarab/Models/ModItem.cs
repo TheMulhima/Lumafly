@@ -94,7 +94,7 @@ namespace Scarab.Models
         public string   DependenciesDesc { get; }
         public string   TagDesc          { get; }
         public string   IntegrationsDesc { get; }
-        public string AuthorsDesc { get; }
+        public string   AuthorsDesc { get; }
 
         [Notify]
         private ModState _state;
@@ -123,6 +123,7 @@ namespace Scarab.Models
         public bool HasIntegrations => Integrations.Length > 0;
         public bool HasTags => Tags.Length > 0;
         public bool HasAuthors => Authors.Length > 0;
+        public bool HasRepo => !string.IsNullOrEmpty(Repository);
 
         public bool UpdateAvailable => State is InstalledState { Updated: false };
 
@@ -252,7 +253,7 @@ namespace Scarab.Models
         {
             return new ModItem(
                 state ?? new NotInModLinksState(),
-                version ?? new Version(0, 0, 0),
+                version ?? new Version(0, 0, 0, 0),
                 dependencies ?? Array.Empty<string>(),
                 link ?? string.Empty,
                 shasum ?? string.Empty,

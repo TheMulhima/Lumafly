@@ -200,7 +200,8 @@ namespace Scarab.ViewModels
                         return SelectedItems;
                     
                     // this isnt user input so we can do normal comparison
-                    var mod = _items.First(x => x.Name == DependencySearchItem);
+                    var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState);
+                    
                     return SelectedItems
                         .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
                 }
