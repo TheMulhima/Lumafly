@@ -331,25 +331,81 @@
                 <ItemsRepeater Items="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate DataType="models:ModItem">
-                            <Grid Margin="8 12 12 0">
+                            <Grid Margin="8 6 12 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" MaxWidth="260" />
-                                    <ColumnDefinition Width="*" MaxWidth="260" />
-                                    <ColumnDefinition Width="*" MaxWidth="260" />
-                                    <ColumnDefinition Width="*" MaxWidth="100" />
+                                    <ColumnDefinition Width="3*" MaxWidth="620" />
                                 </Grid.ColumnDefinitions>
                                 
-                                <Expander Grid.Column="0" Grid.ColumnSpan="4">
+                                <Expander Grid.Column="0" Grid.ColumnSpan="2">
                                     <Expander.Header>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" MaxWidth="260" />
-                                                <ColumnDefinition Width="3*" MaxWidth="620" />
+                                                <ColumnDefinition Width="*" MaxWidth="260" />
+                                                <ColumnDefinition Width="*" MaxWidth="260" />
+                                                <ColumnDefinition Width="*" MaxWidth="100" />
                                             </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0"
-                                            TextWrapping="Wrap"
-                                            Margin="0 0 20 0"
-                                            Text="{Binding Name}"/>
+                                            <TextBlock Grid.Column="0"
+                                                TextWrapping="Wrap"
+                                                VerticalAlignment="Center"
+                                                Margin="0 0 20 0"
+                                                Text="{Binding Name}"/>
+                                        
+                                            <Panel
+                                                VerticalAlignment="Center"
+                                                Grid.Column="1">
+                                                <ToggleSwitch
+                                                    Margin="0 -3 0 0"
+                                                    VerticalAlignment="Top"
+                                                    CommandParameter="{Binding .}"
+                                                    OnContent="{ext:Localize XAML_On}"
+                                                    OffContent="{ext:Localize XAML_Off}"
+                                                    Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
+                                                    IsChecked="{Binding EnabledIsChecked}"
+                                                    IsEnabled = "{Binding Installed}"
+                                                    VerticalContentAlignment="Center"
+                                                />
+                                            </Panel>
+                                            
+                                            <Panel
+                                                VerticalAlignment="Center"
+                                                Grid.Column="2">
+                                                <Button 
+                                                    Padding="3"
+                                                    Margin="0 -3 0 0"
+                                                    MaxWidth="60"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{Binding InstallText}"
+                                                    IsEnabled="{Binding !InstallingButtonAccessible}"
+                                                    Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
+                                                    VerticalAlignment="Top"
+                                                />
+                                            </Panel>
+                                            <Grid 
+                                                Grid.Column="3" 
+                                                ColumnDefinitions="Auto,*" 
+                                                IsVisible="{Binding UpdateAvailable}"
+                                                VerticalAlignment="Top">
+                                                <Button
+                                                    MaxHeight="18"
+                                                    MaxWidth="18"
+                                                    Margin="0 4 0 0"
+                                                    Background="Transparent"
+                                                    BorderBrush="{DynamicResource ThemeBorderMidBrush}"
+                                                    Command="{Binding $parent[views:ModListView].DataContext.OnUpdate}"
+                                                    CommandParameter="{Binding .}"
+                                                >
+                                                    <Image 
+                                                        Source="avares://Scarab/Assets/update.png" 
+                                                        Height="12" Width="12" 
+                                                        VerticalAlignment="Center" 
+                                                        HorizontalAlignment="Center" 
+                                                    />
+                                                </Button>
+                                                
+                                                <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
+                                            </Grid>
                                         </Grid>
                                     </Expander.Header>
                                     
@@ -420,61 +476,6 @@
                                         </Button>
                                     </Grid>
                                 </Expander>
-
-                                <Panel
-                                    VerticalAlignment="Center"
-                                    Grid.Column="1">
-                                    <ToggleSwitch
-                                        Margin="0 -3 0 0"
-                                        VerticalAlignment="Top"
-                                        CommandParameter="{Binding .}"
-                                        OnContent="{ext:Localize XAML_On}"
-                                        OffContent="{ext:Localize XAML_Off}"
-                                        Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
-                                        IsChecked="{Binding EnabledIsChecked}"
-                                        IsEnabled = "{Binding Installed}"
-                                        VerticalContentAlignment="Center"
-                                    />
-                                </Panel>
-                                
-                                <Panel
-                                    VerticalAlignment="Center"
-                                    Grid.Column="2">
-                                    <Button 
-                                        Padding="3"
-                                        Margin="0 -3 0 0"
-                                        MaxWidth="60"
-                                        CommandParameter="{Binding .}"
-                                        Content="{Binding InstallText}"
-                                        IsEnabled="{Binding !InstallingButtonAccessible}"
-                                        Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
-                                        VerticalAlignment="Top"
-                                    />
-                                </Panel>
-                                <Grid 
-                                    Grid.Column="3" 
-                                    ColumnDefinitions="Auto,*" 
-                                    IsVisible="{Binding UpdateAvailable}"
-                                    VerticalAlignment="Top">
-                                    <Button
-                                        MaxHeight="18"
-                                        MaxWidth="18"
-                                        Margin="0 4 0 0"
-                                        Background="Transparent"
-                                        BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                                        Command="{Binding $parent[views:ModListView].DataContext.OnUpdate}"
-                                        CommandParameter="{Binding .}"
-                                    >
-                                        <Image 
-                                            Source="avares://Scarab/Assets/update.png" 
-                                            Height="12" Width="12" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center" 
-                                        />
-                                    </Button>
-                                    
-                                    <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
-                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
