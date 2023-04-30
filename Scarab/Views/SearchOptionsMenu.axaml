@@ -57,7 +57,7 @@
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
                             OnSelect="{Binding $parent[views:ModListView].DataContext.SelectMods}"
-                            Header="{Binding TagName}"/>
+                            Header="{Binding TagDisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

@@ -131,6 +131,7 @@ namespace Scarab.ViewModels
 
             TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => 
                 new TagItem(
+                    x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
         }
