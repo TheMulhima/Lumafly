@@ -421,35 +421,41 @@
                                     </Grid>
                                 </Expander>
 
-                                <ToggleSwitch
-                                    Grid.Column = "1"
-                                    Margin = "0 -2 0 0"
-                                    VerticalAlignment="Top"
-                                    CommandParameter="{Binding .}"
-                                    OnContent="{ext:Localize XAML_On}"
-                                    OffContent="{ext:Localize XAML_Off}"
-                                    Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
-                                    IsChecked="{Binding EnabledIsChecked}"
-                                    IsEnabled = "{Binding Installed}"
-                                    VerticalContentAlignment="Center"
-                                />
+                                <Panel
+                                    VerticalAlignment="Center"
+                                    Grid.Column="1">
+                                    <ToggleSwitch
+                                        Margin="0 -3 0 0"
+                                        VerticalAlignment="Top"
+                                        CommandParameter="{Binding .}"
+                                        OnContent="{ext:Localize XAML_On}"
+                                        OffContent="{ext:Localize XAML_Off}"
+                                        Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
+                                        IsChecked="{Binding EnabledIsChecked}"
+                                        IsEnabled = "{Binding Installed}"
+                                        VerticalContentAlignment="Center"
+                                    />
+                                </Panel>
                                 
-                                <Button 
-                                    Grid.Column="2"
-                                    MaxWidth="60"
-                                    CommandParameter="{Binding .}"
-                                    Content="{Binding InstallText}"
-                                    IsEnabled="{Binding !InstallingButtonAccessible}"
-                                    Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
-                                    VerticalAlignment="Top"
-                                />
-
+                                <Panel
+                                    VerticalAlignment="Center"
+                                    Grid.Column="2">
+                                    <Button 
+                                        Padding="3"
+                                        Margin="0 -3 0 0"
+                                        MaxWidth="60"
+                                        CommandParameter="{Binding .}"
+                                        Content="{Binding InstallText}"
+                                        IsEnabled="{Binding !InstallingButtonAccessible}"
+                                        Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
+                                        VerticalAlignment="Top"
+                                    />
+                                </Panel>
                                 <Grid 
                                     Grid.Column="3" 
                                     ColumnDefinitions="Auto,*" 
                                     IsVisible="{Binding UpdateAvailable}"
-                                    VerticalAlignment="Top"
-                                >
+                                    VerticalAlignment="Top">
                                     <Button
                                         MaxHeight="18"
                                         MaxWidth="18"
