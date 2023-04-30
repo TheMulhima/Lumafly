@@ -13,12 +13,12 @@ public partial class LoadingViewModel : ViewModelBase
 
     private static readonly string[] LoadingMessages = new[]
     {
-        "Fetching mods from modlinks...",
-        "Waiting for response from github...",
-        "Still waiting...",
-        "Trying from fallback source...",
-        "Waiting for response from jsdelivr...",
-        "Still waiting...",
+        Resources.MVVM_Loading1,
+        Resources.MVVM_Loading2,
+        Resources.MVVM_Loading3,
+        Resources.MVVM_Loading4,
+        Resources.MVVM_Loading5,
+        Resources.MVVM_Loading3,
     };
 
     private async Task UpdateLoadingText()

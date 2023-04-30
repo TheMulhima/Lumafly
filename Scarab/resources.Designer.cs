@@ -213,7 +213,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expansion.
+        ///   Looks up a localized string similar to Fetching mods from modlinks....
         /// </summary>
         internal static string ModLinks_Tags_Expansion {
             get {
@@ -281,6 +281,51 @@ namespace Scarab {
         internal static string MVVM_DNSError {
             get {
                 return ResourceManager.GetString("MVVM_DNSError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for response from github....
+        /// </summary>
+        internal static string MVVM_Loading1 {
+            get {
+                return ResourceManager.GetString("MVVM_Loading1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Still waiting....
+        /// </summary>
+        internal static string MVVM_Loading2 {
+            get {
+                return ResourceManager.GetString("MVVM_Loading2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trying from fallback source....
+        /// </summary>
+        internal static string MVVM_Loading3 {
+            get {
+                return ResourceManager.GetString("MVVM_Loading3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for response from jsdelivr....
+        /// </summary>
+        internal static string MVVM_Loading4 {
+            get {
+                return ResourceManager.GetString("MVVM_Loading4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Still waiting....
+        /// </summary>
+        internal static string MVVM_Loading5 {
+            get {
+                return ResourceManager.GetString("MVVM_Loading5", resourceCulture);
             }
         }
         

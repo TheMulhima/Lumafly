@@ -267,6 +267,7 @@ namespace Scarab.ViewModels
                         }
                     },
                     ContentTitle = Resources.MWVM_OutOfDate_Title,
+                    FontFamily = "Microsoft YaHei,Simsun,苹方-简,宋体-简",
                     ContentMessage = Resources.MWVM_OutOfDate_Message,
                     SizeToContent = SizeToContent.WidthAndHeight
                 }

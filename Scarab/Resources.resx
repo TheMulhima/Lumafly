@@ -406,6 +406,21 @@
     <value>Library</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>Fetching mods from modlinks...</value>
+  </data>
+  <data name="MVVM_Loading1" xml:space="preserve">
+    <value>Waiting for response from github...</value>
+  </data>
+  <data name="MVVM_Loading2" xml:space="preserve">
+    <value>Still waiting...</value>
+  </data>
+  <data name="MVVM_Loading3" xml:space="preserve">
+    <value>Trying from fallback source...</value>
+  </data>
+  <data name="MVVM_Loading4" xml:space="preserve">
+    <value>Waiting for response from jsdelivr...</value>
+  </data>
+  <data name="MVVM_Loading5" xml:space="preserve">
+    <value>Still waiting...</value>
   </data>
 </root>
