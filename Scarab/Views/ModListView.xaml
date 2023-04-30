@@ -416,7 +416,7 @@
                                         
                                         <md:MarkdownScrollViewer
                                             Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" 
-                                            Markdown="{Binding Description}" Margin="0 4 4 0"/>
+                                            Markdown="{Binding Description}" Margin="-5 4 4 0"/>
                                         
                                         <StackPanel 
                                             Grid.Column="0" Grid.Row="1"
