@@ -58,8 +58,6 @@ namespace Scarab.Views
         {
             foreach (var flyoutMenu in _flyoutMenus)
             {
-
-
                 var menuItem_popup = MenuItemPopup.GetValue(flyoutMenu);
 
                 var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");

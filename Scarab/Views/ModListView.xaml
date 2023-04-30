@@ -17,7 +17,7 @@
             x:Class="Scarab.Views.ModListView"
             d:DataContext="{x:Static mock:MockViewModel.DesignInstance}"
             Name="UserControl">
-    <DockPanel Margin="0 0 0 10">
+    <DockPanel Margin="0 0 0 5">
         <!-- Sidebar -->
         <Menu DockPanel.Dock="Left" HorizontalAlignment="Left">
             <Menu.ItemsPanel>
@@ -181,11 +181,12 @@
             Value="{Binding Progress}" />
 
         <Grid 
+            IsVisible="{Binding !IsInWhatsNew}"
             DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" MinWidth="400"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto" MinWidth="75"></ColumnDefinition>
+                <ColumnDefinition Width="*" MinWidth="400"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" MinWidth="75"/>
             </Grid.ColumnDefinitions>
             <TextBox
                 Grid.Column="0"
@@ -237,6 +238,7 @@
         </Grid>
 
         <Separator
+            IsVisible="{Binding !IsInWhatsNew}"
             DockPanel.Dock="Top"
             Height="1"
             Background="#a9a9a9" />
@@ -258,11 +260,13 @@
                         IsChecked="{Binding WhatsNew_NewMods}"
                         Content="{ext:Localize XAML_NewMods}"/>
                     <RadioButton
+                        IsVisible="{Binding WhatsNew_NewMods}"
                         Grid.Column="2" Grid.Row="0"
                         IsChecked="{Binding New7Days}" 
                         GroupName="NewMods" 
                         Content="{ext:Localize XAML_LastWeek}"/>
                     <RadioButton
+                        IsVisible="{Binding WhatsNew_NewMods}"
                         Grid.Column="3" Grid.Row="0"
                         IsChecked="{Binding !New7Days}" 
                         GroupName="NewMods" 
@@ -272,11 +276,13 @@
                         IsChecked="{Binding WhatsNew_UpdatedMods}"
                         Content="{ext:Localize XAML_UpdatedMods}"/>
                     <RadioButton 
+                        IsVisible="{Binding WhatsNew_UpdatedMods}"
                         Grid.Column="2" Grid.Row="2"
                         IsChecked="{Binding Updated7Days}" 
                         GroupName="UpdatedMods" 
                         Content="{ext:Localize XAML_LastWeek}"/>
                     <RadioButton
+                        IsVisible="{Binding WhatsNew_UpdatedMods}"
                         Grid.Column="3" Grid.Row="2"
                         IsChecked="{Binding !Updated7Days}" 
                         GroupName="UpdatedMods" 
