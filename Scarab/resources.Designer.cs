@@ -213,7 +213,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fetching mods from modlinks....
+        ///   Looks up a localized string similar to Expansion.
         /// </summary>
         internal static string ModLinks_Tags_Expansion {
             get {
@@ -285,7 +285,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting for response from github....
+        ///   Looks up a localized string similar to Fetching mods from modlinks....
         /// </summary>
         internal static string MVVM_Loading1 {
             get {
@@ -294,7 +294,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Still waiting....
+        ///   Looks up a localized string similar to Waiting for response from github....
         /// </summary>
         internal static string MVVM_Loading2 {
             get {
@@ -303,7 +303,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trying from fallback source....
+        ///   Looks up a localized string similar to Still waiting....
         /// </summary>
         internal static string MVVM_Loading3 {
             get {
@@ -312,7 +312,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting for response from jsdelivr....
+        ///   Looks up a localized string similar to Trying from fallback source....
         /// </summary>
         internal static string MVVM_Loading4 {
             get {
@@ -321,7 +321,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Still waiting....
+        ///   Looks up a localized string similar to Waiting for response from jsdelivr....
         /// </summary>
         internal static string MVVM_Loading5 {
             get {
