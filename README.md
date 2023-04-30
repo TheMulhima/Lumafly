@@ -24,7 +24,7 @@ see below for a [full changelog](#full-changelog-from-scarab)
 ![allflyouts](./Readme%20Assets/All%20Flyouts.png)
 
 ## Whats New Tab
-![whatsnew](./Readme%20Assets/Whats%20new.png)
+![whatsnew](./Readme%20Assets/whatsnew.png)
 
 ## More Compact UI
 ![expanded](./Readme%20Assets/expanded.png)
