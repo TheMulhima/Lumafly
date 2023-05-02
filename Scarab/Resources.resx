@@ -426,4 +426,7 @@
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
     <value>Try running scarab as an administrator, it may fix the issue</value>
   </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>An exception occured while</value>
+  </data>
 </root>

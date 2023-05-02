@@ -282,4 +282,7 @@
   <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
     <value>Eltávolít</value>
   </data>
+  <data name="XAML_Additional" xml:space="preserve">
+    <value />
+  </data>
 </root>

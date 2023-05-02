@@ -285,6 +285,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An exception occured while.
+        /// </summary>
+        internal static string MVVM_ExceptionOccur {
+            get {
+                return ResourceManager.GetString("MVVM_ExceptionOccur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetching mods from modlinks....
         /// </summary>
         internal static string MVVM_Loading1 {

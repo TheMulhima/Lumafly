@@ -187,7 +187,7 @@
     <value>O caminho salvo do Hollow Knight é inválido. Por favor, selecione novamente um caminho válido.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>informação</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
     <value>Não foi possível detectar a sua instalação do Hollow Knight. Por favor, selecione-a.</value>
@@ -281,5 +281,152 @@
   </data>
   <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
     <value>Desinstalar</value>
+  </data>
+  <data name="MLVM_Select_Mod" xml:space="preserve">
+    <value>Selecione a dll ou o zip do mod</value>
+  </data>
+  <data name="XAML_Additional" xml:space="preserve">
+    <value>Extras</value>
+  </data>
+  <data name="XAML_Authors" xml:space="preserve">
+    <value>Autores</value>
+  </data>
+  <data name="XAML_Disable_All_Installed" xml:space="preserve">
+    <value>Desativar Tudo</value>
+  </data>
+  <data name="XAML_Exact_Search" xml:space="preserve">
+    <value>Pesquisa Exata</value>
+  </data>
+  <data name="XAML_Force_Update_All" xml:space="preserve">
+    <value>Forçar Atualização de Tudo</value>
+  </data>
+  <data name="XAML_LastMonth" xml:space="preserve">
+    <value>Mês Passado</value>
+  </data>
+  <data name="XAML_LastWeek" xml:space="preserve">
+    <value>Semana Passada</value>
+  </data>
+  <data name="XAML_Manual_Install" xml:space="preserve">
+    <value>Instalar mod manualmente</value>
+  </data>
+  <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
+    <value>O que há de novo</value>
+  </data>
+  <data name="XAML_NewMods" xml:space="preserve">
+    <value>Novos Mods</value>
+  </data>
+  <data name="XAML_Normal_Search" xml:space="preserve">
+    <value>Pesquisa Normal</value>
+  </data>
+  <data name="XAML_Open_Bulk_Action" xml:space="preserve">
+    <value>Ações em Massa</value>
+  </data>
+  <data name="XAML_Search_Dependents" xml:space="preserve">
+    <value>Pesquisar por Dependência</value>
+  </data>
+  <data name="XAML_Search_Options" xml:space="preserve">
+    <value>Pesquisar Opções</value>
+  </data>
+  <data name="XAML_Search_Type" xml:space="preserve">
+    <value>Pesquisar Tipo</value>
+  </data>
+  <data name="XAML_Select_Mod" xml:space="preserve">
+    <value>Selecionar Mod</value>
+  </data>
+  <data name="XAML_Select_Tags" xml:space="preserve">
+    <value>Selecionar Etiquetas</value>
+  </data>
+  <data name="XAML_Uninstall_All" xml:space="preserve">
+    <value>Desinstalar Tudo</value>
+  </data>
+  <data name="XAML_UpdatedMods" xml:space="preserve">
+    <value>Mods Atualizados</value>
+  </data>
+  <data name="XAML_CopyError" xml:space="preserve">
+    <value>Erro de Cópia</value>
+  </data>
+  <data name="XAML_ShowError" xml:space="preserve">
+    <value>Clique para mostrar o erro completo</value>
+  </data>
+  <data name="XAML_EditSettings" xml:space="preserve">
+    <value>Editar arquivo de configurações</value>
+  </data>
+  <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
+    <value>Carregando os novos mods que estão em modlinks...</value>
+  </data>
+  <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
+    <value>Desculpe, Scarab não conseguiu carregar os últimos mods em modlinks.\n\nPor favor tente novamente após algum tempo.</value>
+  </data>
+  <data name="MVVM_DNSError" xml:space="preserve">
+    <value>Possivelmente causado por uma conexão à internet ruim ou não existente. Por favor cheque isso e tente novamente.</value>
+  </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>Uma exceção ocorrer enquanto</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
+    <value>Aviso! Esse mod é requerido para que outros mods funcionem!</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
+    <value>{0} é requerido para que {1} funcione(m) corretamente. Você ainda quer continuar?</value>
+  </data>
+  <data name="MVVM_AreYouSure" xml:space="preserve">
+    <value>Aviso! Você tem certeza que quer fazer isso?</value>
+  </data>
+  <data name="MVVM_SystemIOException_ScarabCantAccessFile" xml:space="preserve">
+    <value>Scarab não pode acessar o arquivo:</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
+    <value>Scarab não conseguiu acessar o arquivo na pasta de mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
+    <value>Por favor certifique-se de que a pasta de mods não está num local protegido contra gravação</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
+    <value>Por favor certifique-se de fechar todos outros aplicativos que possam estar usando a pasta de mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
+    <value>Por favor feche os seguintes processos, visto que eles estão bloqueando arquivos importantes:</value>
+  </data>
+  <data name="ModLinks_Tags_Boss" xml:space="preserve">
+    <value>Chefão</value>
+  </data>
+  <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
+    <value>Cosmético</value>
+  </data>
+  <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
+    <value>Jogabilidade</value>
+  </data>
+  <data name="ModLinks_Tags_Utility" xml:space="preserve">
+    <value>Utilidade</value>
+  </data>
+  <data name="ModLinks_Tags_Expansion" xml:space="preserve">
+    <value>Expansão</value>
+  </data>
+  <data name="ModLinks_Tags_Library" xml:space="preserve">
+    <value>Biblioteca</value>
+  </data>
+  <data name="MVVM_Loading1" xml:space="preserve">
+    <value>Obtendo mods em modlinks...</value>
+  </data>
+  <data name="MVVM_Loading2" xml:space="preserve">
+    <value>Esperando uma resposta de GitHub...</value>
+  </data>
+  <data name="MVVM_Loading3" xml:space="preserve">
+    <value>Ainda esperando...</value>
+  </data>
+  <data name="MVVM_Loading4" xml:space="preserve">
+    <value>Tentando de uma fonte alternativa...</value>
+  </data>
+  <data name="MVVM_Loading5" xml:space="preserve">
+    <value>Esperando uma resposta de jsdelivr...</value>
+  </data>
+  <data name="XAML_SavesFolder" xml:space="preserve">
+    <value>Abrir Saves</value>
+  </data>
+  <data name="XAML_No_Items" xml:space="preserve">
+    <value>Nenhum mod para exibir</value>
+  </data>
+  <data name="MVVM_RunAsAdmin" xml:space="preserve">
+    <value>Tente executar Scarab como um administrador, isso pode resolver o problema</value>
   </data>
 </root>
