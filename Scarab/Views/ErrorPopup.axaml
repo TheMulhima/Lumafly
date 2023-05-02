@@ -61,14 +61,14 @@
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             
-            <Button Content="Report Error"
+            <Button Content="{ext:Localize XAML_ReportError}"
                     Margin="0 0 15 0"
                     Command="{Binding ReportError}"/>
-            <Button Content="Ask for help"
+            <Button Content="{ext:Localize XAML_AskForHelp}"
                     Margin="0 0 15 0"
                     Command="{Binding AskForHelp}"/>
             <Button Name="OkButton" 
-                    Content="Ok"
+                    Content="{ext:Localize XAML_Ok}"
                     Margin="0 0 15 0"/>
             
         </StackPanel>

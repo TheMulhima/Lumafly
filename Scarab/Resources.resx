@@ -202,7 +202,7 @@
     <value>Change Path</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>\nDependencies:\n</value>
+    <value>Dependencies:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
     <value>Donate</value>
@@ -223,7 +223,7 @@
     <value>Open Mods</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>\nRepository and Readme:\n</value>
+    <value>Repository and Readme:</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Mod Search</value>
@@ -232,7 +232,7 @@
     <value>Update API</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>\nVersion:\n</value>
+    <value>Version:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
     <value>Integrations:</value>
@@ -406,24 +406,36 @@
     <value>Library</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Fetching mods from modlinks...</value>
+    <value>Expansion</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Waiting for response from github...</value>
+    <value>Fetching mods from modlinks...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>Waiting for response from github...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Trying from fallback source...</value>
+    <value>Still waiting...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Waiting for response from jsdelivr...</value>
+    <value>Trying from fallback source...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>Waiting for response from jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
     <value>Try running scarab as an administrator, it may fix the issue</value>
+  </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>An exception occured while {0} {1}</value>
+  </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value>Ask for help</value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>Report Error</value>
   </data>
 </root>

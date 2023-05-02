@@ -1,15 +1,3 @@
-﻿using HarfBuzzSharp;
+﻿namespace Scarab.Models;
 
-namespace Scarab.Models;
-
-public class TagItem
-{
-    public string TagName { get; set; }
-    public bool IsSelected { get; set; } = false;
-
-    public TagItem(string tagName, bool isSelected)
-    {
-        TagName = tagName;
-        IsSelected = isSelected;
-    }
-}
+public record TagItem(string TagName,string TagDisplayName, bool IsSelected);

@@ -202,7 +202,7 @@
     <value>HK mappa módosítása...</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>\nFüggőségek:\n</value>
+    <value>Függőségek:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
     <value>Támogatás</value>
@@ -223,7 +223,7 @@
     <value>Mods mappa...</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>\nForráskód:\n</value>
+    <value>Forráskód:</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Keresés</value>
@@ -232,7 +232,7 @@
     <value>API frissítése</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>\nVerzió:\n</value>
+    <value>Verzió:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
     <value>Integrációk</value>
@@ -281,5 +281,8 @@
   </data>
   <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
     <value>Eltávolít</value>
+  </data>
+  <data name="XAML_Additional" xml:space="preserve">
+    <value />
   </data>
 </root>

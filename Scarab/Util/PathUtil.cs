@@ -38,9 +38,9 @@ namespace Scarab.Util
                 string? result = await dialog.ShowAsync(parent);
 
                 if (result is null)
-                    await MessageBoxManager.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
                 else if (ValidateWithSuffix(result) is not var (managed, suffix))
-                    await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidPathHeader,
                         ContentMessage = Resources.PU_InvalidPath,
@@ -70,9 +70,9 @@ namespace Scarab.Util
                 string[]? result = await dialog.ShowAsync(parent);
 
                 if (result is null or { Length: 0 })
-                    await MessageBoxManager.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
                 else if (ValidateWithSuffix(result.First()) is not (var managed, var suffix))
-                    await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidAppHeader,
                         ContentMessage = Resources.PU_InvalidApp,

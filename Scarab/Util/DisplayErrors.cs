@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,7 +22,7 @@ public static class DisplayErrors
 {
     public static async Task DisplayHashMismatch(HashMismatchException e)
     {
-        await MessageBoxManager.GetMessageBoxStandardWindow
+        await MessageBoxUtil.GetMessageBoxStandardWindow
         (
             title: Resources.MLVM_DisplayHashMismatch_Msgbox_Title,
             text: string.Format(Resources.MLVM_DisplayHashMismatch_Msgbox_Text, e.Name, e.Actual, e.Expected),
@@ -32,7 +32,7 @@ public static class DisplayErrors
 
     public static async Task DisplayGenericError(string action, string name, Exception e)
     {
-        await DisplayGenericError($"An exception occured while {action} {name}.", e);
+        await DisplayGenericError(string.Format(Resources.MVVM_ExceptionOccur, action, name), e);
     }
     
     public static async Task DisplayGenericError(string errorText, Exception? e = null)
@@ -53,7 +53,7 @@ public static class DisplayErrors
     {
         Trace.WriteLine($"Failed to download {name}, {e}");
 
-        await MessageBoxManager.GetMessageBoxStandardWindow
+        await MessageBoxUtil.GetMessageBoxStandardWindow
         (
             title: Resources.MLVM_DisplayNetworkError_Msgbox_Title,
             text: string.Format(Resources.MLVM_DisplayNetworkError_Msgbox_Text, name),
@@ -66,7 +66,7 @@ public static class DisplayErrors
     public static async Task<bool> DisplayHasDependentsWarning(string modName, IEnumerable<ModItem> dependents)
     {
         var dependentsString = string.Join(", ", dependents.Select(x => x.Name));
-        var result = await MessageBoxManager.GetMessageBoxStandardWindow
+        var result = await MessageBoxUtil.GetMessageBoxStandardWindow
         (
             title: Resources.MVVM_DependentsWarning_Header,
             text: string.Format(Resources.MVVM_DependentsWarning_Body, modName, dependentsString),
@@ -80,7 +80,7 @@ public static class DisplayErrors
     
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)
     {
-        var result = await MessageBoxManager.GetMessageBoxStandardWindow
+        var result = await MessageBoxUtil.GetMessageBoxStandardWindow
         (
             title: Resources.MVVM_AreYouSure,
             text: warningText,

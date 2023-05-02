@@ -213,7 +213,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fetching mods from modlinks....
+        ///   Looks up a localized string similar to Expansion.
         /// </summary>
         internal static string ModLinks_Tags_Expansion {
             get {
@@ -285,7 +285,16 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting for response from github....
+        ///   Looks up a localized string similar to An exception occured while {0} {1}.
+        /// </summary>
+        internal static string MVVM_ExceptionOccur {
+            get {
+                return ResourceManager.GetString("MVVM_ExceptionOccur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetching mods from modlinks....
         /// </summary>
         internal static string MVVM_Loading1 {
             get {
@@ -294,7 +303,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Still waiting....
+        ///   Looks up a localized string similar to Waiting for response from github....
         /// </summary>
         internal static string MVVM_Loading2 {
             get {
@@ -303,7 +312,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trying from fallback source....
+        ///   Looks up a localized string similar to Still waiting....
         /// </summary>
         internal static string MVVM_Loading3 {
             get {
@@ -312,7 +321,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting for response from jsdelivr....
+        ///   Looks up a localized string similar to Trying from fallback source....
         /// </summary>
         internal static string MVVM_Loading4 {
             get {
@@ -321,7 +330,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Still waiting....
+        ///   Looks up a localized string similar to Waiting for response from jsdelivr....
         /// </summary>
         internal static string MVVM_Loading5 {
             get {
@@ -618,6 +627,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for help.
+        /// </summary>
+        internal static string XAML_AskForHelp {
+            get {
+                return ResourceManager.GetString("XAML_AskForHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authors:.
         /// </summary>
         internal static string XAML_Authors {
@@ -825,6 +843,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string XAML_Ok {
+            get {
+                return ResourceManager.GetString("XAML_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On.
         /// </summary>
         internal static string XAML_On {
@@ -848,6 +875,15 @@ namespace Scarab {
         internal static string XAML_OpenMods {
             get {
                 return ResourceManager.GetString("XAML_OpenMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Error.
+        /// </summary>
+        internal static string XAML_ReportError {
+            get {
+                return ResourceManager.GetString("XAML_ReportError", resourceCulture);
             }
         }
         

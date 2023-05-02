@@ -131,6 +131,7 @@ namespace Scarab.ViewModels
 
             TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => 
                 new TagItem(
+                    x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
         }
@@ -275,7 +276,7 @@ namespace Scarab.ViewModels
 
             await _mods.Reset();
 
-            await MessageBoxManager.GetMessageBoxStandardWindow(Resources.MLVM_ChangePathAsync_Msgbox_Title, 
+            await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.MLVM_ChangePathAsync_Msgbox_Title, 
                 Resources.MLVM_ChangePathAsync_Msgbox_Text).Show();
             
             // Shutting down is easier than re-doing the source and all the items.
@@ -476,7 +477,7 @@ namespace Scarab.ViewModels
             
             if (Process.GetProcesses().FirstOrDefault(IsHollowKnight) is { } proc)
             {
-                var res = await MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
+                var res = await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
                     ContentTitle = Resources.MLVM_InternalUpdateInstallAsync_Msgbox_W_Title,
                     ContentMessage = Resources.MLVM_InternalUpdateInstallAsync_Msgbox_W_Text,
                     ButtonDefinitions = ButtonEnum.YesNo,
