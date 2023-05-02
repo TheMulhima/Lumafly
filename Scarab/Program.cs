@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Media;
+using Avalonia.Media.Fonts;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
 
@@ -12,6 +17,10 @@ namespace Scarab
     [UsedImplicitly]
     internal class Program
     {
+        internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() {
+            ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Simsun, 苹方-简, 黑体-简, 宋体-简, 黑体, 宋体"
+        };
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -94,11 +103,34 @@ namespace Scarab
             Trace.Flush();
         }
 
+        private static void SetCultureSpecificFontOptions(AppBuilder builder, string culture, string fontFamily) {
+            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == culture) {
+                FamilyNameCollection families = new(fontFamily);
+                _ = builder.With(new FontManagerOptions() {
+                    DefaultFamilyName = families.PrimaryFamilyName,
+                    FontFallbacks = families
+                        .Skip(1)
+                        .Select(name => new FontFallback() {
+                            FontFamily = name
+                        })
+                        .ToList()
+                });
+            }
+        }
+
         // Avalonia configuration, don't remove; also used by visual designer.
-        private static AppBuilder BuildAvaloniaApp() =>
-            AppBuilder.Configure<App>()
-                      .UsePlatformDetect()
-                      .LogToTrace()
-                      .UseReactiveUI();
+        private static AppBuilder BuildAvaloniaApp() {
+            AppBuilder builder = AppBuilder
+                .Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace()
+                .UseReactiveUI();
+
+            foreach ((string culture, string fontFamily) in fontOverrides) {
+                SetCultureSpecificFontOptions(builder, culture, fontFamily);
+            }
+
+            return builder;
+        }
     }
 }
