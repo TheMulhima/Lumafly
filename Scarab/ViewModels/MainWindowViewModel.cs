@@ -124,7 +124,7 @@ namespace Scarab.ViewModels
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 
-                await MessageBoxManager.GetMessageBoxStandardWindow
+                await MessageBoxUtil.GetMessageBoxStandardWindow
                 (
                     title: Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title,
                     text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp),
@@ -194,7 +194,7 @@ namespace Scarab.ViewModels
                             //ignored as its not a requirement
                         }
 
-                        await MessageBoxManager.GetMessageBoxStandardWindow
+                        await MessageBoxUtil.GetMessageBoxStandardWindow
                         (
                             title: "File access error!!",
                             text: $"Scarab cannot run without being able to access {InstalledMods.ConfigPath}.\n" +
@@ -254,7 +254,7 @@ namespace Scarab.ViewModels
             if (version <= current_version)
                 return;
             
-            string? res = await MessageBoxManager.GetMessageBoxCustomWindow
+            string? res = await MessageBoxUtil.GetMessageBoxCustomWindow
             (
                 new MessageBoxCustomParams {
                     ButtonDefinitions = new[] {
@@ -268,7 +268,6 @@ namespace Scarab.ViewModels
                         }
                     },
                     ContentTitle = Resources.MWVM_OutOfDate_Title,
-                    FontFamily = "Microsoft YaHei,Simsun,苹方-简,宋体-简",
                     ContentMessage = Resources.MWVM_OutOfDate_Message,
                     SizeToContent = SizeToContent.WidthAndHeight
                 }
@@ -290,7 +289,7 @@ namespace Scarab.ViewModels
         {
             Trace.WriteLine("Settings path is invalid, forcing re-selection.");
 
-            await MessageBoxManager.GetMessageBoxStandardWindow
+            await MessageBoxUtil.GetMessageBoxStandardWindow
             (
                 new MessageBoxStandardParams {
                     ContentHeader = Resources.MWVM_Warning,
@@ -308,7 +307,7 @@ namespace Scarab.ViewModels
         {
             if (!Settings.TryAutoDetect(out ValidPath? path))
             {
-                IMsBoxWindow<ButtonResult> info = MessageBoxManager.GetMessageBoxStandardWindow
+                IMsBoxWindow<ButtonResult> info = MessageBoxUtil.GetMessageBoxStandardWindow
                 (
                     new MessageBoxStandardParams
                     {
@@ -325,7 +324,7 @@ namespace Scarab.ViewModels
 
             Trace.WriteLine($"Settings doesn't exist. Creating it at detected path {path}.");
 
-            IMsBoxWindow<ButtonResult> window = MessageBoxManager.GetMessageBoxStandardWindow
+            IMsBoxWindow<ButtonResult> window = MessageBoxUtil.GetMessageBoxStandardWindow
             (
                 new MessageBoxStandardParams
                 {

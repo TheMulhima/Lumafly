@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -124,91 +124,91 @@
     <value>安装</value>
   </data>
   <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
-    <value>禁用API</value>
+    <value>禁用 API</value>
   </data>
   <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
-    <value>启用API</value>
+    <value>启用 API</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>切换API</value>
+    <value>切换 API</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>请重新启动Scarab以应用更改</value>
+    <value>重启安装器来使用新路径。</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>游戏路径已更改</value>
+    <value>游戏路径已更改！</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>{0}({1}) 的哈希值与给定的哈希值{2}不匹配，它已损坏。</value>
+    <value>{0}（{1}）的哈希值与给定值（{2}）不匹配。可能是下载出错或 Mod 条目有误。</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>哈希值不匹配</value>
+    <value>哈希值不匹配！</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>无法下载{0}！资源可能已删除，或者未连接网络</value>
+    <value>无法下载 {0}！可能是网站出现问题，或者未连接网络。</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
     <value>网络错误</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>游戏正在运行，这可能会导致一些问题。是否关闭游戏？</value>
+    <value>游戏正在运行！这可能会导致安装 Mod 出错。是否关闭游戏？</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
-    <value>警告</value>
+    <value>警告！</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>HTTP错误{0}</value>
+    <value>HTTP 错误 {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>无法获取ModLinks，原因：{0}</value>
+    <value>无法获取 Mod 列表，原因为：{0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
-    <value>错误</value>
+    <value>错误！</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>超时</value>
+    <value>连接已超时。请检查网络连接并再试一次。</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>获取最新的版本</value>
+    <value>获取最新版</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>继续</value>
+    <value>暂不更新</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>过时了</value>
+    <value>安装器有更新！</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>这个程序已经过时了！它可能无法正常工作。</value>
+    <value>安装器有更新，建议更新以获取最佳使用体验。</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
     <value>警告</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>空洞骑士的路径无效，请重新选择有效路径。</value>
+    <value>保存的游戏路径无效，请重新选择有效路径。</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>信息</value>
+    <value>提示</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>无法检测到空洞骑士的路径，请手动选择它。</value>
+    <value>无法自动检测游戏路径，请手动选择。</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>检测到的路径！</value>
+    <value>已自动检测到游戏路径</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>检测到空洞骑士的路径为{0}。这是对的吗？</value>
+    <value>检测到游戏路径为：{0}。是否正确？</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>更改游戏目录</value>
+    <value>更改路径</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>依赖Mods：</value>
+    <value>前置</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>捐赠</value>
+    <value>捐助</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>所有Mods</value>
+    <value>全部</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
     <value>已启用</value>
@@ -217,34 +217,34 @@
     <value>已安装</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>已过时</value>
+    <value>有更新</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>打开Mods文件夹</value>
+    <value>打开 Mods 文件夹</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>代码仓库：</value>
+    <value>代码仓库与说明文件</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>搜索Mod</value>
+    <value>Mod 搜索</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>更新API</value>
+    <value>更新 API</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>版本：</value>
+    <value>版本</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>整合</value>
+    <value>联动</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
     <value>标签</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>活性</value>
+    <value>开启</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>禁用</value>
+    <value>关闭</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>更新</value>
@@ -253,33 +253,189 @@
     <value>未选择路径！</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>未选择任何应用程序！</value>
+    <value>未选择程序！</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>无效的空洞骑士路径</value>
+    <value>无效的游戏路径！</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>无效的空洞骑士路径</value>
+    <value>无效的游戏程序！</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>选择包含“hollow_knight_Data”或“Hollow Knight_Data”的文件夹。</value>
+    <value>请选择包含 “hollow_knight_Data” 或 “Hollow Knight_Data” 的文件夹。</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>缺少Managed或Assembly-CSharp.dll</value>
+    <value>缺少 Managed 文件夹或 Assembly-CSharp.dll</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>选择您的空洞骑士文件夹</value>
+    <value>选择游戏文件夹</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
     <value>路径</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>选择空洞骑士</value>
+    <value>选择游戏程序</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>全部更新</value>
   </data>
   <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
     <value>卸载</value>
+  </data>
+  <data name="XAML_Open_Bulk_Action" xml:space="preserve">
+    <value>批量操作</value>
+  </data>
+  <data name="XAML_Disable_All_Installed" xml:space="preserve">
+    <value>全部禁用</value>
+  </data>
+  <data name="XAML_Uninstall_All" xml:space="preserve">
+    <value>全部卸载</value>
+  </data>
+  <data name="XAML_Force_Update_All" xml:space="preserve">
+    <value>全部强制更新</value>
+  </data>
+  <data name="XAML_Authors" xml:space="preserve">
+    <value>作者：</value>
+  </data>
+  <data name="XAML_Search_Options" xml:space="preserve">
+    <value>搜索选项</value>
+  </data>
+  <data name="XAML_Search_Type" xml:space="preserve">
+    <value>搜索类型</value>
+  </data>
+  <data name="XAML_Select_Tags" xml:space="preserve">
+    <value>选择标签</value>
+  </data>
+  <data name="XAML_Exact_Search" xml:space="preserve">
+    <value>精确搜索</value>
+  </data>
+  <data name="XAML_Normal_Search" xml:space="preserve">
+    <value>常规搜索</value>
+  </data>
+  <data name="XAML_Search_Dependents" xml:space="preserve">
+    <value>按前置搜索</value>
+  </data>
+  <data name="XAML_Select_Mod" xml:space="preserve">
+    <value>选择 Mod</value>
+  </data>
+  <data name="XAML_No_Items" xml:space="preserve">
+    <value>无 Mod</value>
+  </data>
+  <data name="XAML_Additional" xml:space="preserve">
+    <value>其它</value>
+  </data>
+  <data name="XAML_SavesFolder" xml:space="preserve">
+    <value>打开存档文件夹</value>
+  </data>
+  <data name="XAML_Manual_Install" xml:space="preserve">
+    <value>手动安装 Mod</value>
+  </data>
+  <data name="MLVM_Select_Mod" xml:space="preserve">
+    <value>选择 Mod dll 或 zip</value>
+  </data>
+  <data name="XAML_NewMods" xml:space="preserve">
+    <value>新 Mod</value>
+  </data>
+  <data name="XAML_UpdatedMods" xml:space="preserve">
+    <value>有更新的 Mod</value>
+  </data>
+  <data name="XAML_LastWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
+  <data name="XAML_LastMonth" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
+    <value>最新动态</value>
+  </data>
+  <data name="XAML_CopyError" xml:space="preserve">
+    <value>复制错误信息</value>
+  </data>
+  <data name="XAML_ShowError" xml:space="preserve">
+    <value>点击显示完整错误信息</value>
+  </data>
+  <data name="XAML_EditSettings" xml:space="preserve">
+    <value>编辑配置文件</value>
+  </data>
+  <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
+    <value>正在加载最新 Mod……</value>
+  </data>
+  <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
+    <value>无法加载最新 Mod，请稍后再试。</value>
+  </data>
+  <data name="MVVM_DNSError" xml:space="preserve">
+    <value>可能为网络连接问题，请再试一次。</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
+    <value>警告！有其它 Mod 依赖于本 Mod！</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
+    <value>{1} 需要 {0} 才能正常工作。确定要继续吗？</value>
+  </data>
+  <data name="MVVM_AreYouSure" xml:space="preserve">
+    <value>警告！确定要这么做吗？</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
+    <value>Scarab 无法访问 Mods 文件夹中的文件</value>
+  </data>
+  <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
+    <value>请确保 Mods 文件夹不是只读的</value>
+  </data>
+  <data name="MVVM_SystemIOException_ScarabCantAccessFile" xml:space="preserve">
+    <value>Scarab 无法访问文件：</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
+    <value>请关闭所有其它可能在访问 Mods 文件夹的程序</value>
+  </data>
+  <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
+    <value>请关闭下列进程，因为他们锁定了重要的文件：</value>
+  </data>
+  <data name="ModLinks_Tags_Boss" xml:space="preserve">
+    <value>Boss</value>
+  </data>
+  <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
+    <value>玩法</value>
+  </data>
+  <data name="ModLinks_Tags_Utility" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
+    <value>装饰</value>
+  </data>
+  <data name="ModLinks_Tags_Library" xml:space="preserve">
+    <value>前置</value>
+  </data>
+  <data name="ModLinks_Tags_Expansion" xml:space="preserve">
+    <value>拓展</value>
+  </data>
+  <data name="MVVM_Loading1" xml:space="preserve">
+    <value>正在下载 Mod 列表……</value>
+  </data>
+  <data name="MVVM_Loading2" xml:space="preserve">
+    <value>正在等待 GitHub 响应……</value>
+  </data>
+  <data name="MVVM_Loading3" xml:space="preserve">
+    <value>仍在等待……</value>
+  </data>
+  <data name="MVVM_Loading4" xml:space="preserve">
+    <value>正在尝试使用备用源……</value>
+  </data>
+  <data name="MVVM_Loading5" xml:space="preserve">
+    <value>正在等待 JsDelivr 响应……</value>
+  </data>
+  <data name="MVVM_RunAsAdmin" xml:space="preserve">
+    <value>以管理员身份运行 Scarab 可能会解决这个问题</value>
+  </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>在 {0} {1} 时出现错误</value>
+  </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value>在 Discord 求助</value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>报告错误</value>
   </data>
 </root>
