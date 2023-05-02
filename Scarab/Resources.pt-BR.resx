@@ -285,8 +285,9 @@
   <data name="MLVM_Select_Mod" xml:space="preserve">
     <value>Selecione a dll ou o zip do mod</value>
   </data>
+  <!-- ReSharper disable once OverriddenWithSameValue -->
   <data name="XAML_Additional" xml:space="preserve">
-    <value>Extras</value>
+    <value>Extras </value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
     <value>Autores</value>
@@ -428,5 +429,14 @@
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
     <value>Tente executar Scarab como um administrador, isso pode resolver o problema</value>
+  </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>Ok </value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>Reportar Erro</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value> Pedir ajuda</value>
   </data>
 </root>

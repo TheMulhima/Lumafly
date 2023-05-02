@@ -391,7 +391,7 @@
     <value>请关闭下列进程，因为他们锁定了重要的文件：</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
-    <value>Boss</value>
+    <value>Boss </value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
     <value>玩法</value>
