@@ -427,7 +427,7 @@
     <value>Try running scarab as an administrator, it may fix the issue</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>An exception occured while</value>
+    <value>An exception occured while {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
     <value>Ok</value>

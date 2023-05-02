@@ -361,7 +361,7 @@
     <value>Possivelmente causado por uma conexão à internet ruim ou não existente. Por favor cheque isso e tente novamente.</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>Uma exceção ocorrer enquanto</value>
+    <value>Uma exceção ocorrer enquanto {0} {1}</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
     <value>Aviso! Esse mod é requerido para que outros mods funcionem!</value>

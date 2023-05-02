@@ -32,7 +32,7 @@ public static class DisplayErrors
 
     public static async Task DisplayGenericError(string action, string name, Exception e)
     {
-        await DisplayGenericError($"{Resources.MVVM_ExceptionOccur} {action} {name}.", e);
+        await DisplayGenericError(string.Format(Resources.MVVM_ExceptionOccur, action, name), e);
     }
     
     public static async Task DisplayGenericError(string errorText, Exception? e = null)

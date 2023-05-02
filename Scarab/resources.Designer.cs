@@ -285,7 +285,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception occured while.
+        ///   Looks up a localized string similar to An exception occured while {0} {1}.
         /// </summary>
         internal static string MVVM_ExceptionOccur {
             get {
