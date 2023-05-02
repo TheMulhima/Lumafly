@@ -627,6 +627,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask for help.
+        /// </summary>
+        internal static string XAML_AskForHelp {
+            get {
+                return ResourceManager.GetString("XAML_AskForHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authors:.
         /// </summary>
         internal static string XAML_Authors {
@@ -834,6 +843,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string XAML_Ok {
+            get {
+                return ResourceManager.GetString("XAML_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On.
         /// </summary>
         internal static string XAML_On {
@@ -857,6 +875,15 @@ namespace Scarab {
         internal static string XAML_OpenMods {
             get {
                 return ResourceManager.GetString("XAML_OpenMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Error.
+        /// </summary>
+        internal static string XAML_ReportError {
+            get {
+                return ResourceManager.GetString("XAML_ReportError", resourceCulture);
             }
         }
         

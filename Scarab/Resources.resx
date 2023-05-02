@@ -429,4 +429,13 @@
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
     <value>An exception occured while</value>
   </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value>Ask for help</value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>Report Error</value>
+  </data>
 </root>
