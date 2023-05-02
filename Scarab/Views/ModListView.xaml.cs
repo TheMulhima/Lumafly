@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
@@ -11,6 +10,7 @@ using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
 using Scarab.ViewModels;
 
@@ -35,16 +35,16 @@ namespace Scarab.Views
             this.FindControl<UserControl>(nameof(UserControl)).KeyDown += OnKeyDown;
             
             _search = this.FindControl<TextBox>("Search");
-            
-            _modFilterItems = this.GetLogicalDescendants()
-                .Where(x => x is MenuItem menuItem && (menuItem.Name?.StartsWith("ModFilter") ?? false))
-                .Select(x => (MenuItem)x).ToList();
-            _flyoutMenus = this.GetLogicalDescendants()
-                .Where(x => x is MenuItem menuItem && (menuItem.Name?.StartsWith("Flyout") ?? false))
-                .Select(x => (MenuItem)x).ToList();
+
+            _modFilterItems = this.GetLogicalDescendants().OfType<MenuItem>()
+                .Where(x => x.Name?.StartsWith("ModFilter") ?? false)
+                .ToList();
+            _flyoutMenus = this.GetLogicalDescendants().OfType<MenuItem>()
+                .Where(x => x.Name?.StartsWith("Flyout") ?? false)
+                .ToList();
 
         }
-
+        
         // MenuItem's Popup is not created when ctor is run. I randomly overrided methods until
         // I found one that is called after Popup is created. There is nothing special about ArrangeCore
         protected override void ArrangeCore(Rect finalRect)
@@ -88,6 +88,8 @@ namespace Scarab.Views
         private void PrepareElement(object? sender, ItemsRepeaterElementPreparedEventArgs e)
         {
             e.Element.VisualChildren.OfType<Expander>().First().IsExpanded = false;
+            // CTextBlock is the element that markdown avalonia uses for the text
+            e.Element.GetLogicalDescendants().OfType<CTextBlock>().First().FontSize = 12;
         }
 
         private void ModFilterPressed(object? sender, PointerPressedEventArgs e)
