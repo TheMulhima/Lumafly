@@ -92,8 +92,6 @@ jobs:
     needs: [build-macos, build-windows, build-linux]
     runs-on: ubuntu-latest
 
-    if: startsWith(github.ref, 'refs/tags')
-
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
@@ -108,11 +106,12 @@ jobs:
           zip -jr Scarab-Linux.zip ./artifacts/Scarab-Linux/*
           
           mv ./artifacts/Scarab-MacOS/mac.zip Scarab-MacOS.zip
-
-      - name: Create release if a new tag is pushed
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            ./Scarab-Windows.zip
-            ./Scarab-MacOS.zip
-            ./Scarab-Linux.zip
+          
+          ls -l
+          
+          unzip Scarab-Windows.zip -d Scarab-Windows
+          unzip Scarab-MacOS.zip -d Scarab-MacOS
+          unzip Scarab-Linux.zip -d Scarab-Linux
+          ls -l Scarab-Windows
+          ls -l Scarab-MacOS
+          ls -l Scarab-Linux
