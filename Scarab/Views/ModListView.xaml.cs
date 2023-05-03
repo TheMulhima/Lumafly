@@ -87,9 +87,15 @@ namespace Scarab.Views
         [UsedImplicitly]
         private void PrepareElement(object? sender, ItemsRepeaterElementPreparedEventArgs e)
         {
-            e.Element.VisualChildren.OfType<Expander>().First().IsExpanded = false;
+            if (e.Element.VisualChildren.Count == 0)
+                return;
+            
+            var expander = e.Element.VisualChildren.OfType<Expander>().FirstOrDefault();
+            if (expander != null) expander.IsExpanded = false;
+            
             // CTextBlock is the element that markdown avalonia uses for the text
-            e.Element.GetLogicalDescendants().OfType<CTextBlock>().First().FontSize = 12;
+            var cTextBlock = e.Element.GetLogicalDescendants().OfType<CTextBlock>().FirstOrDefault();
+            if (cTextBlock != null) cTextBlock.FontSize = 12;
         }
 
         private void ModFilterPressed(object? sender, PointerPressedEventArgs e)
