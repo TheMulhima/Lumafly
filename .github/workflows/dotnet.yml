@@ -102,15 +102,17 @@ jobs:
 
       - name: Zip
         run: |
-            zip -jr windows.zip ./artifacts/Scarab-Windows/*
-
-            chmod +x ./artifacts/Scarab-Linux/Scarab
-            zip -jr linux.zip ./artifacts/Scarab-Linux/*
+          zip -jr Scarab-Windows.zip ./artifacts/Scarab-Windows/*
+          
+          chmod +x ./artifacts/Scarab-Linux/Scarab
+          zip -jr Scarab-Linux.zip ./artifacts/Scarab-Linux/*
+          
+          mv ./artifacts/Scarab-MacOS/mac.zip Scarab-MacOS.zip
 
       - name: Create release if a new tag is pushed
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./windows.zip
-            ./artifacts/Scarab-MacOS/mac.zip
-            ./linux.zip
+            ./Scarab-Windows.zip
+            ./Scarab-MacOS.zip
+            ./Scarab-Linux.zip
