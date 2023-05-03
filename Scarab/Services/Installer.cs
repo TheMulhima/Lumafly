@@ -134,6 +134,32 @@ namespace Scarab.Services
 
         }
 
+        public async Task InstallVanilla()
+        {
+            await _semaphore.WaitAsync();
+
+            try
+            {
+                await CheckAPI();
+                if (_installed.HasVanilla)
+                    return;
+                
+                string managed = _config.ManagedFolder;
+
+                var url = await ModDatabase.FetchVanillaAssemblyLink();
+
+                (ArraySegment<byte> data, _) = await DownloadFile(url, _ => { });
+                
+                await _fs.File.WriteAllBytesAsync(Path.Combine(managed, Vanilla), data.Array!);
+
+                await CheckAPI();
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
         /// <remarks> This enables the API if it's installed! </remarks>
         public async Task InstallApi()
         {

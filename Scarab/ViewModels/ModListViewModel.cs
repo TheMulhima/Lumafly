@@ -225,45 +225,65 @@ namespace Scarab.ViewModels
         
         private async Task ToggleApiCommand()
         {
-            bool shouldInstallAndToggle = false;
+            async Task<bool> DoActionWithWithErrorHandling(Func<Task> Action)
+            {
+                try
+                {
+                    await Action();
+                }
+                catch (IOException io)
+                {
+                    await DisplayErrors.HandleIOExceptionWhenDownloading(io, "Installing Modding API");
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    await DisplayErrors.DisplayGenericError("Installing", "Modding API", e);
+                    return false;
+                }
+
+                return true;
+            }
+
+            bool shouldInstallAndToggle = false, shouldInstallVanilla = false;
             if (_mods.ApiInstall is InstalledState installedState)
             {
                 //returns false only when api state is installed but it isnt when we check
                 bool isApiActuallyInstalled = await _installer.CheckAPI();
 
-                /* this accounts for edge case when:
-                - api state here is said to be installed
-                - when we check api version, it isn't installed (i.e no modding.modhooks type was found on either dlls current or .m)
-                - user wants to toggle (doesnt matter which way)
-                - so we first install to ensure scarab's state matches with reality and then we toggle to do what user wants
+                /* this accounts for edge case when scarab says api is installed (installedState.Enabled) when its not (!isApiActuallyInstalled)
+                so we first install to ensure scarab's state matches with reality and then we toggle to do what user wants
                 */
                 shouldInstallAndToggle = !isApiActuallyInstalled && installedState.Enabled;
 
-                // this is the only case we cant handle as we can't get vanilla assembly from anywhere
-                if (installedState.Enabled && !_mods.HasVanilla)
-                {
-                    await DisplayErrors.DisplayGenericError("Cannot toggle API because vanilla assembly not found.\n" +
-                                                         "Please verify integrity of your game files and try again.");
-                    return;
-                }
-    
+                // if we reach here we need to manually install vanilla cuz its not here
+                shouldInstallVanilla = installedState.Enabled && !_mods.HasVanilla;
+
             }
 
             if (_mods.ApiInstall is not InstalledState)
             {
-                await _installer.InstallApi();
+                var success = await DoActionWithWithErrorHandling(() => _installer.InstallApi());
+                if (!success) return;
+
                 if (shouldInstallAndToggle)
                     await _installer.ToggleApi();
             }
             else
             {
+                if (shouldInstallVanilla)
+                {
+                    var success = await DoActionWithWithErrorHandling(() => _installer.InstallVanilla());
+                    if (!success) return;
+                }
+
                 await _installer.ToggleApi();
             }
 
             RaisePropertyChanged(nameof(ApiButtonText));
             RaisePropertyChanged(nameof(ApiOutOfDate));
         }
-        
+
         private async Task ChangePathAsync()
         {
             string? path = await PathUtil.SelectPathFallible();
@@ -441,7 +461,7 @@ namespace Scarab.ViewModels
             }
             catch (IOException io)
             {
-                await DisplayErrors.HandleIOExceptionWhenDownloading(item, io, "toggle");
+                await DisplayErrors.HandleIOExceptionWhenDownloading(io, "toggle", item);
             }
             catch (Exception e)
             {
@@ -532,7 +552,7 @@ namespace Scarab.ViewModels
             catch (IOException io)
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
-                await DisplayErrors.HandleIOExceptionWhenDownloading(item, io, "installing or uninstalling");
+                await DisplayErrors.HandleIOExceptionWhenDownloading(io, "installing or uninstalling", item);
             }
             catch (Exception e)
             {

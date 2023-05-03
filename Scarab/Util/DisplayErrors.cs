@@ -114,7 +114,7 @@ public static class DisplayErrors
         Other
     }
     
-    public static async Task HandleIOExceptionWhenDownloading(ModItem item, Exception e, string action)
+    public static async Task HandleIOExceptionWhenDownloading(Exception e, string action, ModItem? item = null)
     {
         var errorType = e switch
         {
@@ -132,10 +132,13 @@ public static class DisplayErrors
             _ => ""
         };
 
-        item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
+        if (item != null)
+        {
+            item.CallOnPropertyChanged(nameof(ModItem.InstallingButtonAccessible));
+        }
 
         await DisplayGenericError(
-            $"Unable to {action} {item.Name}.\n" +
+            $"Unable to {action} {item?.Name}.\n" +
             $"{Resources.MVVM_SystemIOException_GeneralReason}.\n" +
             additionalText, e);
     }

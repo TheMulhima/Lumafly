@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -21,6 +22,8 @@ namespace Scarab.Services
         
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
+        
+        private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AssemblyLinks.json";
         
         public static string GetModlinksUri(string? sha = null) => MODLINKS_BASE_URI + (sha ?? "main") + "/ModLinks.xml";
         public static string GetAPILinksUri(string? sha = null) => APILINKS_BASE_URI + (sha ?? "main") + "/ApiLinks.xml";
@@ -145,6 +148,22 @@ namespace Scarab.Services
                 var cts = new CancellationTokenSource(TIMEOUT);
                 return await hc.GetStringAsync(fallback, cts.Token);
             }
+        }
+
+        public static async Task<string> FetchVanillaAssemblyLink()
+        {
+            var cts = new CancellationTokenSource(TIMEOUT);
+            var hc = new HttpClient();
+            hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
+            var json = JsonDocument.Parse(await hc.GetStringAsync(VanillaApiRepo, cts.Token));
+            json.RootElement.TryGetProperty("Assembly-CSharp.dll.v", out var linkElem);
+            
+            var link = linkElem.GetString();
+            if (link != null)
+            {
+                return link;
+            }
+            throw new Exception("Scarab was unable to get vanilla assembly link from its resources. Please verify integrity of game files instead");
         }
     }
 }
