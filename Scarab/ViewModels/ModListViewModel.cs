@@ -233,12 +233,12 @@ namespace Scarab.ViewModels
                 }
                 catch (IOException io)
                 {
-                    await DisplayErrors.HandleIOExceptionWhenDownloading(io, "Installing Modding API");
+                    await DisplayErrors.HandleIOExceptionWhenDownloading(io, $"{Resources.MVVM_Install} API");
                     return false;
                 }
                 catch (Exception e)
                 {
-                    await DisplayErrors.DisplayGenericError("Installing", "Modding API", e);
+                    await DisplayErrors.DisplayGenericError(Resources.MVVM_Install, "API", e);
                     return false;
                 }
 
@@ -331,7 +331,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        public static void Donate() => Process.Start(new ProcessStartInfo("https://paypal.me/HussainAzizS") { UseShellExecute = true });
+        public static void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
         [UsedImplicitly]
         public void SelectModsWithFilter(ModFilterState modFilterState)

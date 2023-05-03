@@ -439,4 +439,7 @@
   <data name="XAML_AskForHelp" xml:space="preserve">
     <value> Pedir ajuda</value>
   </data>
+  <data name="MVVM_Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
 </root>

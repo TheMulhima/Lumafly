@@ -12,8 +12,7 @@ This fork has everything that Scarab has plus a few nice features:
   - Mods not downloading correctly
   - Showing a mod is updated when it isn't.
   - Showing that Modding API is disabled when it is not.
-- And other minor things (queueing multiple downloads, open mod's settings file, button to manually 
-install mod, ability to disable/uninstall all)
+- And other minor things (queueing multiple downloads, open mod's settings file, handling not in modlinks mods and a button to manually them, ability to disable/uninstall all)
 
 see below for a [full changelog](#full-changelog-from-scarab)
 
@@ -36,7 +35,7 @@ see below for a [full changelog](#full-changelog-from-scarab)
     - Filter by tags
     - Search in mod's descriptions
     - Search for mods that are dependent or integrate with a mod
-- Allows queueing multiple downloads at a time (you **don't** have to wait for 1 mod to finish downloading before starting another)
+- Allows queueing multiple downloads at a time
 - A new tab that shows all the new mods that were released recently
 - Adds a button to open the mod's settings file
 - A button to properly place a mod dll/zip to manually install it
@@ -48,9 +47,9 @@ see below for a [full changelog](#full-changelog-from-scarab)
 - Fixed bug where Scarab showed a modded install as vanilla. Instead now if that happens and scarab can't fix the issue by itself, it prompts to verify integrity
 - ensures the config file can be written to before starting app
 - makes sure that the enabled states of mod actually match if they are in disabled folder or not
+- Tries to handle miirosoft store version of the game
 #### QoL Changes
 - More detailed errors
-- Warnings before uninstalling mods that others are dependent on 
 - Mod details are more compact.
 - Better UI for repository link
 - Indication of what mod filter is on

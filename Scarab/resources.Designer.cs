@@ -294,6 +294,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        internal static string MVVM_Install {
+            get {
+                return ResourceManager.GetString("MVVM_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetching mods from modlinks....
         /// </summary>
         internal static string MVVM_Loading1 {
@@ -663,7 +672,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nDependencies:\n.
+        ///   Looks up a localized string similar to Dependencies:.
         /// </summary>
         internal static string XAML_Dependencies {
             get {
@@ -888,7 +897,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRepository and Readme:\n.
+        ///   Looks up a localized string similar to Repository and Readme:.
         /// </summary>
         internal static string XAML_Repository {
             get {
@@ -1014,7 +1023,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nVersion:\n.
+        ///   Looks up a localized string similar to Version:.
         /// </summary>
         internal static string XAML_Version {
             get {

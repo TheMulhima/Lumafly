@@ -438,4 +438,7 @@
   <data name="XAML_ReportError" xml:space="preserve">
     <value>Report Error</value>
   </data>
+  <data name="MVVM_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
 </root>
