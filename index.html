@@ -12,11 +12,20 @@
         If nothing has been downloaded please download it from the <a href="https://github.com/TheMulhima/Scarab/releases/latest">releases page</a>
       </p>
       <script type="text/javascript">
-        var appVersion = navigator.appVersion;
-        var link = "https://github.com/TheMulhima/Scarab/releases/latest";
-        if (appVersion.indexOf("Win")   != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
-        if (appVersion.indexOf("Mac")   != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
-        if (appVersion.indexOf("Linux") != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip";
+        var userAgent = window.navigator.userAgent,
+        platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
+        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+        link = null;
+
+        if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
+        else if (iosPlatforms.indexOf(platform) !== -1)       link = null
+        else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
+        else if (/Android/.test(userAgent))                   link = null
+        else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip"
+                
+        link = link || "https://github.com/TheMulhima/Scarab/releases/latest";
         window.location.href = link;
       </script>
     </body>
