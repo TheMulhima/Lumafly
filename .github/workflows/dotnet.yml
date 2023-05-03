@@ -33,8 +33,7 @@ jobs:
     - name: Build
       run: |
         cd Scarab
-        dotnet publish --no-restore -r win-x64 -p:PublishSingleFile=true -p:Configuration=Release ^
-        --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
+        dotnet publish --no-restore -r win-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
     - name: Upload Binary
       uses: actions/upload-artifact@v3
