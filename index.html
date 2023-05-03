@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    .center {display: block; margin-left: auto; margin-right: auto; width: 50%;}
+  </style>
+    <body>
+      <img src="https://cdn.discordapp.com/attachments/879971284589637652/945064412685926461/unknown.png" alt="HKM Banner" class="center">
+      <h2 class="center">
+        Thank you for downloading Scarab+ !!
+      </h2>
+      <p class="center">
+        If nothing has been downloaded please download it from the <a href="https://github.com/TheMulhima/Scarab/releases/latest">releases page</a>
+      </p>
+      <script type="text/javascript">
+        var appVersion = navigator.appVersion;
+        var link = "https://github.com/TheMulhima/Scarab/releases/latest";
+        if (appVersion.indexOf("Win")   != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
+        if (appVersion.indexOf("Mac")   != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
+        if (appVersion.indexOf("Linux") != -1) link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip";
+        window.location.href = link;
+      </script>
+    </body>
+</html>
