@@ -445,10 +445,24 @@ namespace Scarab.ViewModels
             {
                 var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
 
-                if (!item.EnabledIsChecked ||
-                    dependents.Count == 0 ||
-                    await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents))
+                if (item.EnabledIsChecked && 
+                    (dependents.Count == 0 || 
+                    await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents)))
                 {
+                    await _installer.Toggle(item);
+                }
+                else if (!item.EnabledIsChecked)
+                {
+                    var dependencies = item.Dependencies
+                        .Select(x => _db.Items.First(i => i.Name == x))
+                        .Where(x => x.State is NotInstalledState).ToList();
+
+                    if (dependencies.Count == 0 || await DisplayErrors.DisplayHasNotInstalledDependenciesWarning(item.Name, dependencies))
+                    {
+                        foreach (var dependency in dependencies)
+                            await _installer.Install(dependency, _ => { }, true);
+                    }
+
                     await _installer.Toggle(item);
                 }
 

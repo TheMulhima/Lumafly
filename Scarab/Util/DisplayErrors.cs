@@ -77,7 +77,24 @@ public static class DisplayErrors
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
     }
-    
+
+    // asks user for confirmation on whether or not they want to install dependencies when enabling the mod.
+    // returns whether or not user presses yes on the message box
+    public static async Task<bool> DisplayHasNotInstalledDependenciesWarning(string modName, IEnumerable<ModItem> dependencies)
+    {
+        var dependenciesString = string.Join(", ", dependencies.Select(x => x.Name));
+        var result = await MessageBoxUtil.GetMessageBoxStandardWindow
+        (
+            title: Resources.MVVM_DependenciesNotInstalledWarning_Header,
+            text: string.Format(Resources.MVVM_DependenciesNotInstalledWarning_Body, dependenciesString, modName),
+            icon: Icon.Stop,
+            @enum: ButtonEnum.YesNo
+        ).Show();
+
+        // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
+        return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
+    }
+
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)
     {
         var result = await MessageBoxUtil.GetMessageBoxStandardWindow

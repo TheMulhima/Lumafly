@@ -441,4 +441,10 @@
   <data name="MVVM_Install" xml:space="preserve">
     <value>Install</value>
   </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
+    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
+    <value>The mod has dependencies that are not installed!</value>
+  </data>
 </root>
