@@ -460,7 +460,10 @@ namespace Scarab.ViewModels
                     if (dependencies.Count == 0 || await DisplayErrors.DisplayHasNotInstalledDependenciesWarning(item.Name, dependencies))
                     {
                         foreach (var dependency in dependencies)
-                            await InternalModDownload(dependency, dependency.OnInstall);
+                        {
+                            if (dependency.State is NotInstalledState)
+                                await InternalModDownload(dependency, dependency.OnInstall);
+                        }
                     }
 
                     await _installer.Toggle(item);
