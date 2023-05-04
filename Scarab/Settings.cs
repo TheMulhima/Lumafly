@@ -1,6 +1,11 @@
+using Microsoft.Win32;
+using Scarab.Interfaces;
+using Scarab.Models;
+using Scarab.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -8,9 +13,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
-using Microsoft.Win32;
-using Scarab.Interfaces;
-using Scarab.Util;
 
 namespace Scarab
 {
@@ -18,6 +20,10 @@ namespace Scarab
     public class Settings : ISettings
     {
         public string ManagedFolder { get; set; }
+
+        public string? CurrentProfileName { get; set; }
+
+        public ObservableCollection<Profile> Profiles { get; set; } = new();
 
         public bool AutoRemoveDeps { get; }
         
@@ -68,6 +74,8 @@ namespace Scarab
         public Settings()
         {
             ManagedFolder = null!;
+            CurrentProfileName = null!;
+            Profiles = null!;
             AutoRemoveDeps = false;
         }
 
