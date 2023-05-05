@@ -11,6 +11,7 @@ using Avalonia.Media;
 using Avalonia.Media.Fonts;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
+using Scarab.Util;
 
 namespace Scarab
 {
@@ -27,6 +28,11 @@ namespace Scarab
         public static void Main(string[] args)
         {
             SetupLogging();
+
+            if (OperatingSystem.IsWindows())
+            {
+                WindowsUriHandler.Setup();
+            }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
             PosixSignalRegistration.Create(PosixSignal.SIGINT, Handler);
