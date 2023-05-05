@@ -5,17 +5,32 @@ using Microsoft.Win32;
 
 namespace Scarab.Util;
 
+public enum Commands
+{
+    none,
+    download
+}
+
 public class WindowsUriHandler
 {
     const string UriScheme = "scarab";
     const string FriendlyName = "scarab protocol";
 
-    public static string? ModDownload = null;
+    public static string Mod = "";
+    public static Commands Command = Commands.none;
     
     public void SetDownload (string download)
     {
         string prefix = UriScheme + "://";
-        ModDownload = download.Substring(prefix.Length).Trim('/').Replace("%20", " ");
+        var command = download[prefix.Length..].Trim('/').Replace("%20", " ");
+        
+        string downloadPrefix = $"{Commands.download.ToString()}/";
+        
+        if (command.StartsWith(downloadPrefix))
+        {
+            Command = Commands.download;
+            Mod = command[downloadPrefix.Length..].Trim();
+        }
     }
 
     public void SetupRegistry(string exePath)
