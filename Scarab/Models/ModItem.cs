@@ -36,7 +36,7 @@ namespace Scarab.Models
             Dependencies = dependencies;
             Link = link;
             Name = name;
-            Description = description;
+            Description = description.Trim();
             Repository = repository;
             Tags = tags;
             Integrations = integrations;
