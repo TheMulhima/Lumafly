@@ -1,10 +1,10 @@
 using System;
-using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Diagnostics;
 using Avalonia.Markup.Xaml;
+using System.Runtime.InteropServices;
 
 namespace Scarab.Views
 {

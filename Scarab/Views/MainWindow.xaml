@@ -5,27 +5,28 @@
         Icon="/Assets/ConstructionKnight.ico"
         Title="Scarab+"
 		xmlns:vm="using:Scarab.ViewModels"
-        ExtendClientAreaToDecorationsHint="True"
+		xmlns:models="using:Scarab.Models"
+		ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaTitleBarHeightHint="-1"
         x:DataType="vm:MainWindowViewModel"
         TransparencyLevelHint="Transparent"
         Background="#282828">
-	<Border 
+    <Border 
 		CornerRadius="{CompiledBinding CornerRadius}" 
 		BorderBrush="{CompiledBinding BorderBrush}" 
 		BorderThickness="{CompiledBinding BorderThickness}">
-		
-		<Grid 
+
+        <Grid 
 			ColumnDefinitions="Auto Auto *"
-			RowDefinitions="Auto 1 *">
-			
-			<Rectangle
+			RowDefinitions="Auto 1 Auto *">
+
+            <Rectangle
 				Grid.Row="0" Grid.RowSpan="3"
 				Grid.Column="0" Grid.ColumnSpan="3"
 				Fill="#282828" 
 				IsHitTestVisible="False" />
-			
-			<Rectangle
+
+            <Rectangle
 				Name="MacSpacer"
 				IsVisible="False"
 				Grid.Row="0" Grid.Column="0"
@@ -33,8 +34,8 @@
 				Fill="Transparent"
 				IsHitTestVisible="False"
 				/>
-			
-			<Image
+
+            <Image
 				Grid.Column="1" Grid.Row="0"
 				Width="30" Height="30"
 				Source="/Assets/ConstructionKnight.ico"
@@ -43,24 +44,38 @@
 				Margin="5,0,0,5"/>
 			
 			<TextBlock
-				Name="Title"
 				Grid.Column="2" Grid.Row="0"
 				Height="30" 
 				FontSize="23"
 				Text="{CompiledBinding AppName}" 
 				VerticalAlignment="Center"
 				Margin="5,0,0,5" />
-			
-			<Rectangle
+
+            <Rectangle
 				Grid.Column="0" Grid.ColumnSpan="3"
 				Grid.Row="1" 
 				Fill="#a9a9a9"/>
-			
-			<UserControl 
-				Grid.Column="0" Grid.ColumnSpan="3"
-				Grid.Row="2"
-				Content="{Binding Content}"/>
-			
-		</Grid>
-	</Border>
+
+            <TabControl Items="{CompiledBinding Tabs}"
+						SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"
+                        Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="3">
+                <TabControl.Styles>
+                    <Style Selector="TextBlock.Tab">
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </TabControl.Styles>
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Classes="Tab" Text="{Binding Header}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <UserControl Content="{Binding ViewModel}" />
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </Grid>
+    </Border>
 </Window>
