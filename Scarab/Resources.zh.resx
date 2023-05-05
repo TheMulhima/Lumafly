@@ -441,4 +441,10 @@
   <data name="MVVM_Install" xml:space="preserve">
     <value>安装</value>
   </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
+    <value>{1} 需要 {0} 才能正常工作。要安装吗？</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
+    <value>这个 Mod 有前置没有安装！</value>
+  </data>
 </root>
