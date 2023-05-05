@@ -8,7 +8,8 @@ namespace Scarab.Util;
 public enum Commands
 {
     none,
-    download
+    download,
+    reset
 }
 
 public class WindowsUriHandler
@@ -19,17 +20,24 @@ public class WindowsUriHandler
     public static string Mod = "";
     public static Commands Command = Commands.none;
     
-    public void SetDownload (string download)
+    public void SetCommand(string arg)
     {
         string prefix = UriScheme + "://";
-        var command = download[prefix.Length..].Trim('/').Replace("%20", " ");
+        var command = arg[prefix.Length..].Trim('/').Replace("%20", " ");
         
-        string downloadPrefix = $"{Commands.download.ToString()}/";
+        string downloadPrefix = $"{Commands.download.ToString()}";
         
         if (command.StartsWith(downloadPrefix))
         {
             Command = Commands.download;
-            Mod = command[downloadPrefix.Length..].Trim();
+            Mod = command[downloadPrefix.Length..].Trim('/');
+        }
+        
+        string resetPrefix = $"{Commands.reset.ToString()}";
+        
+        if (command.StartsWith(resetPrefix))
+        {
+            Command = Commands.reset;
         }
     }
 

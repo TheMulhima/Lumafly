@@ -36,7 +36,19 @@ namespace Scarab
                 winreg.SetupRegistry(args[0]);
                 if (args.Length > 1)
                 {
-                    winreg.SetDownload(args[1]);
+                    winreg.SetCommand(args[1]);
+                }
+            }
+
+            if (WindowsUriHandler.Command == Commands.reset)
+            {
+                try
+                {
+                    Directory.Delete(Settings.GetOrCreateDirPath(), true);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
                 }
             }
 
