@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scarab.Interfaces;
 using Scarab.Models;
 
 namespace Scarab.Services;
 
-public class ReverseDependencySearch
+public class ReverseDependencySearch : IReverseDependencySearch
 {
     // a dictionary to allow constant lookup times of ModItems from name
     private readonly Dictionary<string, ModItem> _items;

@@ -31,7 +31,7 @@ namespace Scarab.ViewModels
         private readonly IInstaller _installer;
         private readonly IModSource _mods;
         private readonly IModDatabase _db;
-        private readonly ReverseDependencySearch _reverseDependencySearch;
+        private readonly IReverseDependencySearch _reverseDependencySearch;
         private readonly IModLinksChanges _modlinksChanges;
         
         [Notify("ProgressBarVisible")]
