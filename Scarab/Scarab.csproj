@@ -2,7 +2,7 @@
     <PropertyGroup>
         <!-- Windowed exe, avoids Console showing for users. -->
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <LangVersion>preview</LangVersion>
         <Nullable>enable</Nullable>
         <ApplicationIcon>Assets/ConstructionKnight.ico</ApplicationIcon>
@@ -53,7 +53,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.8" />
-        <PackageReference Include="System.IO.Abstractions" Version="19.2.11" />
+        <PackageReference Include="System.IO.Abstractions" Version="19.2.22" />
     </ItemGroup>
     
     <ItemGroup>
