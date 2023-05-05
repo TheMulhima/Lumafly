@@ -442,4 +442,10 @@
   <data name="MVVM_Install" xml:space="preserve">
     <value>Instalar</value>
   </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
+    <value>{0} é/são requerido(s) para que {1} funcione corretamente. Você quer instalar ele(s)?</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
+    <value>O mod tem dependências que não estão instaladas!</value>
+  </data>
 </root>
