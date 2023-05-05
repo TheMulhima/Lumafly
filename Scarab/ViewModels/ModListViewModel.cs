@@ -443,31 +443,46 @@ namespace Scarab.ViewModels
         {
             try
             {
-                var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
+                // fix issues with dependencies:
+                // if wants to disable make sure no mods dep on it
+                // if wants to enable ensure all deps exist
 
-                if (item.EnabledIsChecked && 
-                    (dependents.Count == 0 || 
-                    await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents)))
+                if (item.EnabledIsChecked)
                 {
-                    await _installer.Toggle(item);
+                    var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
+                    
+                    if (dependents.Count > 0)
+                    {
+                        bool shouldContinue = await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents);
+                        if (!shouldContinue)
+                        {
+                            item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
+                            return;
+                        }
+                    }
                 }
-                else if (!item.EnabledIsChecked)
+                else
                 {
                     var dependencies = item.Dependencies
                         .Select(x => _db.Items.First(i => i.Name == x))
                         .Where(x => x.State is NotInstalledState).ToList();
 
-                    if (dependencies.Count == 0 || await DisplayErrors.DisplayHasNotInstalledDependenciesWarning(item.Name, dependencies))
+                    if (dependencies.Count > 0)
                     {
-                        foreach (var dependency in dependencies)
+                        bool shouldDownload = await DisplayErrors.DisplayHasNotInstalledDependenciesWarning(item.Name, dependencies);
+                        if (shouldDownload)
                         {
-                            if (dependency.State is NotInstalledState)
-                                await InternalModDownload(dependency, dependency.OnInstall);
+                            foreach (var dependency in dependencies)
+                            {
+                                if (dependency.State is NotInstalledState)
+                                    await InternalModDownload(dependency, dependency.OnInstall);
+                            }
                         }
                     }
-
-                    await _installer.Toggle(item);
                 }
+                
+                
+                await _installer.Toggle(item);
 
                 // to reset the visuals of the toggle to the correct value
                 item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
