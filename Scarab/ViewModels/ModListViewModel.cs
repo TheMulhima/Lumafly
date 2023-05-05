@@ -11,7 +11,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using JetBrains.Annotations;
-using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
@@ -28,6 +27,7 @@ namespace Scarab.ViewModels
         private readonly SortableObservableCollection<ModItem> _items;
 
         private readonly ISettings _settings;
+        private readonly IGlobalSettingsFinder _settingsFinder;
         private readonly IInstaller _installer;
         private readonly IModSource _mods;
         private readonly IModDatabase _db;
@@ -84,12 +84,13 @@ namespace Scarab.ViewModels
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
         
-        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods)
+        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder)
         {
             _settings = settings;
             _installer = inst;
             _mods = mods;
             _db = db;
+            _settingsFinder = settingsFinder;
 
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
 
@@ -596,7 +597,7 @@ namespace Scarab.ViewModels
             ProgressBarVisible = false;
 
             RaisePropertyChanged(nameof(ApiButtonText));
-            item.CallOnPropertyChanged(nameof(ModItem.HasSettings));
+            item.FindSettingsFile(_settingsFinder);
 
             FixupModList();
         }

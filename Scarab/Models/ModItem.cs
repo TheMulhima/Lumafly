@@ -131,21 +131,18 @@ namespace Scarab.Models
 
         private string _settingsFile = string.Empty;
 
-        public string SettingsFile
+        public void FindSettingsFile(IGlobalSettingsFinder _settingsFinder)
         {
-            get
+            // dont find it if its already found
+            if (string.IsNullOrEmpty(_settingsFile))
             {
-                // dont find it if its already found
-                if (string.IsNullOrEmpty(_settingsFile))
-                {
-                    _settingsFile = GlobalSettingsFinder.Instance.GetSettingsFile(this) ?? string.Empty;
-                }
-
-                return _settingsFile;
+                _settingsFile = _settingsFinder.GetSettingsFileLocation(this) ?? string.Empty;
             }
+
+            CallOnPropertyChanged(nameof(HasSettings));
         }
 
-        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(SettingsFile);
+        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(_settingsFile);
 
         public string VersionText => State switch
         {
@@ -214,13 +211,13 @@ namespace Scarab.Models
         {
             try
             {
-                if (HasSettings && File.Exists(SettingsFile))
+                if (HasSettings && File.Exists(_settingsFile))
                 {
                     var process = new Process();
                     process.StartInfo = new ProcessStartInfo()
                     {
                         UseShellExecute = true,
-                        FileName = SettingsFile
+                        FileName = _settingsFile
                     };
 
                     process.Start();

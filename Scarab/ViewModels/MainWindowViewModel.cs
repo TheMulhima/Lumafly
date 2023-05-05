@@ -71,9 +71,6 @@ namespace Scarab.ViewModels
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
                 settings = await ResetSettings();
 
-            // instantiate the singleton GlobalSettingsFinder 
-            var _ = new GlobalSettingsFinder(settings);
-
             await EnsureAccessToConfigFile();
 
             Trace.WriteLine("Fetching links");
@@ -145,9 +142,11 @@ namespace Scarab.ViewModels
             sc
               .AddSingleton(hc)
               .AddSingleton<ISettings>(_ => settings)
+              .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
-              .AddSingleton<IModDatabase, ModDatabase>(sp => new ModDatabase(sp.GetRequiredService<IModSource>(), content, settings))
+              .AddSingleton<IModDatabase, ModDatabase>(sp 
+                  => new ModDatabase(sp.GetRequiredService<IModSource>(),sp.GetRequiredService<IGlobalSettingsFinder>(), content, settings))
               .AddSingleton<IInstaller, Installer>()
               .AddSingleton<ModListViewModel>();
             

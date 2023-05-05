@@ -37,7 +37,11 @@ namespace Scarab.Services
         private readonly List<ModItem> _items = new();
         private readonly List<string> _itemNames = new();
 
-        private ModDatabase(IModSource mods, ModLinks ml, ApiLinks al, ISettings? settings = null)
+        private ModDatabase(IModSource mods, 
+            IGlobalSettingsFinder _settingsFinder, 
+            ModLinks ml, 
+            ApiLinks al, 
+            ISettings? settings = null)
         {
             foreach (var mod in ml.Manifests)
             {
@@ -96,13 +100,16 @@ namespace Scarab.Services
             }
 
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));
+            _items.ForEach(i => i.FindSettingsFile(_settingsFinder));
 
             Api = (al.Manifest.Links.OSUrl, al.Manifest.Version, al.Manifest.Links.SHA256);
         }
 
-        public ModDatabase(IModSource mods, (ModLinks ml, ApiLinks al) links, ISettings settings) : this(mods, links.ml, links.al, settings) { }
+        public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, (ModLinks ml, ApiLinks al) links, ISettings settings) 
+            : this(mods, settingsFinder, links.ml, links.al, settings) { }
 
-        public ModDatabase(IModSource mods, string modlinks, string apilinks) : this(mods, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
+        public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, string modlinks, string apilinks) 
+            : this(mods, settingsFinder, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         
         public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc)
         {

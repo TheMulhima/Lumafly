@@ -7,17 +7,12 @@ using Scarab.Models;
 
 namespace Scarab.Services;
 
-public class GlobalSettingsFinder
+public class GlobalSettingsFinder : IGlobalSettingsFinder
 {
-    private readonly ISettings Settings;
-
-    private static GlobalSettingsFinder? _instance;
-    public static GlobalSettingsFinder Instance => _instance ?? throw new Exception("GlobalSettingsFinder not initialized");
-
-    public GlobalSettingsFinder(ISettings settings)
+    private readonly ISettings? Settings;
+    public GlobalSettingsFinder(ISettings? settings)
     {
         Settings = settings;
-        _instance = this;
     }
 
     public static string GetSavesFolder()
@@ -43,13 +38,14 @@ public class GlobalSettingsFinder
         "SFCore.Generics.GlobalSettingsMod",
         "Satchel.BetterPreloads.BetterPreloadsMod",
     };
-    
-    public string? GetSettingsFile(ModItem modItem, string? savesFolder = null, string? modsFolder = null)
+
+    public string? GetSettingsFileLocation(ModItem modItem) => GetSettingsFileLocation(modItem, GetSavesFolder());
+    public string? GetSettingsFileLocation(ModItem modItem, string savesFolder)
     {
+        if (Settings == null) return null;
+        
         try
         {
-            savesFolder ??= GetSavesFolder();
-            
             var exactPath = GetGSFileName(savesFolder, modItem.Name);
             
             if (File.Exists(exactPath)) 
@@ -65,7 +61,7 @@ public class GlobalSettingsFinder
             if (File.Exists(pathWithModSuffix)) 
                 return pathWithModSuffix;
             
-            var result = TryGettingModClassName(modItem, savesFolder, modsFolder);
+            var result = TryGettingModClassName(modItem, savesFolder);
             
             return result != null ? GetGSFileName(savesFolder, result) : null;
         }
@@ -75,12 +71,12 @@ public class GlobalSettingsFinder
         }
     }
 
-    private string? TryGettingModClassName(ModItem modItem, string savesFolder, string? modsFolder)
+    private string? TryGettingModClassName(ModItem modItem, string savesFolder)
     {
-        if (modItem.State is not InstalledState state)
+        if (modItem.State is not InstalledState state || Settings == null)
             return null;
 
-        modsFolder ??= state.Enabled ? Settings.ModsFolder : Settings.DisabledFolder;
+        var modsFolder = state.Enabled ? Settings.ModsFolder : Settings.DisabledFolder;
         
         string modItemFolder = Path.Combine(modsFolder, modItem.Name);
 
