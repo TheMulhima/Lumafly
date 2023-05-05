@@ -31,7 +31,13 @@ namespace Scarab
 
             if (OperatingSystem.IsWindows())
             {
-                WindowsUriHandler.Setup();
+                args = Environment.GetCommandLineArgs();
+                var winreg = new WindowsUriHandler();
+                winreg.SetupRegistry(args[0]);
+                if (args.Length > 1)
+                {
+                    winreg.SetDownload(args[1]);
+                }
             }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
