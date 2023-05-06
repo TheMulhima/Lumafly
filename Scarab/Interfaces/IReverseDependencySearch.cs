@@ -7,4 +7,6 @@ public interface IReverseDependencySearch
 {
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item);
     public IEnumerable<ModItem> GetAllDependentAndIntegratedMods(ModItem item);
+
+    public bool HasEnabledDependents(ModItem item);
 }
