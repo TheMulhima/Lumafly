@@ -682,6 +682,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select manually.
+        /// </summary>
+        internal static string XAML_ChooseDependenciesToUninstall {
+            get {
+                return ResourceManager.GetString("XAML_ChooseDependenciesToUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy Error.
         /// </summary>
         internal static string XAML_CopyError {
@@ -781,6 +790,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note: they may be used by any mods you have installed manually.
+        /// </summary>
+        internal static string XAML_ManuallyInstalledModesNote {
+            get {
+                return ResourceManager.GetString("XAML_ManuallyInstalledModesNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         internal static string XAML_ModsFilter_All {
@@ -849,6 +867,15 @@ namespace Scarab {
         internal static string XAML_No_Items {
             get {
                 return ResourceManager.GetString("XAML_No_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string XAML_None {
+            get {
+                return ResourceManager.GetString("XAML_None", resourceCulture);
             }
         }
         
@@ -1011,6 +1038,24 @@ namespace Scarab {
         internal static string XAML_Uninstall_All {
             get {
                 return ResourceManager.GetString("XAML_Uninstall_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstalling this mod will leave dependencies that appear to be unused now.
+        /// </summary>
+        internal static string XAML_UninstallDependencies {
+            get {
+                return ResourceManager.GetString("XAML_UninstallDependencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto remove dependencies?.
+        /// </summary>
+        internal static string XAML_UninstallDependencies_Title {
+            get {
+                return ResourceManager.GetString("XAML_UninstallDependencies_Title", resourceCulture);
             }
         }
         

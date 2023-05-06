@@ -644,7 +644,15 @@ namespace Scarab.ViewModels
             await DisplayErrors.DoActionAfterConfirmation(
                 shouldAskForConfirmation: item.Installed && dependents.Count > 0, // if its installed rn and has dependents
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
-                action: () => InternalModDownload(item, item.OnInstall));
+                action: async () =>
+                {
+                    await InternalModDownload(item, item.OnInstall);
+
+                    if (!item.Installed)
+                    {
+                        await RemoveUnusedDependencies(item);
+                    }
+                });
         }
 
         [UsedImplicitly]
@@ -684,6 +692,30 @@ namespace Scarab.ViewModels
                 {
                     await DisplayErrors.DisplayGenericError("Manually installing", Path.GetFileName(path), e);
                 }
+            }
+        }
+
+        private async Task RemoveUnusedDependencies(ModItem item)
+        {
+            var dependencies = item.Dependencies
+                            .Select(x => _db.Items.First(i => i.Name == x))
+                            .Where(x => !_reverseDependencySearch.HasEnabledDependents(x)).ToList();
+
+            if (dependencies.Count > 0)
+            {
+                var options = dependencies.Select(x => new ModSelect { Item = x, IsSelected = true }).ToList();
+                bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState);
+                bool shouldUninstall = await DisplayErrors.DisplayUninstallDependenciesConfirmation(options, hasExternalMods);
+
+                if (shouldUninstall)
+                {
+                    foreach (var option in options.Where(x => x.IsSelected))
+                    {
+                        if (option.Item.State is InstalledState)
+                            await InternalModDownload(option.Item, option.Item.OnInstall);
+                    }
+                }
+
             }
         }
 

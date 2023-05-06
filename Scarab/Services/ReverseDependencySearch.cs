@@ -54,6 +54,19 @@ public class ReverseDependencySearch : IReverseDependencySearch
         return dependants;
     }
 
+    public bool HasEnabledDependents(ModItem item)
+    {
+        foreach (var mod in _items.Values.Where(x => x.EnabledIsChecked))
+        {
+            if (IsDependent(mod, item))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private bool IsDependent(ModItem mod, ModItem targetMod)
     {
         foreach (var dependency in mod.Dependencies.Select(x => _items[x]))

@@ -15,6 +15,7 @@ using Scarab.CustomControls;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.ViewModels;
+using Scarab.Views;
 
 namespace Scarab.Util;
 
@@ -93,6 +94,21 @@ public static class DisplayErrors
 
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
+    }
+
+    public static Task<bool> DisplayUninstallDependenciesConfirmation(List<ModSelect> options, bool hasExternalMods)
+    {
+        var vm = new UninstallDependenciesViewModel(options, hasExternalMods);
+        var window = new UninstallDependenciesConfirmationWindow(vm);
+        var tcs = new TaskCompletionSource<bool>();
+
+        window.Closed += delegate
+        {
+            tcs.TrySetResult(vm.Result);
+        };
+        window.Show();
+
+        return tcs.Task;
     }
 
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)
