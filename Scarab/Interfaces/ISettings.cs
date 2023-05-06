@@ -11,10 +11,6 @@ namespace Scarab.Interfaces
         
         string ManagedFolder { get; set; }
 
-        string? CurrentProfileName { get; set; }
-
-        ObservableCollection<Profile> Profiles { get; set; }
-
         bool RequiresWorkaroundClient { get; set; }
         
         string ModsFolder     => Path.Combine(ManagedFolder, "Mods");

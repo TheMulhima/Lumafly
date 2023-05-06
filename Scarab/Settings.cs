@@ -21,10 +21,6 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
-        public string? CurrentProfileName { get; set; }
-
-        public ObservableCollection<Profile> Profiles { get; set; } = new();
-
         public bool AutoRemoveDeps { get; }
         
         public bool RequiresWorkaroundClient { get; set; }
@@ -74,8 +70,6 @@ namespace Scarab
         public Settings()
         {
             ManagedFolder = null!;
-            CurrentProfileName = null!;
-            Profiles = null!;
             AutoRemoveDeps = false;
         }
 

@@ -26,10 +26,11 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using PropertyChanged.SourceGenerator;
 
 namespace Scarab.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
         private static bool _Debug
         {
@@ -42,34 +43,18 @@ namespace Scarab.ViewModels
             }
         }
 
-        private ViewModelBase _content = null!;
-
         [UsedImplicitly]
-        private ViewModelBase Content
-        {
-            get => _content;
-            set => this.RaiseAndSetIfChanged(ref _content, value);
-        }
+        private ViewModelBase Content => SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
         public string AppName => "Scarab+";
 
-        private ObservableCollection<TabItemModel> _tabs;
-        
-        public ObservableCollection<TabItemModel> Tabs
-        {
-            get => _tabs;
-            set => this.RaiseAndSetIfChanged(ref _tabs, value);
-        }
+        [Notify]
+        private ObservableCollection<TabItemModel> _tabs = new ObservableCollection<TabItemModel>();
 
-        private int _selectedTabIndex;
-        
-        public int SelectedTabIndex
-        {
-            get => _selectedTabIndex;
-            set => this.RaiseAndSetIfChanged(ref _selectedTabIndex, value);
-        }
+        [Notify]
+        private int _selectedTabIndex = -1;
 
         private async Task Impl()
         {
@@ -164,10 +149,8 @@ namespace Scarab.ViewModels
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
               .AddSingleton<IModDatabase, ModDatabase>(sp => new ModDatabase(sp.GetRequiredService<IModSource>(), content, settings))
-              .AddSingleton<IProfileDatabase, ProfileDatabase>(_ => new ProfileDatabase(settings))
               .AddSingleton<IInstaller, Installer>()
               .AddSingleton<ModListViewModel>()
-              .AddSingleton<ProfileManagerViewModel>()
               .AddSingleton<SettingsViewModel>();
             
             Trace.WriteLine("Building service provider");
@@ -181,12 +164,9 @@ namespace Scarab.ViewModels
             Tabs = new ObservableCollection<TabItemModel>
             {
                 new("Mods", sp.GetRequiredService<ModListViewModel>()),
-                new("Profiles", sp.GetRequiredService<ProfileManagerViewModel>()),
                 new("Settings", sp.GetRequiredService<SettingsViewModel>()),
             };
             SelectedTabIndex = 0;
-
-            var profileManager = new ProfileManager(settings, sp);
         }
 
         private static async Task EnsureAccessToConfigFile()
@@ -370,7 +350,6 @@ namespace Scarab.ViewModels
 
         public MainWindowViewModel() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
-            Content = new LoadingViewModel();
             try
             {
                 await Impl();
