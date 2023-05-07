@@ -21,8 +21,8 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
-        public bool AutoRemoveDeps { get; }
-        
+        public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; }
+
         public bool RequiresWorkaroundClient { get; set; }
 
         // @formatter:off
@@ -70,7 +70,7 @@ namespace Scarab
         public Settings()
         {
             ManagedFolder = null!;
-            AutoRemoveDeps = false;
+            AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
         }
 
         public static string GetOrCreateDirPath()

@@ -646,8 +646,7 @@ namespace Scarab.ViewModels
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
                 action: async () =>
                 {
-                    //await InternalModDownload(item, item.OnInstall);
-                    item.State = new NotInstalledState();
+                    await InternalModDownload(item, item.OnInstall);
 
                     if (!item.Installed)
                     {
@@ -706,7 +705,8 @@ namespace Scarab.ViewModels
             {
                 var options = dependencies.Select(x => new SelectableItem<ModItem>(x, x.Name, true)).ToList();
                 bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState);
-                bool shouldUninstall = await DisplayErrors.DisplayUninstallDependenciesConfirmation(options, hasExternalMods);
+
+                bool shouldUninstall = await ShouldUnsintall(options, hasExternalMods);
 
                 if (shouldUninstall)
                 {
@@ -716,8 +716,18 @@ namespace Scarab.ViewModels
                             await InternalModDownload(option.Item, option.Item.OnInstall);
                     }
                 }
-
             }
+        }
+
+        private async Task<bool> ShouldUnsintall(List<SelectableItem<ModItem>> options, bool hasExternalMods)
+        {
+            return _settings.AutoRemoveUnusedDeps switch
+            {
+                AutoRemoveUnusedDepsOptions.Never => false,
+                AutoRemoveUnusedDepsOptions.Ask => await DisplayErrors.DisplayUninstallDependenciesConfirmation(options, hasExternalMods),
+                AutoRemoveUnusedDepsOptions.Always => true,
+                _ => false,
+            };
         }
 
         private static (int priority, string name) ModToOrderedTuple(ModItem m) =>
