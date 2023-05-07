@@ -21,6 +21,12 @@ namespace Scarab.Util;
 
 public static class DisplayErrors
 {
+    public static Window GetParent()
+    {
+        return (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                        ?? throw new InvalidOperationException();
+    }
+
     public static async Task DisplayHashMismatch(HashMismatchException e)
     {
         await MessageBoxUtil.GetMessageBoxStandardWindow
@@ -41,8 +47,7 @@ public static class DisplayErrors
         if (e != null)
             Trace.TraceError(e.ToString());
         
-        Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                        ?? throw new InvalidOperationException();
+        Window parent = GetParent();
 
         await new ErrorPopup()
         {
@@ -98,17 +103,14 @@ public static class DisplayErrors
 
     public static Task<bool> DisplayUninstallDependenciesConfirmation(List<ModSelect> options, bool hasExternalMods)
     {
-        var vm = new UninstallDependenciesViewModel(options, hasExternalMods);
-        var window = new UninstallDependenciesConfirmationWindow(vm);
-        var tcs = new TaskCompletionSource<bool>();
-
-        window.Closed += delegate
+        var window = new UninstallDependenciesConfirmationWindow
         {
-            tcs.TrySetResult(vm.Result);
+            DataContext = new UninstallDependenciesViewModel(options, hasExternalMods)
         };
-        window.Show();
 
-        return tcs.Task;
+        Window parent = GetParent();
+
+        return window.ShowDialog<bool>(parent);
     }
 
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)

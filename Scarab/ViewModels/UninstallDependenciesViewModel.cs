@@ -16,10 +16,8 @@ namespace Scarab.ViewModels
             ExternalModsInstalled = externalModsInstalled;
         }
 
-        public Action CloseAction { get; set; } = null!;
         public ObservableCollection<ModSelect> Options { get; }
         public string OptionsList { get; }
-        public bool Result { get; private set; }
         public bool ExternalModsInstalled { get; }
 
         public void ToggleAll(bool value)
@@ -28,12 +26,6 @@ namespace Scarab.ViewModels
             {
                 option.IsSelected = value;
             }
-        }
-
-        public void SetResult(bool result)
-        {
-            Result = result;
-            CloseAction();
         }
     }
 }

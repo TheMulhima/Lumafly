@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Scarab.ViewModels;
+using ReactiveUI;
 
 namespace Scarab.Views
 {
@@ -9,13 +9,8 @@ namespace Scarab.Views
         public UninstallDependenciesConfirmationWindow()
         {
             InitializeComponent();
-        }
-
-        public UninstallDependenciesConfirmationWindow(UninstallDependenciesViewModel context)
-        {
-            InitializeComponent();
-            DataContext = context;
-            context.CloseAction = Close;
+            this.FindControl<Button>("YesButton").Command = ReactiveCommand.Create(() => Close(true));
+            this.FindControl<Button>("NoButton").Command = ReactiveCommand.Create(() => Close(false));
         }
 
         private void InitializeComponent()
