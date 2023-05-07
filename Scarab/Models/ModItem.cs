@@ -1,3 +1,6 @@
+using PropertyChanged.SourceGenerator;
+using Scarab.Interfaces;
+using Scarab.Services;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -5,9 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using PropertyChanged.SourceGenerator;
-using Scarab.Interfaces;
-using Scarab.Services;
 
 namespace Scarab.Models
 {

@@ -1,6 +1,11 @@
+using Microsoft.Win32;
+using Scarab.Interfaces;
+using Scarab.Models;
+using Scarab.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -8,9 +13,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
-using Microsoft.Win32;
-using Scarab.Interfaces;
-using Scarab.Util;
 
 namespace Scarab
 {
