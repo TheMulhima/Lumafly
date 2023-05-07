@@ -68,7 +68,7 @@ namespace Scarab.ViewModels
         [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
         public IEnumerable<string> ModNames { get; }
-        public ObservableCollection<TagItem> TagList { get; }
+        public ObservableCollection<SelectableItem<string>> TagList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
@@ -130,8 +130,8 @@ namespace Scarab.ViewModels
                 }
             }
 
-            TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => 
-                new TagItem(
+            TagList = new ObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
+                new SelectableItem<string>(
                     x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
@@ -355,7 +355,7 @@ namespace Scarab.ViewModels
 
             var selectedTags = TagList
                 .Where(x => x.IsSelected)
-                .Select(x => x.TagName)
+                .Select(x => x.Item)
                 .ToList();
 
             if (selectedTags.Count > 0)
@@ -646,7 +646,8 @@ namespace Scarab.ViewModels
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
                 action: async () =>
                 {
-                    await InternalModDownload(item, item.OnInstall);
+                    //await InternalModDownload(item, item.OnInstall);
+                    item.State = new NotInstalledState();
 
                     if (!item.Installed)
                     {
@@ -699,11 +700,11 @@ namespace Scarab.ViewModels
         {
             var dependencies = item.Dependencies
                             .Select(x => _db.Items.First(i => i.Name == x))
-                            .Where(x => !_reverseDependencySearch.HasEnabledDependents(x)).ToList();
+                            .Where(x => !_reverseDependencySearch.GetAllEnabledDependents(x).Any()).ToList();
 
             if (dependencies.Count > 0)
             {
-                var options = dependencies.Select(x => new ModSelect { Item = x, IsSelected = true }).ToList();
+                var options = dependencies.Select(x => new SelectableItem<ModItem>(x, x.Name, true)).ToList();
                 bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState);
                 bool shouldUninstall = await DisplayErrors.DisplayUninstallDependenciesConfirmation(options, hasExternalMods);
 

@@ -8,15 +8,15 @@ namespace Scarab.ViewModels
 {
     public class UninstallDependenciesViewModel : ViewModelBase
     {
-        public UninstallDependenciesViewModel(List<ModSelect> options, bool externalModsInstalled)
+        public UninstallDependenciesViewModel(List<SelectableItem<ModItem>> options, bool externalModsInstalled)
         {
-            Options = new ObservableCollection<ModSelect>(options);
+            Options = new ObservableCollection<SelectableItem<ModItem>>(options);
             OptionsList = string.Join(", ", options.Select(x => x.Item.Name));
 
             ExternalModsInstalled = externalModsInstalled;
         }
 
-        public ObservableCollection<ModSelect> Options { get; }
+        public ObservableCollection<SelectableItem<ModItem>> Options { get; }
         public string OptionsList { get; }
         public bool ExternalModsInstalled { get; }
 

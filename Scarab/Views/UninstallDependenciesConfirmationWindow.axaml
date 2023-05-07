@@ -51,8 +51,9 @@
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <customControls:MenuCheckBox Margin="0 5 0 0"
+                              
                               IsSelected="{Binding IsSelected}"
-                              Header="{Binding Item.Name}"/>
+                              Header="{Binding DisplayName}"/>
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>

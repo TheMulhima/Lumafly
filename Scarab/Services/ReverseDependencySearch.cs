@@ -41,30 +41,8 @@ public class ReverseDependencySearch : IReverseDependencySearch
     
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item)
     {
-        var dependants = new List<ModItem>();
-        
         // check all enabled mods if they have a dependency on this mod
-        foreach (var mod in _items.Values.Where(x => x.EnabledIsChecked))
-        {
-            if (IsDependent(mod, item))
-            {
-                dependants.Add(mod);
-            }
-        }
-        return dependants;
-    }
-
-    public bool HasEnabledDependents(ModItem item)
-    {
-        foreach (var mod in _items.Values.Where(x => x.EnabledIsChecked))
-        {
-            if (IsDependent(mod, item))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return _items.Values.Where(mod => mod.EnabledIsChecked && IsDependent(mod, item));
     }
 
     private bool IsDependent(ModItem mod, ModItem targetMod)

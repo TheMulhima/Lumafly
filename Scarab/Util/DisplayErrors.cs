@@ -101,7 +101,7 @@ public static class DisplayErrors
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
     }
 
-    public static Task<bool> DisplayUninstallDependenciesConfirmation(List<ModSelect> options, bool hasExternalMods)
+    public static Task<bool> DisplayUninstallDependenciesConfirmation(List<SelectableItem<ModItem>> options, bool hasExternalMods)
     {
         var window = new UninstallDependenciesConfirmationWindow
         {
