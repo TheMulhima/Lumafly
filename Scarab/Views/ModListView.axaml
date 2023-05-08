@@ -335,7 +335,7 @@
               <Grid Margin="8 6 12 0">
                 <Grid.ContextMenu>
                   <ContextMenu IsVisible="{Binding CanBePinned}">
-                    <MenuItem Header="Pin" Command="{Binding $parent[views:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
+                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{Binding $parent[views:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
@@ -419,6 +419,7 @@
                               VerticalAlignment="Center"
                               Background="Transparent"
                               IsVisible="{Binding Pinned}"
+                              ToolTip.Tip="{ext:Localize  XAML_Unpin}"
                               Command="{Binding $parent[views:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}">
                         <Image
