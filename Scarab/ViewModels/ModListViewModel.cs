@@ -68,7 +68,7 @@ namespace Scarab.ViewModels
         [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
         public IEnumerable<string> ModNames { get; }
-        public ObservableCollection<TagItem> TagList { get; }
+        public ObservableCollection<SelectableItem<string>> TagList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
@@ -130,8 +130,8 @@ namespace Scarab.ViewModels
                 }
             }
 
-            TagList = new ObservableCollection<TagItem>(tagsInModlinks.Select(x => 
-                new TagItem(
+            TagList = new ObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
+                new SelectableItem<string>(
                     x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
@@ -355,7 +355,7 @@ namespace Scarab.ViewModels
 
             var selectedTags = TagList
                 .Where(x => x.IsSelected)
-                .Select(x => x.TagName)
+                .Select(x => x.Item)
                 .ToList();
 
             if (selectedTags.Count > 0)
@@ -644,7 +644,15 @@ namespace Scarab.ViewModels
             await DisplayErrors.DoActionAfterConfirmation(
                 shouldAskForConfirmation: item.Installed && dependents.Count > 0, // if its installed rn and has dependents
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
-                action: () => InternalModDownload(item, item.OnInstall));
+                action: async () =>
+                {
+                    await InternalModDownload(item, item.OnInstall);
+
+                    if (!item.Installed)
+                    {
+                        await RemoveUnusedDependencies(item);
+                    }
+                });
         }
 
         [UsedImplicitly]
@@ -685,6 +693,41 @@ namespace Scarab.ViewModels
                     await DisplayErrors.DisplayGenericError("Manually installing", Path.GetFileName(path), e);
                 }
             }
+        }
+
+        private async Task RemoveUnusedDependencies(ModItem item)
+        {
+            var dependencies = item.Dependencies
+                            .Select(x => _db.Items.First(i => i.Name == x))
+                            .Where(x => !_reverseDependencySearch.GetAllEnabledDependents(x).Any()).ToList();
+
+            if (dependencies.Count > 0)
+            {
+                var options = dependencies.Select(x => new SelectableItem<ModItem>(x, x.Name, true)).ToList();
+                bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState);
+
+                bool shouldUninstall = await ShouldUnsintall(options, hasExternalMods);
+
+                if (shouldUninstall)
+                {
+                    foreach (var option in options.Where(x => x.IsSelected))
+                    {
+                        if (option.Item.State is InstalledState)
+                            await InternalModDownload(option.Item, option.Item.OnInstall);
+                    }
+                }
+            }
+        }
+
+        private async Task<bool> ShouldUnsintall(List<SelectableItem<ModItem>> options, bool hasExternalMods)
+        {
+            return _settings.AutoRemoveUnusedDeps switch
+            {
+                AutoRemoveUnusedDepsOptions.Never => false,
+                AutoRemoveUnusedDepsOptions.Ask => await DisplayErrors.DisplayUninstallDependenciesConfirmation(options, hasExternalMods),
+                AutoRemoveUnusedDepsOptions.Always => true,
+                _ => false,
+            };
         }
 
         private static (int priority, string name) ModToOrderedTuple(ModItem m) =>

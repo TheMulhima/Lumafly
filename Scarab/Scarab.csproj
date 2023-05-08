@@ -18,6 +18,9 @@
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />
+        <Compile Update="Views\UninstallDependenciesConfirmationWindow.axaml.cs">
+          <DependentUpon>UninstallDependenciesConfirmationWindow.axaml</DependentUpon>
+        </Compile>
         <Compile Update="Views\ErrorPopup.axaml.cs">
           <DependentUpon>ErrorPopup.axaml</DependentUpon>
           <SubType>Code</SubType>
