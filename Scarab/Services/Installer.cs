@@ -85,6 +85,15 @@ namespace Scarab.Services
             _fs.Directory.CreateDirectory(_config.ModsFolder);
         }
 
+        public async Task Pin(ModItem mod)
+        {
+            if (mod.State is not InstalledState state)
+                throw new InvalidOperationException("Cannot pin mod which is not installed!");
+
+            mod.State = state with { Pinned  = !state.Pinned };
+            await _installed.RecordInstalledState(mod);
+        }
+
         public async Task Toggle(ModItem mod)
         {
             if (mod.State is not (InstalledState or NotInModLinksState))
@@ -333,12 +342,13 @@ namespace Scarab.Services
             ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
 
             await PlaceMod(mod, enable, filename, data);
-
+            
             mod.State = mod.State switch {
-                InstalledState => new InstalledState(
+                InstalledState ins => new InstalledState(
                     Version: mod.Version,
                     Updated:  true,
-                    Enabled: enable
+                    Enabled: enable,
+                    Pinned: ins.Pinned
                 ),
 
                 NotInstalledState => new InstalledState(enable, mod.Version, true),

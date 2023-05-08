@@ -15,14 +15,17 @@ namespace Scarab.Models
         public bool Updated { get; init; }
         
         public bool Enabled { get; init; }
-        
-        public InstalledState(bool Enabled, Version Version, bool Updated)
+
+        public bool Pinned { get; init; }
+
+        public InstalledState(bool Enabled, Version Version, bool Updated, bool Pinned = false)
         {
             this.Enabled = Enabled;
             this.Version = Version;
             this.Updated = Updated;
+            this.Pinned = Pinned;
         }
-        
+
         public void Deconstruct(out bool enabled, out bool updated)
         {
             enabled = Enabled;

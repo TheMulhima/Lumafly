@@ -21,5 +21,7 @@ namespace Scarab.Interfaces
         public Task ToggleApi();
         
         public Task<bool> CheckAPI();
+
+        public Task Pin(ModItem mod);
     }
 }

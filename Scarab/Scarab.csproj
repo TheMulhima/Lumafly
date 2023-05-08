@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <!-- Windowed exe, avoids Console showing for users. -->
         <OutputType>WinExe</OutputType>
@@ -28,12 +28,14 @@
     </ItemGroup>
     
     <ItemGroup>
-        <AvaloniaResource Remove="Views\ModListView.xaml" />
         <AvaloniaResource Remove="Views\SelectPathView.xaml" />
     </ItemGroup>
     
     <ItemGroup>
-        <EmbeddedResource Include="Views\ModListView.xaml">
+      <AvaloniaXaml Remove="Views\ModListView.axaml" />
+    </ItemGroup> 
+    <ItemGroup>
+        <EmbeddedResource Include="Views\ModListView.axaml">
             <Generator>MSBuild:Compile</Generator>
         </EmbeddedResource>
     </ItemGroup>
@@ -66,7 +68,7 @@
           <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
         <Compile Update="Views\ModListView.xaml.cs">
-            <DependentUpon>ModListView.xaml</DependentUpon>
+            <DependentUpon>ModListView.axaml</DependentUpon>
         </Compile>
     </ItemGroup>
     

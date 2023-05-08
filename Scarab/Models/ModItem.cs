@@ -107,6 +107,10 @@ namespace Scarab.Models
             _ => false
         };
 
+        public bool Pinned => State is InstalledState { Pinned: true };
+
+        public bool CanBePinned => State is InstalledState { Pinned: false, Enabled: true };
+
         public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 
         public string InstallText => State switch

@@ -98,7 +98,7 @@ namespace Scarab.Views
             if (cTextBlock != null) cTextBlock.FontSize = 12;
         }
 
-        private void ModFilterPressed(object? sender, PointerPressedEventArgs e)
+        private void ModFilterPressed(object sender, PointerPressedEventArgs e)
         {
             if (sender is not MenuItem menuItem)
                 return;

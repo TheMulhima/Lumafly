@@ -68,7 +68,7 @@ namespace Scarab.Services
                         continue;
                     
                     // Pretend it's out of date because we aren't sure of the version.
-                    db.Mods.Add(name, new InstalledState(enabled, new Version(0, 0), false));
+                    db.Mods.Add(name, new InstalledState(enabled, new Version(0, 0), false, false));
                 }
             }
 
