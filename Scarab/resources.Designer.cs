@@ -934,6 +934,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pin.
+        /// </summary>
+        internal static string XAML_Pin {
+            get {
+                return ResourceManager.GetString("XAML_Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report Error.
         /// </summary>
         internal static string XAML_ReportError {
@@ -1056,6 +1065,15 @@ namespace Scarab {
         internal static string XAML_UninstallDependencies_Title {
             get {
                 return ResourceManager.GetString("XAML_UninstallDependencies_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpin.
+        /// </summary>
+        internal static string XAML_Unpin {
+            get {
+                return ResourceManager.GetString("XAML_Unpin", resourceCulture);
             }
         }
         

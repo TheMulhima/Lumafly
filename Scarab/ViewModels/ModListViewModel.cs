@@ -73,7 +73,7 @@ namespace Scarab.ViewModels
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
-        
+
         private static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
         {
             {"Boss", Resources.ModLinks_Tags_Boss},
@@ -83,7 +83,7 @@ namespace Scarab.ViewModels
             {"Library", Resources.ModLinks_Tags_Library},
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
-        
+
         public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder)
         {
             _settings = settings;
@@ -394,27 +394,29 @@ namespace Scarab.ViewModels
                 () => DisplayErrors.DisplayAreYouSureWarning("Are you sure you want to uninstall all mods?"),
                 async () =>
                 {
-                    var toUninstall = _items.Where(x => x.State is InstalledState or NotInModLinksState).ToList();
+                    var toUninstall = _items.Where(x => x.State is InstalledState { Pinned: false } or NotInModLinksState).ToList();
                     foreach (var mod in toUninstall)
                     {
                         if (mod.State is not (InstalledState or NotInModLinksState))
                             continue;
-
-                        await InternalModDownload(mod, mod.OnInstall);
+                        
+                        if (!HasPinnedDependents(mod))
+                            await InternalModDownload(mod, mod.OnInstall);
                     }
                 });
         }
 
         public void DisableAllInstalled()
         {
-            var toDisable = _items.Where(x => x.State is InstalledState {Enabled:true} or NotInModLinksState{Enabled:true}).ToList();
+            var toDisable = _items.Where(x => x.State is InstalledState {Enabled:true, Pinned: false} or NotInModLinksState{Enabled:true}).ToList();
 
             foreach (ModItem mod in toDisable)
             {
                 if (mod.State is not (InstalledState {Enabled:true} or NotInModLinksState {Enabled:true}))
                     continue;
 
-                _installer.Toggle(mod);
+                if (!HasPinnedDependents(mod))
+                    _installer.Toggle(mod);
             }
 
             RaisePropertyChanged(nameof(CanDisableAll));
@@ -428,7 +430,7 @@ namespace Scarab.ViewModels
             foreach (ModItem mod in toUpdate)
             {
                 var state = (InstalledState) mod.State;
-                mod.State = new InstalledState(state.Enabled, new Version(0,0,0,0), false);
+                mod.State = new InstalledState(state.Enabled, new Version(0,0,0,0), false, state.Pinned);
                 await _mods.RecordInstalledState(mod);
                 mod.CallOnPropertyChanged(nameof(mod.UpdateAvailable));
                 mod.CallOnPropertyChanged(nameof(mod.VersionText));
@@ -461,6 +463,8 @@ namespace Scarab.ViewModels
                             return;
                         }
                     }
+
+                    ResetPinned(item);
                 }
                 else
                 {
@@ -605,8 +609,6 @@ namespace Scarab.ViewModels
         //TODO: dont use normal sorting
         private void FixupModList(ModItem? itemToAdd = null)
         {
-            static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
-
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
             foreach (var _item in removeList)
             {
@@ -622,7 +624,7 @@ namespace Scarab.ViewModels
                 _items.Add(itemToAdd);
             }
 
-            _items.SortBy(Comparer);
+            Sort();
 
             RaisePropertyChanged(nameof(CanUninstallAll));
             RaisePropertyChanged(nameof(CanDisableAll));
@@ -630,6 +632,12 @@ namespace Scarab.ViewModels
 
             SelectMods();
 
+            Sort();
+        }
+
+        private void Sort()
+        {
+            static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
             _items.SortBy(Comparer);
         }
 
@@ -650,6 +658,7 @@ namespace Scarab.ViewModels
 
                     if (!item.Installed)
                     {
+                        ResetPinned(item);
                         await RemoveUnusedDependencies(item);
                     }
                 });
@@ -730,9 +739,33 @@ namespace Scarab.ViewModels
             };
         }
 
-        private static (int priority, string name) ModToOrderedTuple(ModItem m) =>
+        [UsedImplicitly]
+        private async Task PinMod(ModItem mod)
+        {
+            await _installer.Pin(mod);
+            Sort();
+            SelectMods();
+        }
+
+        private bool HasPinnedDependents(ModItem mod)
+        {
+            return _reverseDependencySearch.GetAllEnabledDependents(mod).Any(x => x.State is InstalledState { Pinned: true });
+        }
+
+        private void ResetPinned(ModItem mod)
+        {
+            if (mod.State is InstalledState { Pinned: true } state)
+            {
+                mod.State = state with { Pinned = false };
+                Sort();
+                SelectMods();
+            }
+        }
+
+        private static (int pinned, int priority, string name) ModToOrderedTuple(ModItem m) =>
         (
-            m.State is InstalledState { Updated : false } ? -1 : 1,
+            m.State is InstalledState { Pinned: true } ? -1 : 1,
+            m.State is InstalledState { Updated : false }? -1 : 1,
             m.Name
         );
     }
