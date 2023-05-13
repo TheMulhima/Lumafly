@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace Scarab.ViewModels
 {
-    public class UninstallDependenciesViewModel : ViewModelBase
+    public class UninstallDependenciesConfirmationWindowViewModel : ViewModelBase
     {
-        public UninstallDependenciesViewModel(List<SelectableItem<ModItem>> options, bool externalModsInstalled)
+        public UninstallDependenciesConfirmationWindowViewModel(List<SelectableItem<ModItem>> options, bool externalModsInstalled)
         {
             Options = new ObservableCollection<SelectableItem<ModItem>>(options);
             OptionsList = string.Join(", ", options.Select(x => x.Item.Name));

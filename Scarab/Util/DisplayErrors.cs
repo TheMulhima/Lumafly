@@ -105,7 +105,7 @@ public static class DisplayErrors
     {
         var window = new UninstallDependenciesConfirmationWindow
         {
-            DataContext = new UninstallDependenciesViewModel(options, hasExternalMods)
+            DataContext = new UninstallDependenciesConfirmationWindowViewModel(options, hasExternalMods)
         };
 
         Window parent = GetParent();

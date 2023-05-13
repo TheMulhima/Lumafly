@@ -1,18 +1,16 @@
-<Window x:TypeArguments="viewModels:UninstallDependenciesViewModel"
-        xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ext="clr-namespace:Scarab.Extensions"
-        xmlns:models="clr-namespace:Scarab.Models"
-        xmlns:views="clr-namespace:Scarab.Views"
         xmlns:customControls="clr-namespace:Scarab.CustomControls"
-        xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+        xmlns:vm="clr-namespace:Scarab.ViewModels"
         mc:Ignorable="d" d:DesignWidth="500"
+        d:DataContext="{d:DesignInstance Type=vm:UninstallDependenciesConfirmationWindowViewModel}"
         x:Class="Scarab.Views.UninstallDependenciesConfirmationWindow"
         Title="{ext:Localize XAML_UninstallDependencies_Title}"
         SizeToContent="WidthAndHeight">
-
+  
   <Window.Styles>
     <Style Selector="Button">
       <Setter Property="MinHeight" Value="24" />
