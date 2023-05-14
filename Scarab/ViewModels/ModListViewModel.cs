@@ -192,6 +192,10 @@ namespace Scarab.ViewModels
                         case InstalledState { Enabled: false }:
                             await OnEnable(mod);
                             break;
+                        case NotInModLinksState { ModlinksMod: true }:
+                            await OnInstall(mod); //uninstall
+                            await OnInstall(mod); //install
+                            break;
                     }
                     await Dispatcher.UIThread.InvokeAsync(async () => 
                         await MessageBoxUtil.GetMessageBoxStandardWindow(
