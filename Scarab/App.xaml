@@ -19,5 +19,6 @@
     <Application.Resources>
         <SolidColorBrush x:Key="HighlightBlue">#23404C</SolidColorBrush>
         <SolidColorBrush x:Key="DefaultButtonColor">#505050</SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor">#dedede</SolidColorBrush>
     </Application.Resources>
 </Application>

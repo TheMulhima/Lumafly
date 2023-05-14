@@ -15,11 +15,18 @@ using Scarab.CustomControls;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.ViewModels;
+using Scarab.Views;
 
 namespace Scarab.Util;
 
 public static class DisplayErrors
 {
+    public static Window GetParent()
+    {
+        return (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                        ?? throw new InvalidOperationException();
+    }
+
     public static async Task DisplayHashMismatch(HashMismatchException e)
     {
         await MessageBoxUtil.GetMessageBoxStandardWindow
@@ -40,8 +47,7 @@ public static class DisplayErrors
         if (e != null)
             Trace.TraceError(e.ToString());
         
-        Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                        ?? throw new InvalidOperationException();
+        Window parent = GetParent();
 
         await new ErrorPopup()
         {
@@ -93,6 +99,18 @@ public static class DisplayErrors
 
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
+    }
+
+    public static Task<bool> DisplayUninstallDependenciesConfirmation(List<SelectableItem<ModItem>> options, bool hasExternalMods)
+    {
+        var window = new UninstallDependenciesConfirmationWindow
+        {
+            DataContext = new UninstallDependenciesConfirmationWindowViewModel(options, hasExternalMods)
+        };
+
+        Window parent = GetParent();
+
+        return window.ShowDialog<bool>(parent);
     }
 
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)

@@ -447,4 +447,34 @@
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
     <value>The mod has dependencies that are not installed!</value>
   </data>
+  <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
+    <value>Select manually</value>
+  </data>
+  <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
+    <value>Note: they may be used by any mods you have installed manually</value>
+  </data>
+  <data name="XAML_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="XAML_UninstallDependencies" xml:space="preserve">
+    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
+  </data>
+  <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
+    <value>Auto remove dependencies?</value>
+  </data>
+  <data name="XAML_Pin" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="XAML_Unpin" xml:space="preserve">
+    <value>Unpin</value>
+  </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>Unable to get modlinks</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>Do you want to launch scarab in offline mode?</value>
+  </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>Select Authors</value>
+  </data>
 </root>

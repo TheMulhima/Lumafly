@@ -168,14 +168,19 @@ namespace Scarab.Models
         }
     }
 
+    public class XmlDataContainer
+    {
+        public string Raw = String.Empty;
+    }
+
     [XmlRoot(Namespace = SerializationConstants.NAMESPACE)]
-    public class ApiLinks
+    public class ApiLinks : XmlDataContainer
     {
         public ApiManifest Manifest { get; set; } = null!;
     }
 
     [XmlRoot(Namespace = SerializationConstants.NAMESPACE)]
-    public class ModLinks
+    public class ModLinks : XmlDataContainer
     {
         [XmlElement("Manifest")]
         public Manifest[] Manifests { get; set; } = null!;

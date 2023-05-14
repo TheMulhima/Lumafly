@@ -17,6 +17,8 @@ namespace Scarab.CustomControls;
 public class MenuCheckBox : TemplatedControl
 {
     private Button? SelectableButton;
+
+    private bool _initialized = false;
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -32,6 +34,7 @@ public class MenuCheckBox : TemplatedControl
         });
         
         SetButtonColors();
+        _initialized = true;
     }
 
     private void SetButtonColors()
@@ -53,7 +56,12 @@ public class MenuCheckBox : TemplatedControl
     public bool IsSelected
     {
         get => _isSelected;
-        set => SetAndRaise(IsSelectedProperty, ref _isSelected, value);
+        set
+        {
+            SetAndRaise(IsSelectedProperty, ref _isSelected, value);
+            if (_initialized)
+                SetButtonColors();
+        }
     }
     #endregion
     

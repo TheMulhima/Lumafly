@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ext="clr-namespace:Scarab.Extensions"
+        xmlns:customControls="clr-namespace:Scarab.CustomControls"
+        xmlns:vm="clr-namespace:Scarab.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="500"
+        d:DataContext="{d:DesignInstance Type=vm:UninstallDependenciesConfirmationWindowViewModel}"
+        x:Class="Scarab.Views.UninstallDependenciesConfirmationWindow"
+        Title="{ext:Localize XAML_UninstallDependencies_Title}"
+        SizeToContent="WidthAndHeight">
+  
+  <Window.Styles>
+    <Style Selector="Button">
+      <Setter Property="MinHeight" Value="24" />
+      <Setter Property="MinWidth" Value="80" />
+    </Style>
+  </Window.Styles>
+  <Grid ColumnDefinitions="65, Auto">
+    <Image Grid.Row="0" Grid.Column="0" Margin="0 5 0 0"
+               VerticalAlignment="Top"
+               Source="avares://MessageBox.Avalonia/Assets/stop.png"/>
+    <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="5,*,15"
+          RowDefinitions="15,Auto,Auto,Auto,15">
+
+
+      <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+        <TextBlock Text="{ext:Localize XAML_UninstallDependencies}"></TextBlock>
+        <TextBlock Text="{ext:Localize XAML_ManuallyInstalledModesNote}"
+                    IsVisible="{Binding ExternalModsInstalled, Mode=OneTime}"
+                    FontStyle="Italic">
+        </TextBlock>
+      </StackPanel>
+
+      <StackPanel Grid.Row="2" Grid.Column="1">
+
+        <TextBlock Text="{Binding OptionsList, Mode=OneTime}"></TextBlock>
+
+        <Expander Header="{ext:Localize XAML_ChooseDependenciesToUninstall}" Margin="0 0 0 10">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="10">
+              <Button Content="{ext:Localize XAML_ModsFilter_All}" Command="{Binding ToggleAll}" CommandParameter="True" MinWidth="40"></Button>
+              <Button Content="{ext:Localize XAML_None}" Command="{Binding ToggleAll}" CommandParameter="False" MinWidth="40"></Button>
+            </StackPanel>
+
+            <ScrollViewer Margin="0 5 0 0" MaxHeight="300">
+              <ItemsControl Items="{Binding Options}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <customControls:MenuCheckBox Margin="0 5 0 0"
+                              
+                              IsSelected="{Binding IsSelected}"
+                              Header="{Binding DisplayName}"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </StackPanel>
+        </Expander>
+      </StackPanel>
+
+      <StackPanel Grid.Row="3" Grid.Column="1"
+                     Orientation="Horizontal"
+                     HorizontalAlignment="Right">
+
+        <Button Content="Yes"
+                Name="YesButton"
+                Margin="0 0 15 0"/>
+        <Button Content="No"
+                Name="NoButton"
+                IsCancel="True"/>
+
+      </StackPanel>
+    </Grid>
+  </Grid>
+
+</Window>

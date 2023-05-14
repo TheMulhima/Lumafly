@@ -1,3 +1,6 @@
+using PropertyChanged.SourceGenerator;
+using Scarab.Interfaces;
+using Scarab.Services;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -5,9 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using PropertyChanged.SourceGenerator;
-using Scarab.Interfaces;
-using Scarab.Services;
 
 namespace Scarab.Models
 {
@@ -94,18 +94,21 @@ namespace Scarab.Models
         public string   DependenciesDesc { get; }
         public string   TagDesc          { get; }
         public string   IntegrationsDesc { get; }
-        public string   AuthorsDesc { get; }
+        public string   AuthorsDesc      { get; }
 
         [Notify]
         private ModState _state;
 
         public bool EnabledIsChecked => State switch
         {
-            InstalledState { Enabled: var x } => x,
-            NotInModLinksState { Enabled: var x } => x,
+            ExistsModState { Enabled: var x } => x,
             // Can't enable what isn't installed.
             _ => false
         };
+
+        public bool Pinned => State is ExistsModState { Pinned: true };
+
+        public bool CanBePinned => State is ExistsModState { Pinned: false, Enabled: true };
 
         public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 
@@ -117,7 +120,7 @@ namespace Scarab.Models
             _ => throw new InvalidOperationException("Unreachable")
         };
 
-        public bool Installed => State is InstalledState or NotInModLinksState;
+        public bool Installed => State is ExistsModState;
 
         public bool HasDependencies => Dependencies.Length > 0;
         public bool HasIntegrations => Integrations.Length > 0;
@@ -131,21 +134,18 @@ namespace Scarab.Models
 
         private string _settingsFile = string.Empty;
 
-        public string SettingsFile
+        public void FindSettingsFile(IGlobalSettingsFinder _settingsFinder)
         {
-            get
+            // dont find it if its already found
+            if (string.IsNullOrEmpty(_settingsFile))
             {
-                // dont find it if its already found
-                if (string.IsNullOrEmpty(_settingsFile))
-                {
-                    _settingsFile = GlobalSettingsFinder.Instance.GetSettingsFile(this) ?? string.Empty;
-                }
-
-                return _settingsFile;
+                _settingsFile = _settingsFinder.GetSettingsFileLocation(this) ?? string.Empty;
             }
+
+            CallOnPropertyChanged(nameof(HasSettings));
         }
 
-        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(SettingsFile);
+        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(_settingsFile);
 
         public string VersionText => State switch
         {
@@ -183,7 +183,7 @@ namespace Scarab.Models
 
             try
             {
-                if (State is InstalledState or NotInModLinksState)
+                if (State is ExistsModState)
                 {
                     await inst.Uninstall(this);
                 }
@@ -214,13 +214,13 @@ namespace Scarab.Models
         {
             try
             {
-                if (HasSettings && File.Exists(SettingsFile))
+                if (HasSettings && File.Exists(_settingsFile))
                 {
                     var process = new Process();
                     process.StartInfo = new ProcessStartInfo()
                     {
                         UseShellExecute = true,
-                        FileName = SettingsFile
+                        FileName = _settingsFile
                     };
 
                     process.Start();
@@ -248,7 +248,9 @@ namespace Scarab.Models
             string? repository = null,
             string[]? tags = null,
             string[]? integrations = null,
-            string[]? authors = null
+            string[]? authors = null,
+            ModRecentChangeInfo? changeInfo = null,
+            bool isModLinksMod = true
         )
         {
             return new ModItem(
@@ -262,7 +264,8 @@ namespace Scarab.Models
                 repository ?? string.Empty,
                 tags ?? Array.Empty<string>(),
                 integrations ?? Array.Empty<string>(),
-                authors ?? Array.Empty<string>()
+                authors ?? Array.Empty<string>(),
+                changeInfo
             );
         }
 

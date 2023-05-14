@@ -12,6 +12,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
+using Scarab.Models;
 using Scarab.ViewModels;
 
 namespace Scarab.Views
@@ -21,7 +22,7 @@ namespace Scarab.Views
     {
         private readonly TextBox _search;
         private readonly List<MenuItem> _flyoutMenus;
-        private readonly List<MenuItem> _modFilterItems;
+        private List<MenuItem> _modFilterItems;
 
         public static FieldInfo MenuItemPopup =>
             typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!;
@@ -39,6 +40,7 @@ namespace Scarab.Views
             _modFilterItems = this.GetLogicalDescendants().OfType<MenuItem>()
                 .Where(x => x.Name?.StartsWith("ModFilter") ?? false)
                 .ToList();
+
             _flyoutMenus = this.GetLogicalDescendants().OfType<MenuItem>()
                 .Where(x => x.Name?.StartsWith("Flyout") ?? false)
                 .ToList();
@@ -51,6 +53,13 @@ namespace Scarab.Views
         {
             base.ArrangeCore(finalRect);
             SetUpFlyoutPopup();
+            RemoveNotVisibleModFilters();
+        }
+
+        private void RemoveNotVisibleModFilters()
+        {
+            _modFilterItems = _modFilterItems.Where(x => x.IsVisible).ToList();
+            _modFilterItems.First().Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
         }
 
         // I havent found a way to set these properties normally
@@ -96,9 +105,39 @@ namespace Scarab.Views
             // CTextBlock is the element that markdown avalonia uses for the text
             var cTextBlock = e.Element.GetLogicalDescendants().OfType<CTextBlock>().FirstOrDefault();
             if (cTextBlock != null) cTextBlock.FontSize = 12;
+
+            if (e.Element.DataContext is ModItem modItem)
+            {
+                var modname = e.Element.GetLogicalDescendants().OfType<TextBlock>().First(x => x.Name == "ModName");
+                var disclaimer = " (Not from modlinks)";
+                if (modItem is { State: NotInModLinksState })
+                {
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    if (modname != null)
+                    {
+                        modname.Foreground = new SolidColorBrush(Colors.Orange);
+                        if (!modname.Text.EndsWith(disclaimer))
+                        {
+                            modname.Text += disclaimer;
+                        }
+                    }
+                }
+                else
+                {
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    if (modname != null)
+                    {
+                        modname.Foreground = Application.Current?.Resources["TextColor"] as IBrush;
+                        if (modname.Text.EndsWith(disclaimer))
+                        {
+                            modname.Text = modname.Text[..disclaimer.Length];
+                        }
+                    }
+                }
+            }
         }
 
-        private void ModFilterPressed(object? sender, PointerPressedEventArgs e)
+        private void ModFilterPressed(object sender, PointerPressedEventArgs e)
         {
             if (sender is not MenuItem menuItem)
                 return;

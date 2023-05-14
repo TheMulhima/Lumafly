@@ -1,15 +1,19 @@
 using System;
-using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Diagnostics;
 using Avalonia.Markup.Xaml;
+using Avalonia.Controls.Primitives;
+using Avalonia.LogicalTree;
+using Avalonia.Media;
+using Scarab.Models;
 
 namespace Scarab.Views
 {
     public class MainWindow : Window
     {
+        private TabStrip _tabs;
         public MainWindow()
         {
             InitializeComponent();
@@ -17,8 +21,11 @@ namespace Scarab.Views
             if (OperatingSystem.IsMacOS())
             {
                 this.FindControl<Rectangle>("MacSpacer").IsVisible = true;
+                this.FindControl<Rectangle>("NonMacSpacer").IsVisible = false;
                 this.FindControl<TextBlock>("Title").Margin = new Thickness(0,10,0,0);
             }
+
+            _tabs = this.FindControl<TabStrip>("Tabs");
         }
 
         private void InitializeComponent(bool loadXaml = true, bool attachDevTools = true)
@@ -35,6 +42,25 @@ namespace Scarab.Views
             if (loadXaml)
             {
                 AvaloniaXamlLoader.Load(this);
+            }
+        }
+
+        private void OnTabSelected(object? sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+            foreach (var element in (sender as TabStrip).GetLogicalDescendants())
+            {
+                if (element is not TabStripItem { Content: TabItemModel content } tabStripItem) 
+                    continue;
+
+                if (e.AddedItems.Count > 0 && content.Header == (e.AddedItems[0] as TabItemModel)?.Header)
+                {
+                    tabStripItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+                }
+                if (e.RemovedItems.Count > 0 && content.Header == (e.RemovedItems[0] as TabItemModel)?.Header)
+                {
+                    tabStripItem.Background = Brushes.Transparent;
+                }
             }
         }
     }

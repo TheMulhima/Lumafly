@@ -3,12 +3,6 @@ using System.Collections.Generic;
 
 namespace Scarab.Models;
 
-public enum ModChangeState
-{
-    Created,
-    Updated
-}
-
 public class ModRecentChangeInfo
 {
     Dictionary<ModChangeState, DateTime> ModChanges { get; } = new();

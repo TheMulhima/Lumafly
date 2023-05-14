@@ -65,3 +65,5 @@ see below for a [full changelog](#full-changelog-from-scarab)
 
 ## Contributions
 - Contributions are open. You can see what features are currenly requested over [here](https://github.com/TheMulhima/Scarab/labels/enhancement)
+
+"This is the best version of scarab rn" - Dandy

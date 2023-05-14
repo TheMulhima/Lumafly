@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Scarab.Interfaces;
 using Scarab.Models;
 
 namespace Scarab.Services;
 
-public class ReverseDependencySearch
+public class ReverseDependencySearch : IReverseDependencySearch
 {
     // a dictionary to allow constant lookup times of ModItems from name
     private readonly Dictionary<string, ModItem> _items;
@@ -12,7 +13,7 @@ public class ReverseDependencySearch
     public ReverseDependencySearch(IEnumerable<ModItem> allModItems)
     {
         // no need to add non modlinks mod because they dont have a dependency tree
-        _items = allModItems.Where(x => x.State is not NotInModLinksState)
+        _items = allModItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false })
             .ToDictionary(x => x.Name, x => x);
     }
 
@@ -40,22 +41,13 @@ public class ReverseDependencySearch
     
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item)
     {
-        var dependants = new List<ModItem>();
-        
         // check all enabled mods if they have a dependency on this mod
-        foreach (var mod in _items.Values.Where(x => x.EnabledIsChecked))
-        {
-            if (IsDependent(mod, item))
-            {
-                dependants.Add(mod);
-            }
-        }
-        return dependants;
+        return _items.Values.Where(mod => mod.EnabledIsChecked && IsDependent(mod, item));
     }
 
     private bool IsDependent(ModItem mod, ModItem targetMod)
     {
-        foreach (var dependency in mod.Dependencies.Select(x => _items[x]))
+        foreach (var dependency in mod.Dependencies.Where(x => _items.ContainsKey(x)).Select(x => _items[x]))
         {
             // if the mod's listed dependency is the targetMod, it is a dependency
             if (dependency == targetMod) 

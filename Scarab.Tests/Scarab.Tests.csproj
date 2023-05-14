@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>
@@ -29,7 +29,7 @@
 
     <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
         <Copy SourceFiles="@(AssetsSourceFiles)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
-        <Move SourceFiles="$(OutDir)\MockModWithDifferentName.dll" DestinationFolder="$(OutDir)\MockModWithDifferentName" />
+        <Move SourceFiles="$(OutDir)\MockModWithDifferentName.dll" DestinationFolder="$(OutDir)\Mods\MockModWithDifferentName" />
     </Target>
 
 </Project>

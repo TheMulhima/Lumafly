@@ -100,7 +100,7 @@ namespace Scarab.Tests
         {
             IModSource src = new InstalledMods(new MockFileSystem());
 
-            IModDatabase db = new ModDatabase(src, modlinks_xml, api_xml);
+            IModDatabase db = new ModDatabase(src, new GlobalSettingsFinder(null), modlinks_xml, api_xml);
 
             Assert.Equal
             (
@@ -132,7 +132,7 @@ namespace Scarab.Tests
         {
             IModSource src = new InstalledMods(new MockFileSystem());
 
-            IModDatabase db = new ModDatabase(src, modlinks_xml, api_xml);
+            IModDatabase db = new ModDatabase(src, new GlobalSettingsFinder(null), modlinks_xml, api_xml);
 
             Assert.True(db.Items.All(x => x.State is NotInstalledState));
         }
@@ -148,7 +148,7 @@ namespace Scarab.Tests
                 }
             };
 
-            IModDatabase db = new ModDatabase(src, modlinks_xml, api_xml);
+            IModDatabase db = new ModDatabase(src, new GlobalSettingsFinder(null), modlinks_xml, api_xml);
 
             Assert.True(db.Items.First(x => x.Name == "QoL").State is InstalledState { Updated: false, Enabled: true });
             Assert.False(db.Items.First(x => x.Name == "Vasi").Installed);

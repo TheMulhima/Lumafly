@@ -37,7 +37,11 @@ namespace Scarab.Services
         private readonly List<ModItem> _items = new();
         private readonly List<string> _itemNames = new();
 
-        private ModDatabase(IModSource mods, ModLinks ml, ApiLinks al, ISettings? settings = null)
+        private ModDatabase(IModSource mods, 
+            IGlobalSettingsFinder _settingsFinder, 
+            ModLinks ml, 
+            ApiLinks al, 
+            ISettings? settings = null)
         {
             foreach (var mod in ml.Manifests)
             {
@@ -85,34 +89,47 @@ namespace Scarab.Services
                 // get only folder name
                 var name = new DirectoryInfo(dir).Name;
 
-                // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
-                if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)
-                    return;
+                var isModlinksMod = _itemNames.Contains(name);
+                if (isModlinksMod)
+                {
+                    var mod = _items.First(x => x.Name == name);
+                    if (mod.Installed) 
+                        return;
 
-                _items.Add(ModItem.Empty(
-                    state: new NotInModLinksState(enabled),
-                    name: name,
-                    description: "This mod is not from official modlinks"));
+                    mod.State = new NotInModLinksState(Enabled: enabled, ModlinksMod:true);
+                }
+                else
+                {
+                    _items.Add(ModItem.Empty(
+                        state: new NotInModLinksState(Enabled: enabled, ModlinksMod:false),
+                        name: name,
+                        description: "This mod is not from official modlinks"));
+                }
             }
 
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));
+            _items.ForEach(i => i.FindSettingsFile(_settingsFinder));
 
             Api = (al.Manifest.Links.OSUrl, al.Manifest.Version, al.Manifest.Links.SHA256);
         }
 
-        public ModDatabase(IModSource mods, (ModLinks ml, ApiLinks al) links, ISettings settings) : this(mods, links.ml, links.al, settings) { }
+        public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, (ModLinks ml, ApiLinks al) links, ISettings settings) 
+            : this(mods, settingsFinder, links.ml, links.al, settings) { }
 
-        public ModDatabase(IModSource mods, string modlinks, string apilinks) : this(mods, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
+        public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, string modlinks, string apilinks) 
+            : this(mods, settingsFinder, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         
         public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc)
         {
-            Task<ModLinks> ml = FetchModLinks(hc);
-            Task<ApiLinks> al = FetchApiLinks(hc);
+            // although slower to fetch one by one, prevents silent errors and hence resulting in 
+            // empty screen with no error
+            ModLinks ml = await FetchModLinks(hc);
+            ApiLinks al = await FetchApiLinks(hc);
 
-            return (await ml, await al);
+            return (ml, al);
         }
         
-        public static T FromString<T>(string xml)
+        public static T FromString<T>(string xml) where T : XmlDataContainer
         {
             var serializer = new XmlSerializer(typeof(T));
             
@@ -122,6 +139,8 @@ namespace Scarab.Services
 
             if (obj is null)
                 throw new InvalidDataException();
+
+            obj.Raw = xml;
 
             return obj;
         }

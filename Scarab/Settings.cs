@@ -1,6 +1,11 @@
+using Microsoft.Win32;
+using Scarab.Interfaces;
+using Scarab.Models;
+using Scarab.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -8,9 +13,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
-using Microsoft.Win32;
-using Scarab.Interfaces;
-using Scarab.Util;
 
 namespace Scarab
 {
@@ -19,8 +21,8 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
-        public bool AutoRemoveDeps { get; }
-        
+        public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; }
+
         public bool RequiresWorkaroundClient { get; set; }
 
         // @formatter:off
@@ -50,17 +52,18 @@ namespace Scarab
         }
         .ToImmutableList();
         // @formatter:on
-
-        private static string ConfigPath => Path.Combine
+        
+        public static string ConfigFolderPath => Path.Combine
         (
             Environment.GetFolderPath
             (
                 Environment.SpecialFolder.ApplicationData,
                 Environment.SpecialFolderOption.Create
             ),
-            "HKModInstaller",
-            "HKInstallerSettings.json"
+            "HKModInstaller"
         );
+        
+        private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
 
         internal Settings(string path) => ManagedFolder = path;
 
@@ -68,7 +71,7 @@ namespace Scarab
         public Settings()
         {
             ManagedFolder = null!;
-            AutoRemoveDeps = false;
+            AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
         }
 
         public static string GetOrCreateDirPath()
