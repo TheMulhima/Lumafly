@@ -69,7 +69,8 @@ namespace Scarab.ViewModels
         [Notify]
         private ModFilterState _modFilterState = ModFilterState.All;
         public IEnumerable<string> ModNames { get; }
-        public ObservableCollection<SelectableItem<string>> TagList { get; }
+        private SortableObservableCollection<SelectableItem<string>> TagList { get; }
+        private SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
@@ -112,20 +113,40 @@ namespace Scarab.ViewModels
             ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
 
             HashSet<string> tagsInModlinks = new();
+            HashSet<string> authorsInModlinks = new();
             foreach (var mod in _items)
             {
-                if (!mod.HasTags) continue;
-                foreach (var tag in mod.Tags)
+                if (mod.HasTags)
                 {
-                    tagsInModlinks.Add(tag);
+                    foreach (var tag in mod.Tags)
+                    {
+                        tagsInModlinks.Add(tag);
+                    }
+                }
+
+                if (mod.HasAuthors)
+                {
+                    foreach (var author in mod.Authors)
+                    {
+                        authorsInModlinks.Add(author);
+                    }
                 }
             }
 
-            TagList = new ObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
+            TagList = new SortableObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
                 new SelectableItem<string>(
                     x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
+
+            AuthorList = new SortableObservableCollection<SelectableItem<string>>(authorsInModlinks.Select(x => 
+                new SelectableItem<string>(
+                    x, 
+                    x,
+                    false)));
+            
+            TagList.SortBy(AlphabeticalSelectableItem);
+            AuthorList.SortBy(AlphabeticalSelectableItem);
 
             Task.Run(async () =>
             {
@@ -369,6 +390,11 @@ namespace Scarab.ViewModels
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item)
                 .ToList();
+            
+            var selectedAuthors = AuthorList
+                .Where(x => x.IsSelected)
+                .Select(x => x.Item)
+                .ToList();
 
             if (selectedTags.Count > 0)
             {
@@ -376,6 +402,13 @@ namespace Scarab.ViewModels
                     .Where(x => x.HasTags &&
                                 x.Tags.Any(tagsDefined => selectedTags
                                     .Any(tagsSelected => tagsSelected == tagsDefined)));
+            }
+            if (selectedAuthors.Count > 0)
+            {
+                SelectedItems = SelectedItems
+                    .Where(x => x.HasAuthors &&
+                                x.Authors.Any(authorsDefined => selectedAuthors
+                                    .Any(authorsSelected => authorsSelected == authorsDefined)));
             }
 
             RaisePropertyChanged(nameof(FilteredItems));
@@ -777,8 +810,11 @@ namespace Scarab.ViewModels
         private static (int pinned, int priority, string name) ModToOrderedTuple(ModItem m) =>
         (
             m.State is InstalledState { Pinned: true } ? -1 : 1,
-            m.State is InstalledState { Updated : false }? -1 : 1,
+            m.State is InstalledState { Updated : false } ? -1 : 1,
             m.Name
         );
+        
+        private static int AlphabeticalSelectableItem(SelectableItem<string> item1, SelectableItem<string> item2) => 
+            string.Compare(item1.Item, item2.Item, StringComparison.Ordinal);
     }
 }

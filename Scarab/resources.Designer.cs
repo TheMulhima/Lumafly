@@ -1023,6 +1023,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Authors.
+        /// </summary>
+        internal static string XAML_Select_Authors {
+            get {
+                return ResourceManager.GetString("XAML_Select_Authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Mod.
         /// </summary>
         internal static string XAML_Select_Mod {

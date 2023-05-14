@@ -49,8 +49,25 @@
         
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
+            HorizontalAlignment="Stretch"
             Header="{ext:Localize XAML_Select_Tags}">
             <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.TagList}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <customControls:MenuCheckBox
+                            Margin="2 1"
+                            IsSelected="{Binding IsSelected}" 
+                            OnSelect="{Binding $parent[views:ModListView].DataContext.SelectMods}"
+                            Header="{Binding DisplayName}"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </customControls:TextButtonFlyout>
+        
+        <customControls:TextButtonFlyout
+            HorizontalOffset="12"
+            Header="{ext:Localize XAML_Select_Authors}">
+            <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.AuthorList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:MenuCheckBox

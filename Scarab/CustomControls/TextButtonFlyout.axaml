@@ -15,6 +15,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Button
+                    HorizontalContentAlignment="Stretch"
                     Padding="{TemplateBinding Padding}"
                     Margin="{TemplateBinding Margin}"
                     Background="{TemplateBinding Background}"
@@ -25,15 +26,22 @@
                             <Setter Property="Background" Value="{DynamicResource DefaultButtonColor}"></Setter>
                         </Style>
                     </Button.Styles>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{TemplateBinding Header}" Padding="3 0"/>
-                        <avalonia:SymbolIcon 
+                    <Grid 
+                        ColumnDefinitions="*, Auto"
+                        HorizontalAlignment="Stretch">
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="{TemplateBinding Header}"
+                            Padding="3 0"/>
+                        
+                        <avalonia:SymbolIcon
+                            Grid.Column="1"
                             Name="Icon" 
                             Symbol="ChevronDown"
                             IsFilled="True"
                             FontSize="15"
                             Margin="5 0 2 0"/>
-                    </StackPanel>
+                    </Grid>
                 </Button>
             </ControlTemplate>
         </Setter>

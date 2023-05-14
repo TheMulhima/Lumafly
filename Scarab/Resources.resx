@@ -474,4 +474,7 @@
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
     <value>Do you want to launch scarab in offline mode?</value>
   </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>Select Authors</value>
+  </data>
 </root>
