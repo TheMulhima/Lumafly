@@ -106,7 +106,7 @@ namespace Scarab.Services
             {
                 foreach (ModItem dep in mod.Dependencies.Select(x => _db.Items.First(i => i.Name == x)))
                 {
-                    if (dep.State is InstalledState { Enabled: true } or NotInstalledState)
+                    if (dep.State is ExistsModState { Enabled: true } or NotInstalledState)
                         continue;
 
                     await Toggle(dep);
@@ -323,6 +323,15 @@ namespace Scarab.Services
                         await Toggle(dep);
                     
                     continue;
+                }
+                
+                if (dep.State is NotInModLinksState notInModLinksState)
+                {
+                    // if pinned dont touch it
+                    if (notInModLinksState.Pinned)
+                        continue;
+
+                    await _Uninstall(dep);
                 }
 
                 // Enable the dependencies' dependencies if we're enabling this mod
