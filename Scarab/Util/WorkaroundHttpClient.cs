@@ -10,14 +10,6 @@ namespace Scarab.Util;
 
 public static class WorkaroundHttpClient
 {
-    public enum Settings
-    {
-        OnlyWorkaround,
-
-        // ReSharper disable once UnusedMember.Global
-        TryBoth
-    }
-
     public class ResultInfo<T>
     {
         public T          Result           { get; }
@@ -35,19 +27,19 @@ public static class WorkaroundHttpClient
     /// <summary>
     /// Re-try an action with the IPv4 workaround client
     /// </summary>
-    /// <param name="settings">Whether or not to skip trying the normal client</param>
+    /// <param name="httpSetting">Whether or not to skip trying the normal client</param>
     /// <param name="f">The action to try</param>
     /// <param name="config">A configurator for the HttpClient</param>
     /// <typeparam name="T">Return type of the action</typeparam>
     /// <remarks>It is expected that the action has a timeout, otherwise this will run indefinitely.</remarks>
     /// <returns>A result info containing the client, result, and whether the workaround was used.</returns>
     public static async Task<ResultInfo<T>> TryWithWorkaroundAsync<T>(
-        Settings settings,
+        HttpSetting httpSetting,
         Func<HttpClient, Task<T>> f,
         Action<HttpClient> config
     )
     {
-        if (settings != Settings.OnlyWorkaround)
+        if (httpSetting != HttpSetting.OnlyWorkaround)
         {
             var hc = new HttpClient();
 

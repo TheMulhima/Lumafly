@@ -4,13 +4,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Threading;
 using JetBrains.Annotations;
-using MessageBox.Avalonia;
 using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using MessageBox.Avalonia.Models;
 using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
@@ -95,8 +93,8 @@ namespace Scarab.ViewModels
             {
                 var res = await WorkaroundHttpClient.TryWithWorkaroundAsync(
                     settings.RequiresWorkaroundClient 
-                        ? WorkaroundHttpClient.Settings.OnlyWorkaround
-                        : WorkaroundHttpClient.Settings.TryBoth,
+                        ? HttpSetting.OnlyWorkaround
+                        : HttpSetting.TryBoth,
                     ModDatabase.FetchContent,
                     AddSettings
                 );

@@ -34,8 +34,8 @@ public class ModLinksChanges : IModLinksChanges
     {
         var res = await WorkaroundHttpClient.TryWithWorkaroundAsync(
             settings.RequiresWorkaroundClient 
-                ? WorkaroundHttpClient.Settings.OnlyWorkaround
-                : WorkaroundHttpClient.Settings.TryBoth,
+                ? HttpSetting.OnlyWorkaround
+                : HttpSetting.TryBoth,
             FetchContent,
             AddHttpConfig
         );
