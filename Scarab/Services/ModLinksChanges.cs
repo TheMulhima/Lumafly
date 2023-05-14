@@ -92,7 +92,7 @@ public class ModLinksChanges : IModLinksChanges
                 .GetProperty("date")
                 .GetDateTime();
             
-            foreach (var mod in currentItems.Where(x => x.State is not NotInModLinksState))
+            foreach (var mod in currentItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false }))
             {
                 var correspondingOldMod = oldModlinks.Manifests.FirstOrDefault(m => m.Name == mod.Name);
 

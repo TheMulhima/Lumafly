@@ -94,22 +94,21 @@ namespace Scarab.Models
         public string   DependenciesDesc { get; }
         public string   TagDesc          { get; }
         public string   IntegrationsDesc { get; }
-        public string   AuthorsDesc { get; }
+        public string   AuthorsDesc      { get; }
 
         [Notify]
         private ModState _state;
 
         public bool EnabledIsChecked => State switch
         {
-            InstalledState { Enabled: var x } => x,
-            NotInModLinksState { Enabled: var x } => x,
+            ExistsModState { Enabled: var x } => x,
             // Can't enable what isn't installed.
             _ => false
         };
 
-        public bool Pinned => State is InstalledState { Pinned: true };
+        public bool Pinned => State is ExistsModState { Pinned: true };
 
-        public bool CanBePinned => State is InstalledState { Pinned: false, Enabled: true };
+        public bool CanBePinned => State is ExistsModState { Pinned: false, Enabled: true };
 
         public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 
@@ -121,7 +120,7 @@ namespace Scarab.Models
             _ => throw new InvalidOperationException("Unreachable")
         };
 
-        public bool Installed => State is InstalledState or NotInModLinksState;
+        public bool Installed => State is ExistsModState;
 
         public bool HasDependencies => Dependencies.Length > 0;
         public bool HasIntegrations => Integrations.Length > 0;
@@ -184,7 +183,7 @@ namespace Scarab.Models
 
             try
             {
-                if (State is InstalledState or NotInModLinksState)
+                if (State is ExistsModState)
                 {
                     await inst.Uninstall(this);
                 }
@@ -249,7 +248,9 @@ namespace Scarab.Models
             string? repository = null,
             string[]? tags = null,
             string[]? integrations = null,
-            string[]? authors = null
+            string[]? authors = null,
+            ModRecentChangeInfo? changeInfo = null,
+            bool isModLinksMod = true
         )
         {
             return new ModItem(
@@ -263,7 +264,8 @@ namespace Scarab.Models
                 repository ?? string.Empty,
                 tags ?? Array.Empty<string>(),
                 integrations ?? Array.Empty<string>(),
-                authors ?? Array.Empty<string>()
+                authors ?? Array.Empty<string>(),
+                changeInfo
             );
         }
 

@@ -105,7 +105,7 @@ namespace Scarab.ViewModels
 
             _dependencySearchItem = "";
 
-            ModNames = _items.Where(x => x.State is not NotInModLinksState).Select(x => x.Name);
+            ModNames = _items.Where(x => x.State is not NotInModLinksState { ModlinksMod:false }).Select(x => x.Name);
 
             ToggleApi = ReactiveCommand.CreateFromTask(ToggleApiCommand);
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
@@ -235,7 +235,7 @@ namespace Scarab.ViewModels
                         return SelectedItems;
                     
                     // this isnt user input so we can do normal comparison
-                    var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState);
+                    var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
                     
                     return SelectedItems
                         .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
@@ -253,9 +253,9 @@ namespace Scarab.ViewModels
         public bool ApiOutOfDate => _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version;
 
         public bool CanUpdateAll => _items.Any(x => x.State is InstalledState { Updated: false }) && !_updating;
-        public bool CanUninstallAll => _items.Any(x => x.State is InstalledState or NotInModLinksState);
-        public bool CanDisableAll => _items.Any(x => x.State is InstalledState {Enabled: true} or NotInModLinksState {Enabled: true});
-        public bool CanEnableAll => _items.Any(x => x.State is InstalledState {Enabled: false} or NotInModLinksState {Enabled: false});
+        public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
+        public bool CanDisableAll => _items.Any(x => x.State is ExistsModState { Enabled: true });
+        public bool CanEnableAll => _items.Any(x => x.State is ExistsModState {Enabled: false});
         
         private async Task ToggleApiCommand()
         {
@@ -380,7 +380,7 @@ namespace Scarab.ViewModels
             {
                 ModFilterState.All => _items,
                 ModFilterState.Installed => _items.Where(x => x.Installed),
-                ModFilterState.Enabled => _items.Where(x => x.State is InstalledState { Enabled: true } or NotInModLinksState { Enabled: true }),
+                ModFilterState.Enabled => _items.Where(x => x.State is ExistsModState { Enabled: true }),
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
                 ModFilterState.WhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
@@ -439,10 +439,10 @@ namespace Scarab.ViewModels
                 () => DisplayErrors.DisplayAreYouSureWarning("Are you sure you want to uninstall all mods?"),
                 async () =>
                 {
-                    var toUninstall = _items.Where(x => x.State is InstalledState { Pinned: false } or NotInModLinksState).ToList();
+                    var toUninstall = _items.Where(x => x.State is ExistsModState { Pinned: false }).ToList();
                     foreach (var mod in toUninstall)
                     {
-                        if (mod.State is not (InstalledState or NotInModLinksState))
+                        if (mod.State is not ExistsModState)
                             continue;
                         
                         if (!HasPinnedDependents(mod))
@@ -453,11 +453,11 @@ namespace Scarab.ViewModels
 
         public void DisableAllInstalled()
         {
-            var toDisable = _items.Where(x => x.State is InstalledState {Enabled:true, Pinned: false} or NotInModLinksState{Enabled:true}).ToList();
+            var toDisable = _items.Where(x => x.State is ExistsModState { Enabled:true, Pinned: false }).ToList();
 
             foreach (ModItem mod in toDisable)
             {
-                if (mod.State is not (InstalledState {Enabled:true} or NotInModLinksState {Enabled:true}))
+                if (mod.State is not ExistsModState { Enabled:true })
                     continue;
 
                 if (!HasPinnedDependents(mod))
@@ -470,7 +470,10 @@ namespace Scarab.ViewModels
         
         public async Task ForceUpdateAll()
         {
-            var toUpdate = _items.Where(x => x.State is InstalledState).ToList();
+            // force update all will ignore pinned mods and force install the modlinks versions of mods
+            var toUpdate = _items
+                .Where(x => x.State is InstalledState or NotInModLinksState { ModlinksMod: true })
+                .ToList();
             
             foreach (ModItem mod in toUpdate)
             {
@@ -593,17 +596,6 @@ namespace Scarab.ViewModels
 
             try
             {
-                // ensure no duplicate mods
-                if (item.State is NotInstalledState)
-                {
-                    foreach (var similarItem in _items
-                                 .Where(x => x.Name == item.Name && x.State is InstalledState or NotInModLinksState)
-                                 .ToList())
-                    {
-                        await _installer.Uninstall(similarItem);
-                    }
-                }
-
                 await downloader
                 (
                     _installer,
@@ -758,7 +750,7 @@ namespace Scarab.ViewModels
             if (dependencies.Count > 0)
             {
                 var options = dependencies.Select(x => new SelectableItem<ModItem>(x, x.Name, true)).ToList();
-                bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState);
+                bool hasExternalMods = _items.Any(x => x.State is NotInModLinksState { ModlinksMod:false });
 
                 bool shouldUninstall = await ShouldUnsintall(options, hasExternalMods);
 

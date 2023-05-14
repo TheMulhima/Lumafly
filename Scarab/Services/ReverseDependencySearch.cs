@@ -13,7 +13,7 @@ public class ReverseDependencySearch : IReverseDependencySearch
     public ReverseDependencySearch(IEnumerable<ModItem> allModItems)
     {
         // no need to add non modlinks mod because they dont have a dependency tree
-        _items = allModItems.Where(x => x.State is not NotInModLinksState)
+        _items = allModItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false })
             .ToDictionary(x => x.Name, x => x);
     }
 
@@ -47,7 +47,7 @@ public class ReverseDependencySearch : IReverseDependencySearch
 
     private bool IsDependent(ModItem mod, ModItem targetMod)
     {
-        foreach (var dependency in mod.Dependencies.Select(x => _items[x]))
+        foreach (var dependency in mod.Dependencies.Where(x => _items.ContainsKey(x)).Select(x => _items[x]))
         {
             // if the mod's listed dependency is the targetMod, it is a dependency
             if (dependency == targetMod) 

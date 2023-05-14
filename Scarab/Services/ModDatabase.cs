@@ -89,14 +89,22 @@ namespace Scarab.Services
                 // get only folder name
                 var name = new DirectoryInfo(dir).Name;
 
-                // check if its a modlinks mod and if its installed. if both are true don't add the not in modlinks mod
-                if (_itemNames.Contains(name) && _items.First(i => i.Name == name).Installed)
-                    return;
+                var isModlinksMod = _itemNames.Contains(name);
+                if (isModlinksMod)
+                {
+                    var mod = _items.First(x => x.Name == name);
+                    if (mod.Installed) 
+                        return;
 
-                _items.Add(ModItem.Empty(
-                    state: new NotInModLinksState(enabled),
-                    name: name,
-                    description: "This mod is not from official modlinks"));
+                    mod.State = new NotInModLinksState(Enabled: enabled, ModlinksMod:true);
+                }
+                else
+                {
+                    _items.Add(ModItem.Empty(
+                        state: new NotInModLinksState(Enabled: enabled, ModlinksMod:false),
+                        name: name,
+                        description: "This mod is not from official modlinks"));
+                }
             }
 
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));

@@ -12,6 +12,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
+using Scarab.Models;
 using Scarab.ViewModels;
 
 namespace Scarab.Views
@@ -104,6 +105,36 @@ namespace Scarab.Views
             // CTextBlock is the element that markdown avalonia uses for the text
             var cTextBlock = e.Element.GetLogicalDescendants().OfType<CTextBlock>().FirstOrDefault();
             if (cTextBlock != null) cTextBlock.FontSize = 12;
+
+            if (e.Element.DataContext is ModItem modItem)
+            {
+                var modname = e.Element.GetLogicalDescendants().OfType<TextBlock>().First(x => x.Name == "ModName");
+                var disclaimer = " (Not from modlinks)";
+                if (modItem is { State: NotInModLinksState })
+                {
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    if (modname != null)
+                    {
+                        modname.Foreground = new SolidColorBrush(Colors.Orange);
+                        if (!modname.Text.EndsWith(disclaimer))
+                        {
+                            modname.Text += disclaimer;
+                        }
+                    }
+                }
+                else
+                {
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    if (modname != null)
+                    {
+                        modname.Foreground = Application.Current?.Resources["TextColor"] as IBrush;
+                        if (modname.Text.EndsWith(disclaimer))
+                        {
+                            modname.Text = modname.Text[..disclaimer.Length];
+                        }
+                    }
+                }
+            }
         }
 
         private void ModFilterPressed(object sender, PointerPressedEventArgs e)

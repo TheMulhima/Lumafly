@@ -22,6 +22,7 @@ namespace Scarab.Services
         internal static readonly string ConfigPath = Path.Combine(Settings.GetOrCreateDirPath(), FILE_NAME);
 
         public Dictionary<string, InstalledState> Mods { get; init; } = new();
+        public Dictionary<string, NotInModLinksState> NotInModlinksMods { get; init; } = new();
         
         private static readonly SemaphoreSlim _semaphore = new (1);
         
@@ -93,6 +94,23 @@ namespace Scarab.Services
                 db.Mods.Remove(name);
             }
             
+            foreach (string name in db.NotInModlinksMods.Select(x => x.Key))
+            {
+                if (ModExists(name, out var enabled))
+                {
+                    if (db.NotInModlinksMods[name].Enabled != enabled)
+                    {
+                        Trace.WriteLine($"mod {name} enabled state mismatch, fixing!");
+                        db.NotInModlinksMods[name] = db.NotInModlinksMods[name] with { Enabled = enabled };
+                    }
+                    continue;   
+                }
+
+                Trace.TraceWarning($"Removing missing mod {name}!");
+                
+                db.NotInModlinksMods.Remove(name);
+            }
+            
             /*
              * If the user deleted their assembly, we can deal with it at least.
              * 
@@ -135,12 +153,17 @@ namespace Scarab.Services
 
         public ModState FromManifest(Manifest manifest)
         {
-            if (Mods.TryGetValue(manifest.Name, out var existing))
+            if (Mods.TryGetValue(manifest.Name, out var existingInstalled))
             {
-                return existing with
+                return existingInstalled with
                 {
-                    Updated = existing.Version == manifest.Version.Value
+                    Updated = existingInstalled.Version == manifest.Version.Value
                 };
+            }
+            
+            if (NotInModlinksMods.TryGetValue(manifest.Name, out var existingNotInModlinks))
+            {
+                return existingNotInModlinks;
             }
 
             return new NotInstalledState();
@@ -148,11 +171,16 @@ namespace Scarab.Services
         
         public async Task RecordInstalledState(ModItem item)
         {
-            if (item.State is NotInModLinksState) return;
-            
-            Contract.Assert(item.State is InstalledState);
+            Contract.Assert(item.State is ExistsModState);
 
-            Mods[item.Name] = (InstalledState) item.State;
+            if (item.State is InstalledState state)
+            {
+                Mods[item.Name] = state;
+            }
+            if (item.State is NotInModLinksState notInModLinksState)
+            {
+                NotInModlinksMods[item.Name] = notInModLinksState;
+            }
 
             await SaveToDiskAsync();
         }

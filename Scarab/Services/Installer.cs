@@ -87,7 +87,7 @@ namespace Scarab.Services
 
         public async Task Pin(ModItem mod)
         {
-            if (mod.State is not InstalledState state)
+            if (mod.State is not ExistsModState state)
                 throw new InvalidOperationException("Cannot pin mod which is not installed!");
 
             mod.State = state with { Pinned  = !state.Pinned };
@@ -96,12 +96,10 @@ namespace Scarab.Services
 
         public async Task Toggle(ModItem mod)
         {
-            if (mod.State is not (InstalledState or NotInModLinksState))
+            if (mod.State is not ExistsModState state)
                 throw new InvalidOperationException("Cannot enable mod which is not installed!");
 
-            var enabled = mod.State is InstalledState
-                ? ((InstalledState)mod.State).Enabled
-                : ((NotInModLinksState)mod.State).Enabled;
+            var enabled = state.Enabled;
 
             // Enable dependents when enabling a mod
             if (!enabled)
@@ -130,14 +128,9 @@ namespace Scarab.Services
             if (_fs.Directory.Exists(prev) && !_fs.Directory.Exists(after))
                 _fs.Directory.Move(prev, after);
 
-            if (mod.State is InstalledState installedState)
-            {
-                mod.State = installedState with { Enabled = !installedState.Enabled };
-            }
-            else if (mod.State is NotInModLinksState notInModLinksState)
-            {
-                mod.State = notInModLinksState with { Enabled = !notInModLinksState.Enabled };
-            }
+            
+            mod.State = state with { Enabled = !state.Enabled };
+            
 
             await _installed.RecordInstalledState(mod);
 
@@ -493,7 +486,7 @@ namespace Scarab.Services
 
         private async Task _Uninstall(ModItem mod)
         {
-            var enabled = mod.State is InstalledState ? ((InstalledState)mod.State).Enabled : ((NotInModLinksState)mod.State).Enabled;
+            var enabled = ((ExistsModState)mod.State).Enabled;
             string dir = Path.Combine
             (
                 enabled
@@ -511,7 +504,7 @@ namespace Scarab.Services
                 /* oh well, it's uninstalled anyways */
             }
 
-            if (mod.State is NotInModLinksState notInModLinksState)
+            if (mod.State is NotInModLinksState {ModlinksMod: false} notInModLinksState)
             {
                 mod.State = notInModLinksState with { Installed = false };
                 _db.Items.Remove(mod);
