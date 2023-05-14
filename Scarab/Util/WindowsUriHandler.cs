@@ -1,67 +1,71 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using Microsoft.Win32;
 
 namespace Scarab.Util;
 
-public enum Commands
+public enum UriCommands
 {
     none,
     download,
     reset
 }
 
-public class WindowsUriHandler
+public static class WindowsUriHandler
 {
-    const string UriScheme = "scarab";
-    const string FriendlyName = "scarab protocol";
+    public const string UriScheme = "scarab";
+    private const string FriendlyName = "scarab protocol";
 
     public static string Mod = "";
-    public static Commands Command = Commands.none;
-    
-    public void SetCommand(string arg)
+    public static UriCommands UriCommand = UriCommands.none;
+
+    private static readonly Dictionary<UriCommands, Action<string>?> AvailableCommands = new ()
     {
-        string prefix = UriScheme + "://";
-        var command = arg[prefix.Length..].Trim('/').Replace("%20", " ");
-        
-        string downloadPrefix = $"{Commands.download.ToString()}";
-        
-        if (command.StartsWith(downloadPrefix))
+        {UriCommands.none, null},
+        {UriCommands.download, s => Mod = s},
+        {UriCommands.reset, null},
+    };
+    
+    public static void SetCommand(string arg)
+    {
+        var UriPrefix = UriScheme + "://";
+        var UriParam = arg[UriPrefix.Length..].Trim('/').Replace("%20", " ");
+
+        foreach(var (command, action) in AvailableCommands)
         {
-            Command = Commands.download;
-            Mod = command[downloadPrefix.Length..].Trim('/');
-        }
-        
-        string resetPrefix = $"{Commands.reset.ToString()}";
-        
-        if (command.StartsWith(resetPrefix))
-        {
-            Command = Commands.reset;
+            var commandName = command.ToString();
+            if (!UriParam.StartsWith(commandName)) continue;
+            
+            UriCommand = command;
+            action?.Invoke(UriParam[commandName.Length..].Trim('/'));
+            break; // only 1 command allowed for now
         }
     }
 
-    public void SetupRegistry(string exePath)
+    [SupportedOSPlatform(nameof(OSPlatform.Windows))]
+    public static void SetupRegistry(string exePath)
     {
         try
         {
-            using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme))
+            using var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme);
+            
+            key.SetValue(null, "URL:" + FriendlyName);
+            key.SetValue("URL Protocol", string.Empty, RegistryValueKind.String);
+
+            using (var defaultIcon = key.CreateSubKey("DefaultIcon"))
             {
-                key.SetValue(null, "URL:" + FriendlyName);
-                key.SetValue("URL Protocol", String.Empty, RegistryValueKind.String);
+                var iconValue = $"\"{exePath}\",0";
+                defaultIcon.SetValue(null, iconValue);
+            }
 
-                using (var defaultIcon = key.CreateSubKey("DefaultIcon"))
-                {
-                    string iconValue = String.Format("\"{0}\",0", exePath);
-                    defaultIcon.SetValue(null, iconValue);
-                }
-
-
-                using (var commandKey = key.CreateSubKey(@"Shell\Open\Command"))
-                {
-                    string cmdValue = String.Format("\"{0}\" \"%1\"", exePath);
-                    commandKey.SetValue(null, cmdValue);
-                }
+            using (var commandKey = key.CreateSubKey(@"Shell\Open\Command"))
+            {
+                var cmdValue = $"\"{exePath}\" \"%1\"";
+                commandKey.SetValue(null, cmdValue);
             }
         }
         catch (Exception e)

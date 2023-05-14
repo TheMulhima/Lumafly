@@ -32,15 +32,14 @@ namespace Scarab
             if (OperatingSystem.IsWindows())
             {
                 args = Environment.GetCommandLineArgs();
-                var winreg = new WindowsUriHandler();
-                winreg.SetupRegistry(args[0]);
+                WindowsUriHandler.SetupRegistry(args[0]);
                 if (args.Length > 1)
                 {
-                    winreg.SetCommand(args[1]);
+                    WindowsUriHandler.SetCommand(args[1]);
                 }
             }
 
-            if (WindowsUriHandler.Command == Commands.reset)
+            if (WindowsUriHandler.UriCommand == UriCommands.reset)
             {
                 try
                 {

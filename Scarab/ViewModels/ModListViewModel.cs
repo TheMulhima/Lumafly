@@ -140,7 +140,7 @@ namespace Scarab.ViewModels
 
             Task.Run(async () =>
             {
-                if (WindowsUriHandler.Command == Commands.download)
+                if (WindowsUriHandler.UriCommand == UriCommands.download)
                 {
                     var modName = WindowsUriHandler.Mod;
                     var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState);
