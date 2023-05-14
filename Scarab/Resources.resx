@@ -468,4 +468,10 @@
   <data name="XAML_Unpin" xml:space="preserve">
     <value>Unpin</value>
   </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>Unable to get modlinks</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>Do you want to launch scarab in offline mode?</value>
+  </data>
 </root>

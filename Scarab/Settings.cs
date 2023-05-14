@@ -52,17 +52,18 @@ namespace Scarab
         }
         .ToImmutableList();
         // @formatter:on
-
-        private static string ConfigPath => Path.Combine
+        
+        public static string ConfigFolderPath => Path.Combine
         (
             Environment.GetFolderPath
             (
                 Environment.SpecialFolder.ApplicationData,
                 Environment.SpecialFolderOption.Create
             ),
-            "HKModInstaller",
-            "HKInstallerSettings.json"
+            "HKModInstaller"
         );
+        
+        private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
 
         internal Settings(string path) => ManagedFolder = path;
 

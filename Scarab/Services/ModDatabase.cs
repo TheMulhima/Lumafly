@@ -121,7 +121,7 @@ namespace Scarab.Services
             return (ml, al);
         }
         
-        public static T FromString<T>(string xml)
+        public static T FromString<T>(string xml) where T : XmlDataContainer
         {
             var serializer = new XmlSerializer(typeof(T));
             
@@ -131,6 +131,8 @@ namespace Scarab.Services
 
             if (obj is null)
                 throw new InvalidDataException();
+
+            obj.Raw = xml;
 
             return obj;
         }

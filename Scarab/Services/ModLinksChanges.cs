@@ -16,18 +16,27 @@ namespace Scarab.Services;
 public class ModLinksChanges : IModLinksChanges
 {
     private readonly ISettings settings;
-    private readonly IEnumerable<ModItem> _currentItems;
+    private readonly ScarabMode scarabMode;
+    private readonly IEnumerable<ModItem> currentItems;
     public bool? IsReady { get; set; }
 
-    public ModLinksChanges(IEnumerable<ModItem> _items, ISettings _settings)
+    public ModLinksChanges(IEnumerable<ModItem> _items, ISettings _settings, ScarabMode _scarabMode)
     {
-        _currentItems = _items;
+        currentItems = _items;
         settings = _settings;
+        scarabMode = _scarabMode;
     }
     
     public async Task LoadChanges()
     {
-        IsReady = await GetOldModlinks();
+        if (scarabMode == ScarabMode.Online)
+        {
+            IsReady = await GetOldModlinks();
+        }
+        if (scarabMode == ScarabMode.Offline)
+        {
+            IsReady = false;
+        }
     }
 
     private async Task<bool> GetOldModlinks()
@@ -83,7 +92,7 @@ public class ModLinksChanges : IModLinksChanges
                 .GetProperty("date")
                 .GetDateTime();
             
-            foreach (var mod in _currentItems.Where(x => x.State is not NotInModLinksState))
+            foreach (var mod in currentItems.Where(x => x.State is not NotInModLinksState))
             {
                 var correspondingOldMod = oldModlinks.Manifests.FirstOrDefault(m => m.Name == mod.Name);
 

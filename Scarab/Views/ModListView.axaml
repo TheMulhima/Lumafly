@@ -7,6 +7,7 @@
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:mock="clr-namespace:Scarab.Mock;assembly=Scarab"
+            d:DataContext="{d:DesignInstance Type=viewModels:ModListViewModel}"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.CustomControls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
@@ -45,13 +46,13 @@
       <MenuItem
           Name="ModFilter_All"
           PointerPressed="ModFilterPressed"
-          Background="{DynamicResource HighlightBlue}"
+          IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_All}"
           Command="{Binding SelectModsWithFilter}"
           CommandParameter="{x:Static models:ModFilterState.All}"
           DockPanel.Dock="Top"/>
 
-      <MenuItem Header="-" DockPanel.Dock="Top" />
+      <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}" />
 
       <MenuItem
           Name="ModFilter_Installed"
@@ -76,15 +77,17 @@
       <MenuItem
           Name="ModFilter_OutOfDate"
           PointerPressed="ModFilterPressed"
+          IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_OutOfDate}"
           Command="{Binding SelectModsWithFilter}"
           CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
           DockPanel.Dock="Top"/>
 
-      <MenuItem Header="-" DockPanel.Dock="Top" />
+      <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}"/>
 
       <MenuItem
           Name="ModFilter_WhatsNew"
+          IsVisible="{Binding IsInOnlineMode}"
           PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
           Command="{Binding SelectModsWithFilter}"

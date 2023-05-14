@@ -21,7 +21,7 @@ namespace Scarab.Views
     {
         private readonly TextBox _search;
         private readonly List<MenuItem> _flyoutMenus;
-        private readonly List<MenuItem> _modFilterItems;
+        private List<MenuItem> _modFilterItems;
 
         public static FieldInfo MenuItemPopup =>
             typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!;
@@ -39,6 +39,7 @@ namespace Scarab.Views
             _modFilterItems = this.GetLogicalDescendants().OfType<MenuItem>()
                 .Where(x => x.Name?.StartsWith("ModFilter") ?? false)
                 .ToList();
+
             _flyoutMenus = this.GetLogicalDescendants().OfType<MenuItem>()
                 .Where(x => x.Name?.StartsWith("Flyout") ?? false)
                 .ToList();
@@ -51,6 +52,13 @@ namespace Scarab.Views
         {
             base.ArrangeCore(finalRect);
             SetUpFlyoutPopup();
+            RemoveNotVisibleModFilters();
+        }
+
+        private void RemoveNotVisibleModFilters()
+        {
+            _modFilterItems = _modFilterItems.Where(x => x.IsVisible).ToList();
+            _modFilterItems.First().Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
         }
 
         // I havent found a way to set these properties normally

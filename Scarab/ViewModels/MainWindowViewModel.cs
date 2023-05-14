@@ -56,6 +56,8 @@ namespace Scarab.ViewModels
 
         private async Task Impl()
         {
+            SelectedTabIndex = -1;
+            
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             Trace.WriteLine("Checking if up to date...");
             
@@ -87,7 +89,11 @@ namespace Scarab.ViewModels
                 hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
             }
 
-            HttpClient hc;
+            HttpClient hc = new HttpClient();
+            ScarabMode scarabMode;
+            
+            var modLinksCache = Path.Combine(Settings.ConfigFolderPath, "Modlinks.xml");
+            var apiLinksCache = Path.Combine(Settings.ConfigFolderPath, "ApiLinks.xml");
             
             try
             {
@@ -108,6 +114,8 @@ namespace Scarab.ViewModels
                 }
 
                 hc = res.Client;
+                scarabMode = ScarabMode.Online;
+                await CacheModAndApiLinksForOffline(modLinksCache, apiLinksCache, content);
             }
             catch (Exception e) when (e is TaskCanceledException { CancellationToken.IsCancellationRequested: true } or HttpRequestException)
             {
@@ -120,14 +128,34 @@ namespace Scarab.ViewModels
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 
-                await MessageBoxUtil.GetMessageBoxStandardWindow
-                (
-                    title: Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title,
-                    text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp),
-                    icon: Icon.Error
-                ).Show();
+                var linksCacheExists = File.Exists(modLinksCache) && File.Exists(apiLinksCache);
 
-                throw;
+                if (!linksCacheExists)
+                {
+                    await MessageBoxUtil.GetMessageBoxStandardWindow
+                    (
+                        title: Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title,
+                        text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp),
+                        icon: Icon.Error
+                    ).Show();
+                    throw;
+                }
+
+                var offlineMode = await MessageBoxUtil.GetMessageBoxStandardWindow
+                (
+                    title: Resources.MVVM_UnableToGetModlinks,
+                    text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp) + "\n\n" +
+                          $"{Resources.MVVM_LaunchOfflineMode}",
+                    icon: Icon.Warning,
+                    @enum: ButtonEnum.YesNo
+                ).Show() == ButtonResult.Yes;
+
+                if (!offlineMode) throw;
+
+                content = (ModDatabase.FromString<ModLinks>(await File.ReadAllTextAsync(modLinksCache)), 
+                    ModDatabase.FromString<ApiLinks>(await File.ReadAllTextAsync(apiLinksCache)));
+                
+                scarabMode = ScarabMode.Offline;
             }
 
             Trace.WriteLine("Fetched links successfully");
@@ -147,7 +175,13 @@ namespace Scarab.ViewModels
               .AddSingleton<IModDatabase, ModDatabase>(sp 
                   => new ModDatabase(sp.GetRequiredService<IModSource>(),sp.GetRequiredService<IGlobalSettingsFinder>(), content, settings))
               .AddSingleton<IInstaller, Installer>()
-              .AddSingleton<ModListViewModel>()
+              .AddSingleton<ModListViewModel>(sp =>
+                  new ModListViewModel(sp.GetRequiredService<ISettings>(),
+                      sp.GetRequiredService<IModDatabase>(),
+                      sp.GetRequiredService<IInstaller>(),
+                      sp.GetRequiredService<IModSource>(),
+                      sp.GetRequiredService<IGlobalSettingsFinder>(),
+                      scarabMode))
               .AddSingleton<SettingsViewModel>();
             
             Trace.WriteLine("Building service provider");
@@ -164,6 +198,19 @@ namespace Scarab.ViewModels
                 new("Settings", sp.GetRequiredService<SettingsViewModel>()),
             };
             SelectedTabIndex = 0;
+        }
+
+        private async Task CacheModAndApiLinksForOffline(string modLinksCache, string apiLinksCache, (ModLinks ml, ApiLinks al) content)
+        {
+            try
+            {
+                await File.WriteAllTextAsync(modLinksCache, content.ml.Raw);
+                await File.WriteAllTextAsync(apiLinksCache, content.al.Raw);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Unable to cache modlinks or apilinks {e}");
+            }
         }
 
         private static async Task EnsureAccessToConfigFile()
@@ -345,6 +392,7 @@ namespace Scarab.ViewModels
                 : await PathUtil.SelectPath();
         }
 
+        //TODO: allow reloads
         public MainWindowViewModel() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
             try

@@ -33,6 +33,7 @@ namespace Scarab.ViewModels
         private readonly IModDatabase _db;
         private readonly IReverseDependencySearch _reverseDependencySearch;
         private readonly IModLinksChanges _modlinksChanges;
+        private readonly ScarabMode _scarabMode;
         
         [Notify("ProgressBarVisible")]
         private bool _pbVisible;
@@ -84,13 +85,14 @@ namespace Scarab.ViewModels
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
 
-        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder)
+        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder, ScarabMode scarabMode)
         {
             _settings = settings;
             _installer = inst;
             _mods = mods;
             _db = db;
             _settingsFinder = settingsFinder;
+            _scarabMode = scarabMode; 
 
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
 
@@ -98,18 +100,7 @@ namespace Scarab.ViewModels
             
             _reverseDependencySearch = new ReverseDependencySearch(_items);
 
-            _modlinksChanges = new ModLinksChanges(_items, settings);
-            
-            Task.Run(async () =>
-            {
-                await _modlinksChanges.LoadChanges();
-                RaisePropertyChanged(nameof(LoadedWhatsNew));
-                RaisePropertyChanged(nameof(IsLoadingWhatsNew));
-                RaisePropertyChanged(nameof(ShouldShowWhatsNewInfoText));
-                RaisePropertyChanged(nameof(WhatsNewLoadingText));
-                RaisePropertyChanged(nameof(ShouldShowWhatsNewErrorIcon));
-                SelectMods();
-            });
+            _modlinksChanges = new ModLinksChanges(_items, _settings, _scarabMode);
 
             _dependencySearchItem = "";
 
@@ -135,6 +126,24 @@ namespace Scarab.ViewModels
                     x,
                     ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
                     false)));
+
+            Task.Run(async () =>
+            {
+                await _modlinksChanges.LoadChanges();
+                RaisePropertyChanged(nameof(LoadedWhatsNew));
+                RaisePropertyChanged(nameof(IsLoadingWhatsNew));
+                RaisePropertyChanged(nameof(ShouldShowWhatsNewInfoText));
+                RaisePropertyChanged(nameof(WhatsNewLoadingText));
+                RaisePropertyChanged(nameof(ShouldShowWhatsNewErrorIcon));
+                SelectMods();
+            });
+
+            // we set isvisible of "all", "out of date", and "whats new" filters to false when offline
+            // so only "installed" and "enabled" are shown so we force set the filter state to installed
+            if (_scarabMode == ScarabMode.Offline)
+            {
+                SelectModsWithFilter(ModFilterState.Installed);
+            }
         }
 
         [UsedImplicitly]
@@ -163,6 +172,9 @@ namespace Scarab.ViewModels
 
         [UsedImplicitly] 
         private bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
+
+        [UsedImplicitly]
+        private bool IsInOnlineMode => _scarabMode == ScarabMode.Online; 
 
         [UsedImplicitly] 
         private bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
