@@ -113,10 +113,12 @@ namespace Scarab.Services
         
         public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc)
         {
-            Task<ModLinks> ml = FetchModLinks(hc);
-            Task<ApiLinks> al = FetchApiLinks(hc);
+            // although slower to fetch one by one, prevents silent errors and hence resulting in 
+            // empty screen with no error
+            ModLinks ml = await FetchModLinks(hc);
+            ApiLinks al = await FetchApiLinks(hc);
 
-            return (await ml, await al);
+            return (ml, al);
         }
         
         public static T FromString<T>(string xml)
