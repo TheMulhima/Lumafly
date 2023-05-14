@@ -11,6 +11,7 @@ using Avalonia.Media;
 using Avalonia.Media.Fonts;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
+using Scarab.Util;
 
 namespace Scarab
 {
@@ -27,6 +28,28 @@ namespace Scarab
         public static void Main(string[] args)
         {
             SetupLogging();
+
+            if (OperatingSystem.IsWindows())
+            {
+                args = Environment.GetCommandLineArgs();
+                WindowsUriHandler.SetupRegistry(args[0]);
+                if (args.Length > 1)
+                {
+                    WindowsUriHandler.SetCommand(args[1]);
+                }
+            }
+
+            if (WindowsUriHandler.UriCommand == UriCommands.reset)
+            {
+                try
+                {
+                    Directory.Delete(Settings.GetOrCreateDirPath(), true);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                }
+            }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
             PosixSignalRegistration.Create(PosixSignal.SIGINT, Handler);

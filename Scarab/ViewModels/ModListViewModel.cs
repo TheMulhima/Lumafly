@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
@@ -19,6 +21,7 @@ using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
+using Icon = MessageBox.Avalonia.Enums.Icon;
 
 namespace Scarab.ViewModels
 {
@@ -165,6 +168,47 @@ namespace Scarab.ViewModels
             {
                 SelectModsWithFilter(ModFilterState.Installed);
             }
+            
+            Task.Run(async () =>
+            {
+                if (WindowsUriHandler.UriCommand == UriCommands.download)
+                {
+                    var modName = WindowsUriHandler.Mod;
+                    var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState);
+                    if (mod == null)
+                    {
+                        Trace.TraceError($"{WindowsUriHandler.Mod} not found");
+                        return;
+                    }
+
+                    switch (mod.State)
+                    {
+                        case NotInstalledState:
+                            await OnInstall(mod);
+                            break;
+                        case InstalledState { Updated: false }:
+                            await OnUpdate(mod);
+                            break;
+                        case InstalledState { Enabled: false }:
+                            await OnEnable(mod);
+                            break;
+                        case NotInModLinksState { ModlinksMod: true }:
+                            await OnInstall(mod); //uninstall
+                            await OnInstall(mod); //install
+                            break;
+                    }
+                    await Dispatcher.UIThread.InvokeAsync(async () => 
+                        await MessageBoxUtil.GetMessageBoxStandardWindow(
+                            new MessageBoxStandardParams()
+                                { 
+                                    ContentTitle = "Successfully Downloaded Mod", 
+                                    ContentMessage = $"Scarab has successfully downloaded {mod.Name} from command",
+                                    MinWidth = 350,
+                                    MinHeight = 50,
+                                    Icon = Icon.Success
+                                }).Show());
+                }
+            });
         }
 
         [UsedImplicitly]

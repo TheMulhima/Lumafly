@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Scarab.CustomControls;
 using Scarab.Models;
 using Scarab.Services;
+using Scarab.Util;
 using Scarab.Views;
 using SkiaSharp;
 using Xunit;
@@ -68,5 +69,32 @@ public class MiscServicesTest
         // if they are null they dont exist
         Assert.NotNull(TextButtonFlyout.FlyoutBasePopup);
         Assert.NotNull(ModListView.MenuItemPopup);
+    }
+    
+    /// <summary>
+    /// Test that each command can actually be parsed properly
+    /// </summary>
+    [Fact]
+    public void UriArgumentParser()
+    {
+        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+
+        var uriPrefix = WindowsUriHandler.UriScheme + "://";
+
+        // empty command shouldn't cause it to die
+        WindowsUriHandler.SetCommand(uriPrefix);
+        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+
+        // incorrect command shouldn't cause it to die
+        WindowsUriHandler.SetCommand(uriPrefix + "aidhasjkh");
+        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+        
+        // test download
+        WindowsUriHandler.SetCommand(uriPrefix + "download/MyMod1");
+        Assert.Equal(UriCommands.download, WindowsUriHandler.UriCommand);
+        Assert.Equal("MyMod1", WindowsUriHandler.Mod);
+        
+        WindowsUriHandler.SetCommand(uriPrefix + "reset");
+        Assert.Equal(UriCommands.reset, WindowsUriHandler.UriCommand);
     }
 }
