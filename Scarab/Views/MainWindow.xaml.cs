@@ -53,11 +53,11 @@ namespace Scarab.Views
                 if (element is not TabStripItem { Content: TabItemModel content } tabStripItem) 
                     continue;
 
-                if (content.Header == (e.AddedItems[0] as TabItemModel)?.Header)
+                if (e.AddedItems.Count > 0 && content.Header == (e.AddedItems[0] as TabItemModel)?.Header)
                 {
                     tabStripItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
                 }
-                if (content.Header == (e.RemovedItems[0] as TabItemModel)?.Header)
+                if (e.RemovedItems.Count > 0 && content.Header == (e.RemovedItems[0] as TabItemModel)?.Header)
                 {
                     tabStripItem.Background = Brushes.Transparent;
                 }

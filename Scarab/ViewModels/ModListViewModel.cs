@@ -329,12 +329,8 @@ namespace Scarab.ViewModels
             _settings.Save();
 
             await _mods.Reset();
-
-            await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.MLVM_ChangePathAsync_Msgbox_Title, 
-                Resources.MLVM_ChangePathAsync_Msgbox_Text).Show();
             
-            // Shutting down is easier than re-doing the source and all the items.
-            (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Shutdown();
+            MainWindowViewModel.Instance?.LoadApp();
         }
 
         public void OpenModsDirectory()

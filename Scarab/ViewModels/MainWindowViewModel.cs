@@ -41,6 +41,8 @@ namespace Scarab.ViewModels
             }
         }
 
+        public static MainWindowViewModel? Instance;
+
         [UsedImplicitly]
         private ViewModelBase Content => SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
@@ -391,9 +393,14 @@ namespace Scarab.ViewModels
                 ? Path.Combine(path.Root, path.Suffix)
                 : await PathUtil.SelectPath();
         }
-
-        //TODO: allow reloads
-        public MainWindowViewModel() => Dispatcher.UIThread.InvokeAsync(async () =>
+        
+        public MainWindowViewModel()
+        {
+            Instance = this;
+            LoadApp();
+        } 
+            
+        public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
             try
             {

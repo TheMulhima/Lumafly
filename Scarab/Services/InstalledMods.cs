@@ -139,6 +139,7 @@ namespace Scarab.Services
         public async Task Reset()
         {
             Mods.Clear();
+            NotInModlinksMods.Clear();
             _ApiState = null;
 
             await SaveToDiskAsync();
@@ -202,14 +203,27 @@ namespace Scarab.Services
 
             try
             {
-                await using Stream fs = _fs.File.Exists(ConfigPath)
-                    ? _fs.FileStream.New(ConfigPath, FileMode.Truncate)
-                    : _fs.File.Create(ConfigPath);
-
-                await JsonSerializer.SerializeAsync(fs, this, new JsonSerializerOptions()
+                // this probably only happens on reset so best to just yeet the file so all mods
+                // dont get categorized as not in modlinks
+                if (!Mods.Any() && !NotInModlinksMods.Any() && _ApiState == null)
                 {
-                    WriteIndented = true
-                });
+                    if (_fs.File.Exists(ConfigPath))
+                    {
+                        _fs.File.Delete(ConfigPath);
+                    }
+                }
+                else
+                {
+                    await using Stream fs = _fs.File.Exists(ConfigPath)
+                        ? _fs.FileStream.New(ConfigPath, FileMode.Truncate)
+                        : _fs.File.Create(ConfigPath);
+
+
+                    await JsonSerializer.SerializeAsync(fs, this, new JsonSerializerOptions()
+                    {
+                        WriteIndented = true
+                    });
+                }
             }
             finally
             {
