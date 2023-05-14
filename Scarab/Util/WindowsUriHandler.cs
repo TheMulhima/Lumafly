@@ -12,7 +12,8 @@ public enum UriCommands
 {
     none,
     download,
-    reset
+    reset,
+    forceUpdateAll
 }
 
 public static class WindowsUriHandler
@@ -28,6 +29,7 @@ public static class WindowsUriHandler
         {UriCommands.none, null},
         {UriCommands.download, s => Mod = s},
         {UriCommands.reset, null},
+        {UriCommands.forceUpdateAll, null},
     };
     
     public static void SetCommand(string arg)

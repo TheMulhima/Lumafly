@@ -208,6 +208,11 @@ namespace Scarab.ViewModels
                                     Icon = Icon.Success
                                 }).Show());
                 }
+
+                if (WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
+                {
+                    await ForceUpdateAll();
+                }
             });
         }
 
@@ -517,7 +522,7 @@ namespace Scarab.ViewModels
             
             foreach (ModItem mod in toUpdate)
             {
-                var state = (InstalledState) mod.State;
+                var state = (ExistsModState) mod.State;
                 mod.State = new InstalledState(state.Enabled, new Version(0,0,0,0), false, state.Pinned);
                 await _mods.RecordInstalledState(mod);
                 mod.CallOnPropertyChanged(nameof(mod.UpdateAvailable));
