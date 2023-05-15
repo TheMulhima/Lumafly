@@ -31,18 +31,48 @@ namespace Scarab.Util
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 return await SelectMacApp(parent, fail);
 
-            var dialog = new OpenFolderDialog
+            List<FileDialogFilter>? filters = null;
+            string title = Resources.PU_SelectPath;
+            
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Title = Resources.PU_SelectPath,
+                title = Resources.PU_SelectEXE;
+                filters = new List<FileDialogFilter>()
+                {
+                    new ()
+                    {
+                        Extensions = new List<string>() { "exe" }
+                    }
+                };
+            }
+            
+            var dialog = new OpenFileDialog
+            {
+                Title = title,
+                Filters = filters,
+                AllowMultiple = false,
             };
 
             while (true)
             {
-                string? result = await dialog.ShowAsync(parent);
+                string[]? result = await dialog.ShowAsync(parent);
 
-                if (result is null)
+                if (result?.FirstOrDefault() is null)
+                {
                     await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
-                else if (ValidateWithSuffix(result) is not var (managed, suffix))
+                    if (fail) return null!;
+                    continue;
+                }
+
+                string? root = Path.GetDirectoryName(result.First());
+                if (root is null)
+                {
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    if (fail) return null!;
+                    continue;
+                }
+                
+                if (ValidateWithSuffix(root) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
@@ -73,10 +103,11 @@ namespace Scarab.Util
                     
                 }
                 else
+                {
                     return Path.Combine(managed, suffix);
+                }
 
-                if (fail)
-                    return null!;
+                if (fail) return null!;
             }
         }
 
@@ -129,11 +160,6 @@ namespace Scarab.Util
         {
             if (!Directory.Exists(root))
                 return null;
-
-            foreach (var s in SUFFIXES)
-            {
-                root = root.RemoveIfEndsWith(s);
-            }
 
             string? suffix = MANAGED_SUFFIXES.FirstOrDefault(s => Directory.Exists(Path.Combine(root, s)));
 
