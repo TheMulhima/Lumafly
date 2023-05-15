@@ -44,7 +44,7 @@ namespace Scarab.ViewModels
         public static MainWindowViewModel? Instance;
 
         [UsedImplicitly]
-        private ViewModelBase Content => SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
+        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
@@ -56,10 +56,11 @@ namespace Scarab.ViewModels
         [Notify]
         private int _selectedTabIndex = -1;
 
+        [Notify]
+        private bool _loading = true;
+
         private async Task Impl()
         {
-            SelectedTabIndex = -1;
-            
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             Trace.WriteLine("Checking if up to date...");
             
@@ -427,6 +428,7 @@ namespace Scarab.ViewModels
 
         public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
+            Loading = true;
             try
             {
                 await Impl();
@@ -443,6 +445,8 @@ namespace Scarab.ViewModels
                 
                 throw;
             }
+
+            Loading = false;
         });
     }
 }

@@ -15,6 +15,7 @@ namespace Scarab.ViewModels
         private readonly ISettings _settings;
         private readonly IModSource _mods;
         private bool useCustomModlinksOriginalValue;
+        private string pathOriginalValue;
         
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
 
@@ -26,6 +27,7 @@ namespace Scarab.ViewModels
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
 
             useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
+            pathOriginalValue = _settings.ManagedFolder;
             _customModlinksUri = _settings.CustomModlinksUri;
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 SaveCustomModlinksUri;
@@ -86,7 +88,8 @@ namespace Scarab.ViewModels
         }
 
         private bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
-                                     useCustomModlinksOriginalValue != _settings.UseCustomModlinks; 
+                                     useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
+                                     pathOriginalValue != _settings.ManagedFolder; 
         
         private void ReloadApp()
         {
@@ -107,7 +110,7 @@ namespace Scarab.ViewModels
 
             await _mods.Reset();
             
-            ReloadApp();
+            RaisePropertyChanged(nameof(AskForReload));
         }
     }
 }
