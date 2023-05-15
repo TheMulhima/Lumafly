@@ -22,8 +22,8 @@ public partial class ErrorPopupViewModel: ViewModelBase
     [Notify] private string _fullErrorText = "";
     [Notify] private bool _isExpanderVisible = true;
     
-    public void AskForHelp() => Process.Start(new ProcessStartInfo("https://discord.gg/VDsg3HmWuB") { UseShellExecute = true });   
-    public void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
+    public static void AskForHelp() => Process.Start(new ProcessStartInfo("https://discord.gg/VDsg3HmWuB") { UseShellExecute = true });   
+    public static void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
 
     public async Task Copy()
     {

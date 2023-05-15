@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Models;
+using Scarab.ViewModels;
 
 namespace Scarab.Util
 {
@@ -40,12 +43,35 @@ namespace Scarab.Util
                 if (result is null)
                     await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
                 else if (ValidateWithSuffix(result) is not var (managed, suffix))
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
+                {
+                    var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidPathHeader,
                         ContentMessage = Resources.PU_InvalidPath,
-                        MinHeight = 140
+                        MinHeight = 160,
+                        ButtonDefinitions = new ButtonDefinition[]
+                        {
+                            new ()
+                            {
+                                Name = Resources.XAML_ReportError
+                            },
+                            new ()
+                            {
+                                Name = Resources.XAML_AskForHelp
+                            },
+                            new ()
+                            {
+                                IsCancel = true,
+                                IsDefault = true,
+                                Name = Resources.XAML_Ok
+                            },
+                        }
                     }).Show();
+
+                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
+                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                    
+                }
                 else
                     return Path.Combine(managed, suffix);
 
@@ -86,27 +112,46 @@ namespace Scarab.Util
             }
         }
 
-        private static readonly string[] SUFFIXES =
+        private static readonly string[] SUFFIXES = new string[]
         {
-            // GoG
-            "Hollow Knight_Data/Managed",
-            // Steam
-            "hollow_knight_Data/Managed",
-            // Mac
-            "Contents/Resources/Data/Managed"
+            "Hollow Knight_Data", // GoG
+            "hollow_knight_Data", // Steam
+            Path.Combine("Contents", "Resources", "Data") // Mac
         };
+        
+        private const string MANAGED_FOLDER = "Managed";
+        
+        private static string[] MANAGED_SUFFIXES => SUFFIXES
+            .Select(x => Path.Combine(x, MANAGED_FOLDER))
+            .ToArray();
 
         public static ValidPath? ValidateWithSuffix(string root)
         {
             if (!Directory.Exists(root))
                 return null;
-            
-            string? suffix = SUFFIXES.FirstOrDefault(s => Directory.Exists(Path.Combine(root, s)));
+
+            foreach (var s in SUFFIXES)
+            {
+                root = root.RemoveIfEndsWith(s);
+            }
+
+            string? suffix = MANAGED_SUFFIXES.FirstOrDefault(s => Directory.Exists(Path.Combine(root, s)));
 
             if (suffix is null || !File.Exists(Path.Combine(root, suffix, "Assembly-CSharp.dll")))
                 return null;
 
             return new ValidPath(root, suffix);
+        }
+        
+        private static string RemoveIfEndsWith(this string @string, string toRemove)
+        {
+            if (@string.EndsWith(toRemove))
+            {
+                @string = @string[..^toRemove.Length];
+                @string = @string.TrimEnd('/').TrimEnd('\\');
+            }
+
+            return @string;
         }
 
         public static bool ValidateExisting(string managed)
