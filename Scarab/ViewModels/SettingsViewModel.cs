@@ -39,12 +39,12 @@ namespace Scarab.ViewModels
             _settings.Save();
         }
 
-        public bool WarnBeforeRemovingDependents
+        public string WarnBeforeRemovingDependents
         {
-            get => _settings.WarnBeforeRemovingDependents;
+            get => _settings.WarnBeforeRemovingDependents ? "Yes" : "No";
             set
             {
-                _settings.WarnBeforeRemovingDependents = value;
+                _settings.WarnBeforeRemovingDependents = value == "Yes";
                 _settings.Save();
             }
         }
@@ -60,15 +60,17 @@ namespace Scarab.ViewModels
                 _settings.Save();
             }
         }
-        
-        private bool UseCustomModlinks
+
+        private bool UsingCustomModlinks => UseCustomModlinks == "Yes";
+        private string UseCustomModlinks
         {
-            get => _settings.UseCustomModlinks;
+            get => _settings.UseCustomModlinks ? "Yes" : "No";
             set
             {
-                _settings.UseCustomModlinks = value;
+                _settings.UseCustomModlinks = value == "Yes";
                 _settings.Save();
                 RaisePropertyChanged(nameof(UseCustomModlinks));
+                RaisePropertyChanged(nameof(UsingCustomModlinks));
                 RaisePropertyChanged(nameof(AskForReload));
             }
         }
@@ -89,8 +91,10 @@ namespace Scarab.ViewModels
 
         private bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
                                      useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
-                                     pathOriginalValue != _settings.ManagedFolder; 
-        
+                                     pathOriginalValue != _settings.ManagedFolder;
+
+        public string[] YesNo => new[] { "Yes", "No" };
+
         private void ReloadApp()
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
