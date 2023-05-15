@@ -158,7 +158,7 @@ namespace Scarab.Services
                     var modlinksUri = new Uri(_settings.CustomModlinksUri);
                     if (modlinksUri.IsFile)
                     {
-                        return FromString<ModLinks>(await File.ReadAllTextAsync(modlinksUri.ToString()));
+                        return FromString<ModLinks>(await File.ReadAllTextAsync(modlinksUri.LocalPath));
                     }
 
                     var cts = new CancellationTokenSource(TIMEOUT);
