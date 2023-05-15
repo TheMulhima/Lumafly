@@ -654,6 +654,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select your Hollow Knight executable or its shortcut..
+        /// </summary>
+        internal static string PU_SelectEXE {
+            get {
+                return ResourceManager.GetString("PU_SelectEXE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select your Hollow Knight folder..
         /// </summary>
         internal static string PU_SelectPath {
@@ -663,11 +672,11 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extras.
+        ///   Looks up a localized string similar to Actions.
         /// </summary>
-        internal static string XAML_Additional {
+        internal static string XAML_Actions {
             get {
-                return ResourceManager.GetString("XAML_Additional", resourceCulture);
+                return ResourceManager.GetString("XAML_Actions", resourceCulture);
             }
         }
         
@@ -686,6 +695,15 @@ namespace Scarab {
         internal static string XAML_Authors {
             get {
                 return ResourceManager.GetString("XAML_Authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically Remove Unused Dependencies.
+        /// </summary>
+        internal static string XAML_AutoRemoveDeps {
+            get {
+                return ResourceManager.GetString("XAML_AutoRemoveDeps", resourceCulture);
             }
         }
         
@@ -713,6 +731,24 @@ namespace Scarab {
         internal static string XAML_CopyError {
             get {
                 return ResourceManager.GetString("XAML_CopyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normally Scarab loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks.
+        /// </summary>
+        internal static string XAML_CustomModlinksExplanation {
+            get {
+                return ResourceManager.GetString("XAML_CustomModlinksExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter link to custom modlinks. Needs a reload to take effect.
+        /// </summary>
+        internal static string XAML_CustomModlinksWatermark {
+            get {
+                return ResourceManager.GetString("XAML_CustomModlinksWatermark", resourceCulture);
             }
         }
         
@@ -771,6 +807,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game Path.
+        /// </summary>
+        internal static string XAML_GamePath {
+            get {
+                return ResourceManager.GetString("XAML_GamePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrations:.
         /// </summary>
         internal static string XAML_Integrations {
@@ -798,7 +843,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manually Install Mod.
+        ///   Looks up a localized string similar to Manually Install.
         /// </summary>
         internal static string XAML_Manual_Install {
             get {
@@ -812,6 +857,15 @@ namespace Scarab {
         internal static string XAML_ManuallyInstalledModesNote {
             get {
                 return ResourceManager.GetString("XAML_ManuallyInstalledModesNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mods.
+        /// </summary>
+        internal static string XAML_Mods {
+            get {
+                return ResourceManager.GetString("XAML_Mods", resourceCulture);
             }
         }
         
@@ -942,11 +996,20 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Mods.
+        ///   Looks up a localized string similar to Open Mods Folder.
         /// </summary>
         internal static string XAML_OpenMods {
             get {
                 return ResourceManager.GetString("XAML_OpenMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Folder.
+        /// </summary>
+        internal static string XAML_OpenModsOrSaves {
+            get {
+                return ResourceManager.GetString("XAML_OpenModsOrSaves", resourceCulture);
             }
         }
         
@@ -956,6 +1019,24 @@ namespace Scarab {
         internal static string XAML_Pin {
             get {
                 return ResourceManager.GetString("XAML_Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Reload for changes to take effect).
+        /// </summary>
+        internal static string XAML_ReloadPrompt {
+            get {
+                return ResourceManager.GetString("XAML_ReloadPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload Scarab.
+        /// </summary>
+        internal static string XAML_ReloadScarab {
+            get {
+                return ResourceManager.GetString("XAML_ReloadScarab", resourceCulture);
             }
         }
         
@@ -1050,6 +1131,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string XAML_Settings {
+            get {
+                return ResourceManager.GetString("XAML_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click to show full error.
         /// </summary>
         internal static string XAML_ShowError {
@@ -1131,11 +1221,29 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use Custom Modlinks.
+        /// </summary>
+        internal static string XAML_UseCustomModlinks {
+            get {
+                return ResourceManager.GetString("XAML_UseCustomModlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version:.
         /// </summary>
         internal static string XAML_Version {
             get {
                 return ResourceManager.GetString("XAML_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warn before removing a dependent mod.
+        /// </summary>
+        internal static string XAML_WarnBeforeRemovingDependentMods {
+            get {
+                return ResourceManager.GetString("XAML_WarnBeforeRemovingDependentMods", resourceCulture);
             }
         }
     }

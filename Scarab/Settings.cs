@@ -21,7 +21,8 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
-        public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; }
+        public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; } = AutoRemoveUnusedDepsOptions.Never;
+        public bool WarnBeforeRemovingDependents { get; set; } = true;
 
         public bool RequiresWorkaroundClient { get; set; }
 

@@ -196,8 +196,8 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Displaying model");
             Tabs = new ObservableCollection<TabItemModel>
             {
-                new("Mods", sp.GetRequiredService<ModListViewModel>()),
-                new("Settings", sp.GetRequiredService<SettingsViewModel>()),
+                new(Resources.XAML_Mods, sp.GetRequiredService<ModListViewModel>()),
+                new(Resources.XAML_Settings, sp.GetRequiredService<SettingsViewModel>()),
             };
             SelectedTabIndex = 0;
         }
@@ -398,8 +398,8 @@ namespace Scarab.ViewModels
         {
             Instance = this;
             LoadApp();
-        } 
-            
+        }
+
         public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
             try

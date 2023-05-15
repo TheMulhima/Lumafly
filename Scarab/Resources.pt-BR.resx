@@ -286,9 +286,6 @@
     <value>Selecione a dll ou o zip do mod</value>
   </data>
   <!-- ReSharper disable once OverriddenWithSameValue -->
-  <data name="XAML_Additional" xml:space="preserve">
-    <value>Extras </value>
-  </data>
   <data name="XAML_Authors" xml:space="preserve">
     <value>Autores</value>
   </data>

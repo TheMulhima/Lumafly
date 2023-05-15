@@ -7,7 +7,8 @@ namespace Scarab.Interfaces
 {
     public interface ISettings
     {
-        AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; }
+        AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; }
+        bool WarnBeforeRemovingDependents { get; set; }
 
         string ManagedFolder { get; set; }
 

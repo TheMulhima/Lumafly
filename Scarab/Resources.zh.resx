@@ -321,9 +321,6 @@
   <data name="XAML_No_Items" xml:space="preserve">
     <value>无 Mod</value>
   </data>
-  <data name="XAML_Additional" xml:space="preserve">
-    <value>其它</value>
-  </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
     <value>打开存档文件夹</value>
   </data>

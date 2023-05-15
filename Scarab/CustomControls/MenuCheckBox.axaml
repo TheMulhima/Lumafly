@@ -33,9 +33,10 @@
                                 <Setter Property="Background" Value="Transparent"/>
                             </Style>
                         </Button.Styles>
-                        <TextBlock Text="{TemplateBinding Header}" 
-                                   Padding="0 3" 
-                                   MinWidth="{TemplateBinding MinWidth}"/>
+                        <TextBlock 
+                            Text="{TemplateBinding Header}" 
+                            Padding="0 3" 
+                            MinWidth="{TemplateBinding MinWidth}"/>
                     </Button>
                     <avalonia:SymbolIcon
                         Grid.Column="1"

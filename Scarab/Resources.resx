@@ -220,7 +220,7 @@
     <value>Out of date</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>Open Mods</value>
+    <value>Open Mods Folder</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
     <value>Repository and Readme:</value>
@@ -276,6 +276,9 @@
   <data name="PU_SelectApp" xml:space="preserve">
     <value>Select your Hollow Knight app.</value>
   </data>
+  <data name="PU_SelectEXE" xml:space="preserve">
+    <value>Select your Hollow Knight executable or its shortcut.</value>
+  </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Update All</value>
   </data>
@@ -321,14 +324,11 @@
   <data name="XAML_No_Items" xml:space="preserve">
     <value>No mods to display</value>
   </data>
-  <data name="XAML_Additional" xml:space="preserve">
-    <value>Extras</value>
-  </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
     <value>Open Saves Folder</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Manually Install Mod</value>
+    <value>Manually Install</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
     <value>Select the mod dll or zip</value>
@@ -476,5 +476,41 @@
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
     <value>Select Authors</value>
+  </data>
+  <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
+    <value>Warn before removing a dependent mod</value>
+  </data>
+  <data name="XAML_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="XAML_Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="XAML_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="XAML_AutoRemoveDeps" xml:space="preserve">
+    <value>Automatically Remove Unused Dependencies</value>
+  </data>
+  <data name="XAML_OpenModsOrSaves" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
+  <data name="XAML_GamePath" xml:space="preserve">
+    <value>Game Path</value>
+  </data>
+  <data name="XAML_UseCustomModlinks" xml:space="preserve">
+    <value>Use Custom Modlinks</value>
+  </data>
+  <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
+    <value>Normally Scarab loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
+  </data>
+  <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
+    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
+  </data>
+  <data name="XAML_ReloadScarab" xml:space="preserve">
+    <value>Reload Scarab</value>
+  </data>
+  <data name="XAML_ReloadPrompt" xml:space="preserve">
+    <value>(Reload for changes to take effect)</value>
   </data>
 </root>

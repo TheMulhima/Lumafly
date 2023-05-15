@@ -77,7 +77,6 @@ namespace Scarab.ViewModels
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
-        public ReactiveCommand<Unit, Unit> ChangePath { get; }
 
         private static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
         {
@@ -111,7 +110,6 @@ namespace Scarab.ViewModels
             ModNames = _items.Where(x => x.State is not NotInModLinksState { ModlinksMod:false }).Select(x => x.Name);
 
             ToggleApi = ReactiveCommand.CreateFromTask(ToggleApiCommand);
-            ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
             ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
 
@@ -367,21 +365,6 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(ApiOutOfDate));
         }
 
-        private async Task ChangePathAsync()
-        {
-            string? path = await PathUtil.SelectPathFallible();
-
-            if (path is null)
-                return;
-
-            _settings.ManagedFolder = path;
-            _settings.Save();
-
-            await _mods.Reset();
-            
-            MainWindowViewModel.Instance?.LoadApp();
-        }
-
         public void OpenModsDirectory()
         {
             var modsFolder = Path.Combine(_settings.ManagedFolder, "Mods");
@@ -547,7 +530,7 @@ namespace Scarab.ViewModels
                 {
                     var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
                     
-                    if (dependents.Count > 0)
+                    if (_settings.WarnBeforeRemovingDependents && dependents.Count > 0)
                     {
                         bool shouldContinue = await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents);
                         if (!shouldContinue)
@@ -732,7 +715,9 @@ namespace Scarab.ViewModels
             var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
             
             await DisplayErrors.DoActionAfterConfirmation(
-                shouldAskForConfirmation: item.Installed && dependents.Count > 0, // if its installed rn and has dependents
+                shouldAskForConfirmation: _settings.WarnBeforeRemovingDependents &&
+                                          item.Installed &&
+                                          dependents.Count > 0, // if its installed rn and has dependents
                 warningPopupDisplayer: () => DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents),
                 action: async () =>
                 {
