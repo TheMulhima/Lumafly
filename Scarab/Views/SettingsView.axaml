@@ -53,5 +53,50 @@
 			Header="{ext:Localize XAML_WarnBeforeRemovingDependentMods}"
 			IsSelected="{Binding WarnBeforeRemovingDependents}"/>
 		
+		<StackPanel
+			Margin="0 10"
+			Orientation="Horizontal">
+			
+			<customControls:MenuCheckBox
+				Width="150"
+				HorizontalAlignment="Left"
+				Header="{ext:Localize XAML_UseCustomModlinks}"
+				IsSelected="{Binding UseCustomModlinks}"/>
+			
+			<TextBox
+				Margin="10 0"
+				IsVisible="{Binding UseCustomModlinks}"
+				MinWidth="150"
+				Watermark="{ext:Localize XAML_CustomModlinksWatermark}"
+				UseFloatingWatermark="True"
+				Text="{Binding CustomModlinksUri}"
+				AcceptsReturn="False"
+				MaxWidth="350"
+			/>
+			<avalonia:SymbolIcon
+				Symbol="Info"
+				FontSize="15"
+				IsVisible="{Binding UseCustomModlinks}"
+				ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}"
+			/>
+		</StackPanel>
+		
+		<StackPanel
+			Orientation="Horizontal"
+			Margin="0 10">
+			<Button
+				Padding="20 5"
+				HorizontalAlignment="Left"
+				Command="{Binding ReloadApp}">
+				<TextBlock Text="{ext:Localize XAML_ReloadScarab}"/>
+			</Button>
+			<TextBlock
+				IsVisible="{Binding AskForReload}"
+				FontSize="10"
+				VerticalAlignment="Center"
+				Foreground="Orange"
+				Margin="10 0"
+				Text="{ext:Localize XAML_ReloadPrompt}"/>
+		</StackPanel>
 	</StackPanel>
 </views:View>

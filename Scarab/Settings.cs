@@ -23,6 +23,8 @@ namespace Scarab
 
         public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; } = AutoRemoveUnusedDepsOptions.Never;
         public bool WarnBeforeRemovingDependents { get; set; } = true;
+        public bool UseCustomModlinks { get; set; }
+        public string CustomModlinksUri { get; set; } = string.Empty;
 
         public bool RequiresWorkaroundClient { get; set; }
 

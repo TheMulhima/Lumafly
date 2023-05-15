@@ -321,6 +321,24 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scarab was unable to load modlinks from {0}. Scarab will load official modlinks instead..
+        /// </summary>
+        internal static string MVVM_InvalidCustomModlinks_Body {
+            get {
+                return ResourceManager.GetString("MVVM_InvalidCustomModlinks_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Custom Modlinks.
+        /// </summary>
+        internal static string MVVM_InvalidCustomModlinks_Header {
+            get {
+                return ResourceManager.GetString("MVVM_InvalidCustomModlinks_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to launch scarab in offline mode?.
         /// </summary>
         internal static string MVVM_LaunchOfflineMode {

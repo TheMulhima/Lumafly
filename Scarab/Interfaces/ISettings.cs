@@ -9,6 +9,8 @@ namespace Scarab.Interfaces
     {
         AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; }
         bool WarnBeforeRemovingDependents { get; set; }
+        bool UseCustomModlinks { get; set; }
+        string CustomModlinksUri { get; set; }
 
         string ManagedFolder { get; set; }
 

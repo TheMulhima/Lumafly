@@ -513,4 +513,10 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>(Reload for changes to take effect)</value>
   </data>
+  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
+    <value>Invalid Custom Modlinks</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
+    <value>Scarab was unable to load modlinks from {0}. Scarab will load official modlinks instead.</value>
+  </data>
 </root>

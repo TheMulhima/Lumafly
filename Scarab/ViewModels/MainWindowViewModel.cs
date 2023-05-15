@@ -99,13 +99,38 @@ namespace Scarab.ViewModels
             
             try
             {
-                var res = await WorkaroundHttpClient.TryWithWorkaroundAsync(
-                    settings.RequiresWorkaroundClient 
+                WorkaroundHttpClient.ResultInfo<(ModLinks, ApiLinks)>? res = null;
+
+                if (settings.UseCustomModlinks)
+                {
+                    try
+                    {
+                        res = await WorkaroundHttpClient.TryWithWorkaroundAsync(
+                            settings.RequiresWorkaroundClient
+                                ? HttpSetting.OnlyWorkaround
+                                : HttpSetting.TryBoth,
+                            f => ModDatabase.FetchContent(f, settings, fetchOfficial: false),
+                            AddSettings);
+                    }
+                    catch (InvalidModlinksException)
+                    {
+                        await MessageBoxUtil.GetMessageBoxStandardWindow(
+                            Resources.MVVM_InvalidCustomModlinks_Header,
+                            string.Format(Resources.MVVM_InvalidCustomModlinks_Body, settings.CustomModlinksUri),
+                            icon: Icon.Error
+                        ).Show();
+                    }
+                }
+
+                // if above failed or skipped, res will be null
+                
+                res ??= await WorkaroundHttpClient.TryWithWorkaroundAsync(
+                    settings.RequiresWorkaroundClient
                         ? HttpSetting.OnlyWorkaround
                         : HttpSetting.TryBoth,
-                    ModDatabase.FetchContent,
-                    AddSettings
-                );
+                    f => ModDatabase.FetchContent(f, settings, fetchOfficial: true),
+                    AddSettings);
+
 
                 content = res.Result;
 

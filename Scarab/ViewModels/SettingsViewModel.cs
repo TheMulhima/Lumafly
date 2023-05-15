@@ -14,6 +14,7 @@ namespace Scarab.ViewModels
     {
         private readonly ISettings _settings;
         private readonly IModSource _mods;
+        private bool useCustomModlinksOriginalValue;
         
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
 
@@ -23,7 +24,19 @@ namespace Scarab.ViewModels
             _mods = mods;
             
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
+
+            useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
+            _customModlinksUri = _settings.CustomModlinksUri;
+            ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
+                SaveCustomModlinksUri;
         }
+
+        private void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
+        {
+            _settings.CustomModlinksUri = CustomModlinksUri;
+            _settings.Save();
+        }
+
         public bool WarnBeforeRemovingDependents
         {
             get => _settings.WarnBeforeRemovingDependents;
@@ -45,11 +58,40 @@ namespace Scarab.ViewModels
                 _settings.Save();
             }
         }
-
+        
+        private bool UseCustomModlinks
+        {
+            get => _settings.UseCustomModlinks;
+            set
+            {
+                _settings.UseCustomModlinks = value;
+                _settings.Save();
+                RaisePropertyChanged(nameof(UseCustomModlinks));
+                RaisePropertyChanged(nameof(AskForReload));
+            }
+        }
+        
         private string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
 
+        private string _customModlinksUri;
+
+        private string CustomModlinksUri
+        {
+            get => _customModlinksUri;
+            set
+            {
+                _customModlinksUri = value;
+                RaisePropertyChanged(nameof(AskForReload));
+            }
+        }
+
+        private bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
+                                     useCustomModlinksOriginalValue != _settings.UseCustomModlinks; 
+        
         private void ReloadApp()
         {
+            _settings.CustomModlinksUri = CustomModlinksUri;
+            _settings.Save();
             MainWindowViewModel.Instance?.LoadApp();
         }
 

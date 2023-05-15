@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Sockets;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -26,7 +25,7 @@ namespace Scarab.Services
         private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AssemblyLinks.json";
         
         public static string GetModlinksUri(string? sha = null) => MODLINKS_BASE_URI + (sha ?? "main") + "/ModLinks.xml";
-        public static string GetAPILinksUri(string? sha = null) => APILINKS_BASE_URI + (sha ?? "main") + "/ApiLinks.xml";
+        private static string GetAPILinksUri() => APILINKS_BASE_URI + "main/ApiLinks.xml";
 
         internal const int TIMEOUT = 30_000;
 
@@ -119,11 +118,11 @@ namespace Scarab.Services
         public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, string modlinks, string apilinks) 
             : this(mods, settingsFinder, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         
-        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc)
+        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc, ISettings _settings, bool fetchOfficial = true)
         {
             // although slower to fetch one by one, prevents silent errors and hence resulting in 
             // empty screen with no error
-            ModLinks ml = await FetchModLinks(hc);
+            ModLinks ml = await FetchModLinks(hc, _settings, fetchOfficial);
             ApiLinks al = await FetchApiLinks(hc);
 
             return (ml, al);
@@ -150,9 +149,45 @@ namespace Scarab.Services
             return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(GetAPILinksUri()), new Uri(FALLBACK_APILINKS_URI)));
         }
         
-        private static async Task<ModLinks> FetchModLinks(HttpClient hc)
+        private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings _settings, bool fetchOfficial)
         {
+            if (!fetchOfficial && _settings.UseCustomModlinks)
+            {
+                try
+                {
+                    var modlinksUri = new Uri(_settings.CustomModlinksUri);
+                    if (modlinksUri.IsFile)
+                    {
+                        return FromString<ModLinks>(await File.ReadAllTextAsync(modlinksUri.ToString()));
+                    }
+
+                    var cts = new CancellationTokenSource(TIMEOUT);
+
+                    //get raw versions of common urls
+                    Regex githubRegex = new Regex(@"^(http(s?):\/\/)?(www\.)?github.com?");
+                    Regex pasteBinRegex = new Regex(@"^(http(s?):\/\/)?(www\.)?pastebin.com?");
+
+                    if (githubRegex.IsMatch(_settings.CustomModlinksUri))
+                    {
+                        _settings.CustomModlinksUri = _settings.CustomModlinksUri
+                            .Replace("github.com", "raw.githubusercontent.com").Replace("/blob/", "/");
+                    }
+                    if (pasteBinRegex.IsMatch(_settings.CustomModlinksUri))
+                    {
+                        _settings.CustomModlinksUri = _settings.CustomModlinksUri.Replace("pastebin.com", "pastebin.com/raw");
+                    }
+                    
+                    return FromString<ModLinks>(await hc.GetStringAsync(new Uri(_settings.CustomModlinksUri), cts.Token));
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Unable to load custom modlinks because {e}");
+                    throw new InvalidModlinksException();
+                }
+            }
+
             return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(GetModlinksUri()), new Uri(FALLBACK_MODLINKS_URI)));
+            
         }
 
         private static async Task<string> FetchWithFallback(HttpClient hc, Uri uri, Uri fallback)
@@ -184,5 +219,10 @@ namespace Scarab.Services
             }
             throw new Exception("Scarab was unable to get vanilla assembly link from its resources. Please verify integrity of game files instead");
         }
+    }
+
+    public class InvalidModlinksException : Exception
+    {
+        public InvalidModlinksException() { } 
     }
 }
