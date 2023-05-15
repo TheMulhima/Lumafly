@@ -418,17 +418,16 @@
                       </Grid>
                       <Button Grid.Column="4" 
                               Margin="0 -5 0 0"
-                              MaxHeight="18"
-                              MaxWidth="19"
                               VerticalAlignment="Center"
                               Background="Transparent"
+                              BorderBrush="Transparent"
                               IsVisible="{Binding Pinned}"
-                              ToolTip.Tip="{ext:Localize  XAML_Unpin}"
+                              ToolTip.Tip="{ext:Localize XAML_Unpin}"
                               Command="{Binding $parent[views:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}">
-                        <Image
-                             Source="avares://Scarab/Assets/error.png"
-                             Height="18" Width="18"
+                        <avalonia:SymbolIcon
+                             Symbol="Pin"
+                             FontSize="20"
                              Margin="1 0 0 0"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"/>
