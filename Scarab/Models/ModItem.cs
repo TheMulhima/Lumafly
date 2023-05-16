@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Scarab.Models
 {
@@ -161,9 +162,12 @@ namespace Scarab.Models
 
             try
             {
-                if (State is not InstalledState { Updated: false, Enabled: var enabled })
+                if (State is not (InstalledState { Updated: false } or NotInModLinksState { ModlinksMod: true }))
                     throw new InvalidOperationException("Not able to be updated!");
 
+                // guaranteed to be ExistsModState
+                var enabled = State is ExistsModState { Enabled: true };
+                
                 setProgress(new ModProgressArgs());
 
                 await inst.Install(this, setProgress, enabled);

@@ -346,7 +346,7 @@ namespace Scarab.Services
             await PlaceMod(mod, enable, filename, data);
             
             mod.State = mod.State switch {
-                InstalledState ins => new InstalledState(
+                ExistsModState ins => new InstalledState(
                     Version: mod.Version,
                     Updated:  true,
                     Enabled: enable,
