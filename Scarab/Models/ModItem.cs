@@ -128,7 +128,7 @@ namespace Scarab.Models
         public bool HasAuthors => Authors.Length > 0;
         public bool HasRepo => !string.IsNullOrEmpty(Repository);
 
-        public bool UpdateAvailable => State is InstalledState { Updated: false };
+        public bool UpdateAvailable => State is InstalledState { Updated: false } or NotInModLinksState { ModlinksMod:true };
 
         public string UpdateText => $"\u279E {Version}";
 

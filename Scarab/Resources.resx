@@ -486,9 +486,6 @@
   <data name="XAML_Mods" xml:space="preserve">
     <value>Mods</value>
   </data>
-  <data name="XAML_Actions" xml:space="preserve">
-    <value>Actions</value>
-  </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
     <value>Automatically Remove Unused Dependencies</value>
   </data>

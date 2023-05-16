@@ -839,7 +839,7 @@ namespace Scarab.ViewModels
 
         private static (int pinned, int priority, string name) ModToOrderedTuple(ModItem m) =>
         (
-            m.State is InstalledState { Pinned: true } ? -1 : 1,
+            m.State is ExistsModState { Pinned: true } ? -1 : 1,
             m.State is InstalledState { Updated : false } ? -1 : 1,
             m.Name
         );

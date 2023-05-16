@@ -690,15 +690,6 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Actions.
-        /// </summary>
-        internal static string XAML_Actions {
-            get {
-                return ResourceManager.GetString("XAML_Actions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ask for help.
         /// </summary>
         internal static string XAML_AskForHelp {
