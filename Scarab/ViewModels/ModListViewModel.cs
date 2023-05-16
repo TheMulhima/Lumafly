@@ -167,77 +167,82 @@ namespace Scarab.ViewModels
             {
                 SelectModsWithFilter(ModFilterState.Installed);
             }
-            
+
             Task.Run(async () =>
-            {
-                if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.download)
+                await Dispatcher.UIThread.InvokeAsync(async () =>
                 {
-                    var modNames = WindowsUriHandler.Data.Split('/');
-                    List<string> successfulDownloads = new List<string>();
-                    List<string> failedDownloads = new List<string>();
-                    foreach (var modName in modNames)
+                    if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.download)
                     {
-                        var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState {ModlinksMod: false});
-                        if (mod == null)
+                        var modNames = WindowsUriHandler.Data.Split('/');
+                        List<string> successfulDownloads = new List<string>();
+                        List<string> failedDownloads = new List<string>();
+                        foreach (var modName in modNames)
                         {
-                            Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                            failedDownloads.Add(modName);
-                            continue;
+                            var mod = _items.FirstOrDefault(x =>
+                                x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+                            if (mod == null)
+                            {
+                                Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                                failedDownloads.Add(modName);
+                                continue;
+                            }
+
+                            switch (mod.State)
+                            {
+                                case NotInstalledState:
+                                    await OnInstall(mod);
+                                    break;
+                                case InstalledState { Updated: false }:
+                                case NotInModLinksState { ModlinksMod: true }:
+                                    await OnUpdate(mod);
+                                    break;
+                                case InstalledState { Enabled: false }:
+                                    await OnEnable(mod);
+                                    break;
+                            }
+
+                            successfulDownloads.Add(modName);
                         }
 
-                        switch (mod.State)
-                        {
-                            case NotInstalledState:
-                                await OnInstall(mod);
-                                break;
-                            case InstalledState { Updated: false }:
-                            case NotInModLinksState { ModlinksMod: true }:
-                                await OnUpdate(mod);
-                                break;
-                            case InstalledState { Enabled: false }:
-                                await OnEnable(mod);
-                                break;
-                        }
-                        
-                        successfulDownloads.Add(modName);
-                    }
 
-                    
-                    string message = string.Empty;
+                        string message = string.Empty;
 
-                    if (successfulDownloads.Count > 0)
-                    {
-                        message += $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
-                    }
-                    if (failedDownloads.Count > 0)
-                    {
                         if (successfulDownloads.Count > 0)
                         {
-                            message += "\nHowever, ";
+                            message +=
+                                $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
                         }
-                        message += $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
-                    }
 
-                    await Dispatcher.UIThread.InvokeAsync(async () => 
+                        if (failedDownloads.Count > 0)
+                        {
+                            if (successfulDownloads.Count > 0)
+                            {
+                                message += "\nHowever, ";
+                            }
+
+                            message +=
+                                $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
+                        }
+
                         await MessageBoxUtil.GetMessageBoxStandardWindow(
                             new MessageBoxStandardParams()
-                                { 
-                                    ContentTitle = "Downloaded Mod From Command", 
-                                    ContentMessage = message,
-                                    MinWidth = 350,
-                                    MinHeight = failedDownloads.Count > 0 ? 100 : 50,
-                                    Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
-                                }).Show());
-                    
-                    WindowsUriHandler.Handled = true;
-                }
+                            {
+                                ContentTitle = "Downloaded Mod From Command",
+                                ContentMessage = message,
+                                MinWidth = 350,
+                                MinHeight = failedDownloads.Count > 0 ? 100 : 50,
+                                Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
+                            }).Show();
 
-                if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
-                {
-                    await ForceUpdateAll();
-                    WindowsUriHandler.Handled = true;
-                }
-            });
+                        WindowsUriHandler.Handled = true;
+                    }
+
+                    if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
+                    {
+                        await ForceUpdateAll();
+                        WindowsUriHandler.Handled = true;
+                    }
+                }));
         }
 
         [UsedImplicitly]
