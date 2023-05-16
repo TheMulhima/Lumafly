@@ -13,23 +13,26 @@ public enum UriCommands
     none,
     download,
     reset,
-    forceUpdateAll
+    forceUpdateAll,
+    customModlinks
 }
 
 public static class WindowsUriHandler
 {
-    public const string UriScheme = "scarab";
+    private const string UriScheme = "scarab";
     private const string FriendlyName = "scarab protocol";
 
-    public static string Mod = "";
+    public static string Data = "";
+    public static bool Handled = false;
     public static UriCommands UriCommand = UriCommands.none;
 
     private static readonly Dictionary<UriCommands, Action<string>?> AvailableCommands = new ()
     {
         {UriCommands.none, null},
-        {UriCommands.download, s => Mod = s},
+        {UriCommands.download, s => Data = s},
         {UriCommands.reset, null},
         {UriCommands.forceUpdateAll, null},
+        {UriCommands.customModlinks, s => Data = s},
     };
     
     public static void SetCommand(string arg)

@@ -40,7 +40,7 @@ namespace Scarab
                 WindowsUriHandler.SetCommand(args[1]);
             }
 
-            if (WindowsUriHandler.UriCommand == UriCommands.reset)
+            if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.reset)
             {
                 try
                 {
@@ -50,6 +50,8 @@ namespace Scarab
                 {
                     Trace.TraceError(e.ToString());
                 }
+
+                WindowsUriHandler.Handled = true;
             }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);

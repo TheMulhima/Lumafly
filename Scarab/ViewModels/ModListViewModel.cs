@@ -169,13 +169,14 @@ namespace Scarab.ViewModels
             
             Task.Run(async () =>
             {
-                if (WindowsUriHandler.UriCommand == UriCommands.download)
+                if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.download)
                 {
-                    var modName = WindowsUriHandler.Mod;
+                    var modName = WindowsUriHandler.Data;
                     var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState);
                     if (mod == null)
                     {
-                        Trace.TraceError($"{WindowsUriHandler.Mod} not found");
+                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                        WindowsUriHandler.Handled = true;
                         return;
                     }
 
@@ -205,11 +206,14 @@ namespace Scarab.ViewModels
                                     MinHeight = 50,
                                     Icon = Icon.Success
                                 }).Show());
+                    
+                    WindowsUriHandler.Handled = true;
                 }
 
-                if (WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
+                if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
                 {
                     await ForceUpdateAll();
+                    WindowsUriHandler.Handled = true;
                 }
             });
         }

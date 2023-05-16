@@ -77,6 +77,21 @@ namespace Scarab.ViewModels
 
             await EnsureAccessToConfigFile();
 
+            if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.customModlinks)
+            {
+                if (string.IsNullOrEmpty(WindowsUriHandler.Data))
+                {
+                    Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                    WindowsUriHandler.Handled = true;
+                    return;
+                }
+
+                settings.UseCustomModlinks = true;
+                settings.CustomModlinksUri = WindowsUriHandler.Data;
+                
+                WindowsUriHandler.Handled = true;
+            }
+
             Trace.WriteLine("Fetching links");
             
             (ModLinks ml, ApiLinks al) content;
