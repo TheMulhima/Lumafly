@@ -39,8 +39,13 @@ public static class WindowsUriHandler
     
     public static void SetCommand(string arg)
     {
+        arg = arg.Trim();
+        
         var UriPrefix = UriScheme + "://";
-        var UriParam = arg[UriPrefix.Length..].Trim('/').Replace("%20", " ");
+        var UriParam = 
+            arg[UriPrefix.Length..]
+            .Trim('/')
+            .Replace("%20", " ");
 
         foreach(var (command, action) in AvailableCommands)
         {

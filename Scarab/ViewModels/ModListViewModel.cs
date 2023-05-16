@@ -15,6 +15,7 @@ using Avalonia.Threading;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using Microsoft.VisualBasic;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Interfaces;
@@ -171,40 +172,61 @@ namespace Scarab.ViewModels
             {
                 if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.download)
                 {
-                    var modName = WindowsUriHandler.Data;
-                    var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState);
-                    if (mod == null)
+                    var modNames = WindowsUriHandler.Data.Split('/');
+                    List<string> successfulDownloads = new List<string>();
+                    List<string> failedDownloads = new List<string>();
+                    foreach (var modName in modNames)
                     {
-                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                        WindowsUriHandler.Handled = true;
-                        return;
+                        var mod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState {ModlinksMod: false});
+                        if (mod == null)
+                        {
+                            Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                            failedDownloads.Add(modName);
+                            continue;
+                        }
+
+                        switch (mod.State)
+                        {
+                            case NotInstalledState:
+                                await OnInstall(mod);
+                                break;
+                            case InstalledState { Updated: false }:
+                            case NotInModLinksState { ModlinksMod: true }:
+                                await OnUpdate(mod);
+                                break;
+                            case InstalledState { Enabled: false }:
+                                await OnEnable(mod);
+                                break;
+                        }
+                        
+                        successfulDownloads.Add(modName);
                     }
 
-                    switch (mod.State)
+                    
+                    string message = string.Empty;
+
+                    if (successfulDownloads.Count > 0)
                     {
-                        case NotInstalledState:
-                            await OnInstall(mod);
-                            break;
-                        case InstalledState { Updated: false }:
-                            await OnUpdate(mod);
-                            break;
-                        case InstalledState { Enabled: false }:
-                            await OnEnable(mod);
-                            break;
-                        case NotInModLinksState { ModlinksMod: true }:
-                            await OnInstall(mod); //uninstall
-                            await OnInstall(mod); //install
-                            break;
+                        message += $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
                     }
+                    if (failedDownloads.Count > 0)
+                    {
+                        if (successfulDownloads.Count > 0)
+                        {
+                            message += "\nHowever, ";
+                        }
+                        message += $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
+                    }
+
                     await Dispatcher.UIThread.InvokeAsync(async () => 
                         await MessageBoxUtil.GetMessageBoxStandardWindow(
                             new MessageBoxStandardParams()
                                 { 
-                                    ContentTitle = "Successfully Downloaded Mod", 
-                                    ContentMessage = $"Scarab has successfully downloaded {mod.Name} from command",
+                                    ContentTitle = "Downloaded Mod From Command", 
+                                    ContentMessage = message,
                                     MinWidth = 350,
-                                    MinHeight = 50,
-                                    Icon = Icon.Success
+                                    MinHeight = failedDownloads.Count > 0 ? 100 : 50,
+                                    Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
                                 }).Show());
                     
                     WindowsUriHandler.Handled = true;
