@@ -25,18 +25,19 @@ namespace Scarab
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
-        public static void Main(string[] args)
+        public static void Main()
         {
             SetupLogging();
 
+            var args = Environment.GetCommandLineArgs();
             if (OperatingSystem.IsWindows())
             {
-                args = Environment.GetCommandLineArgs();
                 WindowsUriHandler.SetupRegistry(args[0]);
-                if (args.Length > 1)
-                {
-                    WindowsUriHandler.SetCommand(args[1]);
-                }
+            }
+            
+            if (args.Length == 2) // only accept 2 args, the exe location and the uri 
+            {
+                WindowsUriHandler.SetCommand(args[1]);
             }
 
             if (WindowsUriHandler.UriCommand == UriCommands.reset)
