@@ -29,14 +29,15 @@ public class ModLinksChanges : IModLinksChanges
     
     public async Task LoadChanges()
     {
-        if (scarabMode == ScarabMode.Online)
-        {
-            IsReady = await GetOldModlinks();
-        }
-        if (scarabMode == ScarabMode.Offline)
+        if (scarabMode == ScarabMode.Offline ||
+            settings.BaseLink != ModDatabase.DEFAULT_LINKS_BASE ||
+            settings.UseCustomModlinks)
         {
             IsReady = false;
+            return;
         }
+        
+        IsReady = await GetOldModlinks();
     }
 
     private async Task<bool> GetOldModlinks()
@@ -83,7 +84,7 @@ public class ModLinksChanges : IModLinksChanges
 
             if (string.IsNullOrEmpty(sha)) return false;
             
-            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(sha), 
+            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(settings, sha), 
                 new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
             
             var commitDate = commit

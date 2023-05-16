@@ -16,16 +16,24 @@ namespace Scarab.Services
 {
     public class ModDatabase : IModDatabase
     {
-        private const string MODLINKS_BASE_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/";
-        private const string APILINKS_BASE_URI = "https://raw.githubusercontent.com/hk-modding/modlinks/";
+        public const string DEFAULT_LINKS_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
         
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
         
         private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AssemblyLinks.json";
         
-        public static string GetModlinksUri(string? sha = null) => MODLINKS_BASE_URI + (sha ?? "main") + "/ModLinks.xml";
-        private static string GetAPILinksUri() => APILINKS_BASE_URI + "main/ApiLinks.xml";
+        public static string GetModlinksUri(ISettings settings, string? sha = null)
+        {
+            if (settings.BaseLink == DEFAULT_LINKS_BASE)
+            {
+                // if we need to get a specific modlinks version we only do it for when base link the official version
+                return settings.BaseLink.Replace("main", sha ?? "main") + "/ModLinks.xml";
+            }
+            else return settings.BaseLink + "/ModLinks.xml";
+        }
+
+        private static string GetAPILinksUri(ISettings settings) => settings.BaseLink + "/ApiLinks.xml";
 
         internal const int TIMEOUT = 30_000;
 
@@ -118,12 +126,12 @@ namespace Scarab.Services
         public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, string modlinks, string apilinks) 
             : this(mods, settingsFinder, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         
-        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc, ISettings _settings, bool fetchOfficial = true)
+        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc, ISettings settings, bool fetchOfficial = true)
         {
             // although slower to fetch one by one, prevents silent errors and hence resulting in 
             // empty screen with no error
-            ModLinks ml = await FetchModLinks(hc, _settings, fetchOfficial);
-            ApiLinks al = await FetchApiLinks(hc);
+            ModLinks ml = await FetchModLinks(hc, settings, fetchOfficial);
+            ApiLinks al = await FetchApiLinks(hc, settings);
 
             return (ml, al);
         }
@@ -144,18 +152,18 @@ namespace Scarab.Services
             return obj;
         }
 
-        private static async Task<ApiLinks> FetchApiLinks(HttpClient hc)
+        private static async Task<ApiLinks> FetchApiLinks(HttpClient hc, ISettings settings)
         {
-            return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(GetAPILinksUri()), new Uri(FALLBACK_APILINKS_URI)));
+            return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(GetAPILinksUri(settings)), new Uri(FALLBACK_APILINKS_URI)));
         }
         
-        private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings _settings, bool fetchOfficial)
+        private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings settings, bool fetchOfficial)
         {
-            if (!fetchOfficial && _settings.UseCustomModlinks)
+            if (!fetchOfficial && settings.UseCustomModlinks)
             {
                 try
                 {
-                    var modlinksUri = new Uri(_settings.CustomModlinksUri);
+                    var modlinksUri = new Uri(settings.CustomModlinksUri);
                     if (modlinksUri.IsFile)
                     {
                         return FromString<ModLinks>(await File.ReadAllTextAsync(modlinksUri.LocalPath));
@@ -167,17 +175,17 @@ namespace Scarab.Services
                     Regex githubRegex = new Regex(@"^(http(s?):\/\/)?(www\.)?github.com?");
                     Regex pasteBinRegex = new Regex(@"^(http(s?):\/\/)?(www\.)?pastebin.com?");
 
-                    if (githubRegex.IsMatch(_settings.CustomModlinksUri))
+                    if (githubRegex.IsMatch(settings.CustomModlinksUri))
                     {
-                        _settings.CustomModlinksUri = _settings.CustomModlinksUri
+                        settings.CustomModlinksUri = settings.CustomModlinksUri
                             .Replace("github.com", "raw.githubusercontent.com").Replace("/blob/", "/");
                     }
-                    if (pasteBinRegex.IsMatch(_settings.CustomModlinksUri))
+                    if (pasteBinRegex.IsMatch(settings.CustomModlinksUri))
                     {
-                        _settings.CustomModlinksUri = _settings.CustomModlinksUri.Replace("pastebin.com", "pastebin.com/raw");
+                        settings.CustomModlinksUri = settings.CustomModlinksUri.Replace("pastebin.com", "pastebin.com/raw");
                     }
                     
-                    return FromString<ModLinks>(await hc.GetStringAsync(new Uri(_settings.CustomModlinksUri), cts.Token));
+                    return FromString<ModLinks>(await hc.GetStringAsync(new Uri(settings.CustomModlinksUri), cts.Token));
                 }
                 catch (Exception e)
                 {
@@ -186,7 +194,7 @@ namespace Scarab.Services
                 }
             }
 
-            return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(GetModlinksUri()), new Uri(FALLBACK_MODLINKS_URI)));
+            return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(GetModlinksUri(settings)), new Uri(FALLBACK_MODLINKS_URI)));
             
         }
 

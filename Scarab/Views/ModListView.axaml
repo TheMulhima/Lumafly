@@ -87,7 +87,7 @@
 
       <MenuItem
           Name="ModFilter_WhatsNew"
-          IsVisible="{Binding IsInOnlineMode}"
+          IsVisible="{Binding ShouldShowWhatsNew}"
           PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
           Command="{Binding SelectModsWithFilter}"

@@ -246,8 +246,12 @@ namespace Scarab.ViewModels
         private bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
 
         [UsedImplicitly]
-        private bool IsInOnlineMode => _scarabMode == ScarabMode.Online; 
+        private bool IsInOnlineMode => _scarabMode == ScarabMode.Online;
 
+        private bool ShouldShowWhatsNew => IsInOnlineMode &&
+                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
+                                           !_settings.UseCustomModlinks;
+        
         [UsedImplicitly] 
         private bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
 

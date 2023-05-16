@@ -77,19 +77,35 @@ namespace Scarab.ViewModels
 
             await EnsureAccessToConfigFile();
 
-            if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.customModlinks)
+            if (!WindowsUriHandler.Handled)
             {
-                if (string.IsNullOrEmpty(WindowsUriHandler.Data))
+                if (WindowsUriHandler.UriCommand == UriCommands.customModlinks)
                 {
-                    Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
+                    {
+                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                        WindowsUriHandler.Handled = true;
+                        return;
+                    }
+
+                    settings.UseCustomModlinks = true;
+                    settings.CustomModlinksUri = WindowsUriHandler.Data;
+
                     WindowsUriHandler.Handled = true;
-                    return;
                 }
 
-                settings.UseCustomModlinks = true;
-                settings.CustomModlinksUri = WindowsUriHandler.Data;
-                
-                WindowsUriHandler.Handled = true;
+                if (WindowsUriHandler.UriCommand == UriCommands.baseLink)
+                {
+                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
+                    {
+                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
+                        WindowsUriHandler.Handled = true;
+                        return;
+                    }
+
+                    settings.BaseLink = WindowsUriHandler.Data;
+                    WindowsUriHandler.Handled = true;
+                }
             }
 
             Trace.WriteLine("Fetching links");

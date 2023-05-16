@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Scarab.Models;
+using Scarab.Services;
 
 namespace Scarab.Interfaces
 {
@@ -11,6 +12,7 @@ namespace Scarab.Interfaces
         bool WarnBeforeRemovingDependents { get; set; }
         bool UseCustomModlinks { get; set; }
         string CustomModlinksUri { get; set; }
+        string BaseLink { get; set; }
 
         string ManagedFolder { get; set; }
 

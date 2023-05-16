@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
+using Scarab.Services;
 
 namespace Scarab
 {
@@ -25,6 +26,7 @@ namespace Scarab
         public bool WarnBeforeRemovingDependents { get; set; } = true;
         public bool UseCustomModlinks { get; set; }
         public string CustomModlinksUri { get; set; } = string.Empty;
+        public string BaseLink { get; set; } = ModDatabase.DEFAULT_LINKS_BASE;
 
         public bool RequiresWorkaroundClient { get; set; }
 
