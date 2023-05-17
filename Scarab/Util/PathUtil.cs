@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -30,72 +31,33 @@ namespace Scarab.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 return await SelectMacApp(parent, fail);
-
-            List<FileDialogFilter>? filters = null;
-            string title = Resources.PU_SelectPath;
-            
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return await SelectExe(parent, fail);
+                
+            var dialog = new OpenFolderDialog
             {
-                title = Resources.PU_SelectEXE;
-                filters = new List<FileDialogFilter>()
-                {
-                    new ()
-                    {
-                        Extensions = new List<string>() { "exe" }
-                    }
-                };
-            }
-            
-            var dialog = new OpenFileDialog
-            {
-                Title = title,
-                Filters = filters,
-                AllowMultiple = false,
+                Title = Resources.PU_SelectPath,
             };
-
+            
             while (true)
             {
-                string[]? result = await dialog.ShowAsync(parent);
-
-                if (result?.FirstOrDefault() is null)
+                string? result = await dialog.ShowAsync(parent);
+                if (result is null)
                 {
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
-                    if (fail) return null!;
-                    continue;
-                }
-
-                string? root = Path.GetDirectoryName(result.First());
-                if (root is null)
-                {
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil
+                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
                     if (fail) return null!;
                     continue;
                 }
                 
-                if (ValidateWithSuffix(root) is not var (managed, suffix))
+                if (ValidateWithSuffix(result) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidPathHeader,
                         ContentMessage = Resources.PU_InvalidPath,
                         MinHeight = 160,
-                        ButtonDefinitions = new ButtonDefinition[]
-                        {
-                            new ()
-                            {
-                                Name = Resources.XAML_ReportError
-                            },
-                            new ()
-                            {
-                                Name = Resources.XAML_AskForHelp
-                            },
-                            new ()
-                            {
-                                IsCancel = true,
-                                IsDefault = true,
-                                Name = Resources.XAML_Ok
-                            },
-                        }
+                        ButtonDefinitions = FailedActionButtons
                     }).Show();
 
                     if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
@@ -127,14 +89,22 @@ namespace Scarab.Util
                 string[]? result = await dialog.ShowAsync(parent);
 
                 if (result is null or { Length: 0 })
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
+                    await MessageBoxUtil
+                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
                 else if (ValidateWithSuffix(result.First()) is not (var managed, var suffix))
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams {
+                {
+                    var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams()
+                    {
                         ContentTitle = Resources.PU_InvalidPathTitle,
                         ContentHeader = Resources.PU_InvalidAppHeader,
                         ContentMessage = Resources.PU_InvalidApp,
-                        MinHeight = 200
+                        MinHeight = 200,
+                        ButtonDefinitions = FailedActionButtons
                     }).Show();
+
+                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
+                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                }
                 else
                     return Path.Combine(managed, suffix);
 
@@ -142,6 +112,76 @@ namespace Scarab.Util
                     return null!;
             }
         }
+        
+        private static async Task<string> SelectExe(Window parent, bool fail)
+        {
+            var dialog = new OpenFileDialog
+                {
+                    Title = Resources.PU_SelectEXE,
+                    Filters = new List<FileDialogFilter>
+                    {
+                        new ()
+                        {
+                            Extensions = new List<string> { "exe" }
+                        }
+                    },
+                    AllowMultiple = false,
+                };
+
+            while (true)
+            {
+                string[]? result = await dialog.ShowAsync(parent);
+                
+                if (result?.FirstOrDefault() is null)
+                {
+                    await MessageBoxUtil
+                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    if (fail) return null!;
+                    continue;
+                }
+                
+                string? root = Path.GetDirectoryName(result.First());
+                if (root is null)
+                {
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    if (fail) return null!;
+                    continue;
+                }
+                
+                if (ValidateWithSuffix(root) is not var (managed, suffix))
+                {
+                    var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
+                        ContentTitle = Resources.PU_InvalidPathTitle,
+                        ContentHeader = Resources.PU_InvalidPathHeader,
+                        ContentMessage = Resources.PU_InvalidPath,
+                        MinHeight = 160,
+                        ButtonDefinitions = FailedActionButtons
+                    }).Show();
+
+                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
+                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                    
+                }
+                else
+                {
+                    return Path.Combine(managed, suffix);
+                }
+
+                if (fail) return null!;
+            }
+        }
+
+        private static ButtonDefinition[] FailedActionButtons => new ButtonDefinition[]
+        {
+            new() { Name = Resources.XAML_ReportError },
+            new() { Name = Resources.XAML_AskForHelp },
+            new()
+            {
+                IsCancel = true,
+                IsDefault = true,
+                Name = Resources.XAML_Ok
+            },
+        };
 
         private static readonly string[] SUFFIXES = new string[]
         {
