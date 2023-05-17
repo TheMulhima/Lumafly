@@ -22,7 +22,7 @@ namespace Scarab.Views
             {
                 this.FindControl<Rectangle>("MacSpacer").IsVisible = true;
                 this.FindControl<Rectangle>("NonMacSpacer").IsVisible = false;
-                this.FindControl<TextBlock>("Title").Margin = new Thickness(0,10,0,0);
+                this.FindControl<TextBlock>("Title").Margin = new Thickness(5,0,0,0);
             }
 
             _tabs = this.FindControl<TabStrip>("Tabs");
