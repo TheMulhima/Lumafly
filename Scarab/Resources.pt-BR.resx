@@ -445,4 +445,76 @@
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
     <value>O mod tem dependências que não estão instaladas!</value>
   </data>
+  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
+    <value>Scarab não conseguiu carregar modlinks de {0}. Em vez disso, Scarab irá carregar o modlinks oficial.</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
+    <value>Modlinks Personalizado Inválido</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>Você quer iniciar Scarab no modo offline?</value>
+  </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>Impossível obter modlinks</value>
+  </data>
+  <data name="PU_SelectEXE" xml:space="preserve">
+    <value>Selecione seu executável de Hollow Knight ou seu atalho.</value>
+  </data>
+  <data name="XAML_AutoRemoveDeps" xml:space="preserve">
+    <value> Automaticamente Remover Dependências Não Usadas</value>
+  </data>
+  <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
+    <value>Selecionar manualmente</value>
+  </data>
+  <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
+    <value> Normalmente, Scarab carrega sua lista de mods do modlinks oficial. Se você quiser carregar o seu próprio então insira sua URI aqui. Aceita-se links https ou arquivos (no formato file://{caminho do arquivo}). \nLinks vazios ou links inválidos vão carregar o modlinks oficial</value>
+  </data>
+  <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
+    <value>Insira o link para o modlinks personalizado. Necessita-se recarregar para fazer efeito</value>
+  </data>
+  <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
+    <value>Nota: eles podem ser usados por quaisquer mods que você instalou manualmente</value>
+  </data>
+  <data name="XAML_GamePath" xml:space="preserve">
+    <value> Caminho do Jogo</value>
+  </data>
+  <data name="XAML_Mods" xml:space="preserve">
+    <value> Mods</value>
+  </data>
+  <data name="XAML_None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="XAML_OpenModsOrSaves" xml:space="preserve">
+    <value>Abrir Pasta</value>
+  </data>
+  <data name="XAML_Pin" xml:space="preserve">
+    <value>Fixar</value>
+  </data>
+  <data name="XAML_ReloadPrompt" xml:space="preserve">
+    <value>(Recarregue para que mudanças façam efeito)</value>
+  </data>
+  <data name="XAML_ReloadScarab" xml:space="preserve">
+    <value> Recarregar Scarab</value>
+  </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>Selecionar Autores</value>
+  </data>
+  <data name="XAML_Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="XAML_UninstallDependencies" xml:space="preserve">
+    <value>Desinstalar esse mod deixará dependências que parecem não estar sendo usadas agora</value>
+  </data>
+  <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
+    <value>Remover dependências automaticamente?</value>
+  </data>
+  <data name="XAML_Unpin" xml:space="preserve">
+    <value> Desafixar</value>
+  </data>
+  <data name="XAML_UseCustomModlinks" xml:space="preserve">
+    <value>Usar Modlinks Personalizado</value>
+  </data>
+  <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
+    <value>Avisar antes de remover um mod dependente</value>
+  </data>
 </root>

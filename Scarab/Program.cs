@@ -19,7 +19,7 @@ namespace Scarab
     internal class Program
     {
         internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() {
-            ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Simsun, 苹方-简, 黑体-简, 宋体-简, 黑体, 宋体"
+            ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial"
         };
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
