@@ -28,8 +28,8 @@ namespace Scarab.Util
             Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                 ?? throw new InvalidOperationException();
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return await SelectMacApp(parent, fail);
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+              //  return await SelectMacApp(parent, fail);
 
             List<FileDialogFilter>? filters = null;
             string title = Resources.PU_SelectPath;

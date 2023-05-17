@@ -453,15 +453,20 @@ namespace Scarab.ViewModels
         
         public MainWindowViewModel()
         {
+            Trace.WriteLine("Starting MainVVM ctor");
             Instance = this;
+            Trace.WriteLine("Starting set instance");
             LoadApp();
+            Trace.WriteLine("Loaded app");
         }
 
         public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
         {
+            Trace.WriteLine("Set loading true");
             Loading = true;
             try
             {
+                Trace.WriteLine("starting to await impl");
                 await Impl();
             }
             catch (Exception e)

@@ -30,6 +30,7 @@ namespace Scarab
             SetupLogging();
 
             var args = Environment.GetCommandLineArgs();
+            Trace.WriteLine($"args are {args}");
             if (OperatingSystem.IsWindows())
             {
                 WindowsUriHandler.SetupRegistry(args[0]);
