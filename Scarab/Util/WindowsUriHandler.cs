@@ -14,7 +14,7 @@ public enum UriCommands
     download,
     reset,
     forceUpdateAll,
-    customModlinks,
+    customModLinks,
     baseLink,
 }
 
@@ -33,7 +33,7 @@ public static class WindowsUriHandler
         {UriCommands.download, s => Data = s},
         {UriCommands.reset, null},
         {UriCommands.forceUpdateAll, null},
-        {UriCommands.customModlinks, s => Data = s},
+        {UriCommands.customModLinks, s => Data = s},
         {UriCommands.baseLink, s => Data = s},
     };
     

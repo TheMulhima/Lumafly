@@ -79,7 +79,7 @@ namespace Scarab.ViewModels
 
             if (!WindowsUriHandler.Handled)
             {
-                if (WindowsUriHandler.UriCommand == UriCommands.customModlinks)
+                if (WindowsUriHandler.UriCommand == UriCommands.customModLinks)
                 {
                     if (string.IsNullOrEmpty(WindowsUriHandler.Data))
                     {
