@@ -444,4 +444,73 @@
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
     <value>这个 Mod 有前置没有安装！</value>
   </data>
+  <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
+    <value>手动选择</value>
+  </data>
+  <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
+    <value>注意：手动安装的 Mod 可能仍依赖于这些 Mod</value>
+  </data>
+  <data name="XAML_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="XAML_UninstallDependencies" xml:space="preserve">
+    <value>卸载这些 Mod 将会留下未被使用的前置 Mod</value>
+  </data>
+  <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
+    <value>自动移除前置？</value>
+  </data>
+  <data name="XAML_Pin" xml:space="preserve">
+    <value>固定版本</value>
+  </data>
+  <data name="XAML_Unpin" xml:space="preserve">
+    <value>取消固定版本</value>
+  </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>无法获取 Mod 列表</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>是否以离线模式启动 Scarab？</value>
+  </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>选择作者</value>
+  </data>
+  <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
+    <value>移除正被使用的前置时警告</value>
+  </data>
+  <data name="XAML_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="XAML_Mods" xml:space="preserve">
+    <value>Mod</value>
+  </data>
+  <data name="XAML_AutoRemoveDeps" xml:space="preserve">
+    <value>自动移除未被使用的前置</value>
+  </data>
+  <data name="XAML_OpenModsOrSaves" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="XAML_GamePath" xml:space="preserve">
+    <value>游戏路径</value>
+  </data>
+  <data name="XAML_UseCustomModlinks" xml:space="preserve">
+    <value>使用自定义 Mod 列表</value>
+  </data>
+  <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
+    <value>通常情况下，Scarab 加载官方的 Mod 列表。如需自定义，则需输入其 URI，可为 HTTPS 或文件（格式为 file://{filepath}）。\n输入空链接或无效链接将会加载官方 Mod 列表</value>
+  </data>
+  <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
+    <value>输入自定义 Mod 列表链接。需要重新加载生效</value>
+  </data>
+  <data name="XAML_ReloadScarab" xml:space="preserve">
+    <value>重新加载 Scarab</value>
+  </data>
+  <data name="XAML_ReloadPrompt" xml:space="preserve">
+    <value>（重新加载来应用更改）</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
+    <value>无效自定义 Mod 列表</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
+    <value>Scarab 无法从 {0} 加载 Mod 列表，将会加载官方 Mod 列表</value>
+  </data>
 </root>
