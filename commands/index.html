@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <link rel="stylesheet" href="../style.css">
+      <link href="../ConstructionKnight.ico" rel="shortcut icon">
+      <link href="../ConstructionKnight.ico" rel="icon">
+      <script type="text/javascript" src="../actions.js"></script>
+      <title>Scarab+ Commands: Download</title>
+      <style>
+        li { margin: 1em 0; }
+      </style>
+    </head>
+    <body>
+      <img src="../HKMBanner.png" alt="HKM Banner" class="center">
+      <h1 class="center, centertext">
+        The commands you can use with Scarab+:
+      </h1>
+      <ul class="center">
+        <li>
+          <button id="download">Download mods</button>
+        </li>
+        <li>
+          <button onclick="window.location = 'forceUpdateAll.html'">Force update all installed mods</button> 
+        </li>
+        <li>
+          <button onclick="window.location = 'reset.html'">Reset scarab settings</button>
+        </li>
+        <li>
+          <button id="customModLinks">Use a custom ModLinks to get scarab's mod list</button>
+        </li>
+      </ul>
+      <script type="text/javascript">
+        document.getElementById('download').onclick = function () {
+          var mods = prompt('Enter mods to download here seperated by "/" (eg. Satchel/HKMirror/Osmi)');
+          mods.replaceAll(' ', '%20');
+          if (mods !== null)
+          {
+            window.location = "download.html?mods=" + mods;
+          }
+        }
+        
+        document.getElementById('customModLinks').onclick = function () {
+          var link = prompt('Enter the url to the ModLinks.xml file');
+          if (link !== null)
+          {
+            window.location = "customModLinks.html?link=" + link;
+          }
+        }
+      </script>
+    </body>
+</html>
