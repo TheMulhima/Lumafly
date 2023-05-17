@@ -103,7 +103,7 @@ public class MiscServicesTest
         UrlSchemeHandler.SetCommand("scarab://forceUpdateAll");
         Assert.Equal(UriCommands.forceUpdateAll, UrlSchemeHandler.UriCommand);
         
-        UrlSchemeHandler.SetCommand("scarab://customModlinks/https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml");
+        UrlSchemeHandler.SetCommand("scarab://customModLinks/https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml");
         Assert.Equal(UriCommands.customModLinks, UrlSchemeHandler.UriCommand);
         Assert.Equal("https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml", UrlSchemeHandler.Data);
     }
