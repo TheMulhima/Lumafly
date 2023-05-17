@@ -25,33 +25,13 @@ namespace Scarab
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
-        public static void Main()
+        public static void Main(string[] args)
         {
             SetupLogging();
 
-            var args = Environment.GetCommandLineArgs();
             if (OperatingSystem.IsWindows())
             {
-                WindowsUriHandler.SetupRegistry(args[0]);
-            }
-            
-            if (args.Length == 2) // only accept 2 args, the exe location and the uri 
-            {
-                WindowsUriHandler.SetCommand(args[1]);
-            }
-
-            if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.reset)
-            {
-                try
-                {
-                    Directory.Delete(Settings.GetOrCreateDirPath(), true);
-                }
-                catch (Exception e)
-                {
-                    Trace.TraceError(e.ToString());
-                }
-
-                WindowsUriHandler.Handled = true;
+                UrlSchemeHandler.SetupRegistry(Environment.GetCommandLineArgs()[0]);
             }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);

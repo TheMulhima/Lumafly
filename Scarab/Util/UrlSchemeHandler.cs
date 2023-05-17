@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using Microsoft.Win32;
+using MessageBox.Avalonia.DTO;
+using Avalonia.Threading;
 
 namespace Scarab.Util;
 
@@ -18,13 +21,13 @@ public enum UriCommands
     baseLink,
 }
 
-public static class WindowsUriHandler
+public static class UrlSchemeHandler
 {
     private const string UriScheme = "scarab";
     private const string FriendlyName = "scarab protocol";
 
     public static string Data = "";
-    public static bool Handled = false;
+    public static bool Handled {get; private set;} = false;
     public static UriCommands UriCommand = UriCommands.none;
 
     private static readonly Dictionary<UriCommands, Action<string>?> AvailableCommands = new ()
@@ -85,5 +88,14 @@ public static class WindowsUriHandler
             // for now not show any error as its not critical
             Trace.WriteLine("Unable to setup registry for windows uri scheme" + e.Message);
         }
+    }
+
+    public static async Task ShowConfirmation(MessageBoxStandardParams param)
+    {
+        Handled = true;
+        await Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+             await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+        });
     }
 }

@@ -41,7 +41,16 @@ namespace Scarab.ViewModels
             }
         }
 
-        public static MainWindowViewModel? Instance;
+        private static MainWindowViewModel? _instance;
+        public static bool IsFirstInstance = false;
+        public static MainWindowViewModel? Instance
+        {
+            get => _instance;
+            set  {
+                IsFirstInstance = _instance == null;
+                _instance = value;
+            }
+        }
 
         [UsedImplicitly]
         private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
@@ -62,6 +71,9 @@ namespace Scarab.ViewModels
         private async Task Impl()
         {
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
+
+            if (IsFirstInstance) HandleURLScheme();
+
             Trace.WriteLine("Checking if up to date...");
             
             await CheckUpToDate();
@@ -70,6 +82,9 @@ namespace Scarab.ViewModels
             var fs = new FileSystem();
 
             Trace.WriteLine("Loading settings.");
+
+            HandleResetUrlScheme();
+
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
@@ -77,36 +92,7 @@ namespace Scarab.ViewModels
 
             await EnsureAccessToConfigFile();
 
-            if (!WindowsUriHandler.Handled)
-            {
-                if (WindowsUriHandler.UriCommand == UriCommands.customModLinks)
-                {
-                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
-                    {
-                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                        WindowsUriHandler.Handled = true;
-                        return;
-                    }
-
-                    settings.UseCustomModlinks = true;
-                    settings.CustomModlinksUri = WindowsUriHandler.Data;
-
-                    WindowsUriHandler.Handled = true;
-                }
-
-                if (WindowsUriHandler.UriCommand == UriCommands.baseLink)
-                {
-                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
-                    {
-                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                        WindowsUriHandler.Handled = true;
-                        return;
-                    }
-
-                    settings.BaseLink = WindowsUriHandler.Data;
-                    WindowsUriHandler.Handled = true;
-                }
-            }
+            HandleLinkUrlScheme(settings);
 
             Trace.WriteLine("Fetching links");
             
@@ -257,6 +243,106 @@ namespace Scarab.ViewModels
                 new(Resources.XAML_Settings, sp.GetRequiredService<SettingsViewModel>()),
             };
             SelectedTabIndex = 0;
+        }
+
+        private void HandleURLScheme()
+        {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length == 2) // only accept 2 args, the exe location and the uri 
+            {
+                UrlSchemeHandler.SetCommand(args[1]);
+            }
+        }
+
+        private void HandleResetUrlScheme()
+        {
+            if (!UrlSchemeHandler.Handled && UrlSchemeHandler.UriCommand == UriCommands.reset)
+            {
+                bool success = false;
+                Exception? exception = null; 
+                try
+                {
+                    DirectoryInfo di = new DirectoryInfo(Settings.GetOrCreateDirPath());
+
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete(); 
+                    }
+                    
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    success = false;
+                    exception = e;
+                }
+
+                Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Reset installer from command",
+                    ContentMessage = success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
+                    MinWidth = 450,
+                    MinHeight = 150,
+                    Icon = success ? Icon.Success : Icon.Warning
+                }));
+            }
+        }
+
+        private void HandleLinkUrlScheme(ISettings settings)
+        {
+            if (!UrlSchemeHandler.Handled)
+            {
+                if (UrlSchemeHandler.UriCommand == UriCommands.customModLinks)
+                {
+                    bool success = false;
+                    if (string.IsNullOrEmpty(UrlSchemeHandler.Data))
+                    {
+                        Trace.TraceError($"{UriCommands.customModLinks}:{UrlSchemeHandler.Data} not found");
+                        success = false;
+                    }
+                    else
+                    {
+                        settings.UseCustomModlinks = true;
+                        settings.CustomModlinksUri = UrlSchemeHandler.Data;
+                        success = true;
+                    }
+
+                    Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                        {
+                            ContentTitle = "Load custom modlinks from command",
+                            ContentMessage = success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
+                            MinWidth = 450,
+                            MinHeight = 150,
+                            Icon = success ? Icon.Success : Icon.Warning,
+                        }));
+                }
+
+                if (UrlSchemeHandler.UriCommand == UriCommands.baseLink)
+                {
+                    bool success = false;
+                    if (string.IsNullOrEmpty(UrlSchemeHandler.Data))
+                    {
+                        Trace.TraceError($"{UriCommands.baseLink}:{UrlSchemeHandler.Data} not found");
+                        success = false;
+                    }
+                    else
+                    {
+                        settings.BaseLink = UrlSchemeHandler.Data;
+                        success = true;
+                    }
+
+                    Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                        {
+                            ContentTitle = "Use new baselink from command",
+                            ContentMessage = success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
+                            MinWidth = 450,
+                            MinHeight = 150,
+                            Icon = success ? Icon.Success : Icon.Warning,
+                        }));
+                    
+                }
+            }
         }
 
         private async Task CacheModAndApiLinksForOffline(string modLinksCache, string apiLinksCache, (ModLinks ml, ApiLinks al) content)
