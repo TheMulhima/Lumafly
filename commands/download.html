@@ -17,12 +17,19 @@
         If nothing happened please download scarab from <a href="https://themulhima.github.io/Scarab/">here</a> and set it up
       </p>
       <p class="center, centertext">
-        To use this command yourself, read its explanation in the <a href="https://github.com/TheMulhima/Scarab/tree/master#readme">readme</a>
+        To use this command yourself, use the button on <a href="index.html">commands page</a>
       </p>
       <script type="text/javascript">
-        var download = getParam('mods');
-        document.getElementById("message").innerHTML += download.replaceAll('/', ', ');
-        openLink("scarab://download/" + download);
+        var mods = getParam('mods');
+        if (mods !== null)
+        {
+          document.getElementById("message").innerHTML += mods.replaceAll('/', ', ');
+          openLink("scarab://download/" + mods);
+        }
+        else
+        {
+          document.getElementById("message").innerHTML += "(No mods were specified)";
+        }
       </script>
     </body>
 </html>
