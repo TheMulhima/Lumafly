@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <style>
-    .center {display: block; margin-left: auto; margin-right: auto; width: 50%;}
-    .centertext {text-align: center;}
-  </style>
+  <head>
+    <link rel="stylesheet" href="./style.css">
+    <link href="./ConstructionKnight.ico" rel="shortcut icon">
+    <link href="./ConstructionKnight.ico" rel="icon">
+    <script type="text/javascript" src="actions.js"></script>
+    <title>Scarab+</title>
+  </head>
     <body>
       <img src="./HKMBanner.png" alt="HKM Banner" class="center">
       <h1 class="center, centertext">
-        Thank you for downloading Scarab+ !!
+        Thank you for using Scarab+ !!
       </h1>
-      <p class="center, centertext">
-        If nothing has been downloaded please download it from the <a href="https://github.com/TheMulhima/Scarab/releases/latest">releases page</a>
+      <p class="center, centertext" id="download-message">
+        To download Scarab+, please download it from the <a href="https://github.com/TheMulhima/Scarab/releases/latest">releases page</a>
       </p>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
       <script type="text/javascript">
+
         fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
         .then(response => response.json())
         .then(data => {
@@ -33,21 +37,25 @@
         });
 
 
-        var userAgent = window.navigator.userAgent,
-        platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
-        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'AppleWebKit'],
-        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-        link = null;
+        if (getParam("download") !== null)
+        {
+          document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
+          var userAgent = window.navigator.userAgent,
+          platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
+          macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'AppleWebKit'],
+          windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+          iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+          link = null;
 
-        if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
-        else if (iosPlatforms.indexOf(platform) !== -1)       link = null
-        else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
-        else if (/Android/.test(userAgent))                   link = null
-        else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip"
-                
-        link = link || "https://github.com/TheMulhima/Scarab/releases/latest";
-        window.location.href = link;
+          if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
+          else if (iosPlatforms.indexOf(platform) !== -1)       link = null
+          else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
+          else if (/Android/.test(userAgent))                   link = null
+          else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip"
+                  
+          link = link || "https://github.com/TheMulhima/Scarab/releases/latest";
+          openLink(link);
+        }
       </script>
     </body>
 </html>
