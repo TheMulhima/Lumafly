@@ -16,7 +16,12 @@ This fork has everything that Scarab has plus a few nice features:
   - Showing that Modding API is disabled when it is not.
 - And other minor things (open mod's settings file, handling manually installed mods, ability to disable/uninstall all, load mod list from custom modlist)
 
-see [this](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) for a full changelog
+see [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) for full list of changes.
+
+## Usage
+- Download the latest version from [here](https://themulhima.github.io/Scarab?download).
+- Unzip and run it.
+- Mods appear in the top left corner of the game title screen after installation.
 
 ## Scarab URL Scheme
 Scarab now uses Windows/Mac/Linux URL Scheme, this means shareable links can now open and run commands on scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to get correctly formatted links to share. There are 4 commands as of v2.0.0.0
@@ -26,10 +31,6 @@ Scarab now uses Windows/Mac/Linux URL Scheme, this means shareable links can now
 - [Force Update All](https://themulhima.github.io/Scarab/commands/forceUpdateAll) - Open Scarab and reinstalls all mods.Could help fix issues with mods
 
 There is also the [redirect link](https://themulhima.github.io/Scarab/redirect) which can be used to link any scarab command.
-## Usage
-- Get the latest release [here](https://github.com/TheMulhima/Scarab/releases/latest).
-- Unzip and run it.
-- Mods appear in the top left corner of the game title screen after installation.
 
 ## What Scarab+ Looks Like
 ![screenshot](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/Default.png)
@@ -46,4 +47,8 @@ There is also the [redirect link](https://themulhima.github.io/Scarab/redirect) 
 ## Contributions
 - Contributions are open. You can see what features are currenly requested over [here](https://github.com/TheMulhima/Scarab/labels/enhancement)
 
+## Credits
+- [56](https://github.com/fifty-six): Original creator of Scarab
+
+## Testimonials
 "This is the best version of scarab rn" - Dandy
