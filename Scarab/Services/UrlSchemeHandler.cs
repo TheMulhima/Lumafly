@@ -90,7 +90,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
     }
 
     [SupportedOSPlatform(nameof(OSPlatform.Windows))]
-    public static void SetupWindows(string exePath)
+    public static void SetupRegistry(string exePath)
     {
         try
         {
@@ -115,45 +115,6 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             // for now not show any error as its not critical
             Trace.WriteLine("Unable to setup registry for windows uri scheme" + e.Message);
-        }
-    }
-
-    [SupportedOSPlatform(nameof(OSPlatform.Linux))]
-    public static void SetupLinux(string path)
-    {
-        try
-        {
-            var desktopFile = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), 
-                "scarab.desktop");
-            var desktopFileContent = $"[Desktop Entry]\nName=Scarab\nExec={path} %u\nType=Application\nTerminal=false\nMimeType=x-scheme-handler/scarab;";
-            File.WriteAllText(desktopFile, desktopFileContent);
-            
-            var mimeFile = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), 
-                "mimeapps.list");
-            
-            //var mimeFileContent = $"[Default Applications]\nx-scheme-handler/scarab=scarab.desktop";
-            string mimeFileContent = string.Empty;
-            if (File.Exists(mimeFile))
-            {
-                mimeFileContent = File.ReadAllText(mimeFile);
-            } 
-            if (mimeFileContent.Contains("x-scheme-handler/scarab=scarab.desktop")) return;
-            if (mimeFileContent.Contains("[Added Associations]"))
-            {
-                mimeFileContent = mimeFileContent.Replace("[Added Associations]",
-                    "[Added Associations]\nx-scheme-handler/scarab=scarab.desktop;");
-            }
-            else
-            {
-                mimeFileContent += "\n[Default Applications]\nx-scheme-handler/scarab=scarab.desktop;";
-            }
-            File.WriteAllText(mimeFile, mimeFileContent);
-        }
-        catch (Exception e)
-        {
-            Trace.TraceError("Unable to setup linux url scheme" + e.Message);
         }
     }
 
