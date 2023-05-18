@@ -19,12 +19,14 @@
 
       <script type="text/javascript">
 
-        fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
-        .then(response => response.json())
+        var req = new Request("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md");
+        fetch(req)
+        .then(response => response.text())
         .then(data => {
-          var releaseNotes = data.body;
+          var releaseNotes = data.slice(184); //remove header, and badges
+
           var releaseNotesHeader = document.createElement("h2");
-          releaseNotesHeader.innerHTML = "Changelog: ";
+          releaseNotesHeader.innerHTML = "Readme: ";
           releaseNotesHeader.className = "center, centertext";
           releaseNotesHeader.setAttribute("style", "margin-top:20px");
           document.body.appendChild(releaseNotesHeader);
