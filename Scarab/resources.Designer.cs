@@ -807,15 +807,6 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Force Update All.
-        /// </summary>
-        internal static string XAML_Force_Update_All {
-            get {
-                return ResourceManager.GetString("XAML_Force_Update_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Game Path.
         /// </summary>
         internal static string XAML_GamePath {
