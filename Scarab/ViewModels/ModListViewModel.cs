@@ -847,8 +847,10 @@ namespace Scarab.ViewModels
         private async Task RemoveUnusedDependencies(ModItem item)
         {
             var dependencies = item.Dependencies
-                            .Select(x => _db.Items.First(i => i.Name == x))
-                            .Where(x => !_reverseDependencySearch.GetAllEnabledDependents(x).Any()).ToList();
+                            .Select(x => _items.First(i => i.Name == x))
+                            .Where(x => !_reverseDependencySearch.GetAllEnabledDependents(x).Any())
+                            .Where(x => x.State is ExistsModState)
+                            .ToList();
 
             if (dependencies.Count > 0)
             {
@@ -861,7 +863,7 @@ namespace Scarab.ViewModels
                 {
                     foreach (var option in options.Where(x => x.IsSelected))
                     {
-                        if (option.Item.State is InstalledState)
+                        if (option.Item.State is ExistsModState)
                             await InternalModDownload(option.Item, option.Item.OnInstall);
                     }
                 }
