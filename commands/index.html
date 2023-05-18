@@ -5,7 +5,7 @@
       <link href="../ConstructionKnight.ico" rel="shortcut icon">
       <link href="../ConstructionKnight.ico" rel="icon">
       <script type="text/javascript" src="../actions.js"></script>
-      <title>Scarab+ Commands: Download</title>
+      <title>Scarab+ Commands</title>
       <style>
         li { margin: 1em 0; }
       </style>
@@ -20,10 +20,10 @@
           <button id="download">Download mods</button>
         </li>
         <li>
-          <button onclick="window.location = 'forceUpdateAll.html'">Force update all installed mods</button> 
+          <button onclick="window.location = './forceUpdateAll/index.html'">Force update all installed mods</button> 
         </li>
         <li>
-          <button onclick="window.location = 'reset.html'">Reset scarab settings</button>
+          <button onclick="window.location = './reset/index.html'">Reset scarab settings</button>
         </li>
         <li>
           <button id="customModLinks">Use a custom ModLinks to get scarab's mod list</button>
@@ -32,10 +32,9 @@
       <script type="text/javascript">
         document.getElementById('download').onclick = function () {
           var mods = prompt('Enter mods to download here seperated by "/" (eg. Satchel/HKMirror/Osmi)');
-          mods.replaceAll(' ', '%20');
           if (mods !== null)
           {
-            window.location = "download.html?mods=" + mods;
+            window.location = "./download/index.html?mods=" + mods.replaceAll(' ', '%20');;
           }
         }
         
@@ -43,7 +42,7 @@
           var link = prompt('Enter the url to the ModLinks.xml file');
           if (link !== null)
           {
-            window.location = "customModLinks.html?link=" + link;
+            window.location = "./customModLinks/index.html?link=" + link;
           }
         }
       </script>
