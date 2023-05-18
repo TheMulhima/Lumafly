@@ -23,6 +23,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 
@@ -409,19 +410,39 @@ namespace Scarab.ViewModels
             Debug.WriteLine($"Current version of installer is {current_version}");
 
             if (_Debug)
-                return; 
+                return;
 
-            const string gh_releases = "https://api.github.com/repos/TheMulhima/Scarab/releases/latest";
+            const int Timeout = 10_000;
+            const string LatestReleaseLinkJson =
+                "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
 
             string json;
+            string updateLink;
             
             try
             {
                 var hc = new HttpClient();
                 
                 hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
+                CancellationTokenSource cts = new CancellationTokenSource(Timeout);
+                var links = await hc.GetStringAsync(new Uri(LatestReleaseLinkJson), cts.Token);
+                
+                JsonDocument linksDoc = JsonDocument.Parse(links);
+                if (!linksDoc.RootElement.TryGetProperty("latestRelease", out JsonElement latestReleaseLinkElem)) 
+                    return;
+                if (!linksDoc.RootElement.TryGetProperty("updateLink", out JsonElement updateLinkElem)) 
+                    return;
+                
+                string? latestReleaseLink = latestReleaseLinkElem.GetString();
+                string? _updateLink = updateLinkElem.GetString();
 
-                json = await hc.GetStringAsync(new Uri(gh_releases));
+                if (latestReleaseLink is null || _updateLink is null)
+                    return;
+                
+                cts = new CancellationTokenSource(Timeout);
+                json = await hc.GetStringAsync(new Uri(latestReleaseLink), cts.Token);
+                updateLink = _updateLink;
+
             }
             catch (Exception e) when (e is HttpRequestException or TimeoutException) {
                 return;
@@ -467,7 +488,7 @@ namespace Scarab.ViewModels
 
             if (res == Resources.MWVM_OutOfDate_GetLatest)
             {
-                Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/releases/latest") { UseShellExecute = true });
+                Process.Start(new ProcessStartInfo(updateLink) { UseShellExecute = true });
                 
                 ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
             }
