@@ -41,16 +41,8 @@ namespace Scarab.ViewModels
             }
         }
 
-        private static MainWindowViewModel? _instance;
-        public static bool IsFirstInstance = false;
-        public static MainWindowViewModel? Instance
-        {
-            get => _instance;
-            private set  {
-                IsFirstInstance = _instance == null;
-                _instance = value;
-            }
-        }
+        private static bool isFirstLoad { get; set; } = true;
+        public static MainWindowViewModel? Instance { get; private set; }
 
         [UsedImplicitly]
         private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
@@ -72,7 +64,7 @@ namespace Scarab.ViewModels
         {
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             
-            var urlSchemeHandler = new UrlSchemeHandler(handled: !IsFirstInstance);
+            var urlSchemeHandler = new UrlSchemeHandler(handled: !isFirstLoad);
 
             HandleURLSchemeCommand(urlSchemeHandler);
 
@@ -568,6 +560,10 @@ namespace Scarab.ViewModels
             }
 
             Loading = false;
+            if (isFirstLoad)
+            {
+                isFirstLoad = false;
+            }
         });
     }
 }
