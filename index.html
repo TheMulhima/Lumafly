@@ -49,11 +49,11 @@
           iosPlatforms = ['iPhone', 'iPad', 'iPod'],
           link = null;
 
-          if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/mac.zip";
+          if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-MacOS.zip";
           else if (iosPlatforms.indexOf(platform) !== -1)       link = null
-          else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/windows.zip";
+          else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Windows.zip";
           else if (/Android/.test(userAgent))                   link = null
-          else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/linux.zip"
+          else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Linux.zip"
                   
           link = link || "https://github.com/TheMulhima/Scarab/releases/latest";
           openLink(link);
