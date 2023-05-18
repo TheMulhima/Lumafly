@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
@@ -104,6 +105,9 @@ namespace Scarab.ViewModels
 
         private async Task ChangePathAsync()
         {
+            Process.Start(new ProcessStartInfo(Settings.ConfigFolderPath) {
+                UseShellExecute = true
+            });
             string? path = await PathUtil.SelectPathFallible();
 
             if (path is null)
