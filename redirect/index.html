@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <link rel="stylesheet" href="../style.css">
+      <link href="../ConstructionKnight.ico" rel="shortcut icon">
+      <link href="../ConstructionKnight.ico" rel="icon">
+      <script type="text/javascript" src="../actions.js"></script>
+      <title>Scarab+ Commands Redirect</title>
+    </head>
+    <body>
+      <img src="../HKMBanner.png" alt="HKM Banner" class="center">
+      <h1 class="center, centertext">
+        This will redirect you to:
+      </h1>
+      <h3 id="message" class="center, centertext"></h3>
+      <script type="text/javascript">
+        var link = getParam('link');
+        if (link !== null)
+        {
+          document.getElementById("message").innerHTML = link;
+          openLink(link);
+        }
+        else
+        {
+          var error = document.createElement("h4");
+          error.innerHTML = "No link was provided. Please provide a link by adding ?link= to the end of the url!";
+          error.className = "center, centertext";
+          var example = document.createElement("p");
+          example.innerHTML = "For example: https://themulhima.github.io/Scarab/redirect?link=scarab://reset";
+          example.className = "center, centertext";
+          document.body.appendChild(error);
+          document.body.appendChild(example);
+        }
+      </script>
+    </body>
+</html>
