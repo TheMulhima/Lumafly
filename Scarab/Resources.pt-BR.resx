@@ -295,9 +295,6 @@
   <data name="XAML_Exact_Search" xml:space="preserve">
     <value>Pesquisa Exata</value>
   </data>
-  <data name="XAML_Force_Update_All" xml:space="preserve">
-    <value>Forçar Atualização de Tudo</value>
-  </data>
   <data name="XAML_LastMonth" xml:space="preserve">
     <value>Mês Passado</value>
   </data>

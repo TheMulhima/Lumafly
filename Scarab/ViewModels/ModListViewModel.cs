@@ -37,6 +37,7 @@ namespace Scarab.ViewModels
         private readonly IModDatabase _db;
         private readonly IReverseDependencySearch _reverseDependencySearch;
         private readonly IModLinksChanges _modlinksChanges;
+        private readonly IUrlSchemeHandler _urlSchemeHandler;
         private readonly ScarabMode _scarabMode;
         
         [Notify("ProgressBarVisible")]
@@ -89,13 +90,21 @@ namespace Scarab.ViewModels
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
 
-        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder, ScarabMode scarabMode)
+        public ModListViewModel(
+            ISettings settings, 
+            IModDatabase db, 
+            IInstaller inst, 
+            IModSource mods,
+            IGlobalSettingsFinder settingsFinder, 
+            IUrlSchemeHandler urlSchemeHandler, 
+            ScarabMode scarabMode)
         {
             _settings = settings;
             _installer = inst;
             _mods = mods;
             _db = db;
             _settingsFinder = settingsFinder;
+            _urlSchemeHandler = urlSchemeHandler;
             _scarabMode = scarabMode; 
 
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
@@ -169,80 +178,109 @@ namespace Scarab.ViewModels
             }
 
             Task.Run(async () =>
-                await Dispatcher.UIThread.InvokeAsync(async () =>
+                await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadAndForceUpdateAllUrlScheme()));
+        }
+
+        private async Task HandleDownloadAndForceUpdateAllUrlScheme()
+        {
+            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.download)
+            {
+                var modNames = _urlSchemeHandler.Data.Split('/');
+                List<string> successfulDownloads = new List<string>();
+                List<string> failedDownloads = new List<string>();
+                
+                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
                 {
-                    if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.download)
+                    ContentTitle = "Download mod from command",
+                    ContentMessage = $"Scarab has successfully received download mod command for {string.Join(", ", modNames)}",
+                    MinWidth = 450,
+                    MinHeight = 150,
+                    Icon = Icon.Success
+                }).Show();
+                
+                foreach (var modName in modNames)
+                {
+                    var mod = _items.FirstOrDefault(x =>
+                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+                    if (mod == null)
                     {
-                        var modNames = WindowsUriHandler.Data.Split('/');
-                        List<string> successfulDownloads = new List<string>();
-                        List<string> failedDownloads = new List<string>();
-                        foreach (var modName in modNames)
-                        {
-                            var mod = _items.FirstOrDefault(x =>
-                                x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
-                            if (mod == null)
-                            {
-                                Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                                failedDownloads.Add(modName);
-                                continue;
-                            }
-
-                            switch (mod.State)
-                            {
-                                case NotInstalledState:
-                                    await OnInstall(mod);
-                                    break;
-                                case InstalledState { Updated: false }:
-                                case NotInModLinksState { ModlinksMod: true }:
-                                    await OnUpdate(mod);
-                                    break;
-                                case InstalledState { Enabled: false }:
-                                    await OnEnable(mod);
-                                    break;
-                            }
-
-                            successfulDownloads.Add(modName);
-                        }
-
-
-                        string message = string.Empty;
-
-                        if (successfulDownloads.Count > 0)
-                        {
-                            message +=
-                                $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
-                        }
-
-                        if (failedDownloads.Count > 0)
-                        {
-                            if (successfulDownloads.Count > 0)
-                            {
-                                message += "\nHowever, ";
-                            }
-
-                            message +=
-                                $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
-                        }
-
-                        await MessageBoxUtil.GetMessageBoxStandardWindow(
-                            new MessageBoxStandardParams()
-                            {
-                                ContentTitle = "Downloaded Mod From Command",
-                                ContentMessage = message,
-                                MinWidth = 350,
-                                MinHeight = failedDownloads.Count > 0 ? 100 : 50,
-                                Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
-                            }).Show();
-
-                        WindowsUriHandler.Handled = true;
+                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
+                        failedDownloads.Add(modName);
+                        continue;
                     }
 
-                    if (!WindowsUriHandler.Handled && WindowsUriHandler.UriCommand == UriCommands.forceUpdateAll)
+                    switch (mod.State)
                     {
-                        await ForceUpdateAll();
-                        WindowsUriHandler.Handled = true;
+                        case NotInstalledState:
+                            await OnInstall(mod);
+                            break;
+                        case InstalledState { Updated: false }:
+                        case NotInModLinksState { ModlinksMod: true }:
+                            await OnUpdate(mod);
+                            break;
+                        case InstalledState { Enabled: false }:
+                            await OnEnable(mod);
+                            break;
                     }
-                }));
+
+                    successfulDownloads.Add(modName);
+                }
+
+
+                string message = string.Empty;
+
+                if (successfulDownloads.Count > 0)
+                {
+                    message +=
+                        $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
+                }
+
+                if (failedDownloads.Count > 0)
+                {
+                    if (successfulDownloads.Count > 0)
+                    {
+                        message += "\nHowever, ";
+                    }
+
+                    message +=
+                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
+                }
+
+                await _urlSchemeHandler.ShowConfirmation(
+                    new MessageBoxStandardParams()
+                    {
+                        ContentTitle = "Download mod from command",
+                        ContentMessage = message,
+                        MinWidth = 450,
+                        MinHeight = 150,
+                        Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
+                    });
+            }
+
+            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.forceUpdateAll)
+            {
+                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
+                {
+                    ContentTitle = "Force update all from command",
+                    ContentMessage = "Scarab has successfully received the force updated all command",
+                    MinWidth = 450,
+                    MinHeight = 150,
+                    Icon = Icon.Success
+                }).Show();
+                
+                await ForceUpdateAll();
+                
+                await _urlSchemeHandler.ShowConfirmation(
+                    new MessageBoxStandardParams()
+                    {
+                        ContentTitle = "Force update all from command",
+                        ContentMessage = "Scarab has successfully run force updated all command",
+                        MinWidth = 450,
+                        MinHeight = 150,
+                        Icon = Icon.Success
+                    });
+            }
+                
         }
 
         [UsedImplicitly]

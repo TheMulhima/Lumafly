@@ -77,32 +77,36 @@ public class MiscServicesTest
     [Fact]
     public void UriArgumentParser()
     {
-        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+        var urlSchemeHandler = new UrlSchemeHandler();
+        
+        Assert.Equal(UrlSchemeCommands.none, urlSchemeHandler.UrlSchemeCommand);
 
         // empty command shouldn't cause it to die
-        WindowsUriHandler.SetCommand("scarab://");
-        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+        urlSchemeHandler.SetCommand("scarab://");
+        Assert.Equal(UrlSchemeCommands.none, urlSchemeHandler.UrlSchemeCommand);
 
         // incorrect command shouldn't cause it to die
-        WindowsUriHandler.SetCommand("scarab://aidhasjkh");
-        Assert.Equal(UriCommands.none, WindowsUriHandler.UriCommand);
+        urlSchemeHandler.SetCommand("scarab://aidhasjkh");
+        Assert.Equal(UrlSchemeCommands.none, urlSchemeHandler.UrlSchemeCommand);
         
         // test download
-        WindowsUriHandler.SetCommand("scarab://download/MyMod1");
-        Assert.Equal(UriCommands.download, WindowsUriHandler.UriCommand);
-        Assert.Equal("MyMod1", WindowsUriHandler.Data);
+        urlSchemeHandler.SetCommand("scarab://download/MyMod1");
+        Assert.Equal(UrlSchemeCommands.download, urlSchemeHandler.UrlSchemeCommand);
+        Assert.Equal("MyMod1", urlSchemeHandler.Data);
         
-        WindowsUriHandler.SetCommand("scarab://reset");
-        Assert.Equal(UriCommands.reset, WindowsUriHandler.UriCommand);
+        // test download multiple mods
+        urlSchemeHandler.SetCommand("scarab://download/MyMod1/MyMod2");
+        Assert.Equal(UrlSchemeCommands.download, urlSchemeHandler.UrlSchemeCommand);
+        Assert.Equal("MyMod1/MyMod2", urlSchemeHandler.Data);
         
-        WindowsUriHandler.SetCommand("scarab://reset");
-        Assert.Equal(UriCommands.reset, WindowsUriHandler.UriCommand);
+        urlSchemeHandler.SetCommand("scarab://reset");
+        Assert.Equal(UrlSchemeCommands.reset, urlSchemeHandler.UrlSchemeCommand);
         
-        WindowsUriHandler.SetCommand("scarab://forceUpdateAll");
-        Assert.Equal(UriCommands.forceUpdateAll, WindowsUriHandler.UriCommand);
+        urlSchemeHandler.SetCommand("scarab://forceUpdateAll");
+        Assert.Equal(UrlSchemeCommands.forceUpdateAll, urlSchemeHandler.UrlSchemeCommand);
         
-        WindowsUriHandler.SetCommand("scarab://customModlinks/https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml");
-        Assert.Equal(UriCommands.customModlinks, WindowsUriHandler.UriCommand);
-        Assert.Equal("https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml", WindowsUriHandler.Data);
+        urlSchemeHandler.SetCommand("scarab://customModLinks/https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml");
+        Assert.Equal(UrlSchemeCommands.customModLinks, urlSchemeHandler.UrlSchemeCommand);
+        Assert.Equal("https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml", urlSchemeHandler.Data);
     }
 }

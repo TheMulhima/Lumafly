@@ -144,10 +144,6 @@
             Header="{ext:Localize XAML_Uninstall_All}"
             Command="{Binding UninstallAll}"
             IsEnabled="{Binding CanUninstallAll}" />
-        <MenuItem
-            Header="{ext:Localize XAML_Force_Update_All}"
-            Command="{Binding ForceUpdateAll}"
-            IsEnabled="{Binding CanUninstallAll}" />
       </MenuItem>
       <MenuItem
           Command="{Binding Donate}"

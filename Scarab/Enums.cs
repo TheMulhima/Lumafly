@@ -24,4 +24,14 @@
         OnlyWorkaround,
         TryBoth
     }
+    
+    public enum UrlSchemeCommands
+    {
+        none,
+        download,
+        reset,
+        forceUpdateAll,
+        customModLinks,
+        baseLink,
+    }
 }

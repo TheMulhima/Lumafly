@@ -41,7 +41,8 @@ namespace Scarab.ViewModels
             }
         }
 
-        public static MainWindowViewModel? Instance;
+        private static bool isFirstLoad { get; set; } = true;
+        public static MainWindowViewModel? Instance { get; private set; }
 
         [UsedImplicitly]
         private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
@@ -62,6 +63,11 @@ namespace Scarab.ViewModels
         private async Task Impl()
         {
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
+            
+            var urlSchemeHandler = new UrlSchemeHandler(handled: !isFirstLoad);
+
+            HandleURLSchemeCommand(urlSchemeHandler);
+
             Trace.WriteLine("Checking if up to date...");
             
             await CheckUpToDate();
@@ -70,6 +76,9 @@ namespace Scarab.ViewModels
             var fs = new FileSystem();
 
             Trace.WriteLine("Loading settings.");
+
+            HandleResetUrlScheme(urlSchemeHandler);
+
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
@@ -77,36 +86,7 @@ namespace Scarab.ViewModels
 
             await EnsureAccessToConfigFile();
 
-            if (!WindowsUriHandler.Handled)
-            {
-                if (WindowsUriHandler.UriCommand == UriCommands.customModlinks)
-                {
-                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
-                    {
-                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                        WindowsUriHandler.Handled = true;
-                        return;
-                    }
-
-                    settings.UseCustomModlinks = true;
-                    settings.CustomModlinksUri = WindowsUriHandler.Data;
-
-                    WindowsUriHandler.Handled = true;
-                }
-
-                if (WindowsUriHandler.UriCommand == UriCommands.baseLink)
-                {
-                    if (string.IsNullOrEmpty(WindowsUriHandler.Data))
-                    {
-                        Trace.TraceError($"{WindowsUriHandler.Data} not found");
-                        WindowsUriHandler.Handled = true;
-                        return;
-                    }
-
-                    settings.BaseLink = WindowsUriHandler.Data;
-                    WindowsUriHandler.Handled = true;
-                }
-            }
+            HandleLinkUrlScheme(settings, urlSchemeHandler);
 
             Trace.WriteLine("Fetching links");
             
@@ -226,6 +206,7 @@ namespace Scarab.ViewModels
             );
 
             sc
+              .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
@@ -240,6 +221,7 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IInstaller>(),
                       sp.GetRequiredService<IModSource>(),
                       sp.GetRequiredService<IGlobalSettingsFinder>(),
+                      sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
               .AddSingleton<SettingsViewModel>();
             
@@ -257,6 +239,106 @@ namespace Scarab.ViewModels
                 new(Resources.XAML_Settings, sp.GetRequiredService<SettingsViewModel>()),
             };
             SelectedTabIndex = 0;
+        }
+
+        private void HandleURLSchemeCommand(IUrlSchemeHandler urlSchemeHandler)
+        {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Length == 2) // only accept 2 args, the exe location and the uri 
+            {
+                urlSchemeHandler.SetCommand(args[1]);
+            }
+        }
+
+        private void HandleResetUrlScheme(IUrlSchemeHandler urlSchemeHandler)
+        {
+            if (urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.reset })
+            {
+                bool success = false;
+                Exception? exception = null; 
+                try
+                {
+                    DirectoryInfo di = new DirectoryInfo(Settings.GetOrCreateDirPath());
+
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete(); 
+                    }
+                    
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    success = false;
+                    exception = e;
+                }
+
+                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Reset installer from command",
+                    ContentMessage = success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
+                    MinWidth = 450,
+                    MinHeight = 150,
+                    Icon = success ? Icon.Success : Icon.Warning
+                }));
+            }
+        }
+
+        private void HandleLinkUrlScheme(ISettings settings, IUrlSchemeHandler urlSchemeHandler)
+        {
+            if (!urlSchemeHandler.Handled)
+            {
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.customModLinks)
+                {
+                    bool success = false;
+                    if (string.IsNullOrEmpty(urlSchemeHandler.Data))
+                    {
+                        Trace.TraceError($"{UrlSchemeCommands.customModLinks}:{urlSchemeHandler.Data} not found");
+                        success = false;
+                    }
+                    else
+                    {
+                        settings.UseCustomModlinks = true;
+                        settings.CustomModlinksUri = urlSchemeHandler.Data;
+                        success = true;
+                    }
+
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                        {
+                            ContentTitle = "Load custom modlinks from command",
+                            ContentMessage = success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
+                            MinWidth = 450,
+                            MinHeight = 150,
+                            Icon = success ? Icon.Success : Icon.Warning,
+                        }));
+                }
+
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
+                {
+                    bool success = false;
+                    if (string.IsNullOrEmpty(urlSchemeHandler.Data))
+                    {
+                        Trace.TraceError($"{UrlSchemeCommands.baseLink}:{urlSchemeHandler.Data} not found");
+                        success = false;
+                    }
+                    else
+                    {
+                        settings.BaseLink = urlSchemeHandler.Data;
+                        success = true;
+                    }
+
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                        {
+                            ContentTitle = "Use new baselink from command",
+                            ContentMessage = success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
+                            MinWidth = 450,
+                            MinHeight = 150,
+                            Icon = success ? Icon.Success : Icon.Warning,
+                        }));
+                    
+                }
+            }
         }
 
         private async Task CacheModAndApiLinksForOffline(string modLinksCache, string apiLinksCache, (ModLinks ml, ApiLinks al) content)
@@ -478,6 +560,10 @@ namespace Scarab.ViewModels
             }
 
             Loading = false;
+            if (isFirstLoad)
+            {
+                isFirstLoad = false;
+            }
         });
     }
 }

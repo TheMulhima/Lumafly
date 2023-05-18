@@ -291,9 +291,6 @@
   <data name="XAML_Uninstall_All" xml:space="preserve">
     <value>全部卸载</value>
   </data>
-  <data name="XAML_Force_Update_All" xml:space="preserve">
-    <value>全部强制更新</value>
-  </data>
   <data name="XAML_Authors" xml:space="preserve">
     <value>作者：</value>
   </data>

@@ -294,9 +294,6 @@
   <data name="XAML_Uninstall_All" xml:space="preserve">
     <value>Uninstall All</value>
   </data>
-  <data name="XAML_Force_Update_All" xml:space="preserve">
-    <value>Force Update All</value>
-  </data>
   <data name="XAML_Authors" xml:space="preserve">
     <value>Authors:</value>
   </data>
