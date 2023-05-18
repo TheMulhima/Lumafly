@@ -521,9 +521,8 @@ namespace Scarab.Services
             else
             {
                 mod.State = new NotInstalledState();
-
-                await _installed.RecordUninstall(mod);
             }
+            await _installed.RecordUninstall(mod);
         }
         
         public async Task<bool> CheckAPI()

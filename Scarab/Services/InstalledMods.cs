@@ -177,6 +177,7 @@ namespace Scarab.Services
             if (item.State is InstalledState state)
             {
                 Mods[item.Name] = state;
+                NotInModlinksMods.Remove(item.Name);
             }
             if (item.State is NotInModLinksState notInModLinksState)
             {
@@ -188,11 +189,10 @@ namespace Scarab.Services
 
         public async Task RecordUninstall(ModItem item)
         {
-            if (item.State is NotInModLinksState) return;
-            
-            Contract.Assert(item.State is NotInstalledState);
+            Contract.Assert(item.State is NotInstalledState or NotInModLinksState);
 
             Mods.Remove(item.Name);
+            NotInModlinksMods.Remove(item.Name);
 
             await SaveToDiskAsync();
         }
