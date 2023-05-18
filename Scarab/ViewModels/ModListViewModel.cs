@@ -37,6 +37,7 @@ namespace Scarab.ViewModels
         private readonly IModDatabase _db;
         private readonly IReverseDependencySearch _reverseDependencySearch;
         private readonly IModLinksChanges _modlinksChanges;
+        private readonly IUrlSchemeHandler _urlSchemeHandler;
         private readonly ScarabMode _scarabMode;
         
         [Notify("ProgressBarVisible")]
@@ -89,13 +90,21 @@ namespace Scarab.ViewModels
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
 
-        public ModListViewModel(ISettings settings, IModDatabase db, IInstaller inst, IModSource mods, IGlobalSettingsFinder settingsFinder, ScarabMode scarabMode)
+        public ModListViewModel(
+            ISettings settings, 
+            IModDatabase db, 
+            IInstaller inst, 
+            IModSource mods,
+            IGlobalSettingsFinder settingsFinder, 
+            IUrlSchemeHandler urlSchemeHandler, 
+            ScarabMode scarabMode)
         {
             _settings = settings;
             _installer = inst;
             _mods = mods;
             _db = db;
             _settingsFinder = settingsFinder;
+            _urlSchemeHandler = urlSchemeHandler;
             _scarabMode = scarabMode; 
 
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
@@ -174,9 +183,9 @@ namespace Scarab.ViewModels
 
         private async Task HandleDownloadAndForceUpdateAllUrlScheme()
         {
-            if (!UrlSchemeHandler.Handled && UrlSchemeHandler.UriCommand == UriCommands.download)
+            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.download)
             {
-                var modNames = UrlSchemeHandler.Data.Split('/');
+                var modNames = _urlSchemeHandler.Data.Split('/');
                 List<string> successfulDownloads = new List<string>();
                 List<string> failedDownloads = new List<string>();
                 
@@ -195,7 +204,7 @@ namespace Scarab.ViewModels
                         x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
                     if (mod == null)
                     {
-                        Trace.TraceError($"{UriCommands.download}:{UrlSchemeHandler.Data} not found");
+                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
                         failedDownloads.Add(modName);
                         continue;
                     }
@@ -237,7 +246,7 @@ namespace Scarab.ViewModels
                         $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
                 }
 
-                await UrlSchemeHandler.ShowConfirmation(
+                await _urlSchemeHandler.ShowConfirmation(
                     new MessageBoxStandardParams()
                     {
                         ContentTitle = "Download mod from command",
@@ -248,7 +257,7 @@ namespace Scarab.ViewModels
                     });
             }
 
-            if (!UrlSchemeHandler.Handled && UrlSchemeHandler.UriCommand == UriCommands.forceUpdateAll)
+            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.forceUpdateAll)
             {
                 await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
                 {
@@ -261,7 +270,7 @@ namespace Scarab.ViewModels
                 
                 await ForceUpdateAll();
                 
-                await UrlSchemeHandler.ShowConfirmation(
+                await _urlSchemeHandler.ShowConfirmation(
                     new MessageBoxStandardParams()
                     {
                         ContentTitle = "Force update all from command",

@@ -46,7 +46,7 @@ namespace Scarab.ViewModels
         public static MainWindowViewModel? Instance
         {
             get => _instance;
-            set  {
+            private set  {
                 IsFirstInstance = _instance == null;
                 _instance = value;
             }
@@ -71,8 +71,10 @@ namespace Scarab.ViewModels
         private async Task Impl()
         {
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
+            
+            var urlSchemeHandler = new UrlSchemeHandler(handled: !IsFirstInstance);
 
-            if (IsFirstInstance) HandleURLScheme();
+            HandleURLSchemeCommand(urlSchemeHandler);
 
             Trace.WriteLine("Checking if up to date...");
             
@@ -83,7 +85,7 @@ namespace Scarab.ViewModels
 
             Trace.WriteLine("Loading settings.");
 
-            HandleResetUrlScheme();
+            HandleResetUrlScheme(urlSchemeHandler);
 
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
@@ -92,7 +94,7 @@ namespace Scarab.ViewModels
 
             await EnsureAccessToConfigFile();
 
-            HandleLinkUrlScheme(settings);
+            HandleLinkUrlScheme(settings, urlSchemeHandler);
 
             Trace.WriteLine("Fetching links");
             
@@ -212,6 +214,7 @@ namespace Scarab.ViewModels
             );
 
             sc
+              .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
@@ -226,6 +229,7 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IInstaller>(),
                       sp.GetRequiredService<IModSource>(),
                       sp.GetRequiredService<IGlobalSettingsFinder>(),
+                      sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
               .AddSingleton<SettingsViewModel>();
             
@@ -245,18 +249,18 @@ namespace Scarab.ViewModels
             SelectedTabIndex = 0;
         }
 
-        private void HandleURLScheme()
+        private void HandleURLSchemeCommand(IUrlSchemeHandler urlSchemeHandler)
         {
             var args = Environment.GetCommandLineArgs();
             if (args.Length == 2) // only accept 2 args, the exe location and the uri 
             {
-                UrlSchemeHandler.SetCommand(args[1]);
+                urlSchemeHandler.SetCommand(args[1]);
             }
         }
 
-        private void HandleResetUrlScheme()
+        private void HandleResetUrlScheme(IUrlSchemeHandler urlSchemeHandler)
         {
-            if (!UrlSchemeHandler.Handled && UrlSchemeHandler.UriCommand == UriCommands.reset)
+            if (urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.reset })
             {
                 bool success = false;
                 Exception? exception = null; 
@@ -278,7 +282,7 @@ namespace Scarab.ViewModels
                     exception = e;
                 }
 
-                Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
                 {
                     ContentTitle = "Reset installer from command",
                     ContentMessage = success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
@@ -289,26 +293,26 @@ namespace Scarab.ViewModels
             }
         }
 
-        private void HandleLinkUrlScheme(ISettings settings)
+        private void HandleLinkUrlScheme(ISettings settings, IUrlSchemeHandler urlSchemeHandler)
         {
-            if (!UrlSchemeHandler.Handled)
+            if (!urlSchemeHandler.Handled)
             {
-                if (UrlSchemeHandler.UriCommand == UriCommands.customModLinks)
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.customModLinks)
                 {
                     bool success = false;
-                    if (string.IsNullOrEmpty(UrlSchemeHandler.Data))
+                    if (string.IsNullOrEmpty(urlSchemeHandler.Data))
                     {
-                        Trace.TraceError($"{UriCommands.customModLinks}:{UrlSchemeHandler.Data} not found");
+                        Trace.TraceError($"{UrlSchemeCommands.customModLinks}:{urlSchemeHandler.Data} not found");
                         success = false;
                     }
                     else
                     {
                         settings.UseCustomModlinks = true;
-                        settings.CustomModlinksUri = UrlSchemeHandler.Data;
+                        settings.CustomModlinksUri = urlSchemeHandler.Data;
                         success = true;
                     }
 
-                    Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
                         {
                             ContentTitle = "Load custom modlinks from command",
                             ContentMessage = success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
@@ -318,21 +322,21 @@ namespace Scarab.ViewModels
                         }));
                 }
 
-                if (UrlSchemeHandler.UriCommand == UriCommands.baseLink)
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
                 {
                     bool success = false;
-                    if (string.IsNullOrEmpty(UrlSchemeHandler.Data))
+                    if (string.IsNullOrEmpty(urlSchemeHandler.Data))
                     {
-                        Trace.TraceError($"{UriCommands.baseLink}:{UrlSchemeHandler.Data} not found");
+                        Trace.TraceError($"{UrlSchemeCommands.baseLink}:{urlSchemeHandler.Data} not found");
                         success = false;
                     }
                     else
                     {
-                        settings.BaseLink = UrlSchemeHandler.Data;
+                        settings.BaseLink = urlSchemeHandler.Data;
                         success = true;
                     }
 
-                    Task.Run(async () => await UrlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
                         {
                             ContentTitle = "Use new baselink from command",
                             ContentMessage = success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
