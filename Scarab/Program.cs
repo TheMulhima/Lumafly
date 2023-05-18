@@ -31,7 +31,11 @@ namespace Scarab
 
             if (OperatingSystem.IsWindows())
             {
-                UrlSchemeHandler.SetupRegistry(Environment.GetCommandLineArgs()[0]);
+                UrlSchemeHandler.SetupWindows(Environment.GetCommandLineArgs()[0]);
+            }
+            if (OperatingSystem.IsLinux())
+            {
+                UrlSchemeHandler.SetupLinux(Environment.GetCommandLineArgs()[0]);
             }
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
