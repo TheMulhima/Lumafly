@@ -89,8 +89,22 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         }
     }
 
+    public static void Setup()
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            SetupWindows(Environment.GetCommandLineArgs()[0]);
+        }
+        if (OperatingSystem.IsLinux())
+        {
+            SetupLinux(Environment.GetCommandLineArgs()[0]);
+        }
+        
+        // the mac way of doing it is the only sane one where we add what it needs to the Info.plist at compile time
+    }
+
     [SupportedOSPlatform(nameof(OSPlatform.Windows))]
-    public static void SetupRegistry(string exePath)
+    private static void SetupWindows(string exePath)
     {
         try
         {
@@ -115,6 +129,40 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             // for now not show any error as its not critical
             Trace.WriteLine("Unable to setup registry for windows uri scheme" + e.Message);
+        }
+    }
+    
+    [SupportedOSPlatform(nameof(OSPlatform.Linux))]
+    private static void SetupLinux(string exePath)
+    {
+        try
+        {
+            // /usr/share/applications/scarab.desktop
+            var _desktopLocations = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.Create),
+                "applications");
+            if (!Directory.Exists(_desktopLocations)) 
+                Directory.CreateDirectory(_desktopLocations);
+
+            var desktopFile = Path.Combine(_desktopLocations, "scarab.desktop");
+            
+            File.WriteAllText(desktopFile,
+            $""" 
+            [Desktop Entry]
+            Name=Scarab
+            Comment=Hollow Knight Mod Manager
+            GenericName=Scarab
+            Exec={exePath} %U
+            Type=Application
+            StartupNotify=true
+            Categories=GNOME;GTK;Utility;
+            MimeType=x-scheme-handler/scarab
+            """);
+        }
+        catch (Exception e)
+        {
+            // for now not show any error as its not critical
+            Trace.WriteLine("Unable to setup for linux url scheme" + e.Message);
         }
     }
 

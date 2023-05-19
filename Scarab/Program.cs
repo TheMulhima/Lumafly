@@ -28,11 +28,8 @@ namespace Scarab
         public static void Main(string[] args)
         {
             SetupLogging();
-
-            if (OperatingSystem.IsWindows())
-            {
-                UrlSchemeHandler.SetupRegistry(Environment.GetCommandLineArgs()[0]);
-            }
+            
+            UrlSchemeHandler.Setup();
 
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
             PosixSignalRegistration.Create(PosixSignal.SIGINT, Handler);
