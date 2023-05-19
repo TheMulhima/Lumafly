@@ -79,7 +79,7 @@
       <EmbeddedResource Update="Resources.zh.resx">
         <Generator></Generator>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources.fr-FR.resx">
+      <EmbeddedResource Update="Resources.fr.resx">
         <Generator></Generator>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources.resx">
