@@ -23,37 +23,45 @@
         fetch(req)
         .then(response => response.text())
         .then(data => {
-          var releaseNotes = data.slice(184); //remove header, and badges
+          let releaseNotes = data.slice(184); //remove header, and badges
 
-          var releaseNotesHeader = document.createElement("h2");
+          let releaseNotesHeader = document.createElement("h2");
           releaseNotesHeader.innerHTML = "Readme: ";
           releaseNotesHeader.className = "center, centertext";
           releaseNotesHeader.setAttribute("style", "margin-top:20px");
           document.body.appendChild(releaseNotesHeader);
 
-          var releaseNotesBody = document.createElement("zero-md");
+          let releaseNotesBody = document.createElement("zero-md");
           releaseNotesBody.className = "center";
-          var md = window.markdownit();
+          let md = window.markdownit();
           releaseNotesBody.innerHTML = md.render(releaseNotes);
           document.body.appendChild(releaseNotesBody);
         });
 
-
-        if (getParam("download") !== null)
+        var download = getParam("download");
+        let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/"
+        if (download !== null)
         {
           document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
-          var userAgent = window.navigator.userAgent,
-          platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
-          macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'AppleWebKit'],
-          windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-          iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-          link = null;
 
-          if (macosPlatforms.indexOf(platform) !== -1)          link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-MacOS.zip";
+          if (download === "latest")
+          {
+            linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/dotnet/master/";
+          }
+
+
+          let userAgent = window.navigator.userAgent,
+          platform = window.navigator?.userAgentData?.platform || window.navigator.platform;
+          macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'AppleWebKit'];
+          windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+          iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+          let link = null;
+
+          if (macosPlatforms.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
           else if (iosPlatforms.indexOf(platform) !== -1)       link = null
-          else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Windows.zip";
+          else if (windowsPlatforms.indexOf(platform) !== -1)   link = linkBase + "Scarab-Windows.zip";
           else if (/Android/.test(userAgent))                   link = null
-          else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Linux.zip"
+          else if (/Linux/.test(platform))                      link = linkBase + "Scarab-Linux.zip"
 
           if (link !== null) {
             openLink(link);
