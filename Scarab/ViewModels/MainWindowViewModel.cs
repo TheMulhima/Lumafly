@@ -444,7 +444,7 @@ namespace Scarab.ViewModels
                 updateLink = _updateLink;
 
             }
-            catch (Exception e) when (e is HttpRequestException or TimeoutException) {
+            catch (Exception) {
                 return;
             }
 
