@@ -54,9 +54,18 @@
           else if (windowsPlatforms.indexOf(platform) !== -1)   link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Windows.zip";
           else if (/Android/.test(userAgent))                   link = null
           else if (/Linux/.test(platform))                      link = "https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-Linux.zip"
-                  
-          link = link || "https://github.com/TheMulhima/Scarab/releases/latest";
-          openLink(link);
+
+          if (link !== null) {
+            openLink(link);
+          }
+          else {
+            // make it feel like its loading
+            setTimeout(function() {
+              if (confirm("The website could not automatically detect your platform, would you like to open the releases page? You can download Scarab+ from there.")) {
+                window.location.replace("https://github.com/TheMulhima/Scarab/releases/latest")
+              }
+            }, 500);
+          }
         }
       </script>
     </body>
