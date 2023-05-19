@@ -89,8 +89,10 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         }
     }
 
-    public static void Setup()
+    public void Setup()
     {
+        if (Handled) return;
+        
         if (OperatingSystem.IsWindows())
         {
             SetupWindows(Environment.GetCommandLineArgs()[0]);
@@ -137,9 +139,9 @@ public class UrlSchemeHandler : IUrlSchemeHandler
     {
         try
         {
-            // /usr/share/applications/scarab.desktop
             var _desktopLocations = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.Create),
+                "usr",
+                "share",
                 "applications");
             if (!Directory.Exists(_desktopLocations)) 
                 Directory.CreateDirectory(_desktopLocations);
@@ -163,6 +165,21 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             // for now not show any error as its not critical
             Trace.WriteLine("Unable to setup for linux url scheme" + e.Message);
+            
+            if (!File.Exists(Path.Combine("usr","share","applications", "scarab.desktop")))
+            {
+                Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
+                    {
+                        ContentTitle = "Unable to setup for linux url scheme",
+                        ContentMessage = $"Scarab was unable to setup the url scheme for linux.\n" +
+                                         $"Please run Scarab as root (e.g sudo ~/Downloads/Scarab)",
+                        MinWidth = 450,
+                        MinHeight = 150,
+                        Icon = Icon.Warning,
+                    }).Show()));
+            }
+                
         }
     }
 
