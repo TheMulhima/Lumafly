@@ -54,13 +54,15 @@ jobs:
     - name: Build
       run: | 
         cd Scarab
-        dotnet publish -r linux-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
+        dotnet publish -r linux-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
+        chmod +x Scarab/bin/Release/net7.0/linux-x64/publish/Scarab
+        zip -jr linux.zip Scarab/bin/Release/net7.0/linux-x64/publish/*
     - name: Upload Binary
       uses: actions/upload-artifact@v3
       with:
         name: Scarab-Linux
-        path: Scarab/bin/Release/net7.0/linux-x64/publish/
+        path: linux.zip
 
   build-macos:
     runs-on: macos-latest
@@ -103,8 +105,7 @@ jobs:
         run: |
           zip -jr Scarab-Windows.zip ./artifacts/Scarab-Windows/*
           
-          chmod +x ./artifacts/Scarab-Linux/Scarab
-          zip -jr Scarab-Linux.zip ./artifacts/Scarab-Linux/*
+          mv ./artifacts/Scarab-Linux/linux.zip Scarab-Linux.zip
           
           mv ./artifacts/Scarab-MacOS/mac.zip Scarab-MacOS.zip
 
