@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
@@ -12,6 +9,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
+using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
 
@@ -23,9 +21,6 @@ namespace Scarab.Views
         private readonly TextBox _search;
         private readonly List<MenuItem> _flyoutMenus;
         private List<MenuItem> _modFilterItems;
-
-        public static FieldInfo MenuItemPopup =>
-            typeof(MenuItem).GetField("_popup", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         private ModListViewModel ModListViewModel => (((StyledElement)this).DataContext as ModListViewModel)!;
 
@@ -47,7 +42,7 @@ namespace Scarab.Views
 
         }
         
-        // MenuItem's Popup is not created when ctor is run. I randomly overrided methods until
+        // MenuItem's Popup is not created when ctor is run. I randomly override methods until
         // I found one that is called after Popup is created. There is nothing special about ArrangeCore
         protected override void ArrangeCore(Rect finalRect)
         {
@@ -62,14 +57,12 @@ namespace Scarab.Views
             _modFilterItems.First().Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
         }
 
-        // I havent found a way to set these properties normally
+        // I haven't found a way to set these properties normally
         private void SetUpFlyoutPopup()
         {
             foreach (var flyoutMenu in _flyoutMenus)
             {
-                var menuItem_popup = MenuItemPopup.GetValue(flyoutMenu);
-
-                var popup = menuItem_popup as Popup ?? throw new Exception("Bulk Actions popup not found");
+                var popup = flyoutMenu.GetPopup();
 
                 popup.HorizontalOffset = 2;
                 popup.PlacementMode = PlacementMode.Right;

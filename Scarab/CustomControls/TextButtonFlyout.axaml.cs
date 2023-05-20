@@ -23,9 +23,6 @@ public class TextButtonFlyout : TemplatedControl
     private SymbolIcon? Icon;
     private Button? Button;
 
-    public static PropertyInfo FlyoutBasePopup => 
-        typeof(FlyoutBase).GetProperty(nameof(Popup), BindingFlags.Instance | BindingFlags.NonPublic)!;
-
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -38,10 +35,8 @@ public class TextButtonFlyout : TemplatedControl
             ShowMode = FlyoutShowMode,
             Content = Content
         };
-        var popup_object = FlyoutBasePopup.GetValue(Button.Flyout);
-        var popup = popup_object as Popup ?? throw new Exception("FlyoutButton popup not found");
-        
-        popup.HorizontalOffset = HorizontalOffset;
+
+        Button.Flyout.GetPopup().HorizontalOffset = HorizontalOffset;
         
         Button.Flyout.Opened += OnFlyoutOpened;
         Button.Flyout.Closing += OnFlyoutClosing;
