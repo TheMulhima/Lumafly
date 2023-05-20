@@ -71,20 +71,15 @@
             <DependentUpon>ModListView.axaml</DependentUpon>
         </Compile>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <EmbeddedResource Update="Resources.pt-BR.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.zh.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.fr.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <!-- ManifestResourceName is required when you want to move resx file to another folder -->
+        <EmbeddedResource Update="Localizations\*.resx">
+            <ManifestResourceName>$(TargetName).%(Filename)</ManifestResourceName>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 </Project>
