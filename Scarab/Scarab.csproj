@@ -10,6 +10,7 @@
         <UseAppHost>true</UseAppHost>
     </PropertyGroup>
     
+    <!-- Avalonia Files -->
     <ItemGroup>
         <Compile Update="**\*.xaml.cs">
             <DependentUpon>%(Filename)</DependentUpon>
@@ -18,26 +19,6 @@
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />
-        <Compile Update="Views\UninstallDependenciesConfirmationWindow.axaml.cs">
-          <DependentUpon>UninstallDependenciesConfirmationWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Views\ErrorPopup.axaml.cs">
-          <DependentUpon>ErrorPopup.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <AvaloniaResource Remove="Views\SelectPathView.xaml" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <AvaloniaXaml Remove="Views\ModListView.axaml" />
-    </ItemGroup> 
-    <ItemGroup>
-        <EmbeddedResource Include="Views\ModListView.axaml">
-            <Generator>MSBuild:Compile</Generator>
-        </EmbeddedResource>
     </ItemGroup>
     
     <ItemGroup>
@@ -60,18 +41,9 @@
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.8" />
         <PackageReference Include="System.IO.Abstractions" Version="19.2.22" />
     </ItemGroup>
-    
-    <ItemGroup>
-        <Compile Update="resources.Designer.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
-        <Compile Update="Views\ModListView.xaml.cs">
-            <DependentUpon>ModListView.axaml</DependentUpon>
-        </Compile>
-    </ItemGroup>
 
+    
+    <!-- Localizations -->
     <ItemGroup>
         <!-- ManifestResourceName is required when you want to move resx file to another folder -->
         <EmbeddedResource Update="Localizations\*.resx">
@@ -81,5 +53,10 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+        <Compile Update="resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>
