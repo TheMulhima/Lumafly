@@ -27,6 +27,8 @@ namespace Scarab
         // yet and stuff might break.
         public static void Main(string[] args)
         {
+            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            
             SetupLogging();
             
             UrlSchemeHandler.Setup();
