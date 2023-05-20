@@ -6,7 +6,7 @@
             xmlns:models="clr-namespace:Scarab.Models"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:views="clr-namespace:Scarab.Views"
-            xmlns:mock="clr-namespace:Scarab.Mock;assembly=Scarab"
+            xmlns:enums="clr-namespace:Scarab.Enums"
             d:DataContext="{d:DesignInstance Type=viewModels:ModListViewModel}"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.CustomControls"
@@ -40,7 +40,7 @@
         </Style>
       </Menu.Styles>
 
-      <!-- The PointerPressed unhighlights all the filter buttons except the one thats pressed
+      <!-- The PointerPressed un highlights all the filter buttons except the one that's pressed
                     the name prefix "ModFilter_" helps find all buttons in code behind. The All button is 
                     highlighted by default on app open-->
       <MenuItem
@@ -49,7 +49,7 @@
           IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_All}"
           Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static models:ModFilterState.All}"
+          CommandParameter="{x:Static enums:ModFilterState.All}"
           DockPanel.Dock="Top"/>
 
       <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}" />
@@ -59,7 +59,7 @@
           PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_Installed}"
           Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static models:ModFilterState.Installed}"
+          CommandParameter="{x:Static enums:ModFilterState.Installed}"
           DockPanel.Dock="Top"/>
 
       <MenuItem Header="-" DockPanel.Dock="Top" />
@@ -69,7 +69,7 @@
           PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_Enabled}"
           Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static models:ModFilterState.Enabled}"
+          CommandParameter="{x:Static enums:ModFilterState.Enabled}"
           DockPanel.Dock="Top"/>
 
       <MenuItem Header="-" DockPanel.Dock="Top" />
@@ -80,7 +80,7 @@
           IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_OutOfDate}"
           Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static models:ModFilterState.OutOfDate}"
+          CommandParameter="{x:Static enums:ModFilterState.OutOfDate}"
           DockPanel.Dock="Top"/>
 
       <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}"/>
@@ -91,7 +91,7 @@
           PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
           Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static models:ModFilterState.WhatsNew}"
+          CommandParameter="{x:Static enums:ModFilterState.WhatsNew}"
           DockPanel.Dock="Top"/>
 
       <!-- the name prefix "Flyout_" helps find all buttons in code behind. To set properties-->

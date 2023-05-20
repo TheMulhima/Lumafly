@@ -18,6 +18,7 @@ using MessageBox.Avalonia.Enums;
 using Microsoft.VisualBasic;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;

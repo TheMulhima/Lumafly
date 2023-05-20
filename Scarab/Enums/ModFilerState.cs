@@ -1,4 +1,4 @@
-﻿namespace Scarab.Models;
+﻿namespace Scarab.Enums;
 
 public enum ModFilterState
 {

@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Scarab.Enums;
 using System.IO;
-using Scarab.Models;
-using Scarab.Services;
 
 namespace Scarab.Interfaces
 {

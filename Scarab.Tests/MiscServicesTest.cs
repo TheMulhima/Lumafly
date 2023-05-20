@@ -2,6 +2,7 @@
 using System.IO;
 using Avalonia.Controls;
 using Scarab.CustomControls;
+using Scarab.Enums;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;

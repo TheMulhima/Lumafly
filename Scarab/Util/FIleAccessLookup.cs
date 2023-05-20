@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Microsoft.Win32.SafeHandles;
 
 namespace Scarab.Util;
 
@@ -25,7 +19,7 @@ public static class FileAccessLookup
     const int CCH_RM_MAX_APP_NAME = 255;
     const int CCH_RM_MAX_SVC_NAME = 63;
 
-    enum RM_APP_TYPE
+    private enum RM_APP_TYPE
     {
         RmUnknownApp = 0,
         RmMainWindow = 1,

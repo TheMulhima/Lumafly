@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Util;
 

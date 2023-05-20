@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MessageBox.Avalonia.DTO;
+using Scarab.Enums;
 
 namespace Scarab.Interfaces;
 
