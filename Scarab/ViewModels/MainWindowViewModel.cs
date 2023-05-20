@@ -113,7 +113,7 @@ namespace Scarab.ViewModels
             
             try
             {
-                WorkaroundHttpClient.ResultInfo<(ModLinks, ApiLinks)>? res = null;
+                ResultInfo<(ModLinks, ApiLinks)>? res = null;
 
                 if (settings.UseCustomModlinks)
                 {

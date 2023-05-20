@@ -12,6 +12,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
+using Scarab.Models;
 using Scarab.ViewModels;
 
 namespace Scarab.Util
