@@ -1,7 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:customControls="using:Scarab.CustomControls"
-        xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
+        xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
     <Design.PreviewWith>
         <customControls:MenuCheckBox />
     </Design.PreviewWith>
@@ -38,13 +38,12 @@
                             Padding="0 3" 
                             MinWidth="{TemplateBinding MinWidth}"/>
                     </Button>
-                    <avalonia:SymbolIcon
+                    <fluentIcons:SymbolIcon
                         Grid.Column="1"
                         FontSize="20"
                         Margin="0 0 5 0"
                         Symbol="Checkmark"
-                        IsVisible="{TemplateBinding IsSelected}">
-                    </avalonia:SymbolIcon>
+                        IsVisible="{TemplateBinding IsSelected}"/>
                 </Grid>
             </ControlTemplate>
         </Setter>

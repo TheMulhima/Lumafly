@@ -1,7 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:customControls="using:Scarab.CustomControls"
-        xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
+        xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
     <Design.PreviewWith>
         <customControls:TextButtonFlyout />
     </Design.PreviewWith>
@@ -34,7 +34,7 @@
                             Text="{TemplateBinding Header}"
                             Padding="3 0"/>
                         
-                        <avalonia:SymbolIcon
+                        <fluentIcons:SymbolIcon
                             Grid.Column="1"
                             Name="Icon" 
                             Symbol="ChevronDown"

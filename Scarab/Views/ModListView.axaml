@@ -11,7 +11,7 @@
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.CustomControls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
-            xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+            xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
@@ -212,10 +212,10 @@
           BorderThickness="0"
           Command="{Binding ClearSearch}"
           Margin="0 0 0 0">
-        <avalonia:SymbolIcon
-        Symbol="Delete"
-        IsFilled="True"
-        FontSize="15"/>
+          <fluentIcons:SymbolIcon
+                      Symbol="Delete"
+                      IsFilled="True"
+                      FontSize="15"/>
       </Button>
 
       <customControls:TextButtonFlyout
@@ -416,7 +416,7 @@
                               ToolTip.Tip="{ext:Localize XAML_Unpin}"
                               Command="{Binding $parent[views:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}">
-                        <avalonia:SymbolIcon
+                        <fluentIcons:SymbolIcon
                              Symbol="Pin"
                              FontSize="20"
                              Margin="1 0 0 0"

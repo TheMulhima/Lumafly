@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:ext="clr-namespace:Scarab.Extensions"
-            xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+            xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             d:DesignHeight="300"
             d:DesignWidth="600"
             d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
@@ -88,7 +88,7 @@
 			UseFloatingWatermark="True"
 			Text="{Binding CustomModlinksUri}"
 			AcceptsReturn="False"/>
-		<avalonia:SymbolIcon
+		<fluentIcons:SymbolIcon
 			Grid.Column="2"
 			Grid.Row="3"
 			Symbol="Info"
