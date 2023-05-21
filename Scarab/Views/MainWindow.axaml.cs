@@ -11,7 +11,7 @@ using Scarab.Models;
 
 namespace Scarab.Views
 {
-    public class MainWindow : Window
+    public partial class MainWindow : Window
     {
         private TabStrip _tabs;
         public MainWindow()

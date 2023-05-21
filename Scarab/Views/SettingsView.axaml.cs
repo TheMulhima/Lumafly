@@ -3,7 +3,7 @@ using Scarab.ViewModels;
 
 namespace Scarab.Views
 {
-    public class SettingsView : View<SettingsViewModel>
+    public partial class SettingsView : View<SettingsViewModel>
     {
         public SettingsView()
         {

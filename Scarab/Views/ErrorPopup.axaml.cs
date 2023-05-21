@@ -6,9 +6,9 @@ using Avalonia.Markup.Xaml;
 using JetBrains.Annotations;
 using ReactiveUI;
 
-namespace Scarab.CustomControls;
+namespace Scarab.Views;
 
-public class ErrorPopup : Window
+public partial class ErrorPopup : Window
 {
     public ErrorPopup()
     {

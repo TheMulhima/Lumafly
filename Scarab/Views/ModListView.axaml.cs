@@ -16,7 +16,7 @@ using Scarab.ViewModels;
 namespace Scarab.Views
 {
     [UsedImplicitly]
-    public class ModListView : View<ModListViewModel>
+    public partial class ModListView : View<ModListViewModel>
     {
         private readonly TextBox _search;
         private readonly List<MenuItem> _flyoutMenus;
