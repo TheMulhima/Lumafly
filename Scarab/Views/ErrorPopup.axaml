@@ -4,7 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:ext="clr-namespace:Scarab.Extensions"
-        x:Class="Scarab.CustomControls.ErrorPopup"
+        xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+        x:Class="Scarab.Views.ErrorPopup"
+        x:DataType="viewModels:ErrorPopupViewModel"
+        x:CompileBindings="True"
         SizeToContent="Height"
         Width="500"
         Icon="/Assets/error.png"
@@ -32,9 +35,11 @@
         <!--Error Message-->
         <StackPanel Grid.Row="1" Grid.Column="3">
             
-            <TextBlock Margin="0 0 0 15"
-                       Text="{Binding ErrorExplanation}" 
-                       TextWrapping="Wrap"/>
+            <TextBlock
+                Margin="0 0 0 15"
+                Name="ErrorExplanation"
+                Text="{Binding ErrorExplanation}" 
+                TextWrapping="Wrap"/>
             
             <Expander MaxHeight="200"
                       IsVisible="{Binding IsExpanderVisible}">
@@ -44,16 +49,19 @@
                                    VerticalAlignment="Center"
                                    Text="{ext:Localize XAML_ShowError}"/>
                         
-                        <Button Grid.Column="2" 
-                                Content="{ext:Localize XAML_CopyError}"
-                                HorizontalAlignment="Right"
-                                Margin="11 0"
-                                Command="{Binding Copy}"/>
+                        <Button
+                            Grid.Column="2"
+                            Name="CopyButton"
+                            Content="{ext:Localize XAML_CopyError}"
+                            HorizontalAlignment="Right"
+                            Margin="11 0"/>
                     </Grid>
                 </Expander.Header>
                 
-                <TextBox Text="{Binding FullErrorText}" 
-                         TextWrapping="Wrap"/>
+                <TextBox 
+                    Name="FullErrorText"
+                    Text="{Binding FullErrorText}" 
+                    TextWrapping="Wrap"/>
                 
             </Expander>
         </StackPanel>

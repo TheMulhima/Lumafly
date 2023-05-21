@@ -1,46 +1,49 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Metadata;
-using FluentIcons.Avalonia;
-using FluentIcons.Common;
 using Scarab.Extensions;
 
 namespace Scarab.CustomControls;
 
 /// <summary>
 /// Creates a button with an attached flyout.
-/// Only supports FlyoutPlacementMode.Bottom and FlyoutPlacementMode.Right.
+/// Only supports PlacementMode.Bottom and PlacementMode.Right.
 /// </summary>
 public class TextButtonFlyout : TemplatedControl
 {
     private readonly Stopwatch lastOpenedStopwatch = new();
-    private SymbolIcon? Icon;
+    private PathIcon? Icon;
     private Button? Button;
+
+    private static StreamGeometry? ChevronDown => Application.Current?.Resources["chevron_down_regular"] as StreamGeometry;
+    private static StreamGeometry? ChevronUp => Application.Current?.Resources["chevron_up_regular"] as StreamGeometry;
+    private static StreamGeometry? ChevronLeft => Application.Current?.Resources["chevron_left_regular"] as StreamGeometry;
+    private static StreamGeometry? ChevronRight => Application.Current?.Resources["chevron_right_regular"] as StreamGeometry;
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        Icon = e.NameScope.Find<SymbolIcon>("Icon");
+        Icon = e.NameScope.Find<PathIcon>("Icon");
         Button = e.NameScope.Find<Button>("Button");
 
-        Button.Flyout = new Flyout()
+        var flyout = new Flyout
         {
             Placement = FlyoutPlacement,
             ShowMode = FlyoutShowMode,
-            Content = Content
+            Content = Content,
+            HorizontalOffset = HorizontalOffset
         };
-
-        Button.Flyout.GetPopup().HorizontalOffset = HorizontalOffset;
         
-        Button.Flyout.Opened += OnFlyoutOpened;
-        Button.Flyout.Closing += OnFlyoutClosing;
-        Button.Flyout.Closed += OnFlyoutClosed;
+        flyout.Opened += OnFlyoutOpened;
+        flyout.Closing += OnFlyoutClosing;
+        flyout.Closed += OnFlyoutClosed;
+
+        Button.Flyout = flyout;
 
         Background ??= Brushes.Transparent;
         OnHoverColor ??= Background;
@@ -84,43 +87,43 @@ public class TextButtonFlyout : TemplatedControl
     {
         Icon = Icon ?? throw new Exception("Flyout Button doesnt have icon");
         Button = Button ?? throw new Exception("Flyout Button doesnt have button");
-        Icon.Symbol = Button.Flyout.IsOpen ? GetCloseSymbol() : GetOpenSymbol();
+        Icon.Data = Button.Flyout.IsOpen ? GetCloseSymbol() : GetOpenSymbol();
     }
 
-    private Symbol GetOpenSymbol() => FlyoutPlacement switch
+    private StreamGeometry? GetOpenSymbol() => FlyoutPlacement switch
     {
-        FlyoutPlacementMode.Bottom or
-            FlyoutPlacementMode.BottomEdgeAlignedLeft or
-            FlyoutPlacementMode.BottomEdgeAlignedRight => Symbol.ChevronDown,
+        PlacementMode.Bottom or
+            PlacementMode.BottomEdgeAlignedLeft or
+            PlacementMode.BottomEdgeAlignedRight => ChevronDown,
 
-        FlyoutPlacementMode.Right or
-            FlyoutPlacementMode.RightEdgeAlignedBottom or
-            FlyoutPlacementMode.RightEdgeAlignedTop => Symbol.ChevronRight,
+        PlacementMode.Right or
+            PlacementMode.RightEdgeAlignedBottom or
+            PlacementMode.RightEdgeAlignedTop => ChevronRight,
 
         _ => throw new NotImplementedException()
     };
 
-    private Symbol GetCloseSymbol() => FlyoutPlacement switch
+    private StreamGeometry? GetCloseSymbol() => FlyoutPlacement switch
     {
-        FlyoutPlacementMode.Bottom or
-            FlyoutPlacementMode.BottomEdgeAlignedLeft or
-            FlyoutPlacementMode.BottomEdgeAlignedRight => Symbol.ChevronUp,
+        PlacementMode.Bottom or
+            PlacementMode.BottomEdgeAlignedLeft or
+            PlacementMode.BottomEdgeAlignedRight => ChevronUp,
 
-        FlyoutPlacementMode.Right or
-            FlyoutPlacementMode.RightEdgeAlignedBottom or
-            FlyoutPlacementMode.RightEdgeAlignedTop => Symbol.ChevronLeft,
+        PlacementMode.Right or
+            PlacementMode.RightEdgeAlignedBottom or
+            PlacementMode.RightEdgeAlignedTop => ChevronLeft,
 
         _ => throw new NotImplementedException()
     };
 
 
     #region FlyoutPlacement
-    private FlyoutPlacementMode _flyoutPlacement;
+    private PlacementMode _flyoutPlacement;
 
-    public static readonly DirectProperty<TextButtonFlyout, FlyoutPlacementMode> FlyoutPlacementProperty = AvaloniaProperty.RegisterDirect<TextButtonFlyout, FlyoutPlacementMode>(
-        "FlyoutPlacement", o => o.FlyoutPlacement, (o, v) => o.FlyoutPlacement = v, FlyoutPlacementMode.Bottom);
+    public static readonly DirectProperty<TextButtonFlyout, PlacementMode> FlyoutPlacementProperty = AvaloniaProperty.RegisterDirect<TextButtonFlyout, PlacementMode>(
+        "FlyoutPlacement", o => o.FlyoutPlacement, (o, v) => o.FlyoutPlacement = v, PlacementMode.Bottom);
 
-    public FlyoutPlacementMode FlyoutPlacement
+    public PlacementMode FlyoutPlacement
     {
         get => _flyoutPlacement;
         set => SetAndRaise(FlyoutPlacementProperty, ref _flyoutPlacement, value);

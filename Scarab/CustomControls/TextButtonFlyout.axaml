@@ -1,7 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:customControls="using:Scarab.CustomControls"
-        xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia">
+        xmlns:customControls="using:Scarab.CustomControls">
     <Design.PreviewWith>
         <customControls:TextButtonFlyout />
     </Design.PreviewWith>
@@ -34,12 +33,11 @@
                             Text="{TemplateBinding Header}"
                             Padding="3 0"/>
                         
-                        <fluentIcons:SymbolIcon
+                        <PathIcon
                             Grid.Column="1"
                             Name="Icon" 
-                            Symbol="ChevronDown"
-                            IsFilled="True"
-                            FontSize="15"
+                            Data="{StaticResource chevron_down_regular}"
+                            Width="15" Height="15"
                             Margin="5 0 2 0"/>
                     </Grid>
                 </Button>

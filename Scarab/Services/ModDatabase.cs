@@ -103,12 +103,12 @@ namespace Scarab.Services
                     if (mod.Installed) 
                         return;
 
-                    mod.State = new NotInModLinksState(Enabled: enabled, ModlinksMod:true);
+                    mod.State = new NotInModLinksState(ModlinksMod:true, Enabled: enabled);
                 }
                 else
                 {
                     _items.Add(ModItem.Empty(
-                        state: new NotInModLinksState(Enabled: enabled, ModlinksMod:false),
+                        state: new NotInModLinksState(ModlinksMod:false, Enabled: enabled),
                         name: name,
                         description: "This mod is not from official modlinks"));
                 }

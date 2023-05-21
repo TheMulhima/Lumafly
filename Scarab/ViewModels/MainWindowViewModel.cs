@@ -47,14 +47,14 @@ namespace Scarab.ViewModels
         public static MainWindowViewModel? Instance { get; private set; }
 
         [UsedImplicitly]
-        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].ViewModel;
+        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].Item;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
         public string AppName => "Scarab+";
 
         [Notify]
-        private ObservableCollection<TabItemModel> _tabs = new ObservableCollection<TabItemModel>();
+        private ObservableCollection<SelectableItem<ViewModelBase>> _tabs = new ObservableCollection<SelectableItem<ViewModelBase>>();
 
         [Notify]
         private int _selectedTabIndex = -1;
@@ -235,10 +235,10 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Built service provider");
 
             Trace.WriteLine("Displaying model");
-            Tabs = new ObservableCollection<TabItemModel>
+            Tabs = new ObservableCollection<SelectableItem<ViewModelBase>>
             {
-                new(Resources.XAML_Mods, sp.GetRequiredService<ModListViewModel>()),
-                new(Resources.XAML_Settings, sp.GetRequiredService<SettingsViewModel>()),
+                new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
+                new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = 0;
         }

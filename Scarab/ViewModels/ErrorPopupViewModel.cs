@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Input;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using Scarab.Util;
 
 namespace Scarab.ViewModels;
 
@@ -21,19 +22,7 @@ public partial class ErrorPopupViewModel: ViewModelBase
     [Notify] private string _errorExplanation = "";
     [Notify] private string _fullErrorText = "";
     [Notify] private bool _isExpanderVisible = true;
-    
-    public static void AskForHelp() => Process.Start(new ProcessStartInfo("https://discord.gg/VDsg3HmWuB") { UseShellExecute = true });   
-    public static void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
 
-    public async Task Copy()
-    {
-        try
-        {
-            await Application.Current?.Clipboard?.SetTextAsync(ErrorExplanation + "\n\n" + FullErrorText)!;
-        }
-        catch (Exception)
-        {
-            // doesn't make sense so show error because the error message has errors
-        }
-    }
+    public void AskForHelp() => PathUtil.AskForHelp();
+    public void ReportError() => PathUtil.ReportError();
 }

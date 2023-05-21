@@ -1,6 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Width="670" Height="450"
+        Width="750" Height="500"
         x:Class="Scarab.Views.MainWindow"
         Icon="/Assets/ConstructionKnight.ico"
         Title="Scarab+"
@@ -65,20 +65,23 @@
                       HorizontalAlignment="Center"
                       SelectedIndex="{Binding SelectedTabIndex}"
                       SelectionChanged="OnTabSelected"
-                      Items="{CompiledBinding Tabs}">
+                      ItemsSource="{CompiledBinding Tabs}">
 	            <TabStrip.Styles>
 		            <Style Selector="TabStripItem">
-						<Setter Property="Margin" Value="1"/>
-						<Setter Property="Padding" Value="6"/>
-						<Setter Property="VerticalContentAlignment" Value="Center"/>
+			            <Setter Property="Margin" Value="1"/>
+			            <Setter Property="Padding" Value="6"/>
+			            <Setter Property="VerticalContentAlignment" Value="Center"/>
 		            </Style>
-		            <Style Selector="TabStripItem:nth-child(1)">
-			            <Setter Property="Background" Value="{StaticResource HighlightBlue}"/>
+		            <Style Selector="TabStripItem:nth-child(1) > StackPanel > Rectangle">
+			            <Setter Property="Fill" Value="{StaticResource HighlightBlue}"/>
 		            </Style>
 	            </TabStrip.Styles>
 	            <TabStrip.ItemTemplate>
-		            <DataTemplate DataType="models:TabItemModel">
-							<Label Content="{Binding Header}"/>
+		            <DataTemplate>
+			            <StackPanel>
+				            <Rectangle Name="Indicator" Stretch="Fill" Height="4" />
+				            <Label Content="{ReflectionBinding DisplayName}"/>
+			            </StackPanel>
 		            </DataTemplate>
 	            </TabStrip.ItemTemplate>
             </TabStrip>

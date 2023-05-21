@@ -5,10 +5,10 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:ext="clr-namespace:Scarab.Extensions"
-            xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             d:DesignHeight="300"
             d:DesignWidth="600"
-            d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
+            x:DataType="viewModels:SettingsViewModel"
+            x:CompileBindings="True"
             x:Class="Scarab.Views.SettingsView">
 	<Grid
 		Margin="20 10"
@@ -47,7 +47,7 @@
 			Margin="10 0 5 0"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
-			Items="{Binding AutoRemoveDepsOptions}"
+			ItemsSource="{Binding AutoRemoveDepsOptions}"
 			SelectedItem="{Binding AutoRemoveDepSelection}"/>
 		<ComboBox
 			Grid.Column="1"
@@ -55,7 +55,7 @@
 			Margin="10 0 5 0"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
-			Items="{Binding YesNo}"
+			ItemsSource="{Binding YesNo}"
 			SelectedItem="{Binding WarnBeforeRemovingDependents}"/>
 		
 		<TextBox
@@ -71,7 +71,7 @@
 		<ComboBox
 			Grid.Column="1"
 			Grid.Row="2"
-			Items="{Binding YesNo}"
+			ItemsSource="{Binding YesNo}"
 			SelectedItem="{Binding UseCustomModlinks}"
 			MaxHeight="40"
 			Margin="10 0 5 0"
@@ -88,10 +88,10 @@
 			UseFloatingWatermark="True"
 			Text="{Binding CustomModlinksUri}"
 			AcceptsReturn="False"/>
-		<fluentIcons:SymbolIcon
+		<PathIcon
 			Grid.Column="2"
 			Grid.Row="3"
-			Symbol="Info"
+			Data="{StaticResource info_regular}"
 			FontSize="15"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"

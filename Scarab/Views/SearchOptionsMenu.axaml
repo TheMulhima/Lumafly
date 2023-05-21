@@ -4,7 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ext="clr-namespace:Scarab.Extensions"
-             xmlns:models="clr-namespace:Scarab.Models"
              xmlns:views="clr-namespace:Scarab.Views"
              xmlns:customControls="clr-namespace:Scarab.CustomControls"
              xmlns:viewModels="clr-namespace:Scarab.ViewModels"
@@ -30,7 +29,7 @@
             <StackPanel>
                 <RadioButton 
                     Margin="2 2 2 5"
-                    IsChecked="{Binding $parent[views:ModListView].DataContext.IsNormalSearch}" 
+                    IsChecked="{ReflectionBinding $parent[views:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
                     ToolTip.Tip="Search by the mod name"/>
                 <RadioButton 
@@ -45,19 +44,19 @@
         <customControls:MenuCheckBox
             Margin="2 1"
             Header="{ext:Localize XAML_Exact_Search}"
-            IsSelected="{Binding $parent[views:ModListView].DataContext.IsExactSearch}"/>
+            IsSelected="{ReflectionBinding $parent[views:ModListView].DataContext.IsExactSearch}"/>
         
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             HorizontalAlignment="Stretch"
             Header="{ext:Localize XAML_Select_Tags}">
-            <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.TagList}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[views:ModListView].DataContext.TagList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:MenuCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
-                            OnSelect="{Binding $parent[views:ModListView].DataContext.SelectMods}"
+                            OnSelect="{ReflectionBinding $parent[views:ModListView].DataContext.SelectMods}"
                             Header="{Binding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
@@ -67,13 +66,13 @@
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Select_Authors}">
-            <ItemsRepeater Items="{Binding $parent[views:ModListView].DataContext.AuthorList}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[views:ModListView].DataContext.AuthorList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:MenuCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
-                            OnSelect="{Binding $parent[views:ModListView].DataContext.SelectMods}"
+                            OnSelect="{ReflectionBinding $parent[views:ModListView].DataContext.SelectMods}"
                             Header="{Binding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

@@ -7,6 +7,7 @@ using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
 using Scarab.Extensions;
@@ -18,7 +19,6 @@ namespace Scarab.Views
     [UsedImplicitly]
     public partial class ModListView : View<ModListViewModel>
     {
-        private readonly TextBox _search;
         private readonly List<MenuItem> _flyoutMenus;
         private List<MenuItem> _modFilterItems;
 
@@ -27,10 +27,6 @@ namespace Scarab.Views
         public ModListView()
         {
             InitializeComponent();
-
-            this.FindControl<UserControl>(nameof(UserControl)).KeyDown += OnKeyDown;
-            
-            _search = this.FindControl<TextBox>("Search");
 
             _modFilterItems = this.GetLogicalDescendants().OfType<MenuItem>()
                 .Where(x => x.Name?.StartsWith("ModFilter") ?? false)
@@ -65,7 +61,7 @@ namespace Scarab.Views
                 var popup = flyoutMenu.GetPopup();
 
                 popup.HorizontalOffset = 2;
-                popup.PlacementMode = PlacementMode.Right;
+                popup.Placement = PlacementMode.Right;
                 popup.PlacementAnchor = PopupAnchor.TopRight;
                 popup.PlacementGravity = PopupGravity.TopRight;
                 popup.OverlayDismissEventPassThrough = true;
@@ -75,9 +71,11 @@ namespace Scarab.Views
         
         private void OnKeyDown(object? sender, KeyEventArgs e)
         {
-            if (!_search.IsFocused && ModListViewModel.IsNormalSearch)
+            if (Search == null) return;
+            
+            if (!Search.IsFocused && ModListViewModel.IsNormalSearch)
             {
-                _search.Focus();
+                Search.Focus();
             }
         }
 
@@ -89,10 +87,10 @@ namespace Scarab.Views
         [UsedImplicitly]
         private void PrepareElement(object? sender, ItemsRepeaterElementPreparedEventArgs e)
         {
-            if (e.Element.VisualChildren.Count == 0)
+            if (!e.Element.GetVisualChildren().Any())
                 return;
             
-            var expander = e.Element.VisualChildren.OfType<Expander>().FirstOrDefault();
+            var expander = e.Element.GetVisualChildren().OfType<Expander>().FirstOrDefault();
             if (expander != null) expander.IsExpanded = false;
             
             // CTextBlock is the element that markdown avalonia uses for the text

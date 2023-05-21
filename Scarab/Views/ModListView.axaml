@@ -7,16 +7,17 @@
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:enums="clr-namespace:Scarab.Enums"
-            d:DataContext="{d:DesignInstance Type=viewModels:ModListViewModel}"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.CustomControls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
-            xmlns:fluentIcons="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
             x:Class="Scarab.Views.ModListView"
-            Name="UserControl">
+            x:DataType="viewModels:ModListViewModel"
+            x:CompileBindings="True"
+            Name="UserControl"
+            KeyDown="OnKeyDown">
   <DockPanel>
     <!-- Sidebar -->
     <Menu DockPanel.Dock="Left" HorizontalAlignment="Left">
@@ -155,6 +156,8 @@
     <Separator
         DockPanel.Dock="Left"
         Background="#a9a9a9"
+        Margin="0 0 0 0"
+        Height="1000000000000"
         Width="1" />
 
     <ProgressBar
@@ -203,7 +206,7 @@
           Margin="6 6"
           IsTextSearchEnabled = "True"
           SelectedItem="{Binding DependencySearchItem}"
-          Items="{Binding ModNames}" />
+          ItemsSource="{Binding ModNames}" />
 
       <Button
           Grid.Column="1"
@@ -212,10 +215,9 @@
           BorderThickness="0"
           Command="{Binding ClearSearch}"
           Margin="0 0 0 0">
-          <fluentIcons:SymbolIcon
-                      Symbol="Delete"
-                      IsFilled="True"
-                      FontSize="15"/>
+          <PathIcon
+              Data="{StaticResource delete_regular}"
+              Width="15" Height="15"/>
       </Button>
 
       <customControls:TextButtonFlyout
@@ -236,6 +238,8 @@
         IsVisible="{Binding !IsInWhatsNew}"
         DockPanel.Dock="Top"
         Height="1"
+        Width="100000000000000"
+        Margin="0 0 0 0"
         Background="#a9a9a9" />
 
     <ScrollViewer>
@@ -323,13 +327,13 @@
             Text="{ext:Localize XAML_No_Items}"
             Margin="15"
             Foreground="Gray"/>
-        <ItemsRepeater Items="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
+        <ItemsRepeater ItemsSource="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate DataType="models:ModItem">
-              <Grid Margin="8 6 12 0">
+              <Grid Margin="8 12 12 0">
                 <Grid.ContextMenu>
                   <ContextMenu IsVisible="{Binding CanBePinned}">
-                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{Binding $parent[views:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
+                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{ReflectionBinding $parent[views:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
@@ -363,7 +367,7 @@
                             CommandParameter="{Binding .}"
                             OnContent="{ext:Localize XAML_On}"
                             OffContent="{ext:Localize XAML_Off}"
-                            Command="{Binding $parent[views:ModListView].DataContext.OnEnable}"
+                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnEnable}"
                             IsChecked="{Binding EnabledIsChecked}"
                             IsEnabled = "{Binding Installed}"
                             VerticalContentAlignment="Center"
@@ -380,7 +384,7 @@
                             CommandParameter="{Binding .}"
                             Content="{Binding InstallText}"
                             IsEnabled="{Binding !InstallingButtonAccessible}"
-                            Command="{Binding $parent[views:ModListView].DataContext.OnInstall}"
+                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnInstall}"
                             VerticalAlignment="Top"/>
                       </Panel>
                       <Grid
@@ -394,7 +398,7 @@
                             Margin="0 4 0 0"
                             Background="Transparent"
                             BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                            Command="{Binding $parent[views:ModListView].DataContext.OnUpdate}"
+                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnUpdate}"
                             CommandParameter="{Binding .}"
                                                 >
                           <Image
@@ -414,10 +418,10 @@
                               BorderBrush="Transparent"
                               IsVisible="{Binding Pinned}"
                               ToolTip.Tip="{ext:Localize XAML_Unpin}"
-                              Command="{Binding $parent[views:ModListView].DataContext.PinMod}" 
+                              Command="{ReflectionBinding $parent[views:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}">
-                        <fluentIcons:SymbolIcon
-                             Symbol="Pin"
+                        <PathIcon
+                             Data="{StaticResource pin_regular}"
                              FontSize="20"
                              Margin="1 0 0 0"
                              VerticalAlignment="Center"

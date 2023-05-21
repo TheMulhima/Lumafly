@@ -22,16 +22,17 @@
     </ItemGroup>
     
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.19" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
-        <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.9.9" />
-        <PackageReference Include="FluentIcons.Avalonia" Version="1.1.181.1" />
-        <PackageReference Include="HyperText.Avalonia" Version="1.0.0" />
-        <PackageReference Include="Markdown.Avalonia" Version="0.10.14" />
-        <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview8" />
+        <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.0-preview20230425001" />
+        <PackageReference Include="HyperText.Avalonia" Version="11.0.0-night" />
+        <PackageReference Include="JetBrains.Annotations" Version="2023.2.0-eap3" />
+        <PackageReference Include="Markdown.Avalonia" Version="11.0.0-c1" />
+        <PackageReference Include="MessageBox.Avalonia" Version="2.3.1-prev7.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.4.23259.5" />
         <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
         <PackageReference Include="Mono.Cecil" Version="0.11.5" />
         <PackageReference Include="PropertyChanged.SourceGenerator" Version="1.0.8">
@@ -39,7 +40,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.8" />
-        <PackageReference Include="System.IO.Abstractions" Version="19.2.22" />
+        <PackageReference Include="System.IO.Abstractions" Version="19.2.29" />
     </ItemGroup>
 
     

@@ -61,8 +61,8 @@ namespace Scarab.Util
                         ButtonDefinitions = FailedActionButtons
                     }).Show();
 
-                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
-                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                    if (res == Resources.XAML_AskForHelp) AskForHelp();
+                    if (res == Resources.XAML_ReportError) ReportError();
                     
                 }
                 else
@@ -103,8 +103,8 @@ namespace Scarab.Util
                         ButtonDefinitions = FailedActionButtons
                     }).Show();
 
-                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
-                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                    if (res == Resources.XAML_AskForHelp) AskForHelp();
+                    if (res == Resources.XAML_ReportError) ReportError();
                 }
                 else
                     return Path.Combine(managed, suffix);
@@ -159,8 +159,8 @@ namespace Scarab.Util
                         ButtonDefinitions = FailedActionButtons
                     }).Show();
 
-                    if (res == Resources.XAML_AskForHelp) ErrorPopupViewModel.AskForHelp();
-                    if (res == Resources.XAML_ReportError) ErrorPopupViewModel.ReportError();
+                    if (res == Resources.XAML_AskForHelp) AskForHelp();
+                    if (res == Resources.XAML_ReportError) ReportError();
                     
                 }
                 else
@@ -231,5 +231,9 @@ namespace Scarab.Util
                 && File.Exists(Path.Combine(managed, "Assembly-CSharp.dll"))
                 && File.Exists(Path.Combine(managed, "UnityEngine.dll"));
         }
+        
+        public static void AskForHelp() => Process.Start(new ProcessStartInfo("https://discord.gg/VDsg3HmWuB") { UseShellExecute = true });   
+        public static void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
+
     }
 }

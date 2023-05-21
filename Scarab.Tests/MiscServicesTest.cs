@@ -70,7 +70,7 @@ public class MiscServicesTest
     public void ValidReflections()
     {
         // it will throw if it fails
-        var getMemberException = Record.Exception(AvaloniaReflections.DoReflections);
+        var getMemberException = Record.Exception(AvaloniaUtils.DoReflections);
 
         Assert.Null(getMemberException);
     }
