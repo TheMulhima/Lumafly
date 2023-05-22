@@ -13,17 +13,20 @@
         Thank you for using Scarab+ !!
       </h1>
       <p class="center, centertext" id="download-message">
-        To download Scarab+, please download it from the <a href="https://github.com/TheMulhima/Scarab/releases/latest">releases page</a>
+        To download Scarab+, please download it from the <a href="https://themulhima.github.io/Scarab?download">download page</a> 
       </p>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+      <script src=" https://cdn.jsdelivr.net/npm/ua-parser-js/src/ua-parser.min.js"></script>
       <script type="text/javascript">
 
         var req = new Request("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md");
         fetch(req)
         .then(response => response.text())
         .then(data => {
-          let releaseNotes = data.slice(184); //remove header, and badges
+
+          let screenShotRegex = /## Screenshot:.*/g
+          let imageRegex = /!\[.*\]\(.*\)/g
+          let releaseNotes = data.replace(screenShotRegex, "").replace(imageRegex, "");
 
           let releaseNotesHeader = document.createElement("h2");
           releaseNotesHeader.innerHTML = "Readme: ";
@@ -50,18 +53,16 @@
           }
 
 
-          let userAgent = window.navigator.userAgent,
-          platform = window.navigator?.userAgentData?.platform || window.navigator.platform;
-          macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K', 'AppleWebKit'];
-          windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
-          iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+          var uap = new UAParser();
+          platform = uap.getResult().os.name;
+          macOS = ['Mac OS'];
+          windowsOS = ['Windows'];
+          linuxOS = ['Linux'];
           let link = null;
 
-          if (macosPlatforms.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
-          else if (iosPlatforms.indexOf(platform) !== -1)       link = null
-          else if (windowsPlatforms.indexOf(platform) !== -1)   link = linkBase + "Scarab-Windows.zip";
-          else if (/Android/.test(userAgent))                   link = null
-          else if (/Linux/.test(platform))                      link = linkBase + "Scarab-Linux.zip"
+          if (macOS.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
+          else if (windowsOS.indexOf(platform) !== -1) link = linkBase + "Scarab-Windows.zip";
+          else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + "Scarab-Linux.zip"
 
           if (link !== null) {
             openLink(link);
