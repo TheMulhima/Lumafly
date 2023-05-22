@@ -54,6 +54,7 @@ namespace Scarab.Services
         private readonly IModSource _installed;
         private readonly IModDatabase _db;
         private readonly IFileSystem _fs;
+        private readonly ICheckValidityOfAssembly _checkValidityOfAssembly;
         
         // If we're going to have one be internal, might as well be consistent
         // ReSharper disable MemberCanBePrivate.Global 
@@ -65,13 +66,20 @@ namespace Scarab.Services
         private readonly SemaphoreSlim _semaphore = new (1);
         private readonly HttpClient _hc;
 
-        public Installer(ISettings config, IModSource installed, IModDatabase db, IFileSystem fs, HttpClient hc)
+        public Installer(
+            ISettings config, 
+            IModSource installed, 
+            IModDatabase db,
+            IFileSystem fs,
+            HttpClient hc,
+            ICheckValidityOfAssembly checkValidityOfAssembly)
         {
             _config = config;
             _installed = installed;
             _db = db;
             _fs = fs;
             _hc = hc;
+            _checkValidityOfAssembly = checkValidityOfAssembly;
 
             CheckAPI().Wait();
         }
@@ -528,14 +536,14 @@ namespace Scarab.Services
         public async Task<bool> CheckAPI()
         {
             _installed.HasVanilla =
-                CheckValidityOfAssemblies.CheckVanillaFileValidity(_fs, _config.ManagedFolder, Vanilla);
+                _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla);
             
-            int? current_version = CheckValidityOfAssemblies.GetAPIVersion(_config.ManagedFolder, Current);
+            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current);
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
-                current_version = CheckValidityOfAssemblies.GetAPIVersion(_config.ManagedFolder, Modded);
+                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded);
             }
             
             if (current_version == null)

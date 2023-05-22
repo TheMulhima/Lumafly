@@ -212,6 +212,7 @@ namespace Scarab.ViewModels
               .AddSingleton(hc)
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
+              .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
               .AddSingleton<IModDatabase, ModDatabase>(sp 

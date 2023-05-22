@@ -3,6 +3,7 @@ using System.IO;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Scarab.CustomControls;
+using System.IO.Abstractions;
 using Scarab.Enums;
 using Scarab.Extensions;
 using Scarab.Models;
@@ -24,7 +25,8 @@ public class MiscServicesTest
     [Fact]
     public void GetAPIVersion()
     {
-        var version = CheckValidityOfAssemblies.GetAPIVersion(Directory.GetCurrentDirectory(), "MockMAPI.dll");
+        var _checkValidityOfAssembly = new CheckValidityOfAssembly(new FileSystem(), new Settings(Directory.GetCurrentDirectory()));
+        var version = _checkValidityOfAssembly.GetAPIVersion("MockMAPI.dll");
         Assert.NotNull(version);
         Assert.Equal(74, version);
     }

@@ -1,20 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.IO.Abstractions;
 using Mono.Cecil;
+using Scarab.Interfaces;
 
 namespace Scarab.Util;
 
-public static class CheckValidityOfAssemblies
+public class CheckValidityOfAssembly : ICheckValidityOfAssembly
 {
-    public static int? GetAPIVersion(string managedFolder, string asmName)
+    private readonly IFileSystem _fs;
+    private readonly ISettings _settings;
+    
+    public CheckValidityOfAssembly(IFileSystem fs, ISettings settings)
+    {
+        _fs = fs;
+        _settings = settings;
+    }
+    
+    public int? GetAPIVersion(string asmName)
     {
         try
         {
-            string asm = Path.Combine(managedFolder, asmName);
+            string asm = Path.Combine(_settings.ManagedFolder, asmName);
             if (!File.Exists(asm)) 
                 return null;
 
@@ -37,10 +46,10 @@ public static class CheckValidityOfAssemblies
         }
     }
 
-    public static bool CheckVanillaFileValidity(IFileSystem _fs, string managedFolder, string vanillaAssembly)
+    public bool CheckVanillaFileValidity(string vanillaAssembly)
     {
         // check if the file is there and the file doesnt have monomod
-        return _fs.File.Exists(Path.Combine(managedFolder, vanillaAssembly)) && 
-               GetAPIVersion(managedFolder, vanillaAssembly) == null;
+        return _fs.File.Exists(Path.Combine(_settings.ManagedFolder, vanillaAssembly)) && 
+               GetAPIVersion(vanillaAssembly) == null;
     }
 }
