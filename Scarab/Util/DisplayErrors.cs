@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
-using MessageBox.Avalonia.Models;
-using Scarab.CustomControls;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.ViewModels;
-using Scarab.Views;
+using Scarab.Views.Windows;
 
 namespace Scarab.Util;
 

@@ -4,7 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using JetBrains.Annotations;
 using Scarab.ViewModels;
-using Scarab.Views;
+using Scarab.Views.Windows;
 
 namespace Scarab
 {

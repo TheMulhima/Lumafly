@@ -1,6 +1,7 @@
 using Scarab.Services;
 using Scarab.Util;
 using Scarab.ViewModels;
+using Scarab.Enums;
 
 namespace Scarab.Mock;
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using Avalonia.Controls;
-using Scarab.CustomControls;
+using Avalonia.Controls.Primitives;
+using System.IO.Abstractions;
+using Scarab.Enums;
+using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
-using Scarab.Views;
-using SkiaSharp;
 using Xunit;
 
 namespace Scarab.Tests;
@@ -21,7 +22,8 @@ public class MiscServicesTest
     [Fact]
     public void GetAPIVersion()
     {
-        var version = Util.CheckValidityOfAssemblies.GetAPIVersion(Directory.GetCurrentDirectory(), "MockMAPI.dll");
+        var _checkValidityOfAssembly = new CheckValidityOfAssembly(new FileSystem(), new Settings(Directory.GetCurrentDirectory()));
+        var version = _checkValidityOfAssembly.GetAPIVersion("MockMAPI.dll");
         Assert.NotNull(version);
         Assert.Equal(74, version);
     }
@@ -66,9 +68,10 @@ public class MiscServicesTest
     [Fact]
     public void ValidReflections()
     {
-        // if they are null they dont exist
-        Assert.NotNull(TextButtonFlyout.FlyoutBasePopup);
-        Assert.NotNull(ModListView.MenuItemPopup);
+        // it will throw if it fails
+        var getMemberException = Record.Exception(AvaloniaUtils.DoReflections);
+
+        Assert.Null(getMemberException);
     }
     
     /// <summary>

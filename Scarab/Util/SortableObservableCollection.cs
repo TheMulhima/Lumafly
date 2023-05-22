@@ -10,7 +10,7 @@ namespace Scarab.Util
         internal static readonly NotifyCollectionChangedEventArgs ResetCollectionChanged = new (NotifyCollectionChangedAction.Reset);
     }
 
-    internal class SortableObservableCollection<T> : ObservableCollection<T>
+    public class SortableObservableCollection<T> : ObservableCollection<T>
     {
         public SortableObservableCollection(IEnumerable<T> iter) : base(iter) {}
         

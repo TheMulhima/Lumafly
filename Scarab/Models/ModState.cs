@@ -44,7 +44,7 @@ namespace Scarab.Models
         public bool Installed { get; init; }
         public bool ModlinksMod { get; init; }
 
-        public NotInModLinksState(bool Enabled = true, bool ModlinksMod = true, bool Installed = true, bool Pinned = false)
+        public NotInModLinksState(bool ModlinksMod, bool Enabled = true, bool Installed = true, bool Pinned = false)
         {
             this.Enabled = Enabled;
             this.Installed = Installed;

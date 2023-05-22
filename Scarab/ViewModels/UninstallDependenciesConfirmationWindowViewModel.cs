@@ -20,11 +20,11 @@ namespace Scarab.ViewModels
         public string OptionsList { get; }
         public bool ExternalModsInstalled { get; }
 
-        public void ToggleAll(bool value)
+        public void ToggleAll(object value)
         {
             foreach (var option in Options)
             {
-                option.IsSelected = value;
+                option.IsSelected = (bool) value;
             }
         }
     }

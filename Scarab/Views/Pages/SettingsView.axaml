@@ -1,0 +1,132 @@
+<views:View x:TypeArguments="viewModels:SettingsViewModel"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:views="clr-namespace:Scarab.Views"
+            xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+            xmlns:ext="clr-namespace:Scarab.Extensions"
+            d:DesignHeight="300"
+            d:DesignWidth="600"
+            x:DataType="viewModels:SettingsViewModel"
+            x:CompileBindings="True"
+            x:Class="Scarab.Views.Pages.SettingsView">
+	<Grid
+		Margin="20 10"
+		ColumnDefinitions="Auto * Auto"
+		RowDefinitions="Auto Auto Auto Auto Auto *">
+		
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="0"
+			Margin="0 15"
+			Text="{ext:Localize XAML_AutoRemoveDeps}"
+			VerticalAlignment="Center"/>
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="1"
+			Margin="0 15"
+			Text="{ext:Localize XAML_WarnBeforeRemovingDependentMods}"
+			VerticalAlignment="Center"/>
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="4"
+			Margin="0 15"
+			VerticalAlignment="Center"
+			Text="{ext:Localize XAML_GamePath}"/>
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="2"
+			Margin="0 15"
+			Text="{ext:Localize XAML_UseCustomModlinks}"
+			VerticalAlignment="Center"/>
+		
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="0"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			ItemsSource="{Binding AutoRemoveDepsOptions}"
+			SelectedItem="{Binding AutoRemoveDepSelection}"/>
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="1"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			ItemsSource="{Binding YesNo}"
+			SelectedItem="{Binding WarnBeforeRemovingDependents}"/>
+		
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="4"
+			Text="{Binding CurrentPath}"
+			AcceptsReturn="False"
+			IsReadOnly="True"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Center"/>
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="2"
+			ItemsSource="{Binding YesNo}"
+			SelectedItem="{Binding UseCustomModlinks}"
+			MaxHeight="40"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"/>
+		<TextBox
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			Grid.Row="3"
+			Margin="0 0 5 15"
+			IsVisible="{Binding UsingCustomModlinks}"
+			HorizontalAlignment="Stretch"
+			Watermark="{ext:Localize XAML_CustomModlinksWatermark}"
+			UseFloatingWatermark="True"
+			Text="{Binding CustomModlinksUri}"
+			AcceptsReturn="False"/>
+		<PathIcon
+			Grid.Column="2"
+			Grid.Row="3"
+			Data="{StaticResource info_regular}"
+			FontSize="15"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Margin="5 0 5 10"
+			IsVisible="{Binding UsingCustomModlinks}"
+			ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}"/>
+		<Button
+			Grid.Column="2"
+			Grid.Row="4"
+			Padding="20 5"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			HorizontalContentAlignment="Center"
+			Margin="5 0"
+			Command="{Binding ChangePath}"
+			Content="{ext:Localize XAML_ChangPath}"/>
+		
+		<Button
+			Grid.Column="2"
+			Grid.Row="5"
+			Padding="20 5"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			HorizontalContentAlignment="Center"
+			Command="{Binding ReloadApp}"
+			Content="{ext:Localize XAML_ReloadScarab}"/>
+		<TextBlock
+				Grid.Column="1"
+				Grid.Row="5"
+				IsVisible="{Binding AskForReload}"
+				FontSize="10"
+				VerticalAlignment="Bottom"
+				HorizontalAlignment="Right"
+				Foreground="Orange"
+				Margin="0 0 0 8"
+				Text="{ext:Localize XAML_ReloadPrompt}"/>
+	</Grid>
+</views:View>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Scarab.Enums;
 
 namespace Scarab.Models;
 

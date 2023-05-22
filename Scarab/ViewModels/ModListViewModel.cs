@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -11,13 +9,14 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
-using Microsoft.VisualBasic;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
@@ -41,46 +40,46 @@ namespace Scarab.ViewModels
         private readonly ScarabMode _scarabMode;
         
         [Notify("ProgressBarVisible")]
-        private bool _pbVisible;
+        public bool _pbVisible;
 
         [Notify("ProgressBarIndeterminate")]
-        private bool _pbIndeterminate;
+        public bool _pbIndeterminate;
 
         [Notify("Progress")]
-        private double _pbProgress;
+        public double _pbProgress;
 
         [Notify]
-        private IEnumerable<ModItem> _selectedItems;
+        public IEnumerable<ModItem> _selectedItems;
 
         [Notify]
-        private string? _search;
+        public string? _search;
         
-        private bool _updating;
+        public bool _updating;
 
         [Notify]
-        private bool _isExactSearch;
+        public bool _isExactSearch;
 
         [Notify]
-        private bool _isNormalSearch = true;
+        public bool _isNormalSearch = true;
         
         [Notify]
-        private string _dependencySearchItem;
+        public string _dependencySearchItem;
 
         [Notify]
-        private bool _new7Days = true, _updated7Days = true;
+        public bool _new7Days = true, _updated7Days = true;
         [Notify]
-        private bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
+        public bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
         [Notify]
-        private ModFilterState _modFilterState = ModFilterState.All;
+        public ModFilterState _modFilterState = ModFilterState.All;
         public IEnumerable<string> ModNames { get; }
-        private SortableObservableCollection<SelectableItem<string>> TagList { get; }
-        private SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
+        public SortableObservableCollection<SelectableItem<string>> TagList { get; }
+        public SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
 
-        private static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
+        public static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
         {
             {"Boss", Resources.ModLinks_Tags_Boss},
             {"Gameplay", Resources.ModLinks_Tags_Gameplay},
@@ -181,9 +180,9 @@ namespace Scarab.ViewModels
                 await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadAndForceUpdateAllUrlScheme()));
         }
 
-        private async Task HandleDownloadAndForceUpdateAllUrlScheme()
+        public async Task HandleDownloadAndForceUpdateAllUrlScheme()
         {
-            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.download)
+            if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.download })
             {
                 var modNames = _urlSchemeHandler.Data.Split('/');
                 List<string> successfulDownloads = new List<string>();
@@ -257,7 +256,7 @@ namespace Scarab.ViewModels
                     });
             }
 
-            if (!_urlSchemeHandler.Handled && _urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.forceUpdateAll)
+            if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.forceUpdateAll })
             {
                 await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
                 {
@@ -282,46 +281,29 @@ namespace Scarab.ViewModels
             }
                 
         }
-
-        [UsedImplicitly]
         public void ClearSearch()
         {
             Search = "";
             DependencySearchItem = "";
         }
         
-        [UsedImplicitly]
-        private bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
+        public bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
         
-        [UsedImplicitly]
-        private bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
+        public bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
         
-        [UsedImplicitly]
-        private string WhatsNewLoadingText => _modlinksChanges.IsReady is null
+        public string WhatsNewLoadingText => _modlinksChanges.IsReady is null
             ? Resources.MVVM_LoadingWhatsNew 
             : (!_modlinksChanges.IsReady.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
 
-        [UsedImplicitly] 
-        private bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;
-        
-        [UsedImplicitly] 
-        private bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsReady is null || !_modlinksChanges.IsReady.Value);
-
-        [UsedImplicitly] 
-        private bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
-
-        [UsedImplicitly]
-        private bool IsInOnlineMode => _scarabMode == ScarabMode.Online;
-
-        private bool ShouldShowWhatsNew => IsInOnlineMode &&
-                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
-                                           !_settings.UseCustomModlinks;
-        
-        [UsedImplicitly] 
-        private bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
-
-        [UsedImplicitly]
-        private IEnumerable<ModItem> FilteredItems
+        public bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;
+        public bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsReady is null || !_modlinksChanges.IsReady.Value);
+        public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
+        public bool IsInOnlineMode => _scarabMode == ScarabMode.Online;
+        public bool ShouldShowWhatsNew => IsInOnlineMode &&
+                                          _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
+                                          !_settings.UseCustomModlinks;
+        public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
+        public IEnumerable<ModItem> FilteredItems
         {
             get
             {
@@ -371,13 +353,12 @@ namespace Scarab.ViewModels
             : Resources.MLVM_ApiButtonText_ToggleAPI;
 
         public bool ApiOutOfDate => _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version;
-
         public bool CanUpdateAll => _items.Any(x => x.State is InstalledState { Updated: false }) && !_updating;
         public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
         public bool CanDisableAll => _items.Any(x => x.State is ExistsModState { Enabled: true });
         public bool CanEnableAll => _items.Any(x => x.State is ExistsModState {Enabled: false});
         
-        private async Task ToggleApiCommand()
+        public async Task ToggleApiCommand()
         {
             async Task<bool> DoActionWithWithErrorHandling(Func<Task> Action)
             {
@@ -466,7 +447,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        public static void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
+        public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
         [UsedImplicitly]
         public void SelectModsWithFilter(ModFilterState modFilterState)
@@ -475,7 +456,7 @@ namespace Scarab.ViewModels
             SelectMods();
         }
         
-        private void SelectMods()
+        public void SelectMods()
         {
             SelectedItems = _modFilterState switch
             {
@@ -533,8 +514,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        [UsedImplicitly]
-        private async Task UninstallAll()
+        public async Task UninstallAll()
         {
             await DisplayErrors.DoActionAfterConfirmation(true,
                 () => DisplayErrors.DisplayAreYouSureWarning("Are you sure you want to uninstall all mods?"),
@@ -590,9 +570,9 @@ namespace Scarab.ViewModels
             await UpdateUnupdated();
         }
 
-        [UsedImplicitly]
-        private async Task OnEnable(ModItem item)
+        public async Task OnEnable(object itemObj)
         {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to enable an object which isn't a mod");
             try
             {
                 // fix issues with dependencies:
@@ -655,7 +635,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        private async Task UpdateApiAsync()
+        public async Task UpdateApiAsync()
         {
             try
             {
@@ -674,7 +654,7 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(ApiButtonText));
         }
 
-        private async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
+        public async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
         {
             static bool IsHollowKnight(Process p) => (
                    p.ProcessName.StartsWith("hollow_knight")
@@ -744,8 +724,7 @@ namespace Scarab.ViewModels
             FixupModList();
         }
 
-        //TODO: dont use normal sorting
-        private void FixupModList(ModItem? itemToAdd = null)
+        public void FixupModList(ModItem? itemToAdd = null)
         {
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
             foreach (var _item in removeList)
@@ -773,18 +752,21 @@ namespace Scarab.ViewModels
             Sort();
         }
 
-        private void Sort()
+        public void Sort()
         {
             static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
             _items.SortBy(Comparer);
         }
 
-        [UsedImplicitly]
-        private async Task OnUpdate(ModItem item) => await InternalModDownload(item, item.OnUpdate);
-
-        [UsedImplicitly]
-        private async Task OnInstall(ModItem item)
+        public async Task OnUpdate(object itemObj)
         {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to update an object which isn't a mod");
+            await InternalModDownload(item, item.OnUpdate);
+        }
+
+        public async Task OnInstall(object itemObj)
+        {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
             var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
             
             await DisplayErrors.DoActionAfterConfirmation(
@@ -804,7 +786,6 @@ namespace Scarab.ViewModels
                 });
         }
 
-        [UsedImplicitly]
         private async Task ManuallyInstallModAsync()
         {
             Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
@@ -814,12 +795,11 @@ namespace Scarab.ViewModels
             {
                 Title = Resources.MLVM_Select_Mod,
                 Filters = new List<FileDialogFilter> { new () { Extensions = new List<string>() {"dll", "zip"} } }
+                
             };
-
             string[]? paths = await dialog.ShowAsync(parent);
             if (paths is null || paths.Length == 0)
                 return;
-
             foreach (var path in paths)
             {
                 try
@@ -833,7 +813,6 @@ namespace Scarab.ViewModels
                     true,
                     Path.GetFileName(path),
                     await File.ReadAllBytesAsync(path));
-
                     FixupModList(mod);
                     
                 }
@@ -844,7 +823,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        private async Task RemoveUnusedDependencies(ModItem item)
+        public async Task RemoveUnusedDependencies(ModItem item)
         {
             var dependencies = item.Dependencies
                             .Select(x => _items.First(i => i.Name == x))
@@ -870,7 +849,7 @@ namespace Scarab.ViewModels
             }
         }
 
-        private async Task<bool> ShouldUnsintall(List<SelectableItem<ModItem>> options, bool hasExternalMods)
+        public async Task<bool> ShouldUnsintall(List<SelectableItem<ModItem>> options, bool hasExternalMods)
         {
             return _settings.AutoRemoveUnusedDeps switch
             {
@@ -881,20 +860,20 @@ namespace Scarab.ViewModels
             };
         }
 
-        [UsedImplicitly]
-        private async Task PinMod(ModItem mod)
+        public async Task PinMod(object itemObj)
         {
-            await _installer.Pin(mod);
+            var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
+            await _installer.Pin(item);
             Sort();
             SelectMods();
         }
 
-        private bool HasPinnedDependents(ModItem mod)
+        public bool HasPinnedDependents(ModItem mod)
         {
             return _reverseDependencySearch.GetAllEnabledDependents(mod).Any(x => x.State is InstalledState { Pinned: true });
         }
 
-        private void ResetPinned(ModItem mod)
+        public void ResetPinned(ModItem mod)
         {
             if (mod.State is InstalledState { Pinned: true } state)
             {
@@ -904,14 +883,14 @@ namespace Scarab.ViewModels
             }
         }
 
-        private static (int pinned, int priority, string name) ModToOrderedTuple(ModItem m) =>
+        public static (int pinned, int priority, string name) ModToOrderedTuple(ModItem m) =>
         (
             m.State is ExistsModState { Pinned: true } ? -1 : 1,
             m.State is InstalledState { Updated : false } ? -1 : 1,
             m.Name
         );
         
-        private static int AlphabeticalSelectableItem(SelectableItem<string> item1, SelectableItem<string> item2) => 
+        public static int AlphabeticalSelectableItem(SelectableItem<string> item1, SelectableItem<string> item2) => 
             string.Compare(item1.Item, item2.Item, StringComparison.Ordinal);
     }
 }

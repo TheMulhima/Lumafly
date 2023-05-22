@@ -10,47 +10,29 @@
         <UseAppHost>true</UseAppHost>
     </PropertyGroup>
     
+    <!-- Avalonia Files -->
     <ItemGroup>
-        <Compile Update="**\*.xaml.cs">
+        <Compile Update="**\**\*.xaml.cs">
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
-        <AvaloniaResource Include="**\*.xaml">
+        <AvaloniaResource Include="**\**\*.xaml">
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />
-        <Compile Update="Views\UninstallDependenciesConfirmationWindow.axaml.cs">
-          <DependentUpon>UninstallDependenciesConfirmationWindow.axaml</DependentUpon>
-        </Compile>
-        <Compile Update="Views\ErrorPopup.axaml.cs">
-          <DependentUpon>ErrorPopup.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
     </ItemGroup>
     
     <ItemGroup>
-        <AvaloniaResource Remove="Views\SelectPathView.xaml" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <AvaloniaXaml Remove="Views\ModListView.axaml" />
-    </ItemGroup> 
-    <ItemGroup>
-        <EmbeddedResource Include="Views\ModListView.axaml">
-            <Generator>MSBuild:Compile</Generator>
-        </EmbeddedResource>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.19" />
-        <PackageReference Include="Avalonia.Diagnostics" Version="0.10.19" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.19" />
-        <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.9.9" />
-        <PackageReference Include="FluentIcons.Avalonia" Version="1.1.181.1" />
-        <PackageReference Include="HyperText.Avalonia" Version="1.0.0" />
-        <PackageReference Include="Markdown.Avalonia" Version="0.10.14" />
-        <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview8" />
+        <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.0-preview20230425001" />
+        <PackageReference Include="HyperText.Avalonia" Version="11.0.0-night" />
+        <PackageReference Include="JetBrains.Annotations" Version="2023.2.0-eap3" />
+        <PackageReference Include="Markdown.Avalonia" Version="11.0.0-c1" />
+        <PackageReference Include="MessageBox.Avalonia" Version="2.3.1-prev7.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.4.23259.5" />
         <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
         <PackageReference Include="Mono.Cecil" Version="0.11.5" />
         <PackageReference Include="PropertyChanged.SourceGenerator" Version="1.0.8">
@@ -58,33 +40,24 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.8" />
-        <PackageReference Include="System.IO.Abstractions" Version="19.2.22" />
+        <PackageReference Include="System.IO.Abstractions" Version="19.2.29" />
     </ItemGroup>
+
     
+    <!-- Localizations -->
     <ItemGroup>
+        <!-- ManifestResourceName is required when you want to move resx file to another folder -->
+        <EmbeddedResource Update="Localizations\*.resx">
+            <ManifestResourceName>$(TargetName).%(Filename)</ManifestResourceName>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
         <Compile Update="resources.Designer.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>Resources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
-        <Compile Update="Views\ModListView.xaml.cs">
-            <DependentUpon>ModListView.axaml</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <EmbeddedResource Update="Resources.pt-BR.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.zh.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.fr.resx">
-        <Generator></Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
     </ItemGroup>
 </Project>

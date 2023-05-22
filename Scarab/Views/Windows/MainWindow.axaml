@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="750" Height="500"
+        x:Class="Scarab.Views.Windows.MainWindow"
+        Icon="/Assets/ConstructionKnight.ico"
+        Title="Scarab+"
+		xmlns:vm="using:Scarab.ViewModels"
+		xmlns:models="using:Scarab.Models"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        x:DataType="vm:MainWindowViewModel"
+        TransparencyLevelHint="Transparent"
+        Background="#282828">
+    <Border 
+		CornerRadius="{CompiledBinding CornerRadius}" 
+		BorderBrush="{CompiledBinding BorderBrush}" 
+		BorderThickness="{CompiledBinding BorderThickness}">
+
+        <Grid 
+			ColumnDefinitions="Auto Auto Auto * Auto"
+			RowDefinitions="Auto 1 Auto *">
+
+            <Rectangle
+				Grid.Row="0" Grid.RowSpan="3"
+				Grid.Column="0" Grid.ColumnSpan="5"
+				Fill="#282828" 
+				IsHitTestVisible="False" />
+
+            <Rectangle
+				Name="MacSpacer"
+				IsVisible="False"
+				Grid.Row="0" Grid.Column="0"
+				Width="70" Height="1"
+				Fill="Transparent"
+				IsHitTestVisible="False"
+				/>
+            <Rectangle
+				Name="NonMacSpacer"
+				IsVisible="True"
+				Grid.Row="0" Grid.Column="4"
+				Width="125" Height="1"
+				Fill="Transparent"
+				IsHitTestVisible="False"
+				/>
+
+            <Image
+				Grid.Column="1" Grid.Row="0"
+				Width="30" Height="30"
+				Source="/Assets/ConstructionKnight.ico"
+				VerticalAlignment="Center" 
+				HorizontalAlignment="Left"
+				Margin="5,0,0,5"/>
+			
+			<TextBlock
+				Name="Title"
+				Grid.Column="2" Grid.Row="0"
+				Height="30" 
+				FontSize="23"
+				MaxWidth="200"
+				Text="{CompiledBinding AppName}" 
+				VerticalAlignment="Center"
+				Margin="5,0,0,5" />
+            
+            <TabStrip Grid.Row="0" Grid.Column="3"
+                      HorizontalAlignment="Center"
+                      SelectedIndex="{Binding SelectedTabIndex}"
+                      SelectionChanged="OnTabSelected"
+                      ItemsSource="{CompiledBinding Tabs}">
+	            <TabStrip.Styles>
+		            <Style Selector="TabStripItem">
+			            <Setter Property="Margin" Value="1"/>
+			            <Setter Property="Padding" Value="6"/>
+			            <Setter Property="VerticalContentAlignment" Value="Center"/>
+		            </Style>
+		            <Style Selector="TabStripItem:nth-child(1) > StackPanel > Rectangle">
+			            <Setter Property="Fill" Value="{StaticResource HighlightBlue}"/>
+		            </Style>
+	            </TabStrip.Styles>
+	            <TabStrip.ItemTemplate>
+		            <DataTemplate>
+			            <StackPanel>
+				            <Rectangle Name="Indicator" Stretch="Fill" Height="4" />
+				            <Label Content="{ReflectionBinding DisplayName}"/>
+			            </StackPanel>
+		            </DataTemplate>
+	            </TabStrip.ItemTemplate>
+            </TabStrip>
+
+            <Rectangle
+				Grid.Column="0" Grid.ColumnSpan="5"
+				Grid.Row="1" 
+				Fill="#a9a9a9"/>
+
+            <UserControl
+	            Grid.Column="0" Grid.ColumnSpan="5"
+	            Grid.Row="3"
+	            Content="{Binding Content}">
+            </UserControl>
+        </Grid>
+    </Border>
+</Window>

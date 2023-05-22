@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;

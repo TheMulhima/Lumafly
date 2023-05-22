@@ -5,25 +5,13 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Scarab.Enums;
+using Scarab.Models;
 
 namespace Scarab.Util;
 
 public static class WorkaroundHttpClient
 {
-    public class ResultInfo<T>
-    {
-        public T          Result           { get; }
-        public HttpClient Client           { get; }
-        public bool       NeededWorkaround { get; }
-
-        public ResultInfo(T result, HttpClient client, bool neededWorkaround)
-        {
-            Result = result;
-            Client = client;
-            NeededWorkaround = neededWorkaround;
-        }
-    }
-
     /// <summary>
     /// Re-try an action with the IPv4 workaround client
     /// </summary>

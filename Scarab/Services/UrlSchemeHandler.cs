@@ -9,6 +9,7 @@ using Microsoft.Win32;
 using MessageBox.Avalonia.DTO;
 using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
+using Scarab.Enums;
 using Scarab.Interfaces;
 
 namespace Scarab.Util;

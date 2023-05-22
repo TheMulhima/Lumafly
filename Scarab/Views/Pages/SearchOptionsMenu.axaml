@@ -1,0 +1,83 @@
+﻿<views:View x:TypeArguments="viewModels:ModListViewModel"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:Scarab.Extensions"
+             xmlns:views="clr-namespace:Scarab.Views"
+             xmlns:pages="clr-namespace:Scarab.Views.Pages"
+             xmlns:customControls="clr-namespace:Scarab.Views.Controls"
+             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="150"
+             x:Class="Scarab.Views.Pages.SearchOptionsMenu">
+    <StackPanel
+        Margin="1">
+        <StackPanel.Styles>
+            <Style Selector="customControls|TextButtonFlyout">
+                <Setter Property="FlyoutShowMode" Value="TransientWithDismissOnPointerMoveAway"/>
+                <Setter Property="FlyoutPlacement" Value="RightEdgeAlignedTop"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Padding" Value="0 6"/>
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="OnHoverColor" Value="{DynamicResource HighlightBlue}"/>
+            </Style>
+        </StackPanel.Styles>
+        
+        <customControls:TextButtonFlyout
+            HorizontalOffset="12"
+            Header="{ext:Localize XAML_Search_Type}">
+            <StackPanel>
+                <RadioButton 
+                    Margin="2 2 2 5"
+                    IsChecked="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}" 
+                    GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
+                    ToolTip.Tip="Search by the mod name"/>
+                <RadioButton 
+                    Margin="2 5 2 2"
+                    IsChecked="{Binding !$parent[pages:ModListView].DataContext.IsNormalSearch}" 
+                    GroupName="SearchMode" 
+                    Content="{ext:Localize XAML_Search_Dependents}" 
+                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
+            </StackPanel>
+        </customControls:TextButtonFlyout>
+        
+        <customControls:MenuCheckBox
+            Margin="2 1"
+            Header="{ext:Localize XAML_Exact_Search}"
+            IsSelected="{ReflectionBinding $parent[pages:ModListView].DataContext.IsExactSearch}"/>
+        
+        <customControls:TextButtonFlyout
+            HorizontalOffset="12"
+            HorizontalAlignment="Stretch"
+            Header="{ext:Localize XAML_Select_Tags}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <customControls:MenuCheckBox
+                            Margin="2 1"
+                            IsSelected="{Binding IsSelected}" 
+                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
+                            Header="{Binding DisplayName}"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </customControls:TextButtonFlyout>
+        
+        <customControls:TextButtonFlyout
+            HorizontalOffset="12"
+            Header="{ext:Localize XAML_Select_Authors}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.AuthorList}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <customControls:MenuCheckBox
+                            Margin="2 1"
+                            IsSelected="{Binding IsSelected}" 
+                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
+                            Header="{Binding DisplayName}"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </customControls:TextButtonFlyout>
+    </StackPanel>
+</views:View>

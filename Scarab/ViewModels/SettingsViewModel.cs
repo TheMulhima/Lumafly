@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Util;
 
@@ -33,7 +34,7 @@ namespace Scarab.ViewModels
                 SaveCustomModlinksUri;
         }
 
-        private void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
+        public void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
             _settings.Save();
@@ -49,9 +50,9 @@ namespace Scarab.ViewModels
             }
         }
 
-        private ObservableCollection<string> AutoRemoveDepsOptions => new (Enum.GetNames<AutoRemoveUnusedDepsOptions>());
+        public ObservableCollection<string> AutoRemoveDepsOptions => new (Enum.GetNames<AutoRemoveUnusedDepsOptions>());
 
-        private string AutoRemoveDepSelection
+        public string AutoRemoveDepSelection
         {
             get => _settings.AutoRemoveUnusedDeps.ToString();
             set
@@ -61,8 +62,8 @@ namespace Scarab.ViewModels
             }
         }
 
-        private bool UsingCustomModlinks => UseCustomModlinks == "Yes";
-        private string UseCustomModlinks
+        public bool UsingCustomModlinks => UseCustomModlinks == "Yes";
+        public string UseCustomModlinks
         {
             get => _settings.UseCustomModlinks ? "Yes" : "No";
             set
@@ -75,11 +76,11 @@ namespace Scarab.ViewModels
             }
         }
         
-        private string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
+        public string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
 
         private string _customModlinksUri;
 
-        private string CustomModlinksUri
+        public string CustomModlinksUri
         {
             get => _customModlinksUri;
             set
@@ -89,20 +90,20 @@ namespace Scarab.ViewModels
             }
         }
 
-        private bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
+        public bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
                                      useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
                                      pathOriginalValue != _settings.ManagedFolder;
 
         public string[] YesNo => new[] { "Yes", "No" };
 
-        private void ReloadApp()
+        public void ReloadApp()
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
             _settings.Save();
             MainWindowViewModel.Instance?.LoadApp();
         }
 
-        private async Task ChangePathAsync()
+        public async Task ChangePathAsync()
         {
             string? path = await PathUtil.SelectPathFallible();
 

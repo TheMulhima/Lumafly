@@ -13,6 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
+using Scarab.Enums;
 using Scarab.Services;
 
 namespace Scarab
