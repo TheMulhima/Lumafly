@@ -1,7 +1,7 @@
 using Avalonia.Markup.Xaml;
 using Scarab.ViewModels;
 
-namespace Scarab.Views
+namespace Scarab.Views.Pages
 {
     public partial class SettingsView : View<SettingsViewModel>
     {

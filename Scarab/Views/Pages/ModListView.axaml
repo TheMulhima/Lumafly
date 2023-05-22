@@ -6,14 +6,15 @@
             xmlns:models="clr-namespace:Scarab.Models"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:views="clr-namespace:Scarab.Views"
+            xmlns:pages="clr-namespace:Scarab.Views.Pages"
             xmlns:enums="clr-namespace:Scarab.Enums"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
-            xmlns:customControls="clr-namespace:Scarab.CustomControls"
+            xmlns:customControls="clr-namespace:Scarab.Views.Controls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
-            x:Class="Scarab.Views.ModListView"
+            x:Class="Scarab.Views.Pages.ModListView"
             x:DataType="viewModels:ModListViewModel"
             x:CompileBindings="True"
             Name="UserControl"
@@ -229,7 +230,7 @@
           OnHoverColor="{DynamicResource DefaultButtonColor}"
           Grid.Column="2">
 
-        <views:SearchOptionsMenu/>
+        <pages:SearchOptionsMenu/>
 
       </customControls:TextButtonFlyout>
     </Grid>
@@ -333,7 +334,7 @@
               <Grid Margin="8 12 12 0">
                 <Grid.ContextMenu>
                   <ContextMenu IsVisible="{Binding CanBePinned}">
-                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{ReflectionBinding $parent[views:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
+                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
@@ -367,7 +368,7 @@
                             CommandParameter="{Binding .}"
                             OnContent="{ext:Localize XAML_On}"
                             OffContent="{ext:Localize XAML_Off}"
-                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnEnable}"
+                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnEnable}"
                             IsChecked="{Binding EnabledIsChecked}"
                             IsEnabled = "{Binding Installed}"
                             VerticalContentAlignment="Center"
@@ -384,7 +385,7 @@
                             CommandParameter="{Binding .}"
                             Content="{Binding InstallText}"
                             IsEnabled="{Binding !InstallingButtonAccessible}"
-                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnInstall}"
+                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
                             VerticalAlignment="Top"/>
                       </Panel>
                       <Grid
@@ -398,7 +399,7 @@
                             Margin="0 4 0 0"
                             Background="Transparent"
                             BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                            Command="{ReflectionBinding $parent[views:ModListView].DataContext.OnUpdate}"
+                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
                             CommandParameter="{Binding .}"
                                                 >
                           <Image
@@ -418,7 +419,7 @@
                               BorderBrush="Transparent"
                               IsVisible="{Binding Pinned}"
                               ToolTip.Tip="{ext:Localize XAML_Unpin}"
-                              Command="{ReflectionBinding $parent[views:ModListView].DataContext.PinMod}" 
+                              Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}">
                         <PathIcon
                              Data="{StaticResource pin_regular}"

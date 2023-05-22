@@ -8,7 +8,7 @@ using Avalonia.Media;
 using ReactiveUI;
 using Scarab.Extensions;
 
-namespace Scarab.CustomControls;
+namespace Scarab.Views.Controls;
 
 /// <summary>
 /// A templated control that represents a menu checkbox.

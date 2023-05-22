@@ -8,7 +8,7 @@ using Avalonia.Media;
 using Avalonia.Metadata;
 using Scarab.Extensions;
 
-namespace Scarab.CustomControls;
+namespace Scarab.Views.Controls;
 
 /// <summary>
 /// Creates a button with an attached flyout.

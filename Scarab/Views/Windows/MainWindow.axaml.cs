@@ -12,7 +12,7 @@ using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
 
-namespace Scarab.Views
+namespace Scarab.Views.Windows
 {
     public partial class MainWindow : Window
     {

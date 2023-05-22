@@ -3,11 +3,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ext="clr-namespace:Scarab.Extensions"
-        xmlns:customControls="clr-namespace:Scarab.CustomControls"
+        xmlns:customControls="clr-namespace:Scarab.Views.Controls"
         xmlns:vm="clr-namespace:Scarab.ViewModels"
         mc:Ignorable="d" d:DesignWidth="500"
         x:DataType="vm:UninstallDependenciesConfirmationWindowViewModel"
-        x:Class="Scarab.Views.UninstallDependenciesConfirmationWindow"
+        x:Class="Scarab.Views.Windows.UninstallDependenciesConfirmationWindow"
         Title="{ext:Localize XAML_UninstallDependencies_Title}"
         SizeToContent="WidthAndHeight">
   

@@ -12,10 +12,10 @@
     
     <!-- Avalonia Files -->
     <ItemGroup>
-        <Compile Update="**\*.xaml.cs">
+        <Compile Update="**\**\*.xaml.cs">
             <DependentUpon>%(Filename)</DependentUpon>
         </Compile>
-        <AvaloniaResource Include="**\*.xaml">
+        <AvaloniaResource Include="**\**\*.xaml">
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />

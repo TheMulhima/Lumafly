@@ -14,9 +14,8 @@ using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
 
-namespace Scarab.Views
+namespace Scarab.Views.Pages
 {
-    [UsedImplicitly]
     public partial class ModListView : View<ModListViewModel>
     {
         private readonly List<MenuItem> _flyoutMenus;

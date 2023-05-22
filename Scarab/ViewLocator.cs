@@ -2,22 +2,34 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Scarab.ViewModels;
+using Scarab.Views.Windows;
 
 namespace Scarab
 {
     public class ViewLocator : IDataTemplate
     {
+        private const string ViewNameSpace = "Views";
+        
+        private readonly string[] ViewSubNamespaces = 
+        {
+            "Pages",
+            "Windows"
+        };
+        
         public Control Build(object? data)
         {
-            string? name = data?.GetType().FullName?.Replace("ViewModel", "View");
+            var className = data?.GetType().Name.Replace("ViewModel", "View") ?? throw new InvalidOperationException();
+            var baseNameSpace = typeof(ViewLocator).Namespace ?? throw new InvalidOperationException();
 
-            if (string.IsNullOrEmpty(name))
-                throw new InvalidOperationException($"{nameof(name)}: {name}");
+            Type? type = null;
 
-            var type = Type.GetType(name);
+            foreach (var viewSubNamespace in ViewSubNamespaces)
+            {
+                type ??= Type.GetType($"{baseNameSpace}.{ViewNameSpace}.{viewSubNamespace}.{className}");
+            }
 
             if (type == null) 
-                return new TextBlock { Text = "Not Found: " + name };
+                return new TextBlock { Text = "Not Found: " + data };
             
             var ctrl = (Control) Activator.CreateInstance(type)!;
             ctrl.DataContext = data;

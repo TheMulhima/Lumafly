@@ -5,10 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ext="clr-namespace:Scarab.Extensions"
              xmlns:views="clr-namespace:Scarab.Views"
-             xmlns:customControls="clr-namespace:Scarab.CustomControls"
+             xmlns:pages="clr-namespace:Scarab.Views.Pages"
+             xmlns:customControls="clr-namespace:Scarab.Views.Controls"
              xmlns:viewModels="clr-namespace:Scarab.ViewModels"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="150"
-             x:Class="Scarab.Views.SearchOptionsMenu">
+             x:Class="Scarab.Views.Pages.SearchOptionsMenu">
     <StackPanel
         Margin="1">
         <StackPanel.Styles>
@@ -29,12 +30,12 @@
             <StackPanel>
                 <RadioButton 
                     Margin="2 2 2 5"
-                    IsChecked="{ReflectionBinding $parent[views:ModListView].DataContext.IsNormalSearch}" 
+                    IsChecked="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
                     ToolTip.Tip="Search by the mod name"/>
                 <RadioButton 
                     Margin="2 5 2 2"
-                    IsChecked="{Binding !$parent[views:ModListView].DataContext.IsNormalSearch}" 
+                    IsChecked="{Binding !$parent[pages:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" 
                     Content="{ext:Localize XAML_Search_Dependents}" 
                     ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
@@ -44,19 +45,19 @@
         <customControls:MenuCheckBox
             Margin="2 1"
             Header="{ext:Localize XAML_Exact_Search}"
-            IsSelected="{ReflectionBinding $parent[views:ModListView].DataContext.IsExactSearch}"/>
+            IsSelected="{ReflectionBinding $parent[pages:ModListView].DataContext.IsExactSearch}"/>
         
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             HorizontalAlignment="Stretch"
             Header="{ext:Localize XAML_Select_Tags}">
-            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[views:ModListView].DataContext.TagList}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:MenuCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
-                            OnSelect="{ReflectionBinding $parent[views:ModListView].DataContext.SelectMods}"
+                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
                             Header="{Binding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
@@ -66,13 +67,13 @@
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Select_Authors}">
-            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[views:ModListView].DataContext.AuthorList}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.AuthorList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:MenuCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
-                            OnSelect="{ReflectionBinding $parent[views:ModListView].DataContext.SelectMods}"
+                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
                             Header="{Binding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

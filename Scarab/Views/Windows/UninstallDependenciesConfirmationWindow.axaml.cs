@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 
-namespace Scarab.Views
+namespace Scarab.Views.Windows
 {
     public partial class UninstallDependenciesConfirmationWindow : Window
     {

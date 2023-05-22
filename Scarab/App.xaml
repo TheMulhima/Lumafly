@@ -11,8 +11,8 @@
         <SimpleTheme/>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
         <hyperText:HyperLinkStyle/>
-        <StyleInclude Source="avares://Scarab/CustomControls/MenuCheckBox.axaml"/>
-        <StyleInclude Source="avares://Scarab/CustomControls/TextButtonFlyout.axaml"/>
+        <StyleInclude Source="avares://Scarab/Views/Controls/MenuCheckBox.axaml"/>
+        <StyleInclude Source="avares://Scarab/Views/Controls/TextButtonFlyout.axaml"/>
     </Application.Styles>
     
     <Application.RequestedThemeVariant>Dark</Application.RequestedThemeVariant>

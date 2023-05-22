@@ -7,7 +7,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-            x:Class="Scarab.Views.LoadingView">
+            x:Class="Scarab.Views.Pages.LoadingView">
     <Grid RowDefinitions="3*, *">
         
         <progRing:ProgressRing 

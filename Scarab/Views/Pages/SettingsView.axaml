@@ -9,7 +9,7 @@
             d:DesignWidth="600"
             x:DataType="viewModels:SettingsViewModel"
             x:CompileBindings="True"
-            x:Class="Scarab.Views.SettingsView">
+            x:Class="Scarab.Views.Pages.SettingsView">
 	<Grid
 		Margin="20 10"
 		ColumnDefinitions="Auto * Auto"

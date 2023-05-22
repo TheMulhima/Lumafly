@@ -4,7 +4,7 @@ using Avalonia.Diagnostics;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 
-namespace Scarab.Views;
+namespace Scarab.Views.Windows;
 
 public partial class ErrorPopup : Window
 {

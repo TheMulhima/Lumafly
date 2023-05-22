@@ -2,15 +2,12 @@
 using System.IO;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Scarab.CustomControls;
 using System.IO.Abstractions;
 using Scarab.Enums;
 using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
-using Scarab.Views;
-using SkiaSharp;
 using Xunit;
 
 namespace Scarab.Tests;

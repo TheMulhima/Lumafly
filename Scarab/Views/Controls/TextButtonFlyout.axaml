@@ -1,6 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:customControls="using:Scarab.CustomControls">
+        xmlns:customControls="using:Scarab.Views.Controls">
     <Design.PreviewWith>
         <customControls:TextButtonFlyout />
     </Design.PreviewWith>
