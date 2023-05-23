@@ -147,6 +147,18 @@ namespace Scarab.Views.Pages
             
             selectedMenuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
 
+            
+            // mod filter all background sometimes gets stuck on blue for no reason. So bandage solution it this ig
+            Dispatcher.UIThread.InvokeAsync(async () =>
+            {
+                if (selectedMenuItem.Name == ModFilter_All.Name) return;
+                await Task.Delay(1);
+                ModFilter_All.Background = Brushes.Transparent;
+                await Task.Delay(10);
+                ModFilter_All.Background = Brushes.Transparent;
+                await Task.Delay(100);
+                ModFilter_All.Background = Brushes.Transparent;
+            });
         }
     }
 }
