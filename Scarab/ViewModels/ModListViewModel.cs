@@ -593,7 +593,7 @@ namespace Scarab.ViewModels
                         }
                     }
 
-                    ResetPinned(item);
+                    await ResetPinned(item);
                 }
                 else
                 {
@@ -780,7 +780,7 @@ namespace Scarab.ViewModels
 
                     if (!item.Installed)
                     {
-                        ResetPinned(item);
+                        await ResetPinned(item);
                         await RemoveUnusedDependencies(item);
                     }
                 });
@@ -863,7 +863,9 @@ namespace Scarab.ViewModels
         public async Task PinMod(object itemObj)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
-            await _installer.Pin(item);
+            if (item.State is not ExistsModState state) return;
+            
+            await _installer.Pin(item, !state.Pinned);
             Sort();
             SelectMods();
         }
@@ -873,11 +875,11 @@ namespace Scarab.ViewModels
             return _reverseDependencySearch.GetAllEnabledDependents(mod).Any(x => x.State is InstalledState { Pinned: true });
         }
 
-        public void ResetPinned(ModItem mod)
+        public async Task ResetPinned(ModItem mod)
         {
-            if (mod.State is InstalledState { Pinned: true } state)
+            if (mod.State is ExistsModState { Pinned: true })
             {
-                mod.State = state with { Pinned = false };
+                await PinMod(mod);
                 Sort();
                 SelectMods();
             }

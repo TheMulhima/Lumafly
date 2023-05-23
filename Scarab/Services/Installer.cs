@@ -92,13 +92,13 @@ namespace Scarab.Services
 
             _fs.Directory.CreateDirectory(_config.ModsFolder);
         }
-
-        public async Task Pin(ModItem mod)
+        
+        public async Task Pin(ModItem mod, bool pinned)
         {
             if (mod.State is not ExistsModState state)
                 throw new InvalidOperationException("Cannot pin mod which is not installed!");
 
-            mod.State = state with { Pinned  = !state.Pinned };
+            mod.State = state with { Pinned = pinned };
             await _installed.RecordInstalledState(mod);
         }
 
