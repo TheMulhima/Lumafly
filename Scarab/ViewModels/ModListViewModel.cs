@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
@@ -290,7 +289,7 @@ namespace Scarab.ViewModels
         public bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
         
         public bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
-        
+
         public string WhatsNewLoadingText => _modlinksChanges.IsReady is null
             ? Resources.MVVM_LoadingWhatsNew 
             : (!_modlinksChanges.IsReady.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
@@ -312,12 +311,10 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Where(x =>
                             WhatsNew_UpdatedMods &&
-                            x.RecentChangeInfo.IsUpdatedRecently &&
-                            x.RecentChangeInfo.LastUpdated >= DateTime.UtcNow.AddDays(-1 * (Updated7Days ? 8 : 31))
+                            x.RecentChangeInfo.ShouldShowUp(ModChangeState.Updated, Updated7Days)
                             ||
                             WhatsNew_NewMods &&
-                            x.RecentChangeInfo.IsCreatedRecently &&
-                            x.RecentChangeInfo.LastCreated >= DateTime.UtcNow.AddDays(-1 * (New7Days ? 8 : 31)));
+                            x.RecentChangeInfo.ShouldShowUp(ModChangeState.Created, New7Days));
                 }
                 
                 if (IsNormalSearch)
@@ -344,6 +341,11 @@ namespace Scarab.ViewModels
                 }
             }
         }
+
+        private void OnWhatsNew_UpdatedModsChanged() => Sort();
+        private void OnWhatsNew_NewModsChanged() => Sort();
+        private void OnUpdated7DaysChanged() => Sort();
+        private void OnNew7DaysChanged() => Sort();
 
         public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
@@ -754,7 +756,13 @@ namespace Scarab.ViewModels
 
         public void Sort()
         {
-            static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
+            int Comparer(ModItem x, ModItem y)
+            {
+                if (ModFilterState == ModFilterState.WhatsNew)
+                    return x.RecentChangeInfo.CompareTo(y.RecentChangeInfo);
+                return ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
+            }
+
             _items.SortBy(Comparer);
         }
 

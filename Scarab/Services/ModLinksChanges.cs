@@ -7,6 +7,8 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using DynamicData;
+using DynamicData.Kernel;
 using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -59,11 +61,17 @@ public class ModLinksChanges : IModLinksChanges
         var oneWeekOld = GetModListDifference(hc, DateTime.UtcNow.AddDays(-7));
         var oneMonthOld = GetModListDifference(hc, DateTime.UtcNow.AddDays(-30));
 
-        return new[]
+        var success = new[]
         {
             await oneWeekOld,
             await oneMonthOld
         };
+        
+        // we don't really care about the success of the sort fetch.
+        // if we didn't get it we can just sort alphabetically not the end of the world
+        await GetSortOrder(hc);
+        
+        return success;
     }
 
     private async Task<bool> GetModListDifference(HttpClient hc, DateTime timeToGet)
@@ -102,12 +110,12 @@ public class ModLinksChanges : IModLinksChanges
                 {
                     if (correspondingOldMod.Version.Value < mod.Version)
                     {
-                        mod.RecentChangeInfo.AddChanges((ModChangeState.Updated, commitDate));
+                        mod.RecentChangeInfo.AddChanges(ModChangeState.Updated, commitDate);
                     }
                 }
                 else
                 {
-                    mod.RecentChangeInfo.AddChanges((ModChangeState.Created, commitDate));
+                    mod.RecentChangeInfo.AddChanges(ModChangeState.Created, commitDate);
                 }
             }
         }
@@ -121,6 +129,54 @@ public class ModLinksChanges : IModLinksChanges
         }
 
         return true;
+    }
+    
+    // we need to get the sort order like this because to get the real order, we need to make 30 requests to github
+    // but thats too many points of failure and we only have 60 requests to github api per hour. So we use
+    // https://github.com/Clazex/HKModLinksHistory which runs once per day
+    private async Task GetSortOrder(HttpClient hc)
+    {
+        try
+        {
+            JsonDocument linkJson = JsonDocument.Parse(
+                await hc.GetStringAsync(
+                    new Uri($"https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/ModlinksChanges.json"), 
+                    new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
+            
+            // we only need the months list as the weeks link is basically the end of months list
+            var sortedListLink = linkJson.RootElement.GetProperty("month").GetString();
+            
+            if (sortedListLink is null) return;
+            
+            var sortedList = (await hc.GetStringAsync(sortedListLink, 
+                new CancellationTokenSource(ModDatabase.TIMEOUT).Token)).Trim().Split('\n').ToList();
+            
+            // it gives opposite order so we reverse
+            sortedList.Reverse();
+            
+            // remove all but the first instance of each mod
+            var sortedSet = new HashSet<string>(sortedList);
+
+            // remove false positives
+            foreach (var item in currentItems)
+            {
+                if (item.RecentChangeInfo.ChangeState != ModChangeState.None && !sortedSet.Contains(item.Name))
+                {
+                    item.RecentChangeInfo = new ModRecentChangeInfo();
+                }
+            }
+
+            foreach (var mod in sortedSet.Select(item => 
+                         currentItems.FirstOrDefault(x => x.Name == item)))
+            {
+                mod?.RecentChangeInfo.AddSortOrder(sortedSet.IndexOf(mod.Name));
+            }
+        }
+        catch(Exception e)
+        {
+            // the feature still works without sort order cuz we can sort alphabetically
+            Trace.WriteLine($"An exception occured when trying to get sort order: {e}" );
+        }
     }
 
     private void AddHttpConfig(HttpClient hc)

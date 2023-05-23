@@ -1,41 +1,114 @@
 ﻿using System;
-using System.Collections.Generic;
 using Scarab.Enums;
 
 namespace Scarab.Models;
 
-public class ModRecentChangeInfo
-{
-    Dictionary<ModChangeState, DateTime> ModChanges { get; } = new();
+/// <summary>
+/// We get 2 modlinks from 30 days and 7 days ago. Then we have to compare to current and see
+/// 1. If it isn't present in old
+/// 2. If the version is different than the old
+/// If both happens we just use created. 
 
-    public ModRecentChangeInfo() { }
-    
-    public ModRecentChangeInfo(params (ModChangeState, DateTime)[] changes) : this()
+/// Also we will use https://github.com/Clazex/HKModLinksHistory/tree/dist to get a sorting order by date so we need
+/// to account for that too 
+/// </summary>
+public class ModRecentChangeInfo : IComparable<ModRecentChangeInfo>
+{
+    public ModChangedSorterInfo? SorterInfo;
+    public ModChangeState ChangeState;
+
+    public ModRecentChangeInfo()
     {
-        AddChanges(changes);
+        ChangeState = ModChangeState.None;
     }
-    
-    public void AddChanges(params (ModChangeState, DateTime)[] changes)
+
+    public void AddChanges(ModChangeState changeState, DateTime lastChanged)
     {
-        foreach (var change in changes)
+        // this is to account for if a mod is created and updated within a month. if that happens, only count it as 
+        // created. This will do it for us as Created value is 2 while Updated is 1 in the enum
+        if (changeState > ChangeState)
         {
-            if (ModChanges.TryGetValue(change.Item1, out var date))
+            ChangeState = changeState;
+            SorterInfo = new ModChangedSorterInfo(lastChanged);
+        }
+        else if (changeState == ChangeState)
+        {
+            // Keep the most recent change (if updated last week and last month, keep only last week)
+            if (SorterInfo is null || SorterInfo.LastChanged < lastChanged)
             {
-                if (change.Item2 > date)
-                {
-                    ModChanges[change.Item1] = change.Item2;
-                }
-            }
-            else
-            {
-                ModChanges.Add(change.Item1, change.Item2);
+                SorterInfo = new ModChangedSorterInfo(lastChanged);
             }
         }
     }
     
-    public bool IsCreatedRecently => ModChanges.ContainsKey(ModChangeState.Created);
-    public bool IsUpdatedRecently => ModChanges.ContainsKey(ModChangeState.Updated);
+    public void AddSortOrder(int sortOrder)
+    {
+        if (ChangeState != ModChangeState.None)
+        {
+            SorterInfo?.AddSortOrder(sortOrder);
+        }
+    }
     
-    public DateTime LastCreated => ModChanges.TryGetValue(ModChangeState.Created, out var date) ? date : DateTime.MinValue;
-    public DateTime LastUpdated => ModChanges.TryGetValue(ModChangeState.Updated, out var date) ? date : DateTime.MinValue;
+    public bool IsCreatedRecently => ChangeState == ModChangeState.Created;
+    public bool IsUpdatedRecently => ChangeState == ModChangeState.Updated;
+
+    public bool ShouldShowUp(ModChangeState state, bool week)
+    {
+        if (state == ModChangeState.Created && IsCreatedRecently)
+        {
+            var lastCreated = SorterInfo?.LastChanged ?? throw new InvalidOperationException();
+            return lastCreated > DateTime.UtcNow.AddDays(-1 * (week ? 8 : 31));
+        }
+
+        if (state == ModChangeState.Updated && IsUpdatedRecently)
+        {
+            var lastUpdated = SorterInfo?.LastChanged ?? throw new InvalidOperationException();
+            return lastUpdated > DateTime.UtcNow.AddDays(-1 * (week ? 8 : 31));
+        }
+        return false; 
+    }
+
+    public int CompareTo(ModRecentChangeInfo? other)
+    {
+        if (other == null) return 1;
+        if (this == other) return 0;
+
+        if (SorterInfo == null && other.SorterInfo == null) return 0;
+        if (SorterInfo != null && other.SorterInfo == null) return 1;
+        if (SorterInfo == null && other.SorterInfo != null) return -1;
+        
+        return SorterInfo!.CompareTo(other.SorterInfo);
+    }
+}
+
+public class ModChangedSorterInfo : IComparable<ModChangedSorterInfo>
+{
+    public DateTime LastChanged { get; }
+    public int? SortOrder { get; private set; }
+
+    public ModChangedSorterInfo(DateTime lastChanged)
+    {
+        LastChanged = lastChanged;
+        SortOrder = null;
+    }
+
+    public void AddSortOrder(int sortOrder)
+    {
+        SortOrder = sortOrder;
+    }
+
+    public int CompareTo(ModChangedSorterInfo? other)
+    {
+        if (other == null) return 1;
+        
+        // shouldn't be needed but just in case
+        if (SortOrder.HasValue && !other.SortOrder.HasValue) return 1;
+        if (!SortOrder.HasValue && other.SortOrder.HasValue) return -1;
+        
+        // if sort order exists, use that else use date to sort
+        if (SortOrder.HasValue && other.SortOrder.HasValue) 
+            return SortOrder.Value.CompareTo(other.SortOrder);
+        
+        return LastChanged.CompareTo(other.LastChanged);
+    }
 }

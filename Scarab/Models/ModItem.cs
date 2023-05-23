@@ -91,7 +91,7 @@ namespace Scarab.Models
         public string[] Tags { get; }
         public string[] Integrations { get; }
         public string[] Authors { get; }
-        public ModRecentChangeInfo RecentChangeInfo { get; }
+        public ModRecentChangeInfo RecentChangeInfo { get; set; }
 
         public string   ShortenedRepository   { get; }
         public string   DependenciesDesc { get; }
