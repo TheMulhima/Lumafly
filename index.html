@@ -18,63 +18,24 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src=" https://cdn.jsdelivr.net/npm/ua-parser-js/src/ua-parser.min.js"></script>
       <script type="text/javascript">
-
-        var req = new Request("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md");
-        fetch(req)
-        .then(response => response.text())
-        .then(data => {
-
-          let screenShotRegex = /## Screenshot:.*/g
-          let imageRegex = /!\[.*\]\(.*\)/g
-          let releaseNotes = data.replace(screenShotRegex, "").replace(imageRegex, "");
-
-          let releaseNotesHeader = document.createElement("h2");
-          releaseNotesHeader.innerHTML = "Readme: ";
-          releaseNotesHeader.className = "center, centertext";
-          releaseNotesHeader.setAttribute("style", "margin-top:20px");
-          document.body.appendChild(releaseNotesHeader);
-
-          let releaseNotesBody = document.createElement("zero-md");
-          releaseNotesBody.className = "center";
-          let md = window.markdownit();
-          releaseNotesBody.innerHTML = md.render(releaseNotes);
-          document.body.appendChild(releaseNotesBody);
-        });
-
         var download = getParam("download");
-        let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/"
-        if (download !== null)
-        {
+
+        if (download !== 'update') {
+          fetch("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md")
+          .then(response => response.text())
+          .then(data => {
+            addDataToHTML(data, "Readme: ")
+          });
+        } else {
+          fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
+          .then(response => response.json())
+          .then(data => {
+            addDataToHTML(data.body, "Release Notes: ")
+          })
+        }
+        if (download !== null) {
+          downloadScarab();
           document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
-
-          if (download === "latest")
-          {
-            linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/dotnet/master/";
-          }
-
-
-          var uap = new UAParser();
-          platform = uap.getResult().os.name;
-          macOS = ['Mac OS'];
-          windowsOS = ['Windows'];
-          linuxOS = ['Linux'];
-          let link = null;
-
-          if (macOS.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
-          else if (windowsOS.indexOf(platform) !== -1) link = linkBase + "Scarab-Windows.zip";
-          else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + "Scarab-Linux.zip"
-
-          if (link !== null) {
-            openLink(link);
-          }
-          else {
-            // make it feel like its loading
-            setTimeout(function() {
-              if (confirm("The website could not automatically detect your platform, would you like to open the releases page? You can download Scarab+ from there.")) {
-                window.location.replace("https://github.com/TheMulhima/Scarab/releases/latest")
-              }
-            }, 500);
-          }
         }
       </script>
     </body>
