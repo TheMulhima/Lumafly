@@ -255,8 +255,7 @@ namespace Scarab.Models
             string[]? tags = null,
             string[]? integrations = null,
             string[]? authors = null,
-            ModRecentChangeInfo? changeInfo = null,
-            bool isModLinksMod = true
+            ModRecentChangeInfo? changeInfo = null
         )
         {
             return new ModItem(

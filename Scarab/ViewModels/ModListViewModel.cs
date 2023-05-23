@@ -804,16 +804,42 @@ namespace Scarab.ViewModels
             {
                 try
                 {
-                    var mod = ModItem.Empty(
-                        name: Path.GetFileNameWithoutExtension(path),
+                    var correspondingMod =
+                        _items.FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(path));
+                    
+                    var mod = correspondingMod ?? ModItem.Empty(
+                        name: Path.GetFileNameWithoutExtension(path), 
                         description: "This mod was manually installed and is not from official modlinks");
                     
+                    var oldState = mod.State;
+                    
+                    if (correspondingMod != null && correspondingMod.State is ExistsModState)
+                    {
+                        await _installer.Uninstall(correspondingMod);
+                    }
+
                     await _installer.PlaceMod(
                     mod,
                     true,
                     Path.GetFileName(path),
                     await File.ReadAllBytesAsync(path));
+                    
                     FixupModList(mod);
+                    
+                    // make sure to only change state if the place is a success
+                    if (correspondingMod != null)
+                    {
+                        mod.State = oldState switch
+                        {
+                            NotInModLinksState notInModLinksState => notInModLinksState with { Enabled = true },
+                            InstalledState installedState => new NotInModLinksState(
+                                ModlinksMod: true,
+                                Enabled: true,
+                                Pinned:installedState.Pinned),
+                            NotInstalledState => new NotInModLinksState(ModlinksMod:false),
+                            _ => throw new UnreachableException(),
+                        };
+                    }
                     
                 }
                 catch(Exception e)
