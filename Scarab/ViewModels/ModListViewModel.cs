@@ -791,24 +791,35 @@ namespace Scarab.ViewModels
             Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                             ?? throw new InvalidOperationException();
             
-            var dialog = new OpenFileDialog
+            var files = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
                 Title = Resources.MLVM_Select_Mod,
-                Filters = new List<FileDialogFilter> { new () { Extensions = new List<string>() {"dll", "zip"} } }
-                
-            };
-            string[]? paths = await dialog.ShowAsync(parent);
-            if (paths is null || paths.Length == 0)
+                AllowMultiple = true,
+                FileTypeFilter = new []
+                {
+                    new FilePickerFileType("Mod")
+                    {
+                        Patterns = new []
+                        {
+                            "*.dll",
+                            "*.zip"
+                        }
+                    },
+                }
+            });
+
+            if (files.Count == 0)
                 return;
-            foreach (var path in paths)
+
+            foreach (var file in files)
             {
                 try
                 {
                     var correspondingMod =
-                        _items.FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(path));
+                        _items.FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(file.Name));
                     
                     var mod = correspondingMod ?? ModItem.Empty(
-                        name: Path.GetFileNameWithoutExtension(path), 
+                        name: Path.GetFileNameWithoutExtension(file.Name), 
                         description: "This mod was manually installed and is not from official modlinks");
                     
                     var oldState = mod.State;
@@ -821,8 +832,8 @@ namespace Scarab.ViewModels
                     await _installer.PlaceMod(
                     mod,
                     true,
-                    Path.GetFileName(path),
-                    await File.ReadAllBytesAsync(path));
+                    file.Name,
+                    await File.ReadAllBytesAsync(file.Path.LocalPath));
                     
                     FixupModList(mod);
                     
@@ -844,7 +855,7 @@ namespace Scarab.ViewModels
                 }
                 catch(Exception e)
                 {
-                    await DisplayErrors.DisplayGenericError("Manually installing", Path.GetFileName(path), e);
+                    await DisplayErrors.DisplayGenericError("Manually installing", file.Name, e);
                 }
             }
         }
