@@ -1,15 +1,18 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
-using JetBrains.Annotations;
+using Scarab.Enums;
 using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
@@ -42,14 +45,16 @@ namespace Scarab.Views.Pages
         protected override void ArrangeCore(Rect finalRect)
         {
             base.ArrangeCore(finalRect);
+            
             SetUpFlyoutPopup();
-            RemoveNotVisibleModFilters();
+
+            ModListViewModel.OnSelectModsWithFilter += ModFilterSelected;
         }
 
-        private void RemoveNotVisibleModFilters()
+        protected override void OnLoaded()
         {
-            _modFilterItems = _modFilterItems.Where(x => x.IsVisible).ToList();
-            _modFilterItems.First().Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+            base.OnLoaded();
+            ModFilterSelected(); // when switching tabs
         }
 
         // I haven't found a way to set these properties normally
@@ -78,12 +83,6 @@ namespace Scarab.Views.Pages
             }
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-        
-        [UsedImplicitly]
         private void PrepareElement(object? sender, ItemsRepeaterElementPreparedEventArgs e)
         {
             if (!e.Element.GetVisualChildren().Any())
@@ -127,17 +126,27 @@ namespace Scarab.Views.Pages
             }
         }
 
-        private void ModFilterPressed(object sender, PointerPressedEventArgs e)
+        private void ModFilterSelected()
         {
-            if (sender is not MenuItem menuItem)
-                return;
-
-            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            var selectedMenuItem = ModListViewModel.ModFilterState switch
             {
-                _modFilterItems.ForEach(x => x.Background = new SolidColorBrush(Colors.Transparent));
-
-                menuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+                ModFilterState.All => ModFilter_All,
+                ModFilterState.Installed => ModFilter_Installed,
+                ModFilterState.OutOfDate => ModFilter_OutOfDate,
+                ModFilterState.Enabled => ModFilter_Enabled,
+                ModFilterState.WhatsNew => ModFilter_WhatsNew,
+                _ => throw new InvalidOperationException()
+            };
+            
+            foreach (var menuItem in _modFilterItems.Where(x => x.Name != selectedMenuItem.Name))
+            {
+                menuItem.Background = Brushes.Transparent;
             }
+
+            Debug.WriteLine(selectedMenuItem.Name);
+            
+            selectedMenuItem.Background = Application.Current?.Resources["HighlightBlue"] as IBrush;
+
         }
     }
 }
