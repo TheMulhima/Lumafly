@@ -22,6 +22,6 @@ namespace Scarab.Interfaces
         
         public Task<bool> CheckAPI();
 
-        public Task Pin(ModItem mod);
+        public Task Pin(ModItem mod, bool pinned);
     }
 }

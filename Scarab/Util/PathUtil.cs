@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using MessageBox.Avalonia;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
+using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
 
@@ -27,23 +29,22 @@ namespace Scarab.Util
         {
             Debug.WriteLine("Selecting path...");
 
-            Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                ?? throw new InvalidOperationException();
+            Window parent = AvaloniaUtils.GetMainWindow();
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 return await SelectMacApp(parent, fail);
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 return await SelectExe(parent, fail);
-                
-            var dialog = new OpenFolderDialog
-            {
-                Title = Resources.PU_SelectPath,
-            };
-            
+
             while (true)
             {
-                string? result = await dialog.ShowAsync(parent);
-                if (result is null)
+                var result = await parent.StorageProvider.OpenFolderPickerAsync(
+                    new FolderPickerOpenOptions()
+                    {
+                        AllowMultiple = false,
+                        Title = Resources.PU_SelectPath
+                    });
+                if (result.Count == 0)
                 {
                     await MessageBoxUtil
                         .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
@@ -51,7 +52,7 @@ namespace Scarab.Util
                     continue;
                 }
                 
-                if (ValidateWithSuffix(result) is not var (managed, suffix))
+                if (ValidateWithSuffix(result.First().Path.LocalPath) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
@@ -76,23 +77,30 @@ namespace Scarab.Util
 
         private static async Task<string> SelectMacApp(Window parent, bool fail)
         {
-            var dialog = new OpenFileDialog
-            {
-                Title = Resources.PU_SelectApp,
-                Directory = "/Applications",
-                AllowMultiple = false
-            };
-
-            dialog.Filters?.Add(new FileDialogFilter { Extensions = { "app" } });
-
             while (true)
             {
-                string[]? result = await dialog.ShowAsync(parent);
+                var result = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+                {
+                    Title = Resources.MLVM_Select_Mod,
+                    AllowMultiple = true,
+                    FileTypeFilter = new []
+                    {
+                        new FilePickerFileType("Game Executable")
+                        {
+                            Patterns = new []
+                            {
+                                "*.app"
+                            }
+                        },
+                    }
+                });
 
-                if (result is null or { Length: 0 })
+                if (result.Count == 0 )
+                {
                     await MessageBoxUtil
                         .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
-                else if (ValidateWithSuffix(result.First()) is not (var managed, var suffix))
+                }
+                else if (ValidateWithSuffix(result[0].Path.LocalPath) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams()
                     {
@@ -116,24 +124,26 @@ namespace Scarab.Util
         
         private static async Task<string> SelectExe(Window parent, bool fail)
         {
-            var dialog = new OpenFileDialog
-                {
-                    Title = Resources.PU_SelectEXE,
-                    Filters = new List<FileDialogFilter>
-                    {
-                        new ()
-                        {
-                            Extensions = new List<string> { "exe" }
-                        }
-                    },
-                    AllowMultiple = false,
-                };
-
             while (true)
             {
-                string[]? result = await dialog.ShowAsync(parent);
+                var result = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+                {
+                    Title = Resources.MLVM_Select_Mod,
+                    AllowMultiple = true,
+                    FileTypeFilter = new []
+                    {
+                        new FilePickerFileType("Game Executable")
+                        {
+                            Patterns = new []
+                            {
+                                "hollow_knight.exe", // steam 
+                                "Hollow Knight.exe", // gog
+                            }
+                        },
+                    }
+                });
                 
-                if (result?.FirstOrDefault() is null)
+                if (result.Count == 0)
                 {
                     await MessageBoxUtil
                         .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
@@ -141,7 +151,7 @@ namespace Scarab.Util
                     continue;
                 }
                 
-                string? root = Path.GetDirectoryName(result.First());
+                string? root = Path.GetDirectoryName(result[0].Path.LocalPath);
                 if (root is null)
                 {
                     await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
