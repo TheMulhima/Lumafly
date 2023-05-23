@@ -10,7 +10,15 @@
 
 body {
     background-image: linear-gradient(to right, #0a1d3a, #162840);
-    color: white;
+    color: whitesmoke;
+}
+
+.navbarIcon {
+  position: absolute; 
+  width: auto; 
+  height: 35px; 
+  margin-right: 100%; 
+  margin-left: 50px;
 }
 
 .navbar {
@@ -18,12 +26,17 @@ body {
     display: inline-flex;
     width: 100%;
     justify-content: space-around;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-image: linear-gradient(to right, #0a1d3a, #162840);
+    height: 50px;
   }
   
 .navbar a {
     float: left;
     font-size: 16px;
-    color: white;
+    color: whitesmoke;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -38,7 +51,7 @@ body {
     font-size: 16px;  
     border: none;
     outline: none;
-    color: white;
+    color: whitesmoke;
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit;
@@ -52,7 +65,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: whitesmoke;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -68,7 +81,7 @@ body {
   }
   
 .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: whitesmoke;
   }
   
 .dropdown:hover .dropdown-content {
@@ -85,18 +98,17 @@ a:hover {
   
   
 a:active {
-    color: white;
+    color: whitesmoke;
   }
 
 .navbar > a {
-    color: white;
+    color: whitesmoke;
 }
 
 .navbar > a {
-    color: white;
+    color: whitesmoke;
 }
 
 .navbar > div > div > a {
     color: #0a1c3a;
 }
-.
