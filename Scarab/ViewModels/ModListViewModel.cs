@@ -449,10 +449,13 @@ namespace Scarab.ViewModels
 
         public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
-        [UsedImplicitly]
+
+        public event Action OnSelectModsWithFilter;
+        
         public void SelectModsWithFilter(ModFilterState modFilterState)
         {
             ModFilterState = modFilterState;
+            OnSelectModsWithFilter?.Invoke();
             SelectMods();
         }
         

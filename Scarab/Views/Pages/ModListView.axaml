@@ -47,7 +47,6 @@
                     highlighted by default on app open-->
       <MenuItem
           Name="ModFilter_All"
-          PointerPressed="ModFilterPressed"
           IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_All}"
           Command="{Binding SelectModsWithFilter}"
@@ -58,7 +57,6 @@
 
       <MenuItem
           Name="ModFilter_Installed"
-          PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_Installed}"
           Command="{Binding SelectModsWithFilter}"
           CommandParameter="{x:Static enums:ModFilterState.Installed}"
@@ -68,7 +66,6 @@
 
       <MenuItem
           Name="ModFilter_Enabled"
-          PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_Enabled}"
           Command="{Binding SelectModsWithFilter}"
           CommandParameter="{x:Static enums:ModFilterState.Enabled}"
@@ -78,7 +75,6 @@
 
       <MenuItem
           Name="ModFilter_OutOfDate"
-          PointerPressed="ModFilterPressed"
           IsVisible="{Binding IsInOnlineMode}"
           Header="{ext:Localize XAML_ModsFilter_OutOfDate}"
           Command="{Binding SelectModsWithFilter}"
@@ -90,7 +86,6 @@
       <MenuItem
           Name="ModFilter_WhatsNew"
           IsVisible="{Binding ShouldShowWhatsNew}"
-          PointerPressed="ModFilterPressed"
           Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
           Command="{Binding SelectModsWithFilter}"
           CommandParameter="{x:Static enums:ModFilterState.WhatsNew}"
