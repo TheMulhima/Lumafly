@@ -1,4 +1,7 @@
 {
-    "week": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/ChangedMods-Week.txt",
-    "month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/ChangedMods-Month.txt"
+    "new-week": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/NewMods-Week.txt",
+    "new-month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/NewMods-Month.txt",
+    "updated-week": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/UpdatedMods-Week.txt",
+    "updated-month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/UpdatedMods-Month.txt",
+    "changed-month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/8c605fd397f184042fafca6b09264c1bd59c1da5/ChangedMods-Month.txt"
 }
