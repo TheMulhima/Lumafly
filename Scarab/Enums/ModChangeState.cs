@@ -4,5 +4,5 @@ public enum ModChangeState
 {
     None = 0,
     Updated = 1,
-    Created = 2,
+    New = 2,
 }

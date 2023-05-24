@@ -8,6 +8,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:pages="clr-namespace:Scarab.Views.Pages"
             xmlns:enums="clr-namespace:Scarab.Enums"
+            xmlns:utils="clr-namespace:Scarab.Util"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.Views.Controls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
@@ -255,6 +256,9 @@
               <Setter Property="HorizontalAlignment" Value="Left"/>
             </Style>
           </Grid.Styles>
+            <Grid.Resources>
+                <utils:HowRecentEnumToBoolConvertor x:Key="HowRecentEnumConvertor"/>
+            </Grid.Resources>
           <CheckBox
               Grid.Column="0" Grid.Row="0"
               IsChecked="{Binding WhatsNew_NewMods}"
@@ -262,13 +266,17 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="2" Grid.Row="0"
-              IsChecked="{Binding New7Days}"
+              IsChecked="{Binding HowRecent_NewMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="NewMods"
               Content="{ext:Localize XAML_LastWeek}"/>
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="3" Grid.Row="0"
-              IsChecked="{Binding !New7Days}"
+              IsChecked="{Binding HowRecent_NewMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="NewMods"
               Content="{ext:Localize XAML_LastMonth}"/>
           <CheckBox
@@ -278,13 +286,17 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="2" Grid.Row="2"
-              IsChecked="{Binding Updated7Days}"
+              IsChecked="{Binding HowRecent_UpdatedMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="UpdatedMods"
               Content="{ext:Localize XAML_LastWeek}"/>
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="3" Grid.Row="2"
-              IsChecked="{Binding !Updated7Days}"
+              IsChecked="{Binding HowRecent_UpdatedMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="UpdatedMods"
               Content="{ext:Localize XAML_LastMonth}"/>
         </Grid>

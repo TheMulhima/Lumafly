@@ -65,7 +65,7 @@ namespace Scarab.ViewModels
         public string _dependencySearchItem;
 
         [Notify]
-        public bool _new7Days = true, _updated7Days = true;
+        public HowRecentModChanged _howRecentModChanged_NewMods = HowRecentModChanged.Week, _howRecentModChanged_UpdatedMods = HowRecentModChanged.Week;
         [Notify]
         public bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
@@ -290,18 +290,18 @@ namespace Scarab.ViewModels
         
         public bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
 
-        public string WhatsNewLoadingText => _modlinksChanges.IsReady is null
+        public string WhatsNewLoadingText => _modlinksChanges.IsLoaded is null
             ? Resources.MVVM_LoadingWhatsNew 
-            : (!_modlinksChanges.IsReady.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
+            : (!_modlinksChanges.IsLoaded.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
 
-        public bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;
-        public bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsReady is null || !_modlinksChanges.IsReady.Value);
-        public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
+        public bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsLoaded is null;
+        public bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsLoaded is null || !_modlinksChanges.IsLoaded.Value);
+        public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsLoaded ?? false);
         public bool IsInOnlineMode => _scarabMode == ScarabMode.Online;
         public bool ShouldShowWhatsNew => IsInOnlineMode &&
                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
                                           !_settings.UseCustomModlinks;
-        public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
+        public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
         public IEnumerable<ModItem> FilteredItems
         {
             get
@@ -311,10 +311,10 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Where(x =>
                             WhatsNew_UpdatedMods &&
-                            x.RecentChangeInfo.ShouldShowUp(ModChangeState.Updated, Updated7Days)
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged_UpdatedMods)
                             ||
                             WhatsNew_NewMods &&
-                            x.RecentChangeInfo.ShouldShowUp(ModChangeState.Created, New7Days));
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged_NewMods));
                 }
                 
                 if (IsNormalSearch)
@@ -342,10 +342,10 @@ namespace Scarab.ViewModels
             }
         }
 
-        private void OnWhatsNew_UpdatedModsChanged() => Sort();
-        private void OnWhatsNew_NewModsChanged() => Sort();
-        private void OnUpdated7DaysChanged() => Sort();
-        private void OnNew7DaysChanged() => Sort();
+        private void OnWhatsNew_UpdatedModsChanged() => FixupModList();
+        private void OnWhatsNew_NewModsChanged() => FixupModList();
+        private void OnHowRecentModChanged_NewModsChanged() => FixupModList();
+        private void OnHowRecentModChanged_UpdatedModsChanged() => FixupModList();
 
         public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
@@ -758,8 +758,10 @@ namespace Scarab.ViewModels
         {
             int Comparer(ModItem x, ModItem y)
             {
+                // we use a special sort for whats new based on last changed
                 if (ModFilterState == ModFilterState.WhatsNew)
                     return x.RecentChangeInfo.CompareTo(y.RecentChangeInfo);
+                
                 return ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
             }
 
