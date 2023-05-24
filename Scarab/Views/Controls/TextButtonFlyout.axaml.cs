@@ -6,7 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Metadata;
-using Scarab.Extensions;
+using Scarab.Util;
 
 namespace Scarab.Views.Controls;
 

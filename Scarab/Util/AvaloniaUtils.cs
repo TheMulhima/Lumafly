@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data.Converters;
 using Avalonia.LogicalTree;
 using Avalonia.Styling;
+using Avalonia.Utilities;
+using Scarab.Enums;
 
-namespace Scarab.Extensions;
+namespace Scarab.Util;
 
 /// <summary>
 /// For having the UI how we want we got to do some reflection cuz API doesn't expose it :)
@@ -26,6 +30,10 @@ public static class AvaloniaUtils
         int index = style.Setters.IndexOf(style.Setters.First(x => x is Setter setter && setter.Property == propertyToSet));
         style.Setters[index] = new Setter(propertyToSet, newSetterValue!);
     }
+    
+    public static readonly IValueConverter HowRecentToBoolConvertor =
+        new FuncValueConverter<HowRecentModChanged, bool>((howRecent) => howRecent == 0);
+
     
     public static T? GetFirstChild<T>(this Control? control) where T : Control
     {

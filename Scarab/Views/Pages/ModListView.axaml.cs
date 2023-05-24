@@ -10,7 +10,7 @@ using Avalonia.Media;
 using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
 using JetBrains.Annotations;
-using Scarab.Extensions;
+using Scarab.Util;
 using Scarab.Models;
 using Scarab.ViewModels;
 
