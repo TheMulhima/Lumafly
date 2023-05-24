@@ -14,17 +14,14 @@ body {
 }
 
 .navbarIcon {
-  position: absolute; 
   width: auto; 
   height: 35px; 
-  margin-right: 100%; 
-  margin-left: 50px;
 }
 
 .navbar {
     display: inline-flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 200;
@@ -63,7 +60,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: whitesmoke;
+    background-color: #4a5e71;
     width: 98.66px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 300; 
@@ -104,10 +101,13 @@ a:active {
     color: whitesmoke;
 }
 
-.navbar > a {
-    color: whitesmoke;
-}
-
 .navbar > div > div > a {
     color: #0a1c3a;
+}
+
+.imageButton {
+  padding: 0!important;
+}
+.imageButton:hover {
+  background-color: transparent!important;
 }
