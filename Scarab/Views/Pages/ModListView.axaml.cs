@@ -12,6 +12,8 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
+using JetBrains.Annotations;
+using Scarab.Util;
 using Scarab.Enums;
 using Scarab.Extensions;
 using Scarab.Models;

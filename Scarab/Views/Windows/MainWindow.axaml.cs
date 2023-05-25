@@ -8,7 +8,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
-using Scarab.Extensions;
+using Scarab.Util;
 using Scarab.Models;
 using Scarab.ViewModels;
 

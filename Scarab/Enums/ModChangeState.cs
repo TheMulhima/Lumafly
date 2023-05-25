@@ -2,6 +2,7 @@
 
 public enum ModChangeState
 {
-    Created,
-    Updated,
+    None = 0,
+    Updated = 1,
+    New = 2,
 }
