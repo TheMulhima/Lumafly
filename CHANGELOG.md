@@ -1,3 +1,9 @@
+## Changes in v2.1.0.0
+- Add French Translations (by @Dastan21).
+- Add URL scheme handling for linux.
+- Fix not installed mods showing in ask prompt for uninstalled unused dependencies.
+- Catch any error while getting latest version (instead of only HTTP and Timeout). This prevents random crashes on load.
+
 ## Changes in v2.0.0.0
 #### Additional Features:
 - Improved search options (Filter by tags, by authors, search for dependents).
@@ -36,3 +42,4 @@
 - [JacksonFaller](https://github.com/JacksonFaller) - Pinning Mods, Auto uninstall unused dependencies, check dependencies are installed when toggling on a mod.
 - [Italy](https://github.com/jngo102) - Tabs
 - [luiz_eldorado](https://github.com/luizeldorado) - Portuguese translations
+- [Dastan](https://github.com/Dastan21) - French translations

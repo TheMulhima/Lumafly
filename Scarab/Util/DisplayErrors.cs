@@ -8,6 +8,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using MessageBox.Avalonia.Enums;
+using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.ViewModels;
@@ -17,12 +18,6 @@ namespace Scarab.Util;
 
 public static class DisplayErrors
 {
-    public static Window GetParent()
-    {
-        return (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                        ?? throw new InvalidOperationException();
-    }
-
     public static async Task DisplayHashMismatch(HashMismatchException e)
     {
         await MessageBoxUtil.GetMessageBoxStandardWindow
@@ -42,13 +37,11 @@ public static class DisplayErrors
     {
         if (e != null)
             Trace.TraceError(e.ToString());
-        
-        Window parent = GetParent();
 
         await new ErrorPopup()
         {
             DataContext = new ErrorPopupViewModel(errorText, e)
-        }.ShowDialog(parent);
+        }.ShowDialog(AvaloniaUtils.GetMainWindow());
     }
 
     public static async Task DisplayNetworkError(string name, HttpRequestException e)
@@ -103,10 +96,8 @@ public static class DisplayErrors
         {
             DataContext = new UninstallDependenciesConfirmationWindowViewModel(options, hasExternalMods)
         };
-
-        Window parent = GetParent();
-
-        return window.ShowDialog<bool>(parent);
+        
+        return window.ShowDialog<bool>(AvaloniaUtils.GetMainWindow());
     }
 
     public static async Task<bool> DisplayAreYouSureWarning(string warningText)

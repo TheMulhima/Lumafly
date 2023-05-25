@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
@@ -301,7 +302,10 @@ namespace Scarab.ViewModels
         public bool ShouldShowWhatsNew => IsInOnlineMode &&
                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
                                           !_settings.UseCustomModlinks;
+
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
+        public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
+
         public IEnumerable<ModItem> FilteredItems
         {
             get
@@ -451,10 +455,13 @@ namespace Scarab.ViewModels
 
         public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
-        [UsedImplicitly]
+
+        public event Action OnSelectModsWithFilter;
+        
         public void SelectModsWithFilter(ModFilterState modFilterState)
         {
             ModFilterState = modFilterState;
+            OnSelectModsWithFilter?.Invoke();
             SelectMods();
         }
         
@@ -595,7 +602,7 @@ namespace Scarab.ViewModels
                         }
                     }
 
-                    ResetPinned(item);
+                    await ResetPinned(item);
                 }
                 else
                 {
@@ -790,7 +797,7 @@ namespace Scarab.ViewModels
 
                     if (!item.Installed)
                     {
-                        ResetPinned(item);
+                        await ResetPinned(item);
                         await RemoveUnusedDependencies(item);
                     }
                 });
@@ -801,34 +808,71 @@ namespace Scarab.ViewModels
             Window parent = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                             ?? throw new InvalidOperationException();
             
-            var dialog = new OpenFileDialog
+            var files = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
                 Title = Resources.MLVM_Select_Mod,
-                Filters = new List<FileDialogFilter> { new () { Extensions = new List<string>() {"dll", "zip"} } }
-                
-            };
-            string[]? paths = await dialog.ShowAsync(parent);
-            if (paths is null || paths.Length == 0)
+                AllowMultiple = true,
+                FileTypeFilter = new []
+                {
+                    new FilePickerFileType("Mod")
+                    {
+                        Patterns = new []
+                        {
+                            "*.dll",
+                            "*.zip"
+                        }
+                    },
+                }
+            });
+
+            if (files.Count == 0)
                 return;
-            foreach (var path in paths)
+
+            foreach (var file in files)
             {
                 try
                 {
-                    var mod = ModItem.Empty(
-                        name: Path.GetFileNameWithoutExtension(path),
+                    var correspondingMod =
+                        _items.FirstOrDefault(x => x.Name == Path.GetFileNameWithoutExtension(file.Name));
+                    
+                    var mod = correspondingMod ?? ModItem.Empty(
+                        name: Path.GetFileNameWithoutExtension(file.Name), 
                         description: "This mod was manually installed and is not from official modlinks");
                     
+                    var oldState = mod.State;
+                    
+                    if (correspondingMod != null && correspondingMod.State is ExistsModState)
+                    {
+                        await _installer.Uninstall(correspondingMod);
+                    }
+
                     await _installer.PlaceMod(
                     mod,
                     true,
-                    Path.GetFileName(path),
-                    await File.ReadAllBytesAsync(path));
+                    file.Name,
+                    await File.ReadAllBytesAsync(file.Path.LocalPath));
+                    
                     FixupModList(mod);
+                    
+                    // make sure to only change state if the place is a success
+                    if (correspondingMod != null)
+                    {
+                        mod.State = oldState switch
+                        {
+                            NotInModLinksState notInModLinksState => notInModLinksState with { Enabled = true },
+                            InstalledState installedState => new NotInModLinksState(
+                                ModlinksMod: true,
+                                Enabled: true,
+                                Pinned:installedState.Pinned),
+                            NotInstalledState => new NotInModLinksState(ModlinksMod:false),
+                            _ => throw new UnreachableException(),
+                        };
+                    }
                     
                 }
                 catch(Exception e)
                 {
-                    await DisplayErrors.DisplayGenericError("Manually installing", Path.GetFileName(path), e);
+                    await DisplayErrors.DisplayGenericError("Manually installing", file.Name, e);
                 }
             }
         }
@@ -873,7 +917,9 @@ namespace Scarab.ViewModels
         public async Task PinMod(object itemObj)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
-            await _installer.Pin(item);
+            if (item.State is not ExistsModState state) return;
+            
+            await _installer.Pin(item, !state.Pinned);
             Sort();
             SelectMods();
         }
@@ -883,11 +929,11 @@ namespace Scarab.ViewModels
             return _reverseDependencySearch.GetAllEnabledDependents(mod).Any(x => x.State is InstalledState { Pinned: true });
         }
 
-        public void ResetPinned(ModItem mod)
+        public async Task ResetPinned(ModItem mod)
         {
-            if (mod.State is InstalledState { Pinned: true } state)
+            if (mod.State is ExistsModState { Pinned: true })
             {
-                mod.State = state with { Pinned = false };
+                await PinMod(mod);
                 Sort();
                 SelectMods();
             }

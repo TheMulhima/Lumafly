@@ -25,33 +25,40 @@ see [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) f
 - Mods appear in the top left corner of the game title screen after installation.
 
 ## Scarab URL Scheme
-Scarab now uses Windows/Mac URL Scheme, this means shareable links can now open and run commands on scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to get correctly formatted links to share. There are 4 commands as of v2.0.0.0
-- [Download](https://themulhima.github.io/Scarab/commands/download) - Open scarab and download mod(s).
+Scarab+ uses Windows/Mac/Linux URL Scheme and in combination with scarab's website, it will allow shareable links to 
+open and run commands on scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to get correctly formatted links to share.  
+
+The main purpose is to share downloadable links of mods using the [download](https://themulhima.github.io/Scarab/commands/download) command. 
+Sharing a link such as [https://themulhima.github.io/Scarab/commands/download?mod=Satchel](https://themulhima.github.io/Scarab/commands/download?mod=Satchel)
+will open Scarab and download the mod Satchel. The button on the command page can help correctly format the link. 
+
+There are 4 other shareable links via the website as well:
 - [Custom Modlinks](https://themulhima.github.io/Scarab/commands/customModLinks) - Open Scarab and load its mod list from a custom modlinks
 - [Reset](https://themulhima.github.io/Scarab/commands/reset) - Open Scarab and reset its persistent settings.
 - [Force Update All](https://themulhima.github.io/Scarab/commands/forceUpdateAll) - Open Scarab and reinstalls all mods.Could help fix issues with mods
-
-There is also the [redirect link](https://themulhima.github.io/Scarab/redirect) which can be used to link any scarab command.
-
-Note: It does not currently work for the linux version. See [#28](https://github.com/TheMulhima/Scarab/issues/28) for more info.
-
-## What Scarab+ Looks Like
-![screenshot](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/Default.png)
-
-## Many More Options
-![allflyouts](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/All%20Flyouts.png)
-
-## Whats New Tab
-![whatsnew](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/whatsnew.png)
-
-## More Compact UI
-![expanded](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/expanded.png)
+- [Redirect link](https://themulhima.github.io/Scarab/redirect) which can be used to link any scarab command.
 
 ## Contributions
-- Contributions are open. You can see what features are currenly requested over [here](https://github.com/TheMulhima/Scarab/labels/enhancement)
+Contributions are open. You can see what features are currently requested over [here](https://github.com/TheMulhima/Scarab/labels/enhancement)
+#### Open Issues
+- [#29](https://github.com/TheMulhima/Scarab/issues/29) - Translate Scarab to more languages
+
+## Screenshot: What Scarab+ Looks Like
+![screenshot](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/Default.png)
+
+## Screenshot: Many More Options
+![allflyouts](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/All%20Flyouts.png)
+
+## Screenshot: Whats New Tab
+![whatsnew](https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Readme%20Assets/whatsnew.png)
 
 ## Credits
 - [56](https://github.com/fifty-six): Original creator of Scarab
+
+#### Translations Credits
+- [Clazex](https://github.com/Clazex) - Chinese translations
+- [luiz_eldorado](https://github.com/luizeldorado) - Portuguese translations
+- [Dastan](https://github.com/Dastan21) - French translations
 
 ## Testimonials
 "This is the best version of scarab rn" - Dandy

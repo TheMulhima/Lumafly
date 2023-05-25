@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data.Converters;
 using Avalonia.LogicalTree;
@@ -62,6 +63,10 @@ public static class AvaloniaUtils
         var popup_object = MenuItemPopup.GetValue(menuItem);
         return popup_object as Popup ?? throw new Exception("MenuItem popup not found");
     }
+  
+  
+    public static Window GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                                            ?? throw new InvalidOperationException();
 }
 
 /// <summary>
