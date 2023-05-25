@@ -376,7 +376,7 @@
                         <Button
                             Padding="3"
                             Margin="0 -3 0 0"
-                            MaxWidth="70"
+                            MaxWidth="60"
                             CommandParameter="{Binding .}"
                             Content="{Binding InstallText}"
                             IsEnabled="{Binding !InstallingButtonAccessible}"
