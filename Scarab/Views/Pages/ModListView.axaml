@@ -341,11 +341,11 @@
                   <Expander.Header>
                     <Grid>
                       <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="100" />
-                        <ColumnDefinition Width="*" MaxWidth="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />             <!-- enable (always visible, no need to reserve space for it) -->
+                        <ColumnDefinition Width="*" MaxWidth="120" /> <!-- update -->
+                        <ColumnDefinition Width="Auto" />            <!-- install (always visible, no need to reserve space for it) -->
+                        <ColumnDefinition Width="*" MaxWidth="50"/>  <!-- pin -->
                       </Grid.ColumnDefinitions>
                       <TextBlock Grid.Column="0"
                           TextWrapping="Wrap"
@@ -367,46 +367,56 @@
                             IsChecked="{Binding EnabledIsChecked}"
                             IsEnabled = "{Binding Installed}"
                             VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
                                                 />
                       </Panel>
-
                       <Panel
                           VerticalAlignment="Center"
                           Grid.Column="2">
-                        <Button
-                            Padding="3"
-                            Margin="0 -3 0 0"
-                            MaxWidth="60"
-                            CommandParameter="{Binding .}"
-                            Content="{Binding InstallText}"
-                            IsEnabled="{Binding !InstallingButtonAccessible}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
-                            VerticalAlignment="Top"/>
+                          <Button
+                              Padding="3"
+                              Margin="0 -3 0 0"
+                              CommandParameter="{Binding .}"
+                              MaxWidth="70"
+                              Background="#976526"
+                              BorderBrush="#976526"
+                              IsVisible="{Binding UpdateAvailable}"
+                              Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
+                              VerticalAlignment="Top">
+                              <StackPanel Orientation="Horizontal">
+                                <PathIcon 
+                                    Data="{StaticResource history_regular}" 
+                                    Height="15" 
+                                    Width="15" 
+                                    VerticalAlignment="Center"
+                                    Margin="0 0 5 0"/>
+                                <TextBlock Text="{ext:Localize XAML_Update}"/>
+                              </StackPanel>
+                            </Button>   
                       </Panel>
-                      <Grid
-                          Grid.Column="3"
-                          ColumnDefinitions="Auto,*"
-                          IsVisible="{Binding UpdateAvailable}"
-                          VerticalAlignment="Top">
-                        <Button
-                            MaxHeight="18"
-                            MaxWidth="18"
-                            Margin="0 4 0 0"
-                            Background="Transparent"
-                            BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
-                            CommandParameter="{Binding .}"
-                                                >
-                          <Image
-                              Source="avares://Scarab/Assets/update.png"
-                              Height="12" Width="12"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                                                    />
-                        </Button>
-
-                        <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
-                      </Grid>
+                      <Panel
+                          VerticalAlignment="Center"
+                          Grid.Column="3">
+                          <Button
+                              Padding="3"
+                              Margin="0 -3 0 0"
+                              CommandParameter="{Binding .}"
+                              MinWidth="75"
+                              IsEnabled="{Binding !InstallingButtonAccessible}"
+                              Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
+                              VerticalAlignment="Top"
+                              HorizontalContentAlignment="Center">
+                              <StackPanel Orientation="Horizontal">
+                                  <PathIcon 
+                                      Data="{Binding InstallIcon}" 
+                                      Height="15" 
+                                      Width="15" 
+                                      VerticalAlignment="Center"
+                                      Margin="0 0 5 0"/>
+                                  <TextBlock Text="{Binding InstallText}"/>
+                              </StackPanel>
+                          </Button>
+                      </Panel>
                       <Button Grid.Column="4" 
                               Margin="0 -5 0 0"
                               VerticalAlignment="Center"
@@ -415,11 +425,12 @@
                               IsVisible="{Binding Pinned}"
                               ToolTip.Tip="{ext:Localize XAML_Unpin}"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
-                              CommandParameter="{Binding .}">
+                              CommandParameter="{Binding .}"
+                              HorizontalAlignment="Right">
                         <PathIcon
                              Data="{StaticResource pin_regular}"
                              FontSize="20"
-                             Margin="1 0 0 0"
+                             Margin="1 5 0 0"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"/>
                       </Button>

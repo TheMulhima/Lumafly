@@ -10,6 +10,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Media;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Scarab.Models
@@ -117,9 +119,15 @@ namespace Scarab.Models
 
         public string InstallText => State switch
         {
-            InstalledState => Resources.MI_InstallText_Installed,
+            ExistsModState => Resources.MI_InstallText_Installed,
             NotInstalledState => Resources.MI_InstallText_NotInstalled,
-            NotInModLinksState => Resources.MI_InstallText_NotInModlinks,
+            _ => throw new InvalidOperationException("Unreachable")
+        };
+        
+        public StreamGeometry? InstallIcon => State switch
+        {
+            ExistsModState => Application.Current?.Resources["presence_offline_regular"] as StreamGeometry,
+            NotInstalledState => Application.Current?.Resources["arrow_download_regular"] as StreamGeometry,
             _ => throw new InvalidOperationException("Unreachable")
         };
 
