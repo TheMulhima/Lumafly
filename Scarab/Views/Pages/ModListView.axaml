@@ -266,7 +266,7 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="2" Grid.Row="0"
-              IsChecked="{Binding HowRecent_NewMods, 
+              IsChecked="{Binding HowRecentModChanged_NewMods, 
               Converter={StaticResource HowRecentEnumConvertor},
               ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="NewMods"
@@ -274,7 +274,7 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="3" Grid.Row="0"
-              IsChecked="{Binding HowRecent_NewMods, 
+              IsChecked="{Binding HowRecentModChanged_NewMods, 
               Converter={StaticResource HowRecentEnumConvertor},
               ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="NewMods"
@@ -286,7 +286,7 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="2" Grid.Row="2"
-              IsChecked="{Binding HowRecent_UpdatedMods, 
+              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
               Converter={StaticResource HowRecentEnumConvertor},
               ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="UpdatedMods"
@@ -294,7 +294,7 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="3" Grid.Row="2"
-              IsChecked="{Binding HowRecent_UpdatedMods, 
+              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
               Converter={StaticResource HowRecentEnumConvertor},
               ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="UpdatedMods"
