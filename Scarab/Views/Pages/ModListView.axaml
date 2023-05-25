@@ -209,10 +209,11 @@
           Background="Transparent"
           HorizontalAlignment="Right"
           BorderThickness="0"
+          IsVisible="{Binding ClearSearchVisible}"
           Command="{Binding ClearSearch}"
           Margin="0 0 0 0">
           <PathIcon
-              Data="{StaticResource delete_regular}"
+              Data="{StaticResource presence_offline_regular}"
               Width="15" Height="15"/>
       </Button>
 
@@ -372,12 +373,12 @@
                       </Panel>
                       <Panel
                           VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
                           Grid.Column="2">
                           <Button
                               Padding="3"
                               Margin="0 -3 0 0"
                               CommandParameter="{Binding .}"
-                              MaxWidth="70"
                               Background="#976526"
                               BorderBrush="#976526"
                               IsVisible="{Binding UpdateAvailable}"

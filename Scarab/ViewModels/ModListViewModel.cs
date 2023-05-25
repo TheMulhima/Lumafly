@@ -303,6 +303,7 @@ namespace Scarab.ViewModels
                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
                                           !_settings.UseCustomModlinks;
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
+        public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
         public IEnumerable<ModItem> FilteredItems
         {
             get

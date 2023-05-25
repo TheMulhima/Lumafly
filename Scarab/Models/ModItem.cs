@@ -126,7 +126,7 @@ namespace Scarab.Models
         
         public StreamGeometry? InstallIcon => State switch
         {
-            ExistsModState => Application.Current?.Resources["presence_offline_regular"] as StreamGeometry,
+            ExistsModState => Application.Current?.Resources["delete_regular"] as StreamGeometry,
             NotInstalledState => Application.Current?.Resources["arrow_download_regular"] as StreamGeometry,
             _ => throw new InvalidOperationException("Unreachable")
         };
