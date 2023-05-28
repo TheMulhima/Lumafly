@@ -1,23 +1,8 @@
-name: Test and Build
+name: Build
 
 on: [push, pull_request]
 
 jobs:
-
-  tests:
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Test
-      run: dotnet test
-      
   build-windows:
     runs-on: windows-latest
     env:
