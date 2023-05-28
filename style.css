@@ -111,3 +111,28 @@ a:active {
 .imageButton:hover {
   background-color: transparent!important;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  column-gap: 20px;
+  grid-template-rows: auto;
+  width: 75%;
+}
+
+.gridButton {
+  height: 25px; 
+  width: 150px; 
+  margin: auto;
+  margin-right: 0px;
+  grid-column: 1;
+}
+
+.gridText {
+  grid-column: 2; 
+}
+
+.commandHeader {
+  margin-top: 50px; 
+  margin-bottom: 0px;
+}

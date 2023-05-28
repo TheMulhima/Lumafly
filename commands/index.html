@@ -7,12 +7,6 @@
       <link href="../ConstructionKnight.ico" rel="icon">
       <script type="text/javascript" src="../actions.js"></script>
       <title>Scarab+ Commands</title>
-      <style>
-        li { margin: 1em 0; }
-        button { height: 25px; }
-        li > div { display: inline-flex; justify-content: center; }
-        li > div > p { margin: 0px; margin-left: 10px; height: 19px; font-size: 13px; font-family: Arial; padding-top: 6px; vertical-align: top;}
-      </style>
     </head>
     <body>
       <div class="navbar">
@@ -33,50 +27,52 @@
       </div>
       <img src="../HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
       <p class="center, centertext">
+      This page allows you to create shareable links that can open and run commands in Scarab+ 
+      </p>      <p class="center, centertext">
         For this to work you will need to download scarab+ from <a href="../index.html?download">download page</a> and set it up
       </p>
       <h1 class="center, centertext">
         The commands you can use with Scarab+:
       </h1>
-      <ul class="center">
-        <li>
-          <div>
-            <button id="download">Download mods</button>
-            <p>Open scarab and download the provided mods</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <button onclick="window.location = './forceUpdateAll/index.html'">Force update all</button> 
-            <p>Reinstalls all mods. Could help fix issues with mods</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <button onclick="window.location = './reset/index.html'">Reset scarab settings</button>
-            <p>Could help fix errors with scarab</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <button id="customModLinks">Custom ModLinks</button>
-            <p>Load scarab's mod list from a custom ModLinks</p>
-          </div>
-        </li>
-        <li>
-          <div>
-            <button id="other">Other commands</button>
-            <p>You can use this link to redirect to any scarab command</p>
-          </div>
-        </li>
-      </ul>
+
+      <h2 class="commandHeader center centertext" id="general">General Commands:</h2>
+      <div class="center grid">
+          <button id="download" class="gridButton" style="grid-row: 1;">Download mods</button>
+          <p style="grid-row: 1;">Open scarab and download the mods provided. When this command is run it will ensure the provided mods are installed, enabled, and updated.</p>
+          
+          <button id="customModLinks" class="gridButton" style="grid-row: 2;" >Custom ModLinks</button>
+          <p style="grid-row: 2;" >Open scarab and have it's modlist loaded from a custom modLinks.</p>
+      </div>
+
+      <h2 class="commandHeader center centertext" id="support">Support Commands:</h2>
+      <div class="center grid">
+        <button id="forceUpdateAll" class="gridButton" style="grid-row: 1;">Force update all</button> 
+        <p style="grid-row: 1;">Opens Scarab and reinstalls all mods. Could help fix issues that happened because mods are not downloaded correctly.</p>
+
+        <button id="reset" class="gridButton" style="grid-row: 2;">Reset scarab settings</button>
+        <p style="grid-row: 2;">Opens Scarab and reset its persistent settings. Equivalent to downloading and opening Scarab for the first time.</p>
+      </div>
+
+      <h2 class="commandHeader center centertext" id="other">Other Commands:</h2>
+      <div class="center grid">
+        <button id="redirect" class="gridButton" style="grid-row: 1;">General redirect</button>
+        <p style="grid-row: 1">You can use this link to redirect to any scarab command</p>
+      </div>
+      
       <script type="text/javascript">
         document.getElementById('download').onclick = function () {
-          var mods = prompt('Enter mods to download here seperated by "/" (eg. Satchel/HKMirror/Osmi)');
-          if (mods !== null)
-          {
-            window.location = "./download/index.html?mods=" + mods.replaceAll(' ', '%20');;
+          var mods = prompt('Enter mods to download here. If there is more than one mod, seperate them by "/" (eg. Satchel/HKMirror/Osmi)');
+          if (mods !== null) {
+            window.location = "./download/index.html?mods=" + encodeURIComponent(mods);
           }
+        }
+
+        document.getElementById('forceUpdateAll').onclick = function () {
+          window.location = './forceUpdateAll/index.html';
+        }
+
+        document.getElementById('reset').onclick = function () {
+          window.location = './reset/index.html';
         }
         
         document.getElementById('customModLinks').onclick = function () {
@@ -86,7 +82,7 @@
             window.location = "./customModLinks/index.html?link=" + link;
           }
         }
-        document.getElementById('other').onclick = function () {
+        document.getElementById('redirect').onclick = function () {
           var link = prompt('Enter the command', "scarab://");
           if (link !== null)
           {
