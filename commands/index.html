@@ -6,26 +6,15 @@
       <link href="../ConstructionKnight.ico" rel="shortcut icon">
       <link href="../ConstructionKnight.ico" rel="icon">
       <script type="text/javascript" src="../actions.js"></script>
+      <script type="text/javascript" src="../repeatedHTML.js"></script>
       <title>Scarab+ Commands</title>
     </head>
     <body>
-      <div class="navbar">
-        <a href="../index.html" class="imageButton"><img src="../ConstructionKnight.ico" class="navbarIcon"></a>
-        <a href="../commands/index.html">Commands</a>
-        <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
-        <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
-        <div class="dropdown">
-          <button onclick="window.location.replace('../index.html?download')" class="dropbtn">Download 
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="../index.html?download">Stable</a>
-            <a href="../index.html?download=latest">Latest</a>
-          </div>
-        </div> 
-        <div></div>
-      </div>
-      <img src="../HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
+      
+      <!--using html in scripts instead of raw html to avoid copy pasting same html-->
+      <script type="text/javascript">addHKMBanner(1);</script>
+      <script type="text/javascript">addNavBar(1);</script>
+      
       <p class="center, centertext">
       This page allows you to create shareable links that can open and run commands in Scarab+ 
       </p>      <p class="center, centertext">
@@ -59,36 +48,6 @@
         <p style="grid-row: 1">You can use this link to redirect to any scarab command</p>
       </div>
       
-      <script type="text/javascript">
-        document.getElementById('download').onclick = function () {
-          var mods = prompt('Enter mods to download here. If there is more than one mod, seperate them by "/" (eg. Satchel/HKMirror/Osmi)');
-          if (mods !== null) {
-            window.location = "./download/index.html?mods=" + encodeURIComponent(mods);
-          }
-        }
-
-        document.getElementById('forceUpdateAll').onclick = function () {
-          window.location = './forceUpdateAll/index.html';
-        }
-
-        document.getElementById('reset').onclick = function () {
-          window.location = './reset/index.html';
-        }
-        
-        document.getElementById('customModLinks').onclick = function () {
-          var link = prompt('Enter the url to the ModLinks.xml file');
-          if (link !== null)
-          {
-            window.location = "./customModLinks/index.html?link=" + link;
-          }
-        }
-        document.getElementById('redirect').onclick = function () {
-          var link = prompt('Enter the command', "scarab://");
-          if (link !== null)
-          {
-            window.location = "../redirect/index.html?link=" + link;
-          }
-        }
-      </script>
+      <script type="text/javascript" src="commandButtons.js" defer></script>
     </body>
 </html>

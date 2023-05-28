@@ -66,3 +66,30 @@ function addDataToHTML(data, header)
   releaseNotesBody.innerHTML = md.render(releaseNotes);
   document.body.appendChild(releaseNotesBody);
 }
+
+function updateContentsOfLandingPage() {
+  var download = getParam("download");
+
+  if (download !== null) {
+    downloadScarab();
+    document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
+  }
+
+  return new Promise((resolve, reject) => {
+    if (download !== 'update') {
+      fetch("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md")
+      .then(response => response.text())
+      .then(data => {
+        addDataToHTML(data.substring(752), "");
+        resolve();
+      });
+    } else {
+      fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
+      .then(response => response.json())
+      .then(data => {
+        addDataToHTML(data.body, "Release Notes: ");
+        resolve();
+      })
+    }
+  });
+}

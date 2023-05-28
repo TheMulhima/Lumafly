@@ -6,33 +6,21 @@
     <link href="../../ConstructionKnight.ico" rel="shortcut icon">
     <link href="../../ConstructionKnight.ico" rel="icon">
     <script type="text/javascript" src="../../actions.js"></script>
+    <script type="text/javascript" src="../../repeatedHTML.js"></script>
     <title>Scarab+ Commands: Reset</title>
   </head>
     <body>
-      <div class="navbar">
-        <a href="../../index.html" class="imageButton"><img src="../../ConstructionKnight.ico" class="navbarIcon"></a>
-        <a href="../../commands/index.html">Commands</a>
-        <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
-        <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
-        <div class="dropdown">
-          <button onclick="window.location.replace('../../index.html?download')" class="dropbtn">Download 
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="../../index.html?download">Stable</a>
-            <a href="../../index.html?download=latest">Latest</a>
-          </div>
-        </div> 
-        <div></div>
-      </div>
-      <img src="../../HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
+      <!--using html in scripts instead of raw html to avoid copy pasting same html-->
+      <script type="text/javascript">addHKMBanner(2);</script>
+      <script type="text/javascript">addNavBar(2);</script>
+
       <h1 class="center, centertext">
         This will open Scarab and reset it.
       </h1>
       <p class="center, centertext">
         For this to work you will need to download scarab+ from <a href="../../index.html?download">download page</a> and set it up
       </p>
-      <script type="text/javascript">
+      <script type="text/javascript" defer>
         openLink("scarab://reset");
       </script>
     </body>

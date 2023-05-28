@@ -6,54 +6,26 @@
     <link href="./ConstructionKnight.ico" rel="shortcut icon">
     <link href="./ConstructionKnight.ico" rel="icon">
     <script type="text/javascript" src="actions.js"></script>
+    <script type="text/javascript" src="repeatedHTML.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/ua-parser-js/src/ua-parser.min.js"></script>
     <title>Scarab+</title>
   </head>
     <body>
-      <div class="navbar">
-        <a href="index.html" class="imageButton"><img src="./ConstructionKnight.ico" class="navbarIcon"></a>
-        <a href="commands/index.html">Commands</a>
-        <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
-        <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
-        <div class="dropdown">
-          <button onclick="window.location.replace('index.html?download')" class="dropbtn">Download 
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="index.html?download">Stable</a>
-            <a href="index.html?download=latest">Latest</a>
-          </div>
-        </div> 
-        <div></div>
-      </div>
-      <img src="./HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
+
+      <!--using html in scripts instead of raw html to avoid copy pasting same html-->
+      <script type="text/javascript">addHKMBanner();</script>
+      <script type="text/javascript">addNavBar();</script>
+      
       <h1 class="center, centertext">
         Welcome to Scarab+ Website !!
       </h1>
       <p class="center centertext" id="download-message" style="margin-bottom: 40px;">
         To download Scarab+, please download it from the <a href="index.html?download">automatic download link</a> 
       </p>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src=" https://cdn.jsdelivr.net/npm/ua-parser-js/src/ua-parser.min.js"></script>
-      <script type="text/javascript">
-        var download = getParam("download");
-
-        if (download !== 'update') {
-          fetch("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md")
-          .then(response => response.text())
-          .then(data => {
-            addDataToHTML(data.substring(752), "")
-          });
-        } else {
-          fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
-          .then(response => response.json())
-          .then(data => {
-            addDataToHTML(data.body, "Release Notes: ")
-          })
-        }
-        if (download !== null) {
-          downloadScarab();
-          document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
-        }
-      </script>
+      
+      <!--add either the changelog or the readme-->
+      <script type="text/javascript">updateContentsOfLandingPage();</script>
+      
     </body>
 </html>
