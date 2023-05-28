@@ -27,10 +27,10 @@
       </div>
       <img src="./HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
       <h1 class="center, centertext">
-        Thank you for using Scarab+ !!
+        Welcome to Scarab+ Website !!
       </h1>
-      <p class="center, centertext" id="download-message">
-        To download Scarab+, please download it from the <a href="https://themulhima.github.io/Scarab?download">download page</a> 
+      <p class="center centertext" id="download-message" style="margin-bottom: 40px;">
+        To download Scarab+, please download it from the <a href="index.html?download">automatic download link</a> 
       </p>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src=" https://cdn.jsdelivr.net/npm/ua-parser-js/src/ua-parser.min.js"></script>
@@ -41,7 +41,7 @@
           fetch("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md")
           .then(response => response.text())
           .then(data => {
-            addDataToHTML(data, "Readme: ")
+            addDataToHTML(data.substring(752), "")
           });
         } else {
           fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")

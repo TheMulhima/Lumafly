@@ -19,7 +19,7 @@ function downloadScarab()
 
     if (download === "latest")
     {
-      linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/dotnet/master/";
+      linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/build/master/";
     }
 
 
