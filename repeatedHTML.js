@@ -33,7 +33,7 @@ function getPathPrefix(levelDeep) {
   function addHKMBanner(levelDeep = 0) {
     var pathPrefix = getPathPrefix(levelDeep);
     var html = `
-      <img src="${pathPrefix}HKMBanner.png" alt="HKM Banner" class="center" style="width: 250px; height: auto;">
+      <img src="${pathPrefix}HKMBanner.png" alt="HKM Banner" class="center hkmBanner">
     `
     document.body.innerHTML = html + document.body.innerHTML;
   }

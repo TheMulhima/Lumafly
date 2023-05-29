@@ -7,12 +7,24 @@ body {
     display: block; 
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
 }
 
+/* mobile */
 @media (max-width: 750px) {
   .center {
-    width: 80%;
+    width: 90%;
+  }
+  body {
+    font-size: 12px;
+  }
+}
+/* desktop */
+@media (min-width: 751px) {
+  .center {
+    width: 70%;
+  }
+  body {
+    font-size: 16px;
   }
 }
 
@@ -58,18 +70,7 @@ body {
     margin: 0;
 }
 
-@media (min-width: 751px) {
-  .navbar {
-    height: 50px;
-  }
-  .dropdown, .dropbtn, .navbar > a {
-    font-size: 16px;
-  }
-  .dropdown-content {
-    width: 98.66px;
-  }
-}
-
+/* mobile */
 @media (max-width: 750px) {
   .navbar {
     height: 42px;
@@ -82,11 +83,27 @@ body {
   }
 }
 
+/* desktop */
+@media (min-width: 751px) {
+  .navbar {
+    height: 50px;
+  }
+  .dropdown, .dropbtn, .navbar > a {
+    font-size: 16px;
+  }
+  .dropdown-content {
+    width: 98.66px;
+  }
+}
+
   
 .navbar > a:hover, .dropdown:hover, .dropbtn {
-    background-color: #4a5e71;
-  }
-  
+  background-color: #4a5e71;
+}
+
+.dropbtn:hover {
+  cursor: pointer;
+}
 .dropdown-content {
     display: none;
     position: absolute;
@@ -141,27 +158,127 @@ a:active {
   background-color: transparent!important;
 }
 
-.grid {
+.commandGrid {
   display: grid;
   grid-template-columns: 0.5fr 1fr;
-  column-gap: 20px;
+  column-gap: 10px;
   grid-template-rows: auto;
   width: 75%;
 }
 
-.gridButton {
-  height: 25px; 
-  width: 150px; 
-  margin: auto;
-  margin-right: 0px;
+.commandGridButton {
+  min-height: 25px; 
+  min-width: 75px !important; 
+  margin: 20px 10px 20px 75px;
   grid-column: 1;
 }
 
-.gridText {
+.commandGridText {
   grid-column: 2; 
+  text-align:start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
 }
 
 .commandHeader {
-  margin-top: 50px; 
+  margin-top: 30px;
+  margin-left: 75px;
   margin-bottom: 0px;
+  grid-column-start: span 2;
+  display: inline-flex;
+}
+
+.hkmBanner {
+  height: auto;
+}
+
+/* mobile */
+@media (max-width: 750px) {
+  .hkmBanner {
+    width: 150px;
+  }
+}
+
+/* desktop */
+@media (min-width: 751px) {
+  .hkmBanner {
+    width: 200px;
+  }
+}
+
+.yellowClickableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yellowClickable {
+  display: inline-flex;
+  padding: 10px 20px;
+  background-color: #fcd228;
+  color: #0a1d3a !important;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.yellowClickable:hover {
+  background-color: #4a5e71;
+  color: #0a1d3a !important;
+  cursor: pointer;
+}
+
+.downloadIcon {
+  margin-left: 10px;
+}
+
+.linksSVG {
+  height: 125px;
+  width: 125px;
+  fill: #c9a820;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.linksSVG:hover {
+  background-color: #2a4c79;
+  cursor: pointer;
+}
+
+.linksGrid {
+  display: grid;  
+  column-gap: 10px;
+  row-gap: 50px;
+  width: 75%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.linkSVGText {
+  text-align: center; 
+  position: relative; 
+  top: 5px;
+  color: #c9a820;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* mobile */
+@media (max-width: 750px) {
+  .linksGrid {
+  grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* desktop */
+@media (min-width: 751px) {
+  .linksGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+    }
 }

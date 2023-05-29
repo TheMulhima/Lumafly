@@ -25,13 +25,62 @@
       <script type="text/javascript">addHKMBanner();</script>
       <script type="text/javascript">addNavBar();</script>
       
-      <h1 class="center, centertext">
+      <h1 class="center centertext" id="header">
         Welcome to Scarab+ Website !!
       </h1>
-      <p class="center centertext" id="download-message" style="margin-bottom: 40px;">
-        To download Scarab+, please download it from the <a href="index.html?download">automatic download link</a> 
-      </p>
-      
+
+      <!--Reserved for ?download param. will changed in updateContentsOfLandingPage-->
+      <p class="center centertext" id="download-message"></p>
+
+      <!--will be removed in js if ?download param provided-->
+      <div id="noParam">
+        <div class="yellowClickableContainer">
+          <button class="center yellowClickable" onclick="downloadScarab(false, true)">
+            Scarab+ Download
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0a1d3a" class="downloadIcon" >
+              <path d="m8 12 4 4 4-4" stroke="#0a1d3a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 16V4M19 17v.6c0 1.33-1.07 2.4-2.4 2.4H7.4C6.07 20 5 18.93 5 17.6V17" stroke="#0a1d3a" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        
+        <p class="center centertext">Scarab+ is a cross platform mod manager for Hollow Knight.</p>
+        <p class="center centertext">This is an updated version of the original <a href="https://github.com/fifty-six/Scarab">Scarab</a>. Read the <a href="https://github.com/TheMulhima/Scarab#readme">readme</a> for more info.</p>
+
+        <div class="linksGrid">
+
+          <div onclick="window.location.replace('commands/index.html')"  class="linksSVG" style="display: grid; justify-content: center;">
+            <h3 class="linkSVGText">Commands</h3> 
+            <svg class="linksSVG" viewbox="0 0 24 24" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V18C22 19.6569 20.6569 21 19 21H5C3.34315 21 2 19.6569 2 18V6ZM5 5C4.44772 5 4 5.44772 4 6V7H20V6C20 5.44772 19.5523 5 19 5H5ZM4 18V9H20V18C20 18.5523 19.5523 19 19 19H5C4.44772 19 4 18.5523 4 18ZM7.70711 11.2929C7.31658 10.9024 6.68342 10.9024 6.29289 11.2929C5.90237 11.6834 5.90237 12.3166 6.29289 12.7071L7.58579 14L6.29289 15.2929C5.90237 15.6834 5.90237 16.3166 6.29289 16.7071C6.68342 17.0976 7.31658 17.0976 7.70711 16.7071L9.70711 14.7071C10.0976 14.3166 10.0976 13.6834 9.70711 13.2929L7.70711 11.2929Z"/>
+            </svg>
+          </div>
+
+          <div onclick="window.location.replace('https://github.com/TheMulhima/Scarab#readme')"  class="linksSVG" style="display: grid; justify-content: center;">
+            <h3 class="linkSVGText">Readme</h3> 
+            <svg class="linksSVG" viewbox="0 0 24 24" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5.5H9C10.1046 5.5 11 6.39543 11 7.5V16.5C11 17.0523 10.5523 17.5 10 17.5H4C3.44772 17.5 3 17.0523 3 16.5V6.5C3 5.94772 3.44772 5.5 4 5.5ZM14 19.5C13.6494 19.5 13.3128 19.4398 13 19.3293V19.5C13 20.0523 12.5523 20.5 12 20.5C11.4477 20.5 11 20.0523 11 19.5V19.3293C10.6872 19.4398 10.3506 19.5 10 19.5H4C2.34315 19.5 1 18.1569 1 16.5V6.5C1 4.84315 2.34315 3.5 4 3.5H9C10.1947 3.5 11.2671 4.02376 12 4.85418C12.7329 4.02376 13.8053 3.5 15 3.5H20C21.6569 3.5 23 4.84315 23 6.5V16.5C23 18.1569 21.6569 19.5 20 19.5H14ZM13 7.5V16.5C13 17.0523 13.4477 17.5 14 17.5H20C20.5523 17.5 21 17.0523 21 16.5V6.5C21 5.94772 20.5523 5.5 20 5.5H15C13.8954 5.5 13 6.39543 13 7.5ZM5 7.5H9V9.5H5V7.5ZM15 7.5H19V9.5H15V7.5ZM19 10.5H15V12.5H19V10.5ZM5 10.5H9V12.5H5V10.5ZM19 13.5H15V15.5H19V13.5ZM5 13.5H9V15.5H5V13.5Z"/>  
+            </svg>
+          </div>
+          
+          <div onclick="window.location.replace('https://discord.gg/VDsg3HmWuB')"  class="linksSVG" style="display: grid; justify-content: center;">
+            <h3 class="linkSVGText">Discord</h3> 
+            <svg class="linksSVG" viewbox="0 0 32 32" fill="none">
+              <path d="M2 11.6C2 8.23969 2 6.55953 2.65396 5.27606C3.2292 4.14708 4.14708 3.2292 5.27606 2.65396C6.55953 2 8.23969 2 11.6 2H20.4C23.7603 2 25.4405 2 26.7239 2.65396C27.8529 3.2292 28.7708 4.14708 29.346 5.27606C30 6.55953 30 8.23969 30 11.6V20.4C30 23.7603 30 25.4405 29.346 26.7239C28.7708 27.8529 27.8529 28.7708 26.7239 29.346C25.4405 30 23.7603 30 20.4 30H11.6C8.23969 30 6.55953 30 5.27606 29.346C4.14708 28.7708 3.2292 27.8529 2.65396 26.7239C2 25.4405 2 23.7603 2 20.4V11.6Z" fill="transparent"/>
+              <path d="M23.6361 9.33998C22.212 8.71399 20.6892 8.25903 19.0973 8C18.9018 8.33209 18.6734 8.77875 18.5159 9.13408C16.8236 8.89498 15.1469 8.89498 13.4857 9.13408C13.3283 8.77875 13.0946 8.33209 12.8974 8C11.3037 8.25903 9.77927 8.71565 8.35518 9.3433C5.48276 13.4213 4.70409 17.3981 5.09342 21.3184C6.99856 22.6551 8.84487 23.467 10.66 23.9983C11.1082 23.4189 11.5079 22.8029 11.8523 22.1536C11.1964 21.9195 10.5683 21.6306 9.9748 21.2951C10.1323 21.1856 10.2863 21.071 10.4351 20.9531C14.0551 22.5438 17.9881 22.5438 21.5649 20.9531C21.7154 21.071 21.8694 21.1856 22.0251 21.2951C21.4299 21.6322 20.8 21.9211 20.1442 22.1553C20.4885 22.8029 20.8865 23.4205 21.3364 24C23.1533 23.4687 25.0013 22.6567 26.9065 21.3184C27.3633 16.7738 26.1261 12.8335 23.6361 9.33998ZM12.3454 18.9075C11.2587 18.9075 10.3676 17.9543 10.3676 16.7937C10.3676 15.6331 11.2397 14.6783 12.3454 14.6783C13.4511 14.6783 14.3422 15.6314 14.3232 16.7937C14.325 17.9543 13.4511 18.9075 12.3454 18.9075ZM19.6545 18.9075C18.5678 18.9075 17.6767 17.9543 17.6767 16.7937C17.6767 15.6331 18.5488 14.6783 19.6545 14.6783C20.7602 14.6783 21.6514 15.6314 21.6323 16.7937C21.6323 17.9543 20.7602 18.9075 19.6545 18.9075Z" />
+            </svg>
+          </div>
+          
+          <div onclick="window.location.replace('https://prashantmohta.github.io/ModdingDocs/')"  class="linksSVG" style="display: grid; justify-content: center;">
+            <h3 class="linkSVGText">Create Mods</h3> 
+            <svg class="linksSVG" viewbox="0 0 24 24" fill="none">
+              <path d="M21.71,15.58l-4.52-4.51a6.85,6.85,0,0,0,.14-1.4A7.67,7.67,0,0,0,6.42,2.72a1,1,0,0,0-.57.74,1,1,0,0,0,.28.88l4.35,4.34-1.8,1.8L4.34,6.13a1,1,0,0,0-.88-.27,1,1,0,0,0-.74.56,7.67,7.67,0,0,0,7,10.91,6.85,6.85,0,0,0,1.4-.14l4.51,4.52a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-4.9-4.9a1,1,0,0,0-.95-.26,5.88,5.88,0,0,1-1.48.2A5.67,5.67,0,0,1,4,9.67a6,6,0,0,1,.08-1L8,12.6a1,1,0,0,0,1.42,0L12.6,9.39A1,1,0,0,0,12.6,8L8.71,4.08a6.12,6.12,0,0,1,1-.08,5.67,5.67,0,0,1,5.66,5.67,5.88,5.88,0,0,1-.2,1.48,1,1,0,0,0,.26.95l4.9,4.9a1,1,0,0,0,1.42-1.42Z"/>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
       <!--add either the changelog or the readme-->
       <script type="text/javascript">updateContentsOfLandingPage();</script>
       
