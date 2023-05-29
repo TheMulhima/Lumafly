@@ -1,6 +1,14 @@
+:root {
+  --bg-color-dark: #0a1d3a;
+  --bg-color-light: #162840;
+  --text-color: whitesmoke;
+  --button-hover: #4a5e71;
+  --yellow-links: #fed428;
+}
+
 body {
-  background-image: linear-gradient(to right, #0a1d3a, #162840);
-  color: whitesmoke;
+  background-image: linear-gradient(to right, var(--bg-color-dark), var(--bg-color-light));
+  color: var(--text-color);
 }
 
 .center {
@@ -45,12 +53,12 @@ body {
     position: sticky;
     top: 0;
     z-index: 200;
-    background-image: linear-gradient(to right, #0a1d3a, #162840);
+    background-image: linear-gradient(to right, var(--bg-color-dark), var(--bg-color-light));
   }
  
 .navbar > a {
     float: left;
-    color: whitesmoke;
+    color: var(--text-color);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -63,7 +71,7 @@ body {
 .dropdown > .dropbtn {
     border: none;
     outline: none;
-    color: whitesmoke;
+    color: var(--text-color);
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit;
@@ -98,7 +106,7 @@ body {
 
   
 .navbar > a:hover, .dropdown:hover, .dropbtn {
-  background-color: #4a5e71;
+  background-color: var(--button-hover);
 }
 
 .dropbtn:hover {
@@ -107,7 +115,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #4a5e71;
+    background-color: var(--button-hover);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 300; 
     position: sticky;
@@ -123,7 +131,7 @@ body {
   }
   
 .dropdown-content a:hover {
-    background-color: whitesmoke;
+    background-color: var(--text-color);
   }
   
 .dropdown:hover .dropdown-content {
@@ -131,7 +139,7 @@ body {
   }
 
 a:link, a:visited {
-    color: #fcd228;
+    color: var(--yellow-links);
   }
   
 a:hover {
@@ -140,15 +148,15 @@ a:hover {
   
   
 a:active {
-    color: whitesmoke;
+    color: var(--text-color);
   }
 
 .navbar > a {
-    color: whitesmoke;
+    color: var(--text-color);
 }
 
 .navbar > div > div > a {
-    color: #0a1c3a;
+    color: var(--bg-color-dark);
 }
 
 .imageButton {
@@ -216,8 +224,8 @@ a:active {
 .yellowClickable {
   display: inline-flex;
   padding: 10px 20px;
-  background-color: #fcd228;
-  color: #0a1d3a !important;
+  background-color: var(--yellow-links);
+  color: var(--bg-color-dark) !important;
   border: none;
   text-align: center;
   text-decoration: none;
@@ -227,8 +235,8 @@ a:active {
 }
 
 .yellowClickable:hover {
-  background-color: #4a5e71;
-  color: #0a1d3a !important;
+  background-color: var(--button-hover);
+  color: var(--bg-color-dark) !important;
   cursor: pointer;
 }
 
@@ -239,13 +247,13 @@ a:active {
 .linksSVG {
   height: 125px;
   width: 125px;
-  fill: #c9a820;
+  fill: var(--yellow-links);
   margin-left: auto;
   margin-right: auto;
 }
 
 .linksSVG:hover {
-  background-color: #2a4c79;
+  background-color: var(--button-hover);
   cursor: pointer;
 }
 
@@ -264,7 +272,7 @@ a:active {
   text-align: center; 
   position: relative; 
   top: 5px;
-  color: #c9a820;
+  color: var(--yellow-links);
   padding: 0px;
   margin: 0px;
 }
