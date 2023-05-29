@@ -9,6 +9,13 @@ body {
     margin-right: auto;
     width: 60%;
 }
+
+@media (max-width: 750px) {
+  .center {
+    width: 80%;
+  }
+}
+
 .centertext {
     text-align: center;
 }
@@ -28,6 +35,7 @@ body {
     z-index: 200;
     background-image: linear-gradient(to right, #0a1d3a, #162840);
     height: 50px;
+    text-size-adjust: -25%;
   }
  
 .navbar > a {
