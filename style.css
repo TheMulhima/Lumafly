@@ -34,13 +34,10 @@ body {
     top: 0;
     z-index: 200;
     background-image: linear-gradient(to right, #0a1d3a, #162840);
-    height: 50px;
-    text-size-adjust: -25%;
   }
  
 .navbar > a {
     float: left;
-    font-size: 16px;
     color: whitesmoke;
     text-align: center;
     padding: 14px 16px;
@@ -51,8 +48,7 @@ body {
     float: left;
   }
   
-.dropdown .dropbtn {
-    font-size: 16px;  
+.dropdown > .dropbtn {
     border: none;
     outline: none;
     color: whitesmoke;
@@ -60,9 +56,34 @@ body {
     background-color: inherit;
     font-family: inherit;
     margin: 0;
+}
+
+@media (min-width: 751px) {
+  .navbar {
+    height: 50px;
   }
+  .dropdown, .dropbtn, .navbar > a {
+    font-size: 16px;
+  }
+  .dropdown-content {
+    width: 98.66px;
+  }
+}
+
+@media (max-width: 750px) {
+  .navbar {
+    height: 42px;
+  }
+  .dropdown, .dropbtn, .navbar > a {
+    font-size: 12px;
+  }
+  .dropdown-content {
+    width: 82px;
+  }
+}
+
   
-.navbar > a:hover, .dropdown:hover .dropbtn {
+.navbar > a:hover, .dropdown:hover, .dropbtn {
     background-color: #4a5e71;
   }
   
@@ -70,7 +91,6 @@ body {
     display: none;
     position: absolute;
     background-color: #4a5e71;
-    width: 98.66px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 300; 
     position: sticky;
