@@ -64,26 +64,20 @@ function updateContentsOfLandingPage() {
 
   if (download !== null) {
     downloadScarab(download === "latest");
+
     document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
-    document.getElementById("noParam").remove();
+    document.getElementById("not-needed-on-download").remove();
     document.getElementById("header").innerHTML = "Thank you for downloading Scarab+";
 
-    return new Promise((resolve, reject) => {
-      if (download !== 'update') {
-        fetch("https://raw.githubusercontent.com/TheMulhima/Scarab/master/README.md")
-        .then(response => response.text())
-        .then(data => {
-          addDataToHTML(data.substring(752), "Readme: ");
-          resolve();
-        });
-      } else {
-        fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
-        .then(response => response.json())
-        .then(data => {
-          addDataToHTML(data.body, "Release Notes: ");
-          resolve();
-        })
-      }
-    });
+    if (download === 'update') {
+      document.getElementById("not-needed-on-update").remove();
+
+      fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
+      .then(response => response.json())
+      .then(data => {
+        addDataToHTML(data.body, "Release Notes: ");
+        resolve();
+      })
+    }
   }
 }
