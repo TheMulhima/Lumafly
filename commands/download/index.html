@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../../style.css">    
-      <link href="../../ConstructionKnight.ico" rel="shortcut icon">
-      <link href="../../ConstructionKnight.ico" rel="icon">
-      <script type="text/javascript" src="../../actions.js"></script>
-      <script type="text/javascript" src="../../repeatedHTML.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="../../css/style.css">    
+      <link rel="stylesheet" href="../../css/downloadCommandStyle.css">    
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+      <link href="../../assets/ConstructionKnight.ico" rel="shortcut icon">
+      <link href="../../assets/ConstructionKnight.ico" rel="icon">
+
+      <script type="text/javascript" src="../../scripts/helper.js"></script>
+      <script type="text/javascript" src="../../scripts/navbar.js"></script>
+      <script type="text/javascript" src="../../scripts/downloadCommand.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/xml-js@1.6.11/dist/xml-js.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
       <!-- for discord embeds-->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Scarab+" />
-    <meta property="og:description" content="Command to download mods using Scarab+" />
-    <meta property="og:url" content="https://themulhima.github.io/Scarab" />
-    <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/Scarab/blob/website/HKMBanner.png?raw=true" />
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Scarab+" />
+      <meta property="og:description" content="Command to download mods using Scarab+" />
+      <meta property="og:url" content="https://themulhima.github.io/Scarab" />
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/Scarab/blob/website/assets/HKMBanner.png?raw=true" />
     
       <title>Scarab+ Commands: Download</title>
     </head>
     <body>
-      <!--using html in scripts instead of raw html to avoid copy pasting same html-->
+      <!--using html in scripts instead of raw html to avoid copy pasting same html can find code in scripts/navbar.js-->
       <script type="text/javascript">addHKMBanner(2);</script>
       <script type="text/javascript">addNavBar(2);</script>
 
-      <h1 class="center centertext">
-        This will open Scarab and download the following mods: 
-      </h1>
-      <h3 id="message" class="center centertext"></h3>
-      <p class="center centertext">
-        For this to work you will need to download scarab+ from <a href="../../index.html?download">download page</a> and set it up
-      </p>
-      <script type="text/javascript" defer>
-        var mods = getParam('mods');
-        if (mods !== null) {
-          document.getElementById("message").innerHTML += mods.replaceAll('/', ', ');
-          openLink("scarab://download/" + mods);
-        }
-        else {
-          document.getElementById("message").innerHTML += "(No mods were specified)";
-        }
-      </script>
+      <div id="mods-provided">
+        <h1 class="center centertext">
+          This will open Scarab and download the following mods: 
+        </h1>
+        <h3 id="mod-list" class="center centertext">No mods provided</h3>
+        <p class="center centertext">
+          For this to work you will need to download scarab+ from <a href="../../?download">download page</a> and set it up
+        </p>
+        <div id="create-download-link" class="centerItemContainer" style="margin-top: 30px;">
+          <button class="center standardButton whiteGlowButton">Create your own download link</button>
+        </div>
+      </div>
+      <div id="no-mods-provided">
+        <h3 class="center centertext">This page is used to create shareable download links for mods.</h3>
+        <h3 class="center centertext">Add mods below to create your own link</h3>
+
+        <div class="centerItemContainer">
+          <select id="mySelect" multiple="multiple" class="select2dropdown">
+          </select>
+        </div>
+
+        <div id="create-link" class="centerItemContainer" style="margin-top: 30px;">
+          <button class="center standardButton whiteGlowButton">Create Link</button>
+        </div>
+      </div>
     </body>
 </html>

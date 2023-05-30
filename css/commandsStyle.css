@@ -1,0 +1,32 @@
+.commandGrid {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    column-gap: 10px;
+    grid-template-rows: auto;
+    width: 75%;
+  }
+  
+.commandGridButton {
+    min-height: 25px; 
+    min-width: 75px !important; 
+    padding: 10px;
+    margin: 20px 10px 20px 75px;
+    grid-column: 1;
+}
+  
+.commandGridText {
+    grid-column: 2; 
+    text-align:start;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+  
+.commandHeader {
+    margin-top: 30px;
+    margin-left: 75px;
+    margin-bottom: 0px;
+    grid-column-start: span 2;
+    display: inline-flex;
+}
+  

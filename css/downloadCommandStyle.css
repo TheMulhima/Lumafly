@@ -1,0 +1,8 @@
+/* for the dropdown*/
+li {
+    color: var(--bg-color-dark);
+}
+
+.select2dropdown {
+    min-width: 35%;
+  }
