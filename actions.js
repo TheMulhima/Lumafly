@@ -1,7 +1,14 @@
-function openLink(url, wait = 500) {
+function openLink(url, onclicked = false) {
+  // whether its on clicked or not matters because browsers block opening links in new
+  // tab if its not onclick
+  if (onclicked) {
+    window.open(link);
+  }
+  else {
     setTimeout(function(){
-        window.location.replace(url);
-      }, wait);
+      window.location.replace(url);
+    }, wait);
+  }
 }
 
 function getParam(paramName) {
@@ -29,12 +36,12 @@ function downloadScarab(latest = false, onclicked = false)
   else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + "Scarab-Linux.zip"
 
   if (link !== null) {
-    openLink(link, onclicked ? 0 : 500);
+    openLink(link, onclicked);
   }
   else {
     setTimeout(function() {
       if (confirm("The website could not automatically detect your platform, would you like to open the releases page? You can download Scarab+ from there.")) {
-        window.location.replace("https://github.com/TheMulhima/Scarab/releases/latest")
+        openLink("https://github.com/TheMulhima/Scarab/releases/latest", onclicked);
       }
     }, 500);
   }
