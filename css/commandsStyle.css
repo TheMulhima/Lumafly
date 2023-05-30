@@ -4,7 +4,13 @@
     column-gap: 10px;
     grid-template-rows: auto;
     width: 75%;
-  }
+}
+
+@media (max-width: 750px) {
+    .commandGrid {
+        width: 100%;
+    }
+}
   
 .commandGridButton {
     min-height: 25px; 
