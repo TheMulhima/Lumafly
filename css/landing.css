@@ -1,0 +1,57 @@
+
+.linksSVG {
+    height: 125px;
+    width: 125px;
+    fill: var(--text-color);
+    margin-left: auto;
+    margin-right: auto;
+    filter: drop-shadow(0px 0px 2px var(--off-white-shadow));
+}
+  
+  
+.linksSVGContainer {
+    display: grid;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.linksSVGContainer:hover {
+    background-color: var(--button-hover);
+    cursor: pointer;
+}
+  
+.linksGrid {
+    display: grid;  
+    column-gap: 10px;
+    row-gap: 50px;
+    width: 75%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+  
+.linkSVGText {
+    text-align: center; 
+    position: relative; 
+    top: 5px;
+    color: var(--text-color);
+    padding: 0px;
+    margin: 0px;
+    text-shadow: 0px 0px 4px var(--off-white-shadow);
+}
+  
+/* mobile */
+@media (max-width: 750px) {
+.linksGrid {
+    grid-template-columns: 1fr 1fr;
+}
+}
+  
+/* desktop */
+@media (min-width: 751px) {
+.linksGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+    }
+}

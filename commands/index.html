@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../style.css">
-      <link href="../ConstructionKnight.ico" rel="shortcut icon">
-      <link href="../ConstructionKnight.ico" rel="icon">
-      <script type="text/javascript" src="../actions.js"></script>
-      <script type="text/javascript" src="../repeatedHTML.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="../css/style.css">
+      <link rel="stylesheet" href="../css/commandsStyle.css">
+      
+      <link href="../assets/ConstructionKnight.ico" rel="shortcut icon">
+      <link href="../assets/ConstructionKnight.ico" rel="icon">
+
+      <script type="text/javascript" src="../scripts/helper.js"></script>
+      <script type="text/javascript" src="../scripts/navbar.js"></script>
+      <script type="text/javascript" src="../scripts/commandButtons.js" defer></script>
 
       <!-- for discord embeds-->
       <meta property="og:type" content="website">
       <meta property="og:title" content="Scarab+" />
       <meta property="og:description" content="The page where Scarab+ shareable command links can be created." />
       <meta property="og:url" content="https://themulhima.github.io/Scarab" />
-      <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/Scarab/blob/website/HKMBanner.png?raw=true" />
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/Scarab/blob/website/assets/HKMBanner.png?raw=true" />
       
       <title>Scarab+ Commands</title>
     </head>
     <body>
       
-      <!--using html in scripts instead of raw html to avoid copy pasting same html-->
+      <!--using html in scripts instead of raw html to avoid copy pasting same html can find code in scripts/navbar.js-->
       <script type="text/javascript">addHKMBanner(1);</script>
       <script type="text/javascript">addNavBar(1);</script>
       
       <p class="center centertext">
       This page allows you to create shareable links that can open and run commands in Scarab+ 
       </p>      <p class="center centertext">
-        For this to work you will need to download scarab+ from <a href="../index.html?download">download page</a> and set it up
+        For this to work you will need to download scarab+ from <a href="../?download">download page</a> and set it up
       </p>
       <h1 class="center centertext">
         The commands you can use with Scarab+:
@@ -34,28 +38,26 @@
 
       <div class="center commandGrid">
           <h2 class="commandHeader" id="general">General Commands:</h2>
-          <button id="download" class="yellowClickable commandGridButton" style="grid-row: 2;">Download mods</button>
+          <button id="download" class="standardButton commandGridButton whiteGlowButton" style="grid-row: 2;">Download mods</button>
           <p style="grid-row: 2;" class="commandGridText" >Open scarab and download the mods provided. When this command is run it will ensure the provided mods are installed, enabled, and updated.</p>
           
-          <button id="customModLinks" class="yellowClickable commandGridButton" style="grid-row: 3;" >Custom ModLinks</button>
+          <button id="customModLinks" class="standardButton commandGridButton whiteGlowButton" style="grid-row: 3;" >Custom ModLinks</button>
           <p style="grid-row: 3;" class="commandGridText" >Open scarab and have it's modlist loaded from a custom modLinks.</p>
       </div>
 
       <div class="center commandGrid">
         <h2 class="commandHeader" id="support">Support Commands:</h2>
-        <button id="forceUpdateAll" class="yellowClickable commandGridButton" style="grid-row: 2;">Force update all</button> 
+        <button id="forceUpdateAll" class="standardButton commandGridButton whiteGlowButton" style="grid-row: 2;">Force update all</button> 
         <p style="grid-row: 2;" class="commandGridText" >Opens Scarab and reinstalls all mods. Could help fix issues that happened because mods are not downloaded correctly.</p>
 
-        <button id="reset" class="yellowClickable commandGridButton" style="grid-row: 3;">Reset scarab settings</button>
+        <button id="reset" class="standardButton commandGridButton whiteGlowButton" style="grid-row: 3;">Reset scarab settings</button>
         <p style="grid-row: 3;" class="commandGridText">Opens Scarab and reset its persistent settings. Equivalent to downloading and opening Scarab for the first time.</p>
       </div>
 
       <div class="center commandGrid">
         <h2 class="commandHeader" id="other">Other Commands:</h2>
-        <button id="redirect" class="yellowClickable commandGridButton" style="grid-row: 2;">General redirect</button>
+        <button id="redirect" class="standardButton commandGridButton whiteGlowButton" style="grid-row: 2;">General redirect</button>
         <p style="grid-row: 2;" class="commandGridText">You can use this link to redirect to any scarab command</p>
       </div>
-      
-      <script type="text/javascript" src="commandButtons.js" defer></script>
     </body>
 </html>

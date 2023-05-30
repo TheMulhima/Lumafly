@@ -1,21 +1,3 @@
-function openLink(url, onclicked = false) {
-  // whether its on clicked or not matters because browsers block opening links in new
-  // tab if its not onclick
-  if (onclicked) {
-    window.open(link);
-  }
-  else {
-    setTimeout(function(){
-      window.location.replace(url);
-    }, wait);
-  }
-}
-
-function getParam(paramName) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(paramName);
-}
-
 function downloadScarab(latest = false, onclicked = false)
 {
   let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/"
@@ -66,7 +48,7 @@ function addDataToHTML(data, header)
   document.body.appendChild(releaseNotesBody);
 }
 
-function updateContentsOfLandingPage() {
+window.onload = function() {
   var download = getParam("download");
 
   if (download !== null) {

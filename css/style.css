@@ -163,39 +163,9 @@ a:active {
 .imageButton {
   padding: 0!important;
 }
+
 .imageButton:hover {
   background-color: transparent!important;
-}
-
-.commandGrid {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  column-gap: 10px;
-  grid-template-rows: auto;
-  width: 75%;
-}
-
-.commandGridButton {
-  min-height: 25px; 
-  min-width: 75px !important; 
-  margin: 20px 10px 20px 75px;
-  grid-column: 1;
-}
-
-.commandGridText {
-  grid-column: 2; 
-  text-align:start;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-.commandHeader {
-  margin-top: 30px;
-  margin-left: 75px;
-  margin-bottom: 0px;
-  grid-column-start: span 2;
-  display: inline-flex;
 }
 
 .hkmBanner {
@@ -216,13 +186,13 @@ a:active {
   }
 }
 
-.yellowClickableContainer {
+.centerItemContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.yellowClickable {
+.standardButton {
   display: inline-flex;
   padding: 10px 20px;
   background-color: var(--yellow-links);
@@ -235,69 +205,17 @@ a:active {
   align-items: center;
 }
 
-.yellowClickable:hover {
+.standardButton:hover {
   background-color: var(--button-hover);
   color: var(--bg-color-dark) !important;
   cursor: pointer;
 }
 
+.whiteGlowButton {
+  background-color: var(--text-color);
+  box-shadow: 0px 0px 20px 2px rgba(250, 249, 246, 0.5);
+}
+
 .downloadIcon {
   margin-left: 10px;
-}
-
-.linksSVG {
-  height: 125px;
-  width: 125px;
-  fill: var(--text-color);
-  margin-left: auto;
-  margin-right: auto;
-  filter: drop-shadow(0px 0px 2px var(--off-white-shadow));
-}
-
-
-.linksSVGContainer {
-  display: grid;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.linksSVGContainer:hover {
-  background-color: var(--button-hover);
-  cursor: pointer;
-}
-
-.linksGrid {
-  display: grid;  
-  column-gap: 10px;
-  row-gap: 50px;
-  width: 75%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-}
-
-.linkSVGText {
-  text-align: center; 
-  position: relative; 
-  top: 5px;
-  color: var(--text-color);
-  padding: 0px;
-  margin: 0px;
-  text-shadow: 0px 0px 4px var(--off-white-shadow);
-}
-
-/* mobile */
-@media (max-width: 750px) {
-  .linksGrid {
-  grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* desktop */
-@media (min-width: 751px) {
-  .linksGrid {
-    grid-template-columns: 1fr 1fr 1fr;
-    }
 }
