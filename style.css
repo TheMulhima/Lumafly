@@ -4,6 +4,7 @@
   --text-color: whitesmoke;
   --button-hover: #4a5e71;
   --yellow-links: #fed428;
+  --off-white-shadow: rgba(250, 249, 246, 0.5);
 }
 
 body {
@@ -247,12 +248,21 @@ a:active {
 .linksSVG {
   height: 125px;
   width: 125px;
-  fill: var(--yellow-links);
+  fill: var(--text-color);
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0px 0px 2px var(--off-white-shadow));
+}
+
+
+.linksSVGContainer {
+  display: grid;
+  justify-content: center;
   margin-left: auto;
   margin-right: auto;
 }
 
-.linksSVG:hover {
+.linksSVGContainer:hover {
   background-color: var(--button-hover);
   cursor: pointer;
 }
@@ -272,9 +282,10 @@ a:active {
   text-align: center; 
   position: relative; 
   top: 5px;
-  color: var(--yellow-links);
+  color: var(--text-color);
   padding: 0px;
   margin: 0px;
+  text-shadow: 0px 0px 4px var(--off-white-shadow);
 }
 
 /* mobile */
