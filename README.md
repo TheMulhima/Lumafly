@@ -1,7 +1,7 @@
 # Scarab+
 ![build](https://github.com/TheMulhima/Scarab/actions/workflows/build.yml/badge.svg)
 ![test](https://github.com/TheMulhima/Scarab/actions/workflows/test.yml/badge.svg)
-[![website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fthemulhima.github.io%2FScarab)](https://themulhima.github.io/Scarab)  
+[![website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=32c854&up_message=online&url=https%3A%2F%2Fthemulhima.github.io%2FScarab)](https://themulhima.github.io/Scarab)  
 [![GitHub all releases](https://img.shields.io/github/downloads/TheMulhima/Scarab/total)](https://github.com/TheMulhima/Scarab/releases)
 [![contributors](https://img.shields.io/github/contributors/TheMulhima/Scarab)](https://github.com/TheMulhima/Scarab/issues)  
 [![discord](https://img.shields.io/discord/879125729936298015?label=discord)](https://discord.gg/VDsg3HmWuB)
@@ -35,12 +35,12 @@ See [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) f
 ## Features Explanation
 Here are a list of explanations of features that require more information.
 ### Commands
-Scarab+ allows you to use shareable links to open and run commands in scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to get the correctly formatted links.  
+Scarab+ allows you to use shareable links to open and run commands in scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to view and create the links.
 
 #### General Commands
 The main shareable commands that anyone can use.
-- [Download Mod](https://themulhima.github.io/Scarab/commands/download): Share links to open Scarab and download mods using this command. Sharing a link such as [this](https://themulhima.github.io/Scarab/commands/download?mods=Satchel).
-will open Scarab and download the mod "Satchel".
+- [Download Mod](https://themulhima.github.io/Scarab/commands/download): Share links to open Scarab and download mods using this command. Sharing a link such as [this](https://themulhima.github.io/Scarab/commands/download?mods=Satchel) will open Scarab and download the mod "Satchel".
+
 - [Custom Modlinks](https://themulhima.github.io/Scarab/commands/customModLinks) - Open Scarab and load its mod list from a custom modlinks.
 
 #### Support Commands
