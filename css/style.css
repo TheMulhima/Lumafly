@@ -219,3 +219,11 @@ a:active {
 .downloadIcon {
   margin-left: 10px;
 }
+
+.sourceCodeBadge {
+  height: 20px; 
+  width: auto;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}

@@ -48,7 +48,7 @@ function addDataToHTML(data, header)
   document.body.appendChild(releaseNotesBody);
 }
 
-window.onload = function() {
+window.addEventListener("load",(e) => {
   var download = getParam("download");
 
   if (download !== null) {
@@ -69,4 +69,4 @@ window.onload = function() {
       })
     }
   }
-}
+});

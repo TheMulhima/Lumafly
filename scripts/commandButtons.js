@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener("load",(e) => {
   document.getElementById('download').onclick = function () {
     window.location.replace("./download");
   }
@@ -24,4 +24,4 @@ window.onload = function () {
       window.location = "../redirect?link=" + link;
     }
   }
-}
+});

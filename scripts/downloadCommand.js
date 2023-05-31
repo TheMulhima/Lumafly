@@ -1,4 +1,4 @@
-window.onload = function() {
+window.addEventListener("load",(e) => {
     var mods = getParam('mods');
 
     var modNames = []
@@ -53,4 +53,4 @@ window.onload = function() {
         });
         });
     }
-}
+});
