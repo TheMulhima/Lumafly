@@ -11,7 +11,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
@@ -363,8 +362,8 @@ namespace Scarab.ViewModels
         public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
         public bool CanDisableAll => _items.Any(x => x.State is ExistsModState { Enabled: true });
         public bool CanEnableAll => _items.Any(x => x.State is ExistsModState {Enabled: false});
-        
-        public async Task ToggleApiCommand()
+
+        public static async Task ToggleApiCommand(IModSource _mods, IInstaller _installer)
         {
             async Task<bool> DoActionWithWithErrorHandling(Func<Task> Action)
             {
@@ -420,7 +419,11 @@ namespace Scarab.ViewModels
 
                 await _installer.ToggleApi();
             }
+        }
 
+        public async Task ToggleApiCommand()
+        {
+            await ToggleApiCommand(_mods, _installer);
             RaisePropertyChanged(nameof(ApiButtonText));
             RaisePropertyChanged(nameof(ApiOutOfDate));
         }

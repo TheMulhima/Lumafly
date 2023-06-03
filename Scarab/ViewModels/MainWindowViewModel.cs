@@ -226,7 +226,8 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IGlobalSettingsFinder>(),
                       sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
-              .AddSingleton<SettingsViewModel>();
+              .AddSingleton<SettingsViewModel>()
+              .AddSingleton<InfoViewModel>();
             
             Trace.WriteLine("Building service provider");
             ServiceProvider sp = sc.BuildServiceProvider(new ServiceProviderOptions
@@ -238,6 +239,7 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Displaying model");
             Tabs = new ObservableCollection<SelectableItem<ViewModelBase>>
             {
+                new(sp.GetRequiredService<InfoViewModel>(), Resources.XAML_Info, false),
                 new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
