@@ -81,7 +81,14 @@ namespace Scarab.Services
             _hc = hc;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
-            CheckAPI().Wait();
+            try
+            {
+                CheckAPI().Wait();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Exception occured when initalizing Installer {e}");
+            }
         }
 
         private void CreateNeededDirectories()
