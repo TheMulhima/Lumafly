@@ -1,5 +1,7 @@
+---
 ## Changes in v2.1.0.0
 #### Additional Features:
+- Add info panel with relevant links and launch vanilla/modded game
 - Sort mods in whats new tab by date.
 - Add French Translations (by @Dastan21).
 - Add URL scheme handling for linux.
@@ -56,4 +58,3 @@
 - [JacksonFaller](https://github.com/JacksonFaller) - Pinning Mods, Auto uninstall unused dependencies, check dependencies are installed when toggling on a mod.
 - [Italy](https://github.com/jngo102) - Tabs
 - [luiz_eldorado](https://github.com/luizeldorado) - Portuguese translations
----
