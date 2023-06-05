@@ -1,17 +1,17 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>Scarab</title>
+    <title>Scarab+</title>
     <link>https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateFile-NetSparkle.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
-      <title>Version 2.1.0.0</title>
+      <title>Version 2.0.0.0 - Initial Scarab+ Update</title>
       <sparkle:releaseNotesLink>https://raw.githubusercontent.com/TheMulhima/Scarab/master/CHANGELOG.md</sparkle:releaseNotesLink>
-      <pubDate>Mon, 05 June 2023 10:30:00 +0000</pubDate>
-      <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab-Windows.zip"
-                       sparkle:version="2.1.0.0"
-                       sparkle:os="windows"
-                       type="application/octet-stream"/>
+      <pubDate>19-05-2023</pubDate>
+      <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab.exe"
+                 sparkle:version="2.0.0.0"
+                 sparkle:os="windows"
+                 />
      </item>
   </channel>
 </rss>
