@@ -7,7 +7,7 @@
     <item>
       <title>Version 2.0.0.0 - Initial Scarab+ Update</title>
       <sparkle:releaseNotesLink>https://raw.githubusercontent.com/TheMulhima/Scarab/master/CHANGELOG.md</sparkle:releaseNotesLink>
-      <pubDate>19-05-2023</pubDate>
+      <pubDate>06/05/2023 18:12:35</pubDate>
       <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab.exe"
                  sparkle:version="2.0.0.0"
                  sparkle:os="windows"
