@@ -24,19 +24,19 @@ function getPathPrefix(levelDeep) {
 function addNavBar(levelDeep = 0) {
   let pathPrefix = getPathPrefix(levelDeep);
   let html = `
-      <div class="navbar">
-      <a href="${pathPrefix}" class="imageButton"><img src="${pathPrefix}assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
-      <a href="${pathPrefix}commands">Commands</a>
-      <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
-      <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
-      <div class="dropdown">
-        <button onclick="window.location.replace('${pathPrefix}?download')" class="dropbtn">Download</button>
-        <div class="dropdown-content">
-          <a href="${pathPrefix}?download">Stable</a>
-          <a href="${pathPrefix}?download=latest">Latest</a>
+      <div class="navbar" style="flex-wrap: wrap;">
+        <a href="${pathPrefix}" class="imageButton"><img src="${pathPrefix}assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
+        <a href="${pathPrefix}commands">Commands</a>
+        <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
+        <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
+        <div class="dropdown">
+          <button onclick="window.location.replace('${pathPrefix}?download')" class="dropbtn">Download</button>
+          <div class="dropdown-content">
+            <a href="${pathPrefix}?download">Stable</a>
+            <a href="${pathPrefix}?download=latest">Latest</a>
+          </div>
         </div>
-      </div> 
-      <div></div>
+        <div></div>
       </div>
   `
   document.body.innerHTML = html + document.body.innerHTML;

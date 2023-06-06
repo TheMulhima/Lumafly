@@ -85,7 +85,7 @@ body {
     height: 42px;
   }
   .dropdown, .dropbtn, .navbar > a {
-    font-size: 14px;
+    font-size: 13px;
   }
   .dropdown-content {
     width: 82px;
