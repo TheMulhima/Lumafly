@@ -24,7 +24,7 @@ body {
     width: 90%;
   }
   body {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 /* desktop */
@@ -33,7 +33,7 @@ body {
     width: 70%;
   }
   body {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
@@ -85,7 +85,7 @@ body {
     height: 42px;
   }
   .dropdown, .dropbtn, .navbar > a {
-    font-size: 12px;
+    font-size: 14px;
   }
   .dropdown-content {
     width: 82px;
@@ -98,7 +98,7 @@ body {
     height: 50px;
   }
   .dropdown, .dropbtn, .navbar > a {
-    font-size: 16px;
+    font-size: 18px;
   }
   .dropdown-content {
     width: 98.66px;
@@ -240,6 +240,7 @@ a:active {
 }
 
 .fit-width {
+  width: -moz-fit-content;
   width: fit-content;
 }
 

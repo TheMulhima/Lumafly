@@ -18,13 +18,14 @@
     <!-- for discord embeds-->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Scarab+" />
-    <meta property="og:description" content="Official website of Scarab+, the mod manager for Hollow Knight." />
+    <meta property="og:description" content="Official website of Scarab+, the mod installer and manager for Hollow Knight. Hosts important links and shareable scarab+ command links." />
     <meta property="og:url" content="https://themulhima.github.io/Scarab" />
     <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/Scarab/blob/website/assets/HKMBanner.png?raw=true" />
     
     <meta name="google-site-verification" content="TbL_vW_24F3bcXCu7M_8vNzUlDqNVaAkPAvHV1EPfK8" />
+    <meta charset="utf-8">
     
-    <title>Scarab+</title>
+    <title>Scarab+, Hollow Knight Mod Installer and Manager</title>
   </head>
     <body>
 
@@ -52,37 +53,21 @@
        
       <!--will be removed in js if ?download=update param provided-->
       <div id="not-needed-on-update">
-        <p class="center centertext">Scarab+ is a mod installer and mod manager for Hollow Knight. It is easiest way to get the 300+ mods for Hollow Knight.</p>
+        <p class="center">Scarab+ is a mod loader/installer/manager for Hollow Knight. It is easiest way to get the 300+ mods for Hollow Knight.</p>
         <h3 class="center centertext expander fit-width">Features
           <svg width="15px" height="15px" viewBox="0 0 330 330" fill="#dedede" stroke="#dedede" class="expanderIcon" >
             <path d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"/>
           </svg>
         </h3>
         <ul class="center expandable">
-          <li>
-            Automatically downloads the Modding API which is required for mods to load.
-          </li>
-          <li>
-            Loads its modlist from the official modlinks but that can be changed by providing a custom modlinks URI in the settings tab or via a command.
-          </li>
-          <li>
-            Search through the 300+ mods available (such as Custom Knight for skins and Randomizer 4 for randos) </br> Allows narrowing down the search by the mod's tags and authors, also allows searching through mod descriptions and searching by dependency.
-          </li>
-          <li>
-            Display mods that were updated or newly released recently (within the last week/month).
-          </li>
-          <li>
-            For mods not in official modlinks, scarab provides a manually install button which can correctly install it.
-          </li>
-          <li>
-            Pin mods by right clicking on a mod to ensure scarab never deletes it.
-          </li>
-          <li>
-            Share links that run commands in scarab see commands for more info.
-          </li>
-          <li>
-            Open a mod's global settings file to edit its settings.
-          </li>
+          <li>Automatically downloads the Modding API which is required for mods to load.</li>
+          <li>Loads its modlist from the official modlinks but that can be changed by providing a custom modlinks URI in the settings tab or via a command.</li>
+          <li>Search through the 300+ mods available (such as Custom Knight for skins and Randomizer 4 for randos) </br> Allows narrowing down the search by the mod's tags and authors, also allows searching through mod descriptions and searching by dependency.</li>
+          <li>Display mods that were updated or newly released recently (within the last week/month).</li>
+          <li>For mods not in official modlinks, scarab provides a manually install button which can correctly install it.</li>
+          <li>Pin mods by right clicking on a mod to ensure scarab never deletes it.</li>
+          <li>Share links that run commands in scarab see commands for more info.</li>
+          <li>Open a mod's global settings file to edit its settings.</li>
         </ul>
         <h3 class="center centertext expander fit-width">How to use
           <svg width="15px" height="15px" viewBox="0 0 330 330" fill="#dedede" stroke="#dedede" class="expanderIcon" >
@@ -98,6 +83,13 @@
         </ul>
         <div class="linksGrid">
 
+          <div onclick="window.location.replace('./commands')"  class="linksSVGContainer">
+            <h3 class="linkSVGText">Commands</h3> 
+            <svg class="linksSVG" viewbox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V18C22 19.6569 20.6569 21 19 21H5C3.34315 21 2 19.6569 2 18V6ZM5 5C4.44772 5 4 5.44772 4 6V7H20V6C20 5.44772 19.5523 5 19 5H5ZM4 18V9H20V18C20 18.5523 19.5523 19 19 19H5C4.44772 19 4 18.5523 4 18ZM7.70711 11.2929C7.31658 10.9024 6.68342 10.9024 6.29289 11.2929C5.90237 11.6834 5.90237 12.3166 6.29289 12.7071L7.58579 14L6.29289 15.2929C5.90237 15.6834 5.90237 16.3166 6.29289 16.7071C6.68342 17.0976 7.31658 17.0976 7.70711 16.7071L9.70711 14.7071C10.0976 14.3166 10.0976 13.6834 9.70711 13.2929L7.70711 11.2929Z"/>
+            </svg>
+          </div>
+
           <div onclick="window.location.replace('https://www.youtube.com/watch?v=z35cFvU0McQ')"  class="linksSVGContainer">
             <h3 class="linkSVGText">Modding Tutorial</h3> 
             <svg class="linksSVG" viewbox="0 0 256 256">
@@ -106,13 +98,6 @@
                     <path fill="#ffffff" d="m-84.322 19.362s-55.036 3.36e-4 -68.761-3.7017c-7.573-2.037-13.537-8.0387-15.561-15.661-3.677-13.814-3.6768-42.637-3.6768-42.637s-2.4e-4 -28.822 3.6768-42.637c2.024-7.622 7.988-13.624 15.561-15.662 13.725-3.701 68.761-3.7002 68.761-3.7002s55.037-8e-4 68.761 3.7002c7.573 2.038 13.537 8.0401 15.561 15.662 3.678 13.815 3.6782 42.637 3.6782 42.637s-2.264e-4 28.823-3.6782 42.637c-2.024 7.622-7.988 13.624-15.561 15.661-13.724 3.702-68.761 3.7017-68.761 3.7017zm-18-35.83 46-26.171-46-26.168v52.339z" />
                 </g>
               </g>
-            </svg>
-          </div>
-
-          <div onclick="window.location.replace('./commands')"  class="linksSVGContainer">
-            <h3 class="linkSVGText">Commands</h3> 
-            <svg class="linksSVG" viewbox="0 0 24 24">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V18C22 19.6569 20.6569 21 19 21H5C3.34315 21 2 19.6569 2 18V6ZM5 5C4.44772 5 4 5.44772 4 6V7H20V6C20 5.44772 19.5523 5 19 5H5ZM4 18V9H20V18C20 18.5523 19.5523 19 19 19H5C4.44772 19 4 18.5523 4 18ZM7.70711 11.2929C7.31658 10.9024 6.68342 10.9024 6.29289 11.2929C5.90237 11.6834 5.90237 12.3166 6.29289 12.7071L7.58579 14L6.29289 15.2929C5.90237 15.6834 5.90237 16.3166 6.29289 16.7071C6.68342 17.0976 7.31658 17.0976 7.70711 16.7071L9.70711 14.7071C10.0976 14.3166 10.0976 13.6834 9.70711 13.2929L7.70711 11.2929Z"/>
             </svg>
           </div>
 

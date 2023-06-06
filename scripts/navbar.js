@@ -3,7 +3,7 @@ window.addEventListener("load",(e) => {
   let srcBadge = 
   `
   <a id="src" href="https://github.com/TheMulhima/Scarab/tree/website">
-    <img class="center sourceCodeBadge" src="https://img.shields.io/static/v1?style=for-the-badge&message=Source%20Code&color=181717&logo=GitHub&logoColor=FFFFFF&label="/>
+    <img alt="source code link" class="center sourceCodeBadge" src="https://img.shields.io/static/v1?style=for-the-badge&message=Source%20Code&color=181717&logo=GitHub&logoColor=FFFFFF&label="/>
   </a>
   `
   console.log("Adding navbar")
@@ -25,7 +25,7 @@ function addNavBar(levelDeep = 0) {
   let pathPrefix = getPathPrefix(levelDeep);
   let html = `
       <div class="navbar">
-      <a href="${pathPrefix}" class="imageButton"><img src="${pathPrefix}assets/ConstructionKnight.ico" id="navbarIcon"></a>
+      <a href="${pathPrefix}" class="imageButton"><img src="${pathPrefix}assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
       <a href="${pathPrefix}commands">Commands</a>
       <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
       <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
