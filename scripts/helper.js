@@ -6,7 +6,7 @@ function openLink(url, onclicked = false) {
   }
   else {
     setTimeout(function(){
-      window.location.replace(url);
+      window.location.href = url;
     }, 500);
   }
 }
