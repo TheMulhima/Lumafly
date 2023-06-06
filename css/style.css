@@ -227,3 +227,35 @@ a:active {
   right: 0;
   bottom: 0;
 }
+
+.expander {
+  cursor: pointer;
+}
+.expander:hover{
+  background-color: var(--bg-color-dark) !important;
+}
+
+.expandable {
+  display: none;
+}
+
+.fit-width {
+  width: fit-content;
+}
+
+.expanderIcon{
+  margin-left: 10px;
+  position: relative;
+  top: 1px;
+}
+
+/* mobile */
+@media (max-width: 750px) {
+  .expanderIcon {
+      top: 3px;
+      }
+  }
+
+.expanderIconFlipper {
+  transform: rotate(180deg);
+}

@@ -55,3 +55,8 @@
     grid-template-columns: 1fr 1fr 1fr;
     }
 }
+
+li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

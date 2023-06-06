@@ -48,6 +48,7 @@ function addDataToHTML(data, header)
   document.body.appendChild(releaseNotesBody);
 }
 
+// get param and download
 window.addEventListener("load",(e) => {
   var download = getParam("download");
 
@@ -69,4 +70,24 @@ window.addEventListener("load",(e) => {
       })
     }
   }
+});
+
+// expander code
+window.addEventListener("load",(e) => {
+  var coll = document.getElementsByClassName("expander");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      let icon = this.getElementsByClassName("expanderIcon")[0];
+      icon.classList.toggle("expanderIconFlipper");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+}
+
 });
