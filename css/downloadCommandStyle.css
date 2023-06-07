@@ -5,4 +5,15 @@ li {
 
 .select2dropdown {
     min-width: 35%;
-  }
+}
+
+.copiedBadge {
+    height: 20px; 
+    width: auto;
+    left: 0;
+    bottom: 0;
+}
+
+.notDisplayed {
+    visibility: hidden;
+}

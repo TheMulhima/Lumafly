@@ -4,7 +4,25 @@ window.addEventListener("load",(e) => {
     var modNames = []
 
 
-    document.getElementById("create-link").onclick = function () {window.location.search = "?mods=" + encodeURI($("#mySelect").val().join("/"));}
+    document.getElementById("open-link").onclick = function () {
+        if ($("#mySelect").val().length !== 0) {
+            window.location.search = "?mods=" + encodeURI($("#mySelect").val().join("/"));
+        } else {
+            alert("Invalid link. Please select at least one mod.")
+        }
+    }
+    document.getElementById("copy-link").onclick = function () {
+
+        if ($("#mySelect").val().length !== 0) {
+            navigator.clipboard.writeText(location.protocol + '//' + location.host + location.pathname + "?mods=" + encodeURI($("#mySelect").val().join("/")))
+
+            let copied = document.getElementById("copied");
+            copied.classList.toggle("notDisplayed");
+            setTimeout(function() {copied.classList.toggle("notDisplayed")}, 1000);
+        } else {
+            alert("Invalid link. Please select at least one mod.")
+        }
+    }
     document.getElementById("create-download-link").onclick = function () {window.location.search = "";}
 
     if (mods !== null) {
