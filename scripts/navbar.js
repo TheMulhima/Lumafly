@@ -9,31 +9,19 @@ window.addEventListener("load",(e) => {
   console.log("Adding navbar")
   document.body.innerHTML = srcBadge + document.body.innerHTML;
 });
-
-function getPathPrefix(levelDeep) {
-  let pathPrefix = "./";
-  if (levelDeep > 0) {
-    pathPrefix = ""
-    for (let i = 0; i < levelDeep; i++) {
-      pathPrefix += "../";
-    }
-  }
-  return pathPrefix;
-}
   
-function addNavBar(levelDeep = 0) {
-  let pathPrefix = getPathPrefix(levelDeep);
+function addNavBar() {
   let html = `
       <div class="navbar" style="flex-wrap: wrap;">
-        <a href="${pathPrefix}" class="imageButton"><img src="${pathPrefix}assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
-        <a href="${pathPrefix}commands">Commands</a>
+        <a href="/" class="imageButton"><img src="/assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
+        <a href="/commands">Commands</a>
         <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
         <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
         <div class="dropdown">
-          <button onclick="window.location.href = '${pathPrefix}?download'" class="dropbtn">Download</button>
+          <button onclick="window.location.href = '/?download'" class="dropbtn">Download</button>
           <div class="dropdown-content">
-            <a href="${pathPrefix}?download">Stable</a>
-            <a href="${pathPrefix}?download=latest">Latest</a>
+            <a href="/?download">Stable</a>
+            <a href="/?download=latest">Latest</a>
           </div>
         </div>
         <div></div>
@@ -42,10 +30,9 @@ function addNavBar(levelDeep = 0) {
   document.body.innerHTML = html + document.body.innerHTML;
 }
 
-function addHKMBanner(levelDeep = 0) {
-  let pathPrefix = getPathPrefix(levelDeep);
+function addHKMBanner() {
   let html = `
-    <img src="${pathPrefix}assets/HKMBanner.png" alt="HKM Banner" class="center hkmBanner">
+    <img src="/assets/HKMBanner.png" alt="HKM Banner" class="center hkmBanner">
   `
   document.body.innerHTML = html + document.body.innerHTML;
 }

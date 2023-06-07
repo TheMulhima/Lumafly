@@ -21,7 +21,7 @@ window.addEventListener("load",(e) => {
   document.getElementById('redirect').onclick = function () {
     var link = prompt('Enter the command', "scarab://");
     if (link !== null) {
-      window.location.href = "../redirect?link=" + link;
+      window.location.href = "/redirect?link=" + link;
     }
   }
 });
