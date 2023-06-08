@@ -358,7 +358,7 @@
     <value>Loading the newest mods that are on modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time.</value>
+    <value>Scarab was unable to load the newest mods from modlinks.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>Possibly caused by poor or no internet connection. Please check that and try again</value>

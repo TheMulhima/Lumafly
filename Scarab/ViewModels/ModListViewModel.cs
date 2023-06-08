@@ -476,7 +476,8 @@ namespace Scarab.ViewModels
                 ModFilterState.Installed => _items.Where(x => x.Installed),
                 ModFilterState.Enabled => _items.Where(x => x.State is ExistsModState { Enabled: true }),
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
-                ModFilterState.WhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
+                ModFilterState.WhatsNew when LoadedWhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
+                ModFilterState.WhatsNew when !LoadedWhatsNew => Array.Empty<ModItem>(),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
             };
 

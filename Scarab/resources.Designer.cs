@@ -402,7 +402,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time..
+        ///   Looks up a localized string similar to Scarab was unable to load the newest mods from modlinks..
         /// </summary>
         internal static string MVVM_NotAbleToLoadWhatsNew {
             get {

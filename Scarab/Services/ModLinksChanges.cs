@@ -63,6 +63,7 @@ public class ModLinksChanges : IModLinksChanges
         );
         
         IsLoaded = result.Result;
+        IsLoaded = false;
     }
 
     /// <summary>
@@ -81,7 +82,7 @@ public class ModLinksChanges : IModLinksChanges
         var fetch_new_month = await GetAndUpdateRecentChangeInfo(hc, links.Value.new_month, ModChangeState.New, HowRecentModChanged.Month);
         var fetch_updated_week = await GetAndUpdateRecentChangeInfo(hc, links.Value.updated_week, ModChangeState.Updated, HowRecentModChanged.Week);
         var fetch_updated_month = await GetAndUpdateRecentChangeInfo(hc, links.Value.updated_month, ModChangeState.Updated, HowRecentModChanged.Month);
-
+        
         // we don't need to worry about concurrent running tasks throwing unhandled errors as the function will not throw 
         var success = new List<bool>
         {
@@ -93,9 +94,13 @@ public class ModLinksChanges : IModLinksChanges
         
         // fetch sorting after all others finished
         var fetch_sortOrder = await GetAndUpdateSortOrder(hc, links.Value.sortOrder);
-        
         success.Add(fetch_sortOrder);
 
+        // get mods that were changed after utc 00:00 today that don't reflect in HKModlinksChanges
+        // no need to verify the success of this
+        await GetWithinTodayChanges(hc);
+
+        // only make IsLoaded true if all are true
         return success.All(x => x);
     }
     
@@ -156,6 +161,60 @@ public class ModLinksChanges : IModLinksChanges
                 mod.RecentChangeInfo.AddChanges(changeState, howRecentModChanged);
             }
 
+            return true;
+        }
+        catch(Exception e)
+        {
+            Trace.WriteLine($"An exception occured when trying to get the modlinks changes: {e}" );
+            return false;
+        } 
+    }
+    
+    /// <summary>
+    /// Get the latest commit after UTC 00:00 on that day and updates the mods based on it. This accounts for mods that
+    /// have been changed between HKModlinksChanges and now
+    /// </summary>
+    /// <returns>The successfulness of the task</returns>
+    private async Task<bool> GetWithinTodayChanges(HttpClient hc)
+    {
+        try
+        {
+            // get commits since utc now 00:00
+            var utcTodayStart = DateTime.UtcNow.ToString("yyyy-mm-dd") + "T00:00:00Z"; // ISO 8601 format
+            JsonDocument result = JsonDocument.Parse(
+                await hc.GetStringAsync(
+                    new Uri($"https://api.github.com/repos/hk-modding/modlinks/commits?since={utcTodayStart}"), 
+                    new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
+            
+            // we will get back an array of commits so we tell that to the JsonDocument
+            var commits = result.RootElement.EnumerateArray();
+            
+            if (!commits.Any()) return false;
+            var commit = commits.Last();
+            var sha = commit.GetProperty("sha").GetString();
+            if (string.IsNullOrEmpty(sha)) return false;
+            
+            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(settings, sha), 
+                new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
+
+            foreach (var mod in currentItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false }))
+            {
+                var correspondingOldMod = oldModlinks.Manifests.FirstOrDefault(m => m.Name == mod.Name);
+                if (correspondingOldMod is not null)
+                {
+                    if (correspondingOldMod.Version.Value != mod.Version)
+                    {
+                        mod.RecentChangeInfo.AddChanges(ModChangeState.Updated, HowRecentModChanged.Week);
+                        mod.RecentChangeInfo.AddSortOrder(-1); // not going to bother sorting further should just appear at the top
+                    }
+                }
+                else
+                {
+                    mod.RecentChangeInfo.AddChanges(ModChangeState.New, HowRecentModChanged.Week);
+                    mod.RecentChangeInfo.AddSortOrder(-1); // not going to bother sorting further should just appear at the top
+                }
+            }
+            
             return true;
         }
         catch(Exception e)

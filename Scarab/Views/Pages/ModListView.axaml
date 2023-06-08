@@ -312,24 +312,23 @@
               Foreground="Ivory"
               Margin="10,20,0,0"/>
 
-          <Image
+          <PathIcon
               Grid.Column="0"
               Grid.Row="1"
               IsVisible="{Binding ShouldShowWhatsNewErrorIcon}"
-              Margin="10,40,0,0"
-              Source="avares://Scarab/Assets/error.png"
-              Height="80" Width="80"
-                        />
+              Margin="30,40,10,0"
+              Data="{StaticResource warning_regular}"
+              Height="50" Width="50"/>
 
           <TextBlock
               Grid.Row="1"
               Grid.Column="1"
-              Margin="0,40,0,0"
+              Margin="20,40,0,0"
               TextWrapping="Wrap"
               IsVisible="{Binding ShouldShowWhatsNewInfoText}"
               Text="{Binding WhatsNewLoadingText}"
               FontSize="16"
-              TextAlignment="Center"/>
+              VerticalAlignment="Center"/>
         </Grid>
         <TextBlock
             IsVisible="{Binding NoFilteredItems}"
