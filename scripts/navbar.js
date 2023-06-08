@@ -13,15 +13,15 @@ window.addEventListener("load",(e) => {
 function addNavBar() {
   let html = `
       <div class="navbar" style="flex-wrap: wrap;">
-        <a href="/" class="imageButton"><img src="/assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
-        <a href="/commands">Commands</a>
+        <a href="/Scarab/" class="imageButton"><img src="/Scarab/assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
+        <a href="/Scarab/commands">Commands</a>
         <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
         <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
         <div class="dropdown">
-          <button onclick="window.location.href = '/?download'" class="dropbtn">Download</button>
+          <button onclick="window.location.href = '/Scarab/?download'" class="dropbtn">Download</button>
           <div class="dropdown-content">
-            <a href="/?download">Stable</a>
-            <a href="/?download=latest">Latest</a>
+            <a href="/Scarab/?download">Stable</a>
+            <a href="/Scarab/?download=latest">Latest</a>
           </div>
         </div>
         <div></div>
@@ -32,7 +32,7 @@ function addNavBar() {
 
 function addHKMBanner() {
   let html = `
-    <img src="/assets/HKMBanner.png" alt="HKM Banner" class="center hkmBanner">
+    <img src="/Scarab/assets/HKMBanner.png" alt="HKM Banner" class="center hkmBanner">
   `
   document.body.innerHTML = html + document.body.innerHTML;
 }
