@@ -1,7 +1,7 @@
 window.addEventListener("load",(e) => {
-    var mods = getParam('mods');
+    let mods = getParam('mods');
 
-    var modNames = []
+    let modNames = []
 
 
     document.getElementById("open-link").onclick = function () {
@@ -40,13 +40,13 @@ window.addEventListener("load",(e) => {
         .then(data => {
             data = data.substr(21); // remove xml version header
 
-            var xmlCommentRegex = /<!--[\S\s]+-->/g;
+            let xmlCommentRegex = /<!--[\S\s]+-->/g;
             data = data.replace(xmlCommentRegex, ""); // remove comments
 
             const json = JSON.parse(xml2json(data));
 
             // get list of manifests
-            var manifestArr = json.elements[0].elements;
+            let manifestArr = json.elements[0].elements;
 
             manifestArr.forEach(manifest => {
             // manifest -> name element -> name tag contents -> xml tag value
@@ -56,18 +56,31 @@ window.addEventListener("load",(e) => {
             modNames.sort();
             
             modNames.forEach(mod => {
-            let option = document.createElement("option");
-            option.setAttribute("value", mod);
-            option.innerHTML = mod;
-            document.getElementById("mySelect").appendChild(option);
+                let option = document.createElement("option");
+                option.setAttribute("value", mod);
+                option.innerHTML = mod;
+                document.getElementById("mySelect").appendChild(option);
             });
             
             $('#mySelect').select2({
-            placeholder: "Select mods",
-            allowClear: true,
-            scrollAfterSelect:true,
-            closeOnSelect: false
+                placeholder: "Select mods",
+                allowClear: true,
+                scrollAfterSelect:true,
+                closeOnSelect: false
             });
+
+            // add mods to list from url
+            let add = getParam('list');
+            if (add !== null) {
+                let modToAddToList = add.split("/");
+
+                // sanitise input
+                let invalidMods = [];
+                modToAddToList.forEach(mod => {if (!modNames.includes(mod)) invalidMods.push(mod)});
+                invalidMods.forEach(mod => {modToAddToList.filter(item => item !== mod)});
+                
+                $('#mySelect').val(modToAddToList).trigger('change');
+            }
         });
         });
     }
