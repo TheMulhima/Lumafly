@@ -87,6 +87,12 @@ namespace Scarab.ViewModels
             {
                 _customModlinksUri = value;
                 RaisePropertyChanged(nameof(AskForReload));
+                
+                // throw errors if the URI is invalid to make the text box red
+                // Although it wont actually stop anything cuz in the end if its an invalid URI
+                // on reload it will show popup and just be set to empty
+                try { _ = new Uri(value); }
+                catch (UriFormatException) { throw new ArgumentException("Invalid URI"); }
             }
         }
 
