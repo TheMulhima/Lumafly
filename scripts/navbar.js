@@ -13,7 +13,7 @@ window.addEventListener("load",(e) => {
 function addNavBar() {
   let html = `
       <div class="navbar" style="flex-wrap: wrap;">
-        <a href="/Scarab/" class="imageButton"><img src="/Scarab/assets/ConstructionKnight.ico" alt="Scarab+ icon" id="navbarIcon"></a>
+        <a href="/Scarab/" class="imageButton"><img src="/Scarab/assets/ConstructionKnight.svg" alt="Scarab+ icon" id="navbarIcon"></a>
         <a href="/Scarab/commands">Commands</a>
         <a href="https://www.github.com/TheMulhima/Scarab#readme">Repository</a>
         <a href="https://discord.gg/VDsg3HmWuB">Discord</a>
