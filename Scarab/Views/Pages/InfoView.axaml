@@ -61,7 +61,7 @@
                         <Button
                             CommandParameter="https://themulhima.github.io/Scarab">
                             <StackPanel>
-                                <Image Source="../../Assets/ConstructionKnight.ico"/>
+                                <Svg Path="../../Assets/ConstructionKnight.svg"/>
                                 <TextBlock Text="{ext:Localize XAML_InfoLinkWebsite}"/>
                             </StackPanel>
                         </Button>
@@ -97,7 +97,7 @@
                             ToolTip.Tip="{ext:Localize XAML_InfoLinkHKMMToolTip}"
                             CommandParameter="https://github.com/HKLab/HKModManager">
                             <StackPanel>
-                                <Image Source="../../Assets/HKMM.png"/>
+                                <Svg Path="../../Assets/HKMM.svg"/>
                                 <TextBlock Text="{ext:Localize XAML_InfoLinkHKMM}"/>
                             </StackPanel>
                         </Button>
