@@ -144,7 +144,7 @@ public class MiscServicesTest
         // test download 1 mod with url
         urlSchemeHandler.SetCommand(
             """
-            scarab://download/MyMod1:"https://mod1download.zip" 
+            scarab://download/MyMod1:'https://mod1download.zip'
             """);
         var withUrlMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
         Assert.Collection(withUrlMod, 
@@ -157,7 +157,7 @@ public class MiscServicesTest
         // test download many mod with url
         urlSchemeHandler.SetCommand(
             """
-            scarab://download/MyMod1:"https://mod1download.zip"/MyMod2:"https://mod2download.zip"/ 
+            scarab://download/MyMod1:'https://mod1download.zip'/MyMod2:'https://mod2download.zip'/ 
             """);
         
         var withUrlMultipleMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
@@ -176,7 +176,7 @@ public class MiscServicesTest
         // test download with mixed
         urlSchemeHandler.SetCommand(
             """
-            scarab://download/MyMod1/MyMod2:"https://mod2download.zip"/MyMod3 
+            scarab://download/MyMod1/MyMod2:'https://mod2download.zip'/MyMod3 
             """);
         var mixed =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
         Assert.Collection(mixed, 
@@ -199,7 +199,7 @@ public class MiscServicesTest
         // test download with invalid url
         urlSchemeHandler.SetCommand(
             """
-            scarab://download/MyMod1:"mod1download.zip" 
+            scarab://download/MyMod1:'mod1download.zip' 
             """);
         var invalidUrl =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
         Assert.Collection(invalidUrl,
@@ -220,7 +220,7 @@ public class MiscServicesTest
         // test download with invalid format
         urlSchemeHandler.SetCommand(
             """
-            scarab://download/MyMod1:" 
+            scarab://download/MyMod1:' 
             """);
         var parseException2 = Record.Exception(() => urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data));
         Assert.Null(parseException2); // should not throw
