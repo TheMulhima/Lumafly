@@ -100,7 +100,7 @@ namespace Scarab.Views.Pages
             if (e.Element.DataContext is ModItem modItem)
             {
                 var modname = e.Element.GetLogicalDescendants().OfType<TextBlock>().First(x => x.Name == "ModName");
-                var disclaimer = " (Not from modlinks)";
+                var disclaimer = " (Version not from modlinks)";
                 if (modItem is { State: NotInModLinksState })
                 {
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract

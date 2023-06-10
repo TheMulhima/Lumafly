@@ -736,7 +736,7 @@ namespace Scarab.ViewModels
 
             FixupModList();
         }
-
+        
         public void FixupModList(ModItem? itemToAdd = null)
         {
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
@@ -920,12 +920,32 @@ namespace Scarab.ViewModels
 
         public async Task PinMod(object itemObj)
         {
-            var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
+            var item = itemObj as ModItem ?? throw new Exception("Tried to pin an object which isn't a mod");
             if (item.State is not ExistsModState state) return;
             
             await _installer.Pin(item, !state.Pinned);
-            Sort();
-            SelectMods();
+            
+            FixupModList();
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
+        }
+        
+        public async Task RegisterNotInModlinks(object itemObj)
+        {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to register an object which isn't a mod");
+            if (item.State is not ExistsModState state) return;
+            
+            item.State = new NotInModLinksState(
+                ModlinksMod: true,
+                Enabled: state.Enabled,
+                Pinned: state.Pinned);
+
+            await _mods.RecordUninstall(item); // remove from installed list
+            await _mods.RecordInstalledState(item); // add it back as not in modlinks mod
+
+            FixupModList();
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
         }
 
         public bool HasPinnedDependents(ModItem mod)

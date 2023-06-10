@@ -1158,6 +1158,33 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab.
+        /// </summary>
+        internal static string XAML_PinMod_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_PinMod_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record as custom version.
+        /// </summary>
+        internal static string XAML_RegisterNotInModlinks {
+            get {
+                return ResourceManager.GetString("XAML_RegisterNotInModlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record this mod&apos;s version as not from modlinks. Doesn&apos;t affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab.
+        /// </summary>
+        internal static string XAML_RegisterNotInModlinks_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_RegisterNotInModlinks_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Reload for changes to take effect).
         /// </summary>
         internal static string XAML_ReloadPrompt {

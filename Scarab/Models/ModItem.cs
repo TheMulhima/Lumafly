@@ -113,7 +113,9 @@ namespace Scarab.Models
 
         public bool Pinned => State is ExistsModState { Pinned: true };
 
+        public bool IsModContextMenuEnabled => State is ExistsModState;
         public bool CanBePinned => State is ExistsModState { Pinned: false, Enabled: true };
+        public bool CanBeRegisteredNotInModlinks => State is not NotInModLinksState;
 
         public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 

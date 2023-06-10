@@ -340,8 +340,19 @@
             <DataTemplate DataType="models:ModItem">
               <Grid Margin="8 12 12 0">
                 <Grid.ContextMenu>
-                  <ContextMenu IsVisible="{Binding CanBePinned}">
-                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
+                  <ContextMenu IsEnabled="{Binding IsModContextMenuEnabled}">
+                    <MenuItem 
+                        IsEnabled="{Binding CanBePinned}" 
+                        Header="{ext:Localize XAML_Pin}"
+                        Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
+                        CommandParameter="{Binding .}"
+                        ToolTip.Tip="{ext:Localize XAML_PinMod_Explanation}"/>
+                    <MenuItem 
+                        IsEnabled="{Binding CanBeRegisteredNotInModlinks}"
+                        Header="{ext:Localize XAML_RegisterNotInModlinks}" 
+                        Command="{ReflectionBinding $parent[pages:ModListView].DataContext.RegisterNotInModlinks}" 
+                        CommandParameter="{Binding .}"
+                        ToolTip.Tip="{ext:Localize XAML_RegisterNotInModlinks_Explanation}"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>

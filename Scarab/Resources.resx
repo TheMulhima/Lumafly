@@ -558,4 +558,13 @@
   <data name="XAML_OpeningGame" xml:space="preserve">
     <value>Please wait launching game...</value>
   </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>Record as custom version</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab</value>
+  </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab</value>
+  </data>
 </root>
