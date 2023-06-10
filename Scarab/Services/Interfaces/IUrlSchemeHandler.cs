@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MessageBox.Avalonia.DTO;
 using Scarab.Enums;
 
@@ -8,6 +9,7 @@ public interface IUrlSchemeHandler
 {
     public void SetCommand(string arg);
     public Task ShowConfirmation(MessageBoxStandardParams param);
+    public Dictionary<string, string?> ParseDownloadCommand(string data);
     
     public bool Handled {get; }
     public string Data {get; }

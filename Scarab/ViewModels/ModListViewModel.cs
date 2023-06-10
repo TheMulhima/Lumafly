@@ -13,6 +13,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using Microsoft.VisualBasic.CompilerServices;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -125,21 +126,8 @@ namespace Scarab.ViewModels
             HashSet<string> authorsInModlinks = new();
             foreach (var mod in _items)
             {
-                if (mod.HasTags)
-                {
-                    foreach (var tag in mod.Tags)
-                    {
-                        tagsInModlinks.Add(tag);
-                    }
-                }
-
-                if (mod.HasAuthors)
-                {
-                    foreach (var author in mod.Authors)
-                    {
-                        authorsInModlinks.Add(author);
-                    }
-                }
+                if (mod.HasTags) mod.Tags.ToList().ForEach(tag => tagsInModlinks.Add(tag));
+                if (mod.HasAuthors) mod.Authors.ToList().ForEach(author => authorsInModlinks.Add(author));
             }
 
             TagList = new SortableObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
@@ -183,42 +171,101 @@ namespace Scarab.ViewModels
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.download })
             {
-                var modNames = _urlSchemeHandler.Data.Split('/');
+                var modNamesAndUrls = _urlSchemeHandler.ParseDownloadCommand(_urlSchemeHandler.Data);
+
+                if (modNamesAndUrls.Count == 0)
+                {
+                    await _urlSchemeHandler.ShowConfirmation(
+                        new MessageBoxStandardParams()
+                        {
+                            ContentTitle = "Download mod from command",
+                            ContentMessage = "Invalid download mod command",
+                            MinWidth = 450,
+                            MinHeight = 150,
+                            Icon = Icon.Warning
+                        });
+                    return;
+                }
+                
                 List<string> successfulDownloads = new List<string>();
                 List<string> failedDownloads = new List<string>();
                 
                 await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
                 {
                     ContentTitle = "Download mod from command",
-                    ContentMessage = $"Scarab has successfully received download mod command for {string.Join(", ", modNames)}",
+                    ContentMessage = $"Scarab has successfully received download mod command for {string.Join(", ", modNamesAndUrls.Keys)}. " +
+                                     $"Scarab will now attempt to download them",
                     MinWidth = 450,
                     MinHeight = 150,
-                    Icon = Icon.Success
+                    Icon = Icon.Info
                 }).Show();
                 
-                foreach (var modName in modNames)
+                foreach (var (modName, url) in modNamesAndUrls)
                 {
-                    var mod = _items.FirstOrDefault(x =>
-                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
-                    if (mod == null)
+                    bool isCustomInstall = url != null;
+                    bool isModlinksMod = true;
+                    string? originalUrl = null;
+                    
+                    
+                    var correspondingMod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+                    if (correspondingMod == null)
                     {
-                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
-                        failedDownloads.Add(modName);
-                        continue;
+                        isModlinksMod = false;
+                        if (url == null)
+                        {
+                            Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
+                            failedDownloads.Add(modName);
+                            continue;
+                        }
+                        correspondingMod = ModItem.Empty(name: modName, link: url, description:"This mod was manually installed and is not from official modlinks");
+                    }
+                    else
+                    {
+                        isModlinksMod = true;
+                        originalUrl = correspondingMod.Link;
+                        if (isCustomInstall)
+                        {
+                            correspondingMod.Link = url ?? correspondingMod.Link;
+                        }
                     }
 
-                    switch (mod.State)
+                    // delete mods that have custom links provided so it can be downloaded correctly
+                    if (isCustomInstall && correspondingMod.State is ExistsModState)
+                    {
+                        await OnInstall(correspondingMod);
+                    }
+
+                    switch (correspondingMod.State)
                     {
                         case NotInstalledState:
-                            await OnInstall(mod);
+                            await OnInstall(correspondingMod);
                             break;
                         case InstalledState { Updated: false }:
                         case NotInModLinksState { ModlinksMod: true }:
-                            await OnUpdate(mod);
+                            await OnUpdate(correspondingMod);
                             break;
                         case InstalledState { Enabled: false }:
-                            await OnEnable(mod);
+                            await OnEnable(correspondingMod);
                             break;
+                    }
+                    
+                    if (isCustomInstall)
+                    {
+                        correspondingMod.Link = originalUrl ?? throw new NullReferenceException("originalUrl is null");
+                        if (correspondingMod.State is ExistsModState state)
+                        {
+                            correspondingMod.State = new NotInModLinksState(
+                                ModlinksMod: isModlinksMod,
+                                Enabled: state.Enabled,
+                                Pinned: state.Pinned);
+                        }
+                        else
+                        {
+                            // re-install the mod if it was not installed (in case of bad link)
+                            await OnInstall(correspondingMod);
+                            failedDownloads.Add(modName);
+                            continue;
+                        }
                     }
 
                     successfulDownloads.Add(modName);
@@ -241,7 +288,7 @@ namespace Scarab.ViewModels
                     }
 
                     message +=
-                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
+                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the command is correct";
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(

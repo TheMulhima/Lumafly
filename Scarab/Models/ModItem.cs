@@ -84,7 +84,7 @@ namespace Scarab.Models
 
         public Version  Version          { get; }
         public string[] Dependencies     { get; }
-        public string   Link             { get; }
+        public string   Link             { get; set; }
         public string   Sha256           { get; }
         public string   Name             { get; }
         public string   Description      { get; }

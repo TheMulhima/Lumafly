@@ -2,15 +2,19 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Win32;
 using MessageBox.Avalonia.DTO;
 using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
 using Scarab.Enums;
 using Scarab.Interfaces;
+using Scarab.Models;
 
 namespace Scarab.Util;
 
@@ -42,7 +46,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
     public void SetCommand(string arg)
     {
         if (Handled) return;
-        
+
         arg = arg.Trim();
         
         var UriPrefix = UriScheme + "://";
@@ -60,11 +64,9 @@ public class UrlSchemeHandler : IUrlSchemeHandler
                 })));
             return;
         }
-        
-        var UriParam = 
-            arg[UriPrefix.Length..]
-            .Trim('/')
-            .Replace("%20", " ");
+
+        var UriParam = arg[UriPrefix.Length..].Trim('/');
+        UriParam = HttpUtility.UrlDecode(UriParam);
 
         foreach(var (command, setData) in AvailableCommands)
         {
@@ -88,6 +90,55 @@ public class UrlSchemeHandler : IUrlSchemeHandler
                     Icon = Icon.Warning,
                 })));
         }
+    }
+
+    public Dictionary<string, string?> ParseDownloadCommand(string data)
+    {
+        int index = 0;
+        Dictionary<string, string?> modNamesAndUrls = new Dictionary<string, string?>();
+        
+        while (index < data.Length)
+        {
+            string modName = string.Empty;
+            string? url = null;
+            while (index < data.Length && data[index] != '/')
+            {
+                if (data[index] == ':') // starter of url
+                {
+                    index++; // consume :
+                    
+                    const char LinkSep = '\'';
+                    
+                    if (index >= data.Length || data[index] != LinkSep) return new Dictionary<string, string?>(); // invalid format refuse to parse
+                    
+                    index++; // consume "
+                    while (index < data.Length && data[index] != LinkSep)
+                    {
+                        url += data[index];
+                        index++;
+                    }
+
+                    if (index < data.Length && data[index] == LinkSep)
+                        index++; // consume "
+                    break;
+                }
+
+                modName += data[index];
+                index++;
+            }
+
+            try { _ = new Uri(url); }
+            catch { url = null; }
+
+            // windows folder regex
+            var invalidChars = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars());
+            if (invalidChars.Any(x => modName.Contains(x))) return new Dictionary<string, string?>(); // invalid string refuse to parse
+            
+            modNamesAndUrls[modName] = url;
+            index++; // consume /
+        }
+
+        return modNamesAndUrls;
     }
 
     public static void Setup()
