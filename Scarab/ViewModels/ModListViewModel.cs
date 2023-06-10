@@ -506,7 +506,7 @@ namespace Scarab.ViewModels
         public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
 
-        public event Action OnSelectModsWithFilter;
+        public event Action? OnSelectModsWithFilter;
         
         public void SelectModsWithFilter(ModFilterState modFilterState)
         {

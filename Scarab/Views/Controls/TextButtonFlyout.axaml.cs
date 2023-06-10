@@ -28,8 +28,8 @@ public class TextButtonFlyout : TemplatedControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        Icon = e.NameScope.Find<PathIcon>("Icon");
-        Button = e.NameScope.Find<Button>("Button");
+        Icon = e.NameScope.Find<PathIcon>("Icon") ?? throw new NullReferenceException(nameof(Icon));
+        Button = e.NameScope.Find<Button>("Button") ?? throw new NullReferenceException(nameof(Button));
 
         var flyout = new Flyout
         {
@@ -87,7 +87,10 @@ public class TextButtonFlyout : TemplatedControl
     {
         Icon = Icon ?? throw new Exception("Flyout Button doesnt have icon");
         Button = Button ?? throw new Exception("Flyout Button doesnt have button");
-        Icon.Data = Button.Flyout.IsOpen ? GetCloseSymbol() : GetOpenSymbol();
+        Button.Flyout = Button.Flyout ?? throw new Exception("Flyout Button doesnt have flyout");
+
+        var icon = Button.Flyout.IsOpen ? GetCloseSymbol() : GetOpenSymbol();
+        if (icon != null) Icon.Data = icon;
     }
 
     private StreamGeometry? GetOpenSymbol() => FlyoutPlacement switch

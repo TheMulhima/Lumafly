@@ -14,6 +14,6 @@ public partial class ErrorPopup : Window
 
         OkButton.Command = ReactiveCommand.Create(Close);
         CopyButton.Command = ReactiveCommand.Create(
-            () => Clipboard.SetTextAsync(ErrorExplanation.Text + "\n\n" + FullErrorText.Text));
+            () => Clipboard?.SetTextAsync(ErrorExplanation.Text + "\n\n" + FullErrorText.Text));
     }
 }

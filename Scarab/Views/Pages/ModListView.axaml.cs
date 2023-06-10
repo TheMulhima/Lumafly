@@ -103,8 +103,7 @@ namespace Scarab.Views.Pages
                 var disclaimer = " (Version not from modlinks)";
                 if (modItem is { State: NotInModLinksState })
                 {
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                    if (modname != null)
+                    if (modname is { Text: not null })
                     {
                         modname.Foreground = new SolidColorBrush(Colors.Orange);
                         if (!modname.Text.EndsWith(disclaimer))
@@ -115,8 +114,7 @@ namespace Scarab.Views.Pages
                 }
                 else
                 {
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                    if (modname != null)
+                    if (modname is { Text: not null })
                     {
                         modname.Foreground = Application.Current?.Resources["TextColor"] as IBrush;
                         if (modname.Text.EndsWith(disclaimer))

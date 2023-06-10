@@ -127,7 +127,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
                 index++;
             }
 
-            try { _ = new Uri(url); }
+            try { _ = new Uri(url ?? throw new Exception()); }
             catch { url = null; }
 
             // windows folder regex

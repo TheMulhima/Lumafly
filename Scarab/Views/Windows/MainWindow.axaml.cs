@@ -1,10 +1,7 @@
 using System;
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Diagnostics;
-using Avalonia.Markup.Xaml;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
@@ -31,7 +28,8 @@ namespace Scarab.Views.Windows
         private void OnTabSelected(object? sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0) return;
-            foreach (var element in (sender as TabStrip).GetLogicalDescendants())
+            if (sender is not TabStrip tabStrip) return;
+            foreach (var element in tabStrip.GetLogicalDescendants())
             {
                 if (element is not TabStripItem { Content: SelectableItem<ViewModelBase> content } tabStripItem) 
                     continue;
