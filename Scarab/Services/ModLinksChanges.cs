@@ -63,7 +63,6 @@ public class ModLinksChanges : IModLinksChanges
         );
         
         IsLoaded = result.Result;
-        IsLoaded = false;
     }
 
     /// <summary>
@@ -96,9 +95,9 @@ public class ModLinksChanges : IModLinksChanges
         var fetch_sortOrder = await GetAndUpdateSortOrder(hc, links.Value.sortOrder);
         success.Add(fetch_sortOrder);
 
-        // get mods that were changed after utc 00:00 today that don't reflect in HKModlinksChanges
+        // get mods that were changed by comparing the last version of Modlinks.xml used by HKModLinksHistory
         // no need to verify the success of this
-        await GetWithinTodayChanges(hc);
+        await GetWithinTodayChanges(hc, links.Value.lastUsedModlinks);
 
         // only make IsLoaded true if all are true
         return success.All(x => x);
@@ -127,7 +126,9 @@ public class ModLinksChanges : IModLinksChanges
                 GetPropertyFromDocument(nameof(result.new_month)),
                 GetPropertyFromDocument(nameof(result.updated_week)),
                 GetPropertyFromDocument(nameof(result.updated_month)),
-                GetPropertyFromDocument(nameof(result.sortOrder)));
+                GetPropertyFromDocument(nameof(result.sortOrder)),
+                GetPropertyFromDocument(nameof(result.lastUsedModlinks))
+                );
 
             return result;
         }
@@ -171,30 +172,14 @@ public class ModLinksChanges : IModLinksChanges
     }
     
     /// <summary>
-    /// Get the latest commit after UTC 00:00 on that day and updates the mods based on it. This accounts for mods that
-    /// have been changed between HKModlinksChanges and now
+    /// Get the last modlinks.xml file used by HKModLinksHistory and compare it with current modlinks to get todays changes
     /// </summary>
     /// <returns>The successfulness of the task</returns>
-    private async Task<bool> GetWithinTodayChanges(HttpClient hc)
+    private async Task<bool> GetWithinTodayChanges(HttpClient hc, string lastUsedModlinks)
     {
         try
         {
-            // get commits since utc now 00:00
-            var utcTodayStart = DateTime.UtcNow.ToString("yyyy-mm-dd") + "T00:00:00Z"; // ISO 8601 format
-            JsonDocument result = JsonDocument.Parse(
-                await hc.GetStringAsync(
-                    new Uri($"https://api.github.com/repos/hk-modding/modlinks/commits?since={utcTodayStart}"), 
-                    new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
-            
-            // we will get back an array of commits so we tell that to the JsonDocument
-            var commits = result.RootElement.EnumerateArray();
-            
-            if (!commits.Any()) return false;
-            var commit = commits.Last();
-            var sha = commit.GetProperty("sha").GetString();
-            if (string.IsNullOrEmpty(sha)) return false;
-            
-            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(ModDatabase.GetModlinksUri(settings, sha), 
+            var oldModlinks = ModDatabase.FromString<ModLinks>(await hc.GetStringAsync(lastUsedModlinks, 
                 new CancellationTokenSource(ModDatabase.TIMEOUT).Token));
 
             foreach (var mod in currentItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false }))
@@ -287,5 +272,6 @@ public class ModLinksChanges : IModLinksChanges
         string new_month,
         string updated_week,
         string updated_month,
-        string sortOrder);
+        string sortOrder,
+        string lastUsedModlinks);
 }
