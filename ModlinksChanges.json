@@ -3,5 +3,6 @@
     "new_month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/NewMods-Month.txt",
     "updated_week": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/UpdatedMods-Week.txt",
     "updated_month": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/UpdatedMods-Month.txt",
-    "sortOrder": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/ChangedMods-Month.txt"
+    "sortOrder": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/ChangedMods-Month.txt",
+    "lastUsedModlinks": "https://raw.githubusercontent.com/Clazex/HKModLinksHistory/dist/ModLinks-1.xml"
 }
