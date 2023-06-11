@@ -1,17 +1,45 @@
-<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
-  <channel>
-    <title>Scarab+</title>
-    <link>https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateFile-NetSparkle.xml</link>
-    <description>Update to Scarab+</description>
-    <pubDate>06/05/2023 18:12:35</pubDate>
-    <language>en</language>
-    <item>
-      <title>Version 2.0.0.0 - Initial Scarab+ Update</title>
-      <sparkle:releaseNotesLink>https://raw.githubusercontent.com/TheMulhima/Scarab/master/CHANGELOG.md</sparkle:releaseNotesLink>
-      <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab.exe"
-                 sparkle:version="2.0.0.0"
-                 sparkle:os="windows"
-                 />
-     </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"><channel><title>Scarab</title><description>Most recent changes with links to updates</description><language>en</language><item><title>Scarab v2.0.0.0</title><description># Changes in v2.0.0.0
+
+## Additional Features
+
+- Improved search options (Filter by tags, by authors, search for dependents).
+- An offline mode.
+- Filter for newly released/updated mods.
+- Ability to pin mods. (by @JacksonFaller)
+- Manually install button.
+- Auto uninstall unused dependencies. (by @JacksonFaller)
+- Show all mods that are installed, even if they are manually installed.
+- Adds a button to open any mod's global settings file.
+- Ability to load Scarab's mod list from custom modlinks.
+- Lists authors of mods.
+- A settings tab for scarab's settings.
+
+## Bug Fixes
+
+- Fixes the bug where scarab sometimes didn't download a mod or update its dependencies properly.
+- Update on version difference instead of only on lower version.
+- Fixed bug where Scarab showed a modded install as vanilla. Instead now if that happens and scarab can't fix the issue by itself, it prompts to verify integrity.
+- Ensures the config file can be written to before starting app.
+- Makes sure that the enabled states of mod actually match if they are in disabled folder or not.
+- Better handling for MS Store version of the game.
+- Checks dependencies are installed when toggling on a mod. (by @JacksonFaller)
+- Fixed Scarab showing blank screen on initial load.
+
+## QoL Changes
+
+- More detailed errors.
+- Mod details are more compact.
+- Better UI for repository link.
+- Indication of what mod filter is on.
+- Button to clear search.
+- Button to open saves folder.
+- Allows clickable links in descriptions of mods.
+- Adds more bulk actions (Disable All, Uninstall All, Update All, Enable All).
+
+## Credits
+
+- [TheMulhima](https://github.com/TheMulhima) - Most of the changes
+- [Clazex](https://github.com/Clazex) - Chinese translations and compatibility
+- [JacksonFaller](https://github.com/JacksonFaller) - Pinning Mods, Auto uninstall unused dependencies, check dependencies are installed when toggling on a mod.
+- [Italy](https://github.com/jngo102) - Tabs
+- [luiz_eldorado](https://github.com/luizeldorado) - Portuguese translations</description><pubDate>Sun, 11 Jun 2023 23:02:27 +04:00</pubDate><enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab.exe" sparkle:version="v2.0.0.0" sparkle:shortVersionString="v2.0.0" length="111649946" sparkle:os="windows" type="application/octet-stream" sparkle:signature="ImY9CjLv4EAZJETovs7WqIMESQvgbvZAAOjbG1rJk4ZKt1JdbiYZytqMXyQRFujff/Rp2loX1moe2CFHz7/kBQ==" /></item></channel></rss>
