@@ -163,11 +163,12 @@ namespace Scarab.ViewModels
                 SelectModsWithFilter(ModFilterState.Installed);
             }
 
-            Task.Run(async () =>
-                await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadAndForceUpdateAllUrlScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme()));
         }
 
-        public async Task HandleDownloadAndForceUpdateAllUrlScheme()
+        private async Task HandleDownloadUrlScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.download })
             {
@@ -176,38 +177,24 @@ namespace Scarab.ViewModels
                 if (modNamesAndUrls.Count == 0)
                 {
                     await _urlSchemeHandler.ShowConfirmation(
-                        new MessageBoxStandardParams()
-                        {
-                            ContentTitle = "Download mod from command",
-                            ContentMessage = "Invalid download mod command",
-                            MinWidth = 450,
-                            MinHeight = 150,
-                            Icon = Icon.Warning
-                        });
+                        title: "Download mod from command", 
+                        message: "Invalid download mod command", 
+                        Icon.Warning);
                     return;
                 }
-                
+
                 List<string> successfulDownloads = new List<string>();
                 List<string> failedDownloads = new List<string>();
-                
-                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Download mod from command",
-                    ContentMessage = $"Scarab has successfully received download mod command for {string.Join(", ", modNamesAndUrls.Keys)}. " +
-                                     $"Scarab will now attempt to download them",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Info
-                }).Show();
-                
+
                 foreach (var (modName, url) in modNamesAndUrls)
                 {
                     bool isCustomInstall = url != null;
                     bool isModlinksMod = true;
                     string? originalUrl = null;
-                    
-                    
-                    var correspondingMod = _items.FirstOrDefault(x => x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+
+
+                    var correspondingMod = _items.FirstOrDefault(x =>
+                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
                     if (correspondingMod == null)
                     {
                         isModlinksMod = false;
@@ -217,7 +204,9 @@ namespace Scarab.ViewModels
                             failedDownloads.Add(modName);
                             continue;
                         }
-                        correspondingMod = ModItem.Empty(name: modName, link: url, description:"This mod was manually installed and is not from official modlinks");
+
+                        correspondingMod = ModItem.Empty(name: modName, link: url,
+                            description: "This mod was manually installed and is not from official modlinks");
                     }
                     else
                     {
@@ -248,7 +237,7 @@ namespace Scarab.ViewModels
                             await OnEnable(correspondingMod);
                             break;
                     }
-                    
+
                     if (isCustomInstall)
                     {
                         correspondingMod.Link = originalUrl ?? throw new NullReferenceException("originalUrl is null");
@@ -275,57 +264,105 @@ namespace Scarab.ViewModels
                 string message = string.Empty;
 
                 if (successfulDownloads.Count > 0)
-                {
                     message +=
                         $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
-                }
 
                 if (failedDownloads.Count > 0)
                 {
-                    if (successfulDownloads.Count > 0)
-                    {
-                        message += "\nHowever, ";
-                    }
+                    if (successfulDownloads.Count > 0) message += "\nHowever, ";
 
                     message +=
                         $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the command is correct";
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    new MessageBoxStandardParams()
-                    {
-                        ContentTitle = "Download mod from command",
-                        ContentMessage = message,
-                        MinWidth = 450,
-                        MinHeight = 150,
-                        Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
-                    });
+                    title: "Download mod from command", 
+                    message, 
+                    failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
             }
-
+        }
+        private async Task HandleForceUpdateAllScheme()
+        {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.forceUpdateAll })
             {
-                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Force update all from command",
-                    ContentMessage = "Scarab has successfully received the force updated all command",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Success
-                }).Show();
-                
                 await ForceUpdateAll();
                 
                 await _urlSchemeHandler.ShowConfirmation(
-                    new MessageBoxStandardParams()
-                    {
-                        ContentTitle = "Force update all from command",
-                        ContentMessage = "Scarab has successfully run force updated all command",
-                        MinWidth = 450,
-                        MinHeight = 150,
-                        Icon = Icon.Success
-                    });
+                    title: "Force update all from command", 
+                    message: "Scarab has successfully run force updated all command");
             }
                 
+        }
+        
+        private async Task HandleRemoveGlobalSettingScheme()
+        {
+            if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeGlobalSettings })
+            {
+                var modNames = _urlSchemeHandler.Data.Split('/');
+
+                if (modNames.Length == 0)
+                {
+                    await _urlSchemeHandler.ShowConfirmation(
+                        title:  "Remove mod global setting", 
+                        message: "Invalid download mod command",
+                        Icon.Warning);
+                    return;
+                }
+
+                List<string> successfulDownloads = new List<string>();
+                List<string> failedDownloads = new List<string>();
+
+                foreach (var modName in modNames)
+                {
+                    var correspondingMod = _items.FirstOrDefault(x =>
+                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+                    if (correspondingMod == null)
+                    {
+                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
+                        failedDownloads.Add(modName);
+                        continue;
+                    }
+
+                    var file = _settingsFinder.GetSettingsFileLocation(correspondingMod);
+
+                    if (file is null)
+                    {
+                        // if mod exists and gs is not found, then it is doesn't exist 
+                        if (correspondingMod.State is not ExistsModState) failedDownloads.Add(modName);
+                        else successfulDownloads.Add(modName);
+                        continue;
+                    }
+
+                    if (File.Exists(file)) 
+                        File.Delete(file);
+                    
+                    if (File.Exists(file + ".bak")) 
+                        File.Delete(file + ".bak");
+
+                    successfulDownloads.Add(modName);
+                }
+                
+                string message = string.Empty;
+
+                if (successfulDownloads.Count > 0)
+                    message +=
+                        $"Scarab has successfully removed global settings for {string.Join(", ", successfulDownloads)} from command";
+
+                if (failedDownloads.Count > 0)
+                {
+                    if (successfulDownloads.Count > 0) 
+                        message += "\nHowever, ";
+
+                    message +=
+                        $"Scarab has was unable to find the global settings for {string.Join(", ", failedDownloads)}." +
+                        $" Please check if the mod name is correct and the mod is installed";
+                }
+
+                await _urlSchemeHandler.ShowConfirmation(
+                    title: "Remove mod global settings from command", 
+                    message,
+                    failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
+            }
         }
         public void ClearSearch()
         {

@@ -41,6 +41,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.customModLinks, s => Data = s},
             {UrlSchemeCommands.baseLink, s => Data = s},
             {UrlSchemeCommands.removeAllModsGlobalSettings, null},
+            {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
         };
     }
     
@@ -55,14 +56,10 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (arg.Length < UriPrefix.Length || !arg.StartsWith(UriPrefix))
         {
             Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
-                await ShowConfirmation(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Invalid URL Scheme Command",
-                    ContentMessage = $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Warning,
-                })));
+                await ShowConfirmation(
+                    title: "Invalid URL Scheme Command", 
+                    message: $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://", 
+                    Icon.Warning)));
             return;
         }
 
@@ -82,14 +79,10 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (UrlSchemeCommand == UrlSchemeCommands.none && !string.IsNullOrEmpty(UriParam))
         {
             Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
-                await ShowConfirmation(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Invalid URL Scheme Command",
-                    ContentMessage = $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Warning,
-                })));
+                await ShowConfirmation(
+                    title: "Invalid URL Scheme Command",
+                    message: $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
+                    Icon.Warning)));
         }
     }
 
@@ -226,7 +219,19 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         Handled = true;
         await Dispatcher.UIThread.InvokeAsync(async () =>
         {
-             await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+            await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+        });
+    }
+    
+    public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)
+    {
+        await ShowConfirmation(new MessageBoxStandardParams()
+        {
+            ContentTitle = title,
+            ContentMessage = message,
+            Icon = icon,
+            MinWidth = 450,
+            MinHeight = 150,
         });
     }
 }

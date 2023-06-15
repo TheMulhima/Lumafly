@@ -9,4 +9,5 @@ public enum UrlSchemeCommands
     customModLinks,
     baseLink,
     removeAllModsGlobalSettings,
+    removeGlobalSettings,
 }
