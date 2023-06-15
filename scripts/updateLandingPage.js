@@ -14,7 +14,7 @@ function downloadScarab(latest = false, onclicked = false)
   let link = null;
 
   if (macOS.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
-  else if (windowsOS.indexOf(platform) !== -1) link = linkBase + "Scarab-Windows.zip";
+  else if (windowsOS.indexOf(platform) !== -1) link = linkBase + "Scarab.exe";
   else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + "Scarab-Linux.zip"
 
   if (link !== null) {
