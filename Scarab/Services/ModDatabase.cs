@@ -23,15 +23,7 @@ namespace Scarab.Services
         
         private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AssemblyLinks.json";
         
-        public static string GetModlinksUri(ISettings settings, string? sha = null)
-        {
-            if (settings.BaseLink == DEFAULT_LINKS_BASE)
-            {
-                // if we need to get a specific modlinks version we only do it for when base link the official version
-                return settings.BaseLink.Replace("main", sha ?? "main") + "/ModLinks.xml";
-            }
-            else return settings.BaseLink + "/ModLinks.xml";
-        }
+        public static string GetModlinksUri(ISettings settings) => settings.BaseLink + "/ModLinks.xml";
 
         private static string GetAPILinksUri(ISettings settings) => settings.BaseLink + "/ApiLinks.xml";
 

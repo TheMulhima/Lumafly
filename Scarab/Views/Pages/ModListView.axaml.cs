@@ -12,6 +12,8 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
+using JetBrains.Annotations;
+using Scarab.Util;
 using Scarab.Enums;
 using Scarab.Extensions;
 using Scarab.Models;
@@ -98,11 +100,10 @@ namespace Scarab.Views.Pages
             if (e.Element.DataContext is ModItem modItem)
             {
                 var modname = e.Element.GetLogicalDescendants().OfType<TextBlock>().First(x => x.Name == "ModName");
-                var disclaimer = " (Not from modlinks)";
+                var disclaimer = " (Version not from modlinks)";
                 if (modItem is { State: NotInModLinksState })
                 {
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                    if (modname != null)
+                    if (modname is { Text: not null })
                     {
                         modname.Foreground = new SolidColorBrush(Colors.Orange);
                         if (!modname.Text.EndsWith(disclaimer))
@@ -113,8 +114,7 @@ namespace Scarab.Views.Pages
                 }
                 else
                 {
-                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                    if (modname != null)
+                    if (modname is { Text: not null })
                     {
                         modname.Foreground = Application.Current?.Resources["TextColor"] as IBrush;
                         if (modname.Text.EndsWith(disclaimer))

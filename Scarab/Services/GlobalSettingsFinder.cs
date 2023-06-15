@@ -73,7 +73,7 @@ public class GlobalSettingsFinder : IGlobalSettingsFinder
 
     private string? TryGettingModClassName(ModItem modItem, string savesFolder)
     {
-        if (modItem.State is not InstalledState state || Settings == null)
+        if (modItem.State is not ExistsModState state || Settings == null)
             return null;
 
         var modsFolder = state.Enabled ? Settings.ModsFolder : Settings.DisabledFolder;

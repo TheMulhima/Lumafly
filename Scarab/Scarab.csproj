@@ -27,6 +27,7 @@
         <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview8" />
         <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview8" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview8" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0-preview8.2" />
         <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.0-preview20230425001" />
         <PackageReference Include="HyperText.Avalonia" Version="11.0.0-night" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.2.0-eap3" />

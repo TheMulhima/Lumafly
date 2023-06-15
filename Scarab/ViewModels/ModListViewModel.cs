@@ -11,9 +11,9 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using JetBrains.Annotations;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using Microsoft.VisualBasic.CompilerServices;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -66,7 +66,7 @@ namespace Scarab.ViewModels
         public string _dependencySearchItem;
 
         [Notify]
-        public bool _new7Days = true, _updated7Days = true;
+        public HowRecentModChanged _howRecentModChanged_NewMods = HowRecentModChanged.Week, _howRecentModChanged_UpdatedMods = HowRecentModChanged.Week;
         [Notify]
         public bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
@@ -126,21 +126,8 @@ namespace Scarab.ViewModels
             HashSet<string> authorsInModlinks = new();
             foreach (var mod in _items)
             {
-                if (mod.HasTags)
-                {
-                    foreach (var tag in mod.Tags)
-                    {
-                        tagsInModlinks.Add(tag);
-                    }
-                }
-
-                if (mod.HasAuthors)
-                {
-                    foreach (var author in mod.Authors)
-                    {
-                        authorsInModlinks.Add(author);
-                    }
-                }
+                if (mod.HasTags) mod.Tags.ToList().ForEach(tag => tagsInModlinks.Add(tag));
+                if (mod.HasAuthors) mod.Authors.ToList().ForEach(author => authorsInModlinks.Add(author));
             }
 
             TagList = new SortableObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
@@ -176,50 +163,98 @@ namespace Scarab.ViewModels
                 SelectModsWithFilter(ModFilterState.Installed);
             }
 
-            Task.Run(async () =>
-                await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadAndForceUpdateAllUrlScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme()));
+            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme()));
         }
 
-        public async Task HandleDownloadAndForceUpdateAllUrlScheme()
+        private async Task HandleDownloadUrlScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.download })
             {
-                var modNames = _urlSchemeHandler.Data.Split('/');
+                var modNamesAndUrls = _urlSchemeHandler.ParseDownloadCommand(_urlSchemeHandler.Data);
+
+                if (modNamesAndUrls.Count == 0)
+                {
+                    await _urlSchemeHandler.ShowConfirmation(
+                        title: "Download mod from command", 
+                        message: "Invalid download mod command", 
+                        Icon.Warning);
+                    return;
+                }
+
                 List<string> successfulDownloads = new List<string>();
                 List<string> failedDownloads = new List<string>();
-                
-                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
+
+                foreach (var (modName, url) in modNamesAndUrls)
                 {
-                    ContentTitle = "Download mod from command",
-                    ContentMessage = $"Scarab has successfully received download mod command for {string.Join(", ", modNames)}",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Success
-                }).Show();
-                
-                foreach (var modName in modNames)
-                {
-                    var mod = _items.FirstOrDefault(x =>
+                    bool isCustomInstall = url != null;
+                    bool isModlinksMod = true;
+                    string? originalUrl = null;
+
+
+                    var correspondingMod = _items.FirstOrDefault(x =>
                         x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
-                    if (mod == null)
+                    if (correspondingMod == null)
                     {
-                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
-                        failedDownloads.Add(modName);
-                        continue;
+                        isModlinksMod = false;
+                        if (url == null)
+                        {
+                            Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
+                            failedDownloads.Add(modName);
+                            continue;
+                        }
+
+                        correspondingMod = ModItem.Empty(name: modName, link: url,
+                            description: "This mod was manually installed and is not from official modlinks");
+                    }
+                    else
+                    {
+                        isModlinksMod = true;
+                        originalUrl = correspondingMod.Link;
+                        if (isCustomInstall)
+                        {
+                            correspondingMod.Link = url ?? correspondingMod.Link;
+                        }
                     }
 
-                    switch (mod.State)
+                    // delete mods that have custom links provided so it can be downloaded correctly
+                    if (isCustomInstall && correspondingMod.State is ExistsModState)
+                    {
+                        await OnInstall(correspondingMod);
+                    }
+
+                    switch (correspondingMod.State)
                     {
                         case NotInstalledState:
-                            await OnInstall(mod);
+                            await OnInstall(correspondingMod);
                             break;
                         case InstalledState { Updated: false }:
                         case NotInModLinksState { ModlinksMod: true }:
-                            await OnUpdate(mod);
+                            await OnUpdate(correspondingMod);
                             break;
                         case InstalledState { Enabled: false }:
-                            await OnEnable(mod);
+                            await OnEnable(correspondingMod);
                             break;
+                    }
+
+                    if (isCustomInstall)
+                    {
+                        correspondingMod.Link = originalUrl ?? throw new NullReferenceException("originalUrl is null");
+                        if (correspondingMod.State is ExistsModState state)
+                        {
+                            correspondingMod.State = new NotInModLinksState(
+                                ModlinksMod: isModlinksMod,
+                                Enabled: state.Enabled,
+                                Pinned: state.Pinned);
+                        }
+                        else
+                        {
+                            // re-install the mod if it was not installed (in case of bad link)
+                            await OnInstall(correspondingMod);
+                            failedDownloads.Add(modName);
+                            continue;
+                        }
                     }
 
                     successfulDownloads.Add(modName);
@@ -229,57 +264,105 @@ namespace Scarab.ViewModels
                 string message = string.Empty;
 
                 if (successfulDownloads.Count > 0)
-                {
                     message +=
                         $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
-                }
 
                 if (failedDownloads.Count > 0)
                 {
-                    if (successfulDownloads.Count > 0)
-                    {
-                        message += "\nHowever, ";
-                    }
+                    if (successfulDownloads.Count > 0) message += "\nHowever, ";
 
                     message +=
-                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the name is correct";
+                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the command is correct";
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    new MessageBoxStandardParams()
-                    {
-                        ContentTitle = "Download mod from command",
-                        ContentMessage = message,
-                        MinWidth = 450,
-                        MinHeight = 150,
-                        Icon = failedDownloads.Count > 0 ? Icon.Warning : Icon.Success
-                    });
+                    title: "Download mod from command", 
+                    message, 
+                    failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
             }
-
+        }
+        private async Task HandleForceUpdateAllScheme()
+        {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.forceUpdateAll })
             {
-                await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Force update all from command",
-                    ContentMessage = "Scarab has successfully received the force updated all command",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Success
-                }).Show();
-                
                 await ForceUpdateAll();
                 
                 await _urlSchemeHandler.ShowConfirmation(
-                    new MessageBoxStandardParams()
-                    {
-                        ContentTitle = "Force update all from command",
-                        ContentMessage = "Scarab has successfully run force updated all command",
-                        MinWidth = 450,
-                        MinHeight = 150,
-                        Icon = Icon.Success
-                    });
+                    title: "Force update all from command", 
+                    message: "Scarab has successfully run force updated all command");
             }
                 
+        }
+        
+        private async Task HandleRemoveGlobalSettingScheme()
+        {
+            if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeGlobalSettings })
+            {
+                var modNames = _urlSchemeHandler.Data.Split('/');
+
+                if (modNames.Length == 0)
+                {
+                    await _urlSchemeHandler.ShowConfirmation(
+                        title:  "Remove mod global setting", 
+                        message: "Invalid download mod command",
+                        Icon.Warning);
+                    return;
+                }
+
+                List<string> successfulDownloads = new List<string>();
+                List<string> failedDownloads = new List<string>();
+
+                foreach (var modName in modNames)
+                {
+                    var correspondingMod = _items.FirstOrDefault(x =>
+                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
+                    if (correspondingMod == null)
+                    {
+                        Trace.TraceError($"{UrlSchemeCommands.download}:{_urlSchemeHandler.Data} not found");
+                        failedDownloads.Add(modName);
+                        continue;
+                    }
+
+                    var file = _settingsFinder.GetSettingsFileLocation(correspondingMod);
+
+                    if (file is null)
+                    {
+                        // if mod exists and gs is not found, then it is doesn't exist 
+                        if (correspondingMod.State is not ExistsModState) failedDownloads.Add(modName);
+                        else successfulDownloads.Add(modName);
+                        continue;
+                    }
+
+                    if (File.Exists(file)) 
+                        File.Delete(file);
+                    
+                    if (File.Exists(file + ".bak")) 
+                        File.Delete(file + ".bak");
+
+                    successfulDownloads.Add(modName);
+                }
+                
+                string message = string.Empty;
+
+                if (successfulDownloads.Count > 0)
+                    message +=
+                        $"Scarab has successfully removed global settings for {string.Join(", ", successfulDownloads)} from command";
+
+                if (failedDownloads.Count > 0)
+                {
+                    if (successfulDownloads.Count > 0) 
+                        message += "\nHowever, ";
+
+                    message +=
+                        $"Scarab has was unable to find the global settings for {string.Join(", ", failedDownloads)}." +
+                        $" Please check if the mod name is correct and the mod is installed";
+                }
+
+                await _urlSchemeHandler.ShowConfirmation(
+                    title: "Remove mod global settings from command", 
+                    message,
+                    failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
+            }
         }
         public void ClearSearch()
         {
@@ -290,19 +373,22 @@ namespace Scarab.ViewModels
         public bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
         
         public bool IsInWhatsNew => ModFilterState == ModFilterState.WhatsNew;
-        
-        public string WhatsNewLoadingText => _modlinksChanges.IsReady is null
-            ? Resources.MVVM_LoadingWhatsNew 
-            : (!_modlinksChanges.IsReady.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
 
-        public bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsReady is null;
-        public bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsReady is null || !_modlinksChanges.IsReady.Value);
-        public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsReady ?? false);
+        public string WhatsNewLoadingText => _modlinksChanges.IsLoaded is null
+            ? Resources.MVVM_LoadingWhatsNew 
+            : (!_modlinksChanges.IsLoaded.Value ? Resources.MVVM_NotAbleToLoadWhatsNew : "");
+
+        public bool IsLoadingWhatsNew => IsInWhatsNew && _modlinksChanges.IsLoaded is null;
+        public bool ShouldShowWhatsNewInfoText => IsInWhatsNew && (_modlinksChanges.IsLoaded is null || !_modlinksChanges.IsLoaded.Value);
+        public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsLoaded ?? false);
         public bool IsInOnlineMode => _scarabMode == ScarabMode.Online;
         public bool ShouldShowWhatsNew => IsInOnlineMode &&
                                           _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
                                           !_settings.UseCustomModlinks;
-        public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsReady ?? false);
+
+        public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
+        public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
+
         public IEnumerable<ModItem> FilteredItems
         {
             get
@@ -312,12 +398,10 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Where(x =>
                             WhatsNew_UpdatedMods &&
-                            x.RecentChangeInfo.IsUpdatedRecently &&
-                            x.RecentChangeInfo.LastUpdated >= DateTime.UtcNow.AddDays(-1 * (Updated7Days ? 8 : 31))
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged_UpdatedMods)
                             ||
                             WhatsNew_NewMods &&
-                            x.RecentChangeInfo.IsCreatedRecently &&
-                            x.RecentChangeInfo.LastCreated >= DateTime.UtcNow.AddDays(-1 * (New7Days ? 8 : 31)));
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged_NewMods));
                 }
                 
                 if (IsNormalSearch)
@@ -345,6 +429,11 @@ namespace Scarab.ViewModels
             }
         }
 
+        private void OnWhatsNew_UpdatedModsChanged() => FixupModList();
+        private void OnWhatsNew_NewModsChanged() => FixupModList();
+        private void OnHowRecentModChanged_NewModsChanged() => FixupModList();
+        private void OnHowRecentModChanged_UpdatedModsChanged() => FixupModList();
+
         public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
                 enabled ? Resources.MLVM_ApiButtonText_DisableAPI 
@@ -357,8 +446,8 @@ namespace Scarab.ViewModels
         public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
         public bool CanDisableAll => _items.Any(x => x.State is ExistsModState { Enabled: true });
         public bool CanEnableAll => _items.Any(x => x.State is ExistsModState {Enabled: false});
-        
-        public async Task ToggleApiCommand()
+
+        public static async Task ToggleApiCommand(IModSource _mods, IInstaller _installer)
         {
             async Task<bool> DoActionWithWithErrorHandling(Func<Task> Action)
             {
@@ -414,7 +503,11 @@ namespace Scarab.ViewModels
 
                 await _installer.ToggleApi();
             }
+        }
 
+        public async Task ToggleApiCommand()
+        {
+            await ToggleApiCommand(_mods, _installer);
             RaisePropertyChanged(nameof(ApiButtonText));
             RaisePropertyChanged(nameof(ApiOutOfDate));
         }
@@ -450,7 +543,7 @@ namespace Scarab.ViewModels
         public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
 
 
-        public event Action OnSelectModsWithFilter;
+        public event Action? OnSelectModsWithFilter;
         
         public void SelectModsWithFilter(ModFilterState modFilterState)
         {
@@ -467,7 +560,8 @@ namespace Scarab.ViewModels
                 ModFilterState.Installed => _items.Where(x => x.Installed),
                 ModFilterState.Enabled => _items.Where(x => x.State is ExistsModState { Enabled: true }),
                 ModFilterState.OutOfDate => _items.Where(x => x.State is InstalledState { Updated: false }),
-                ModFilterState.WhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
+                ModFilterState.WhatsNew when LoadedWhatsNew => _items.Where(x => x.RecentChangeInfo.IsUpdatedRecently || x.RecentChangeInfo.IsCreatedRecently),
+                ModFilterState.WhatsNew when !LoadedWhatsNew => Array.Empty<ModItem>(),
                 _ => throw new InvalidOperationException("Invalid mod filter state")
             };
 
@@ -726,7 +820,7 @@ namespace Scarab.ViewModels
 
             FixupModList();
         }
-
+        
         public void FixupModList(ModItem? itemToAdd = null)
         {
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
@@ -757,7 +851,15 @@ namespace Scarab.ViewModels
 
         public void Sort()
         {
-            static int Comparer(ModItem x, ModItem y) => ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
+            int Comparer(ModItem x, ModItem y)
+            {
+                // we use a special sort for whats new based on last changed
+                if (ModFilterState == ModFilterState.WhatsNew)
+                    return x.RecentChangeInfo.CompareTo(y.RecentChangeInfo);
+                
+                return ModToOrderedTuple(x).CompareTo(ModToOrderedTuple(y));
+            }
+
             _items.SortBy(Comparer);
         }
 
@@ -902,12 +1004,32 @@ namespace Scarab.ViewModels
 
         public async Task PinMod(object itemObj)
         {
-            var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
+            var item = itemObj as ModItem ?? throw new Exception("Tried to pin an object which isn't a mod");
             if (item.State is not ExistsModState state) return;
             
             await _installer.Pin(item, !state.Pinned);
-            Sort();
-            SelectMods();
+            
+            FixupModList();
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
+        }
+        
+        public async Task RegisterNotInModlinks(object itemObj)
+        {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to register an object which isn't a mod");
+            if (item.State is not ExistsModState state) return;
+            
+            item.State = new NotInModLinksState(
+                ModlinksMod: true,
+                Enabled: state.Enabled,
+                Pinned: state.Pinned);
+
+            await _mods.RecordUninstall(item); // remove from installed list
+            await _mods.RecordInstalledState(item); // add it back as not in modlinks mod
+
+            FixupModList();
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
         }
 
         public bool HasPinnedDependents(ModItem mod)

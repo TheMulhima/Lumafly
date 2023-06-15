@@ -1,6 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Width="750" Height="500"
+        Width="800" Height="500"
         x:Class="Scarab.Views.Windows.MainWindow"
         Icon="/Assets/ConstructionKnight.ico"
         Title="Scarab+"
@@ -43,10 +43,10 @@
 				IsHitTestVisible="False"
 				/>
 
-            <Image
+            <Svg
 				Grid.Column="1" Grid.Row="0"
 				Width="30" Height="30"
-				Source="/Assets/ConstructionKnight.ico"
+				Path="/Assets/ConstructionKnight.svg"
 				VerticalAlignment="Center" 
 				HorizontalAlignment="Left"
 				Margin="5,0,0,5"/>

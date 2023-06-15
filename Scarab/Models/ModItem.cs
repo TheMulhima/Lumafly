@@ -10,6 +10,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Media;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Scarab.Models
@@ -82,7 +84,7 @@ namespace Scarab.Models
 
         public Version  Version          { get; }
         public string[] Dependencies     { get; }
-        public string   Link             { get; }
+        public string   Link             { get; set; }
         public string   Sha256           { get; }
         public string   Name             { get; }
         public string   Description      { get; }
@@ -91,7 +93,7 @@ namespace Scarab.Models
         public string[] Tags { get; }
         public string[] Integrations { get; }
         public string[] Authors { get; }
-        public ModRecentChangeInfo RecentChangeInfo { get; }
+        public ModRecentChangeInfo RecentChangeInfo { get; set; }
 
         public string   ShortenedRepository   { get; }
         public string   DependenciesDesc { get; }
@@ -111,15 +113,23 @@ namespace Scarab.Models
 
         public bool Pinned => State is ExistsModState { Pinned: true };
 
+        public bool IsModContextMenuEnabled => State is ExistsModState;
         public bool CanBePinned => State is ExistsModState { Pinned: false, Enabled: true };
+        public bool CanBeRegisteredNotInModlinks => State is not NotInModLinksState;
 
         public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
 
         public string InstallText => State switch
         {
-            InstalledState => Resources.MI_InstallText_Installed,
+            ExistsModState => Resources.MI_InstallText_Installed,
             NotInstalledState => Resources.MI_InstallText_NotInstalled,
-            NotInModLinksState => Resources.MI_InstallText_NotInModlinks,
+            _ => throw new InvalidOperationException("Unreachable")
+        };
+        
+        public StreamGeometry? InstallIcon => State switch
+        {
+            ExistsModState => Application.Current?.Resources["delete_regular"] as StreamGeometry,
+            NotInstalledState => Application.Current?.Resources["arrow_download_regular"] as StreamGeometry,
             _ => throw new InvalidOperationException("Unreachable")
         };
 

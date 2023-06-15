@@ -402,7 +402,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time..
+        ///   Looks up a localized string similar to Scarab was unable to load the newest mods from modlinks..
         /// </summary>
         internal static string MVVM_NotAbleToLoadWhatsNew {
             get {
@@ -816,6 +816,114 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        internal static string XAML_Info {
+            get {
+                return ResourceManager.GetString("XAML_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab+ is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight..
+        /// </summary>
+        internal static string XAML_InfoBody {
+            get {
+                return ResourceManager.GetString("XAML_InfoBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab+.
+        /// </summary>
+        internal static string XAML_InfoHeader {
+            get {
+                return ResourceManager.GetString("XAML_InfoHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discord\n.
+        /// </summary>
+        internal static string XAML_InfoLinkDiscord {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkDiscord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Github\n.
+        /// </summary>
+        internal static string XAML_InfoLinkGithub {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkGithub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HK Mod\nManager.
+        /// </summary>
+        internal static string XAML_InfoLinkHKMM {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkHKMM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An Alternate Installer.
+        /// </summary>
+        internal static string XAML_InfoLinkHKMMToolTip {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkHKMMToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Mods\n.
+        /// </summary>
+        internal static string XAML_InfoLinkModdingDocs {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkModdingDocs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Readme\n.
+        /// </summary>
+        internal static string XAML_InfoLinkReadme {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkReadme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relevant Links.
+        /// </summary>
+        internal static string XAML_InfoLinksHeader {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinksHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modding\nTutorial.
+        /// </summary>
+        internal static string XAML_InfoLinkTutorial {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkTutorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website\n.
+        /// </summary>
+        internal static string XAML_InfoLinkWebsite {
+            get {
+                return ResourceManager.GetString("XAML_InfoLinkWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrations:.
         /// </summary>
         internal static string XAML_Integrations {
@@ -839,6 +947,24 @@ namespace Scarab {
         internal static string XAML_LastWeek {
             get {
                 return ResourceManager.GetString("XAML_LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Modded Game.
+        /// </summary>
+        internal static string XAML_LaunchModded {
+            get {
+                return ResourceManager.GetString("XAML_LaunchModded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Vanilla Game.
+        /// </summary>
+        internal static string XAML_LaunchVanilla {
+            get {
+                return ResourceManager.GetString("XAML_LaunchVanilla", resourceCulture);
             }
         }
         
@@ -996,6 +1122,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please wait launching game....
+        /// </summary>
+        internal static string XAML_OpeningGame {
+            get {
+                return ResourceManager.GetString("XAML_OpeningGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Mods Folder.
         /// </summary>
         internal static string XAML_OpenMods {
@@ -1019,6 +1154,33 @@ namespace Scarab {
         internal static string XAML_Pin {
             get {
                 return ResourceManager.GetString("XAML_Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab.
+        /// </summary>
+        internal static string XAML_PinMod_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_PinMod_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record as custom version.
+        /// </summary>
+        internal static string XAML_RegisterNotInModlinks {
+            get {
+                return ResourceManager.GetString("XAML_RegisterNotInModlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record this mod&apos;s version as not from modlinks. Doesn&apos;t affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab.
+        /// </summary>
+        internal static string XAML_RegisterNotInModlinks_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_RegisterNotInModlinks_Explanation", resourceCulture);
             }
         }
         

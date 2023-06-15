@@ -96,12 +96,7 @@ public class MiscServicesTest
         urlSchemeHandler.SetCommand("scarab://download/MyMod1");
         Assert.Equal(UrlSchemeCommands.download, urlSchemeHandler.UrlSchemeCommand);
         Assert.Equal("MyMod1", urlSchemeHandler.Data);
-        
-        // test download multiple mods
-        urlSchemeHandler.SetCommand("scarab://download/MyMod1/MyMod2");
-        Assert.Equal(UrlSchemeCommands.download, urlSchemeHandler.UrlSchemeCommand);
-        Assert.Equal("MyMod1/MyMod2", urlSchemeHandler.Data);
-        
+
         urlSchemeHandler.SetCommand("scarab://reset");
         Assert.Equal(UrlSchemeCommands.reset, urlSchemeHandler.UrlSchemeCommand);
         
@@ -111,5 +106,124 @@ public class MiscServicesTest
         urlSchemeHandler.SetCommand("scarab://customModLinks/https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml");
         Assert.Equal(UrlSchemeCommands.customModLinks, urlSchemeHandler.UrlSchemeCommand);
         Assert.Equal("https://github.com/SFGrenade/additionalmodlinks/blob/main/ModLinks.xml", urlSchemeHandler.Data);
+    }
+    
+    /// <summary>
+    /// Test that download command arg parser actually works
+    /// </summary>
+    [Fact]
+    public void DownloadUriArgParser()
+    {
+        var urlSchemeHandler = new UrlSchemeHandler();
+
+        // test download 1 mod normal
+        urlSchemeHandler.SetCommand("scarab://download/MyMod1");
+        var normalMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(normalMod,
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Null(mod.Value); // no url
+            });
+        
+        // test download multiple mods
+        urlSchemeHandler.SetCommand("scarab://download/MyMod1/MyMod2/");
+        var normalMultipleMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(normalMultipleMod, 
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Null(mod.Value); // no url
+            }, 
+            mod2 =>
+            {
+                Assert.Equal("MyMod2", mod2.Key);
+                Assert.Null(mod2.Value); // no url
+            });
+        
+        // test download 1 mod with url
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1:'https://mod1download.zip'
+            """);
+        var withUrlMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(withUrlMod, 
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Equal("https://mod1download.zip", mod.Value);
+            });
+        
+        // test download many mod with url
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1:'https://mod1download.zip'/MyMod2:'https://mod2download.zip'/ 
+            """);
+        
+        var withUrlMultipleMod =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(withUrlMultipleMod, 
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Equal("https://mod1download.zip", mod.Value);
+            },
+            mod =>
+            {
+                Assert.Equal("MyMod2", mod.Key);
+                Assert.Equal("https://mod2download.zip", mod.Value);
+            });
+        
+        // test download with mixed
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1/MyMod2:'https://mod2download.zip'/MyMod3 
+            """);
+        var mixed =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(mixed, 
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Null(mod.Value);
+            },
+            mod =>
+            {
+                Assert.Equal("MyMod2", mod.Key);
+                Assert.Equal("https://mod2download.zip", mod.Value);
+            },
+            mod =>
+            {
+                Assert.Equal("MyMod3", mod.Key);
+                Assert.Null(mod.Value);
+            });
+        
+        // test download with invalid url
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1:'mod1download.zip' 
+            """);
+        var invalidUrl =  urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+        Assert.Collection(invalidUrl,
+            mod =>
+            {
+                Assert.Equal("MyMod1", mod.Key);
+                Assert.Null(mod.Value); // no valid url so null
+            });
+        
+        // test download with invalid format
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1:https://mod1download.zip 
+            """);
+        var parseException1 = Record.Exception(() => urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data));
+        Assert.Null(parseException1); // should not throw
+                                     
+        // test download with invalid format
+        urlSchemeHandler.SetCommand(
+            """
+            scarab://download/MyMod1:' 
+            """);
+        var parseException2 = Record.Exception(() => urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data));
+        Assert.Null(parseException2); // should not throw
+        
     }
 }

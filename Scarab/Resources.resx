@@ -358,7 +358,7 @@
     <value>Loading the newest mods that are on modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Sorry, Scarab was unable to load the newest mods from modlinks.\n\nPlease try again after some time.</value>
+    <value>Scarab was unable to load the newest mods from modlinks.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
@@ -512,5 +512,59 @@
   </data>
   <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
     <value>Scarab was unable to load modlinks from {0}. Scarab will load official modlinks instead.</value>
+  </data>
+  <data name="XAML_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="XAML_InfoHeader" xml:space="preserve">
+    <value>Scarab+</value>
+  </data>
+  <data name="XAML_InfoBody" xml:space="preserve">
+    <value>Scarab+ is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
+  </data>
+  <data name="XAML_InfoLinksHeader" xml:space="preserve">
+    <value>Relevant Links</value>
+  </data>
+  <data name="XAML_InfoLinkWebsite" xml:space="preserve">
+    <value>Website\n</value>
+  </data>
+  <data name="XAML_InfoLinkGithub" xml:space="preserve">
+    <value>Github\n</value>
+  </data>
+  <data name="XAML_InfoLinkReadme" xml:space="preserve">
+    <value>Readme\n</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord\n</value>
+  </data>
+  <data name="XAML_InfoLinkHKMM" xml:space="preserve">
+    <value>HK Mod\nManager</value>
+  </data>
+  <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
+    <value>An Alternate Installer</value>
+  </data>
+  <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
+    <value>Create Mods\n</value>
+  </data>
+  <data name="XAML_InfoLinkTutorial" xml:space="preserve">
+    <value>Modding\nTutorial</value>
+  </data>
+  <data name="XAML_LaunchVanilla" xml:space="preserve">
+    <value>Launch Vanilla Game</value>
+  </data>
+  <data name="XAML_LaunchModded" xml:space="preserve">
+    <value>Launch Modded Game</value>
+  </data>
+  <data name="XAML_OpeningGame" xml:space="preserve">
+    <value>Please wait launching game...</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>Record as custom version</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab</value>
+  </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab</value>
   </data>
 </root>

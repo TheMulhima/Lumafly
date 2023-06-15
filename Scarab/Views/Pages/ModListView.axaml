@@ -8,6 +8,7 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:pages="clr-namespace:Scarab.Views.Pages"
             xmlns:enums="clr-namespace:Scarab.Enums"
+            xmlns:utils="clr-namespace:Scarab.Util"
             xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.Views.Controls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
@@ -209,10 +210,11 @@
           Background="Transparent"
           HorizontalAlignment="Right"
           BorderThickness="0"
+          IsVisible="{Binding ClearSearchVisible}"
           Command="{Binding ClearSearch}"
           Margin="0 0 0 0">
           <PathIcon
-              Data="{StaticResource delete_regular}"
+              Data="{StaticResource presence_offline_regular}"
               Width="15" Height="15"/>
       </Button>
 
@@ -250,6 +252,9 @@
               <Setter Property="HorizontalAlignment" Value="Left"/>
             </Style>
           </Grid.Styles>
+            <Grid.Resources>
+                <utils:HowRecentEnumToBoolConvertor x:Key="HowRecentEnumConvertor"/>
+            </Grid.Resources>
           <CheckBox
               Grid.Column="0" Grid.Row="0"
               IsChecked="{Binding WhatsNew_NewMods}"
@@ -257,13 +262,17 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="2" Grid.Row="0"
-              IsChecked="{Binding New7Days}"
+              IsChecked="{Binding HowRecentModChanged_NewMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="NewMods"
               Content="{ext:Localize XAML_LastWeek}"/>
           <RadioButton
               IsVisible="{Binding WhatsNew_NewMods}"
               Grid.Column="3" Grid.Row="0"
-              IsChecked="{Binding !New7Days}"
+              IsChecked="{Binding HowRecentModChanged_NewMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="NewMods"
               Content="{ext:Localize XAML_LastMonth}"/>
           <CheckBox
@@ -273,13 +282,17 @@
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="2" Grid.Row="2"
-              IsChecked="{Binding Updated7Days}"
+              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
               GroupName="UpdatedMods"
               Content="{ext:Localize XAML_LastWeek}"/>
           <RadioButton
               IsVisible="{Binding WhatsNew_UpdatedMods}"
               Grid.Column="3" Grid.Row="2"
-              IsChecked="{Binding !Updated7Days}"
+              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
+              Converter={StaticResource HowRecentEnumConvertor},
+              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
               GroupName="UpdatedMods"
               Content="{ext:Localize XAML_LastMonth}"/>
         </Grid>
@@ -299,24 +312,23 @@
               Foreground="Ivory"
               Margin="10,20,0,0"/>
 
-          <Image
+          <PathIcon
               Grid.Column="0"
               Grid.Row="1"
               IsVisible="{Binding ShouldShowWhatsNewErrorIcon}"
-              Margin="10,40,0,0"
-              Source="avares://Scarab/Assets/error.png"
-              Height="80" Width="80"
-                        />
+              Margin="30,40,10,0"
+              Data="{StaticResource warning_regular}"
+              Height="50" Width="50"/>
 
           <TextBlock
               Grid.Row="1"
               Grid.Column="1"
-              Margin="0,40,0,0"
+              Margin="20,40,0,0"
               TextWrapping="Wrap"
               IsVisible="{Binding ShouldShowWhatsNewInfoText}"
               Text="{Binding WhatsNewLoadingText}"
               FontSize="16"
-              TextAlignment="Center"/>
+              VerticalAlignment="Center"/>
         </Grid>
         <TextBlock
             IsVisible="{Binding NoFilteredItems}"
@@ -328,8 +340,19 @@
             <DataTemplate DataType="models:ModItem">
               <Grid Margin="8 12 12 0">
                 <Grid.ContextMenu>
-                  <ContextMenu IsVisible="{Binding CanBePinned}">
-                    <MenuItem Header="{ext:Localize XAML_Pin}" Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" CommandParameter="{Binding .}"/>
+                  <ContextMenu IsEnabled="{Binding IsModContextMenuEnabled}">
+                    <MenuItem 
+                        IsEnabled="{Binding CanBePinned}" 
+                        Header="{ext:Localize XAML_Pin}"
+                        Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
+                        CommandParameter="{Binding .}"
+                        ToolTip.Tip="{ext:Localize XAML_PinMod_Explanation}"/>
+                    <MenuItem 
+                        IsEnabled="{Binding CanBeRegisteredNotInModlinks}"
+                        Header="{ext:Localize XAML_RegisterNotInModlinks}" 
+                        Command="{ReflectionBinding $parent[pages:ModListView].DataContext.RegisterNotInModlinks}" 
+                        CommandParameter="{Binding .}"
+                        ToolTip.Tip="{ext:Localize XAML_RegisterNotInModlinks_Explanation}"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
@@ -341,11 +364,11 @@
                   <Expander.Header>
                     <Grid>
                       <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="260" />
-                        <ColumnDefinition Width="*" MaxWidth="100" />
-                        <ColumnDefinition Width="*" MaxWidth="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />             <!-- enable (always visible, no need to reserve space for it) -->
+                        <ColumnDefinition Width="*" MaxWidth="120" /> <!-- update -->
+                        <ColumnDefinition Width="Auto" />            <!-- install (always visible, no need to reserve space for it) -->
+                        <ColumnDefinition Width="*" MaxWidth="50"/>  <!-- pin -->
                       </Grid.ColumnDefinitions>
                       <TextBlock Grid.Column="0"
                           TextWrapping="Wrap"
@@ -367,46 +390,56 @@
                             IsChecked="{Binding EnabledIsChecked}"
                             IsEnabled = "{Binding Installed}"
                             VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
                                                 />
                       </Panel>
-
                       <Panel
                           VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
                           Grid.Column="2">
-                        <Button
-                            Padding="3"
-                            Margin="0 -3 0 0"
-                            MaxWidth="60"
-                            CommandParameter="{Binding .}"
-                            Content="{Binding InstallText}"
-                            IsEnabled="{Binding !InstallingButtonAccessible}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
-                            VerticalAlignment="Top"/>
+                          <Button
+                              Padding="3"
+                              Margin="0 -3 0 0"
+                              CommandParameter="{Binding .}"
+                              Background="#976526"
+                              BorderBrush="#976526"
+                              IsVisible="{Binding UpdateAvailable}"
+                              Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
+                              VerticalAlignment="Top">
+                              <StackPanel Orientation="Horizontal">
+                                <PathIcon 
+                                    Data="{StaticResource history_regular}" 
+                                    Height="15" 
+                                    Width="15" 
+                                    VerticalAlignment="Center"
+                                    Margin="0 0 5 0"/>
+                                <TextBlock Text="{ext:Localize XAML_Update}"/>
+                              </StackPanel>
+                            </Button>   
                       </Panel>
-                      <Grid
-                          Grid.Column="3"
-                          ColumnDefinitions="Auto,*"
-                          IsVisible="{Binding UpdateAvailable}"
-                          VerticalAlignment="Top">
-                        <Button
-                            MaxHeight="18"
-                            MaxWidth="18"
-                            Margin="0 4 0 0"
-                            Background="Transparent"
-                            BorderBrush="{DynamicResource ThemeBorderMidBrush}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
-                            CommandParameter="{Binding .}"
-                                                >
-                          <Image
-                              Source="avares://Scarab/Assets/update.png"
-                              Height="12" Width="12"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                                                    />
-                        </Button>
-
-                        <ContentPresenter Grid.Column="1" Margin="4,4,0,0" VerticalAlignment="Center" Content="{ext:Localize XAML_Update}"/>
-                      </Grid>
+                      <Panel
+                          VerticalAlignment="Center"
+                          Grid.Column="3">
+                          <Button
+                              Padding="3"
+                              Margin="0 -3 0 0"
+                              CommandParameter="{Binding .}"
+                              MinWidth="75"
+                              IsEnabled="{Binding !InstallingButtonAccessible}"
+                              Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
+                              VerticalAlignment="Top"
+                              HorizontalContentAlignment="Center">
+                              <StackPanel Orientation="Horizontal">
+                                  <PathIcon 
+                                      Data="{Binding InstallIcon}" 
+                                      Height="15" 
+                                      Width="15" 
+                                      VerticalAlignment="Center"
+                                      Margin="0 0 5 0"/>
+                                  <TextBlock Text="{Binding InstallText}"/>
+                              </StackPanel>
+                          </Button>
+                      </Panel>
                       <Button Grid.Column="4" 
                               Margin="0 -5 0 0"
                               VerticalAlignment="Center"
@@ -415,11 +448,12 @@
                               IsVisible="{Binding Pinned}"
                               ToolTip.Tip="{ext:Localize XAML_Unpin}"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
-                              CommandParameter="{Binding .}">
+                              CommandParameter="{Binding .}"
+                              HorizontalAlignment="Right">
                         <PathIcon
                              Data="{StaticResource pin_regular}"
                              FontSize="20"
-                             Margin="1 0 0 0"
+                             Margin="1 5 0 0"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"/>
                       </Button>

@@ -52,7 +52,7 @@ namespace Scarab.Util
                     continue;
                 }
                 
-                if (ValidateWithSuffix(result.First().Path.LocalPath) is not var (managed, suffix))
+                if (ValidateWithSuffix(result[0].Path.LocalPath) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
@@ -77,30 +77,28 @@ namespace Scarab.Util
 
         private static async Task<string> SelectMacApp(Window parent, bool fail)
         {
+            // use old API because of inability to rigorously test
+            #pragma warning disable CS0618
+            
+            var dialog = new OpenFileDialog
+            {
+                Title = Resources.PU_SelectApp,
+                Directory = "/Applications",
+                AllowMultiple = false
+            };
+            dialog.Filters?.Add(new FileDialogFilter { Extensions = { "app" } });
+            
+            #pragma warning restore CS0618
+
             while (true)
             {
-                var result = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
-                {
-                    Title = Resources.MLVM_Select_Mod,
-                    AllowMultiple = true,
-                    FileTypeFilter = new []
-                    {
-                        new FilePickerFileType("Game Executable")
-                        {
-                            Patterns = new []
-                            {
-                                "*.app"
-                            }
-                        },
-                    }
-                });
-
-                if (result.Count == 0 )
+                string[]? result = await dialog.ShowAsync(parent);
+                if (result is null or { Length: 0 })
                 {
                     await MessageBoxUtil
                         .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
                 }
-                else if (ValidateWithSuffix(result[0].Path.LocalPath) is not var (managed, suffix))
+                else if (ValidateWithSuffix(result[0]) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams()
                     {
@@ -128,7 +126,7 @@ namespace Scarab.Util
             {
                 var result = await parent.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
                 {
-                    Title = Resources.MLVM_Select_Mod,
+                    Title = Resources.PU_SelectEXE,
                     AllowMultiple = true,
                     FileTypeFilter = new []
                     {
@@ -138,6 +136,7 @@ namespace Scarab.Util
                             {
                                 "hollow_knight.exe", // steam 
                                 "Hollow Knight.exe", // gog
+                                "*.lnk"
                             }
                         },
                     }

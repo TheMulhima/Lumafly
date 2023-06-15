@@ -2,15 +2,19 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Win32;
 using MessageBox.Avalonia.DTO;
 using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
 using Scarab.Enums;
 using Scarab.Interfaces;
+using Scarab.Models;
 
 namespace Scarab.Util;
 
@@ -36,13 +40,15 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.forceUpdateAll, null},
             {UrlSchemeCommands.customModLinks, s => Data = s},
             {UrlSchemeCommands.baseLink, s => Data = s},
+            {UrlSchemeCommands.removeAllModsGlobalSettings, null},
+            {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
         };
     }
     
     public void SetCommand(string arg)
     {
         if (Handled) return;
-        
+
         arg = arg.Trim();
         
         var UriPrefix = UriScheme + "://";
@@ -50,21 +56,15 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (arg.Length < UriPrefix.Length || !arg.StartsWith(UriPrefix))
         {
             Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
-                await ShowConfirmation(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Invalid URL Scheme Command",
-                    ContentMessage = $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Warning,
-                })));
+                await ShowConfirmation(
+                    title: "Invalid URL Scheme Command", 
+                    message: $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://", 
+                    Icon.Warning)));
             return;
         }
-        
-        var UriParam = 
-            arg[UriPrefix.Length..]
-            .Trim('/')
-            .Replace("%20", " ");
+
+        var UriParam = arg[UriPrefix.Length..].Trim('/');
+        UriParam = HttpUtility.UrlDecode(UriParam);
 
         foreach(var (command, setData) in AvailableCommands)
         {
@@ -79,15 +79,60 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (UrlSchemeCommand == UrlSchemeCommands.none && !string.IsNullOrEmpty(UriParam))
         {
             Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
-                await ShowConfirmation(new MessageBoxStandardParams()
-                {
-                    ContentTitle = "Invalid URL Scheme Command",
-                    ContentMessage = $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = Icon.Warning,
-                })));
+                await ShowConfirmation(
+                    title: "Invalid URL Scheme Command",
+                    message: $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
+                    Icon.Warning)));
         }
+    }
+
+    public Dictionary<string, string?> ParseDownloadCommand(string data)
+    {
+        int index = 0;
+        Dictionary<string, string?> modNamesAndUrls = new Dictionary<string, string?>();
+        
+        while (index < data.Length)
+        {
+            string modName = string.Empty;
+            string? url = null;
+            while (index < data.Length && data[index] != '/')
+            {
+                if (data[index] == ':') // starter of url
+                {
+                    index++; // consume :
+                    
+                    const char LinkSep = '\'';
+                    
+                    if (index >= data.Length || data[index] != LinkSep) return new Dictionary<string, string?>(); // invalid format refuse to parse
+                    
+                    index++; // consume "
+                    while (index < data.Length && data[index] != LinkSep)
+                    {
+                        url += data[index];
+                        index++;
+                    }
+
+                    if (index < data.Length && data[index] == LinkSep)
+                        index++; // consume "
+                    break;
+                }
+
+                modName += data[index];
+                index++;
+            }
+
+            try { _ = new Uri(url ?? throw new Exception()); }
+            catch { url = null; }
+
+            // windows folder regex
+            var invalidChars = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars());
+            if (invalidChars.Any(x => modName.Contains(x))) return new Dictionary<string, string?>(); // invalid string refuse to parse
+            
+            modNamesAndUrls[modName] = url;
+            index++; // consume /
+        }
+
+        return modNamesAndUrls;
     }
 
     public static void Setup()
@@ -174,7 +219,19 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         Handled = true;
         await Dispatcher.UIThread.InvokeAsync(async () =>
         {
-             await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+            await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+        });
+    }
+    
+    public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)
+    {
+        await ShowConfirmation(new MessageBoxStandardParams()
+        {
+            ContentTitle = title,
+            ContentMessage = message,
+            Icon = icon,
+            MinWidth = 450,
+            MinHeight = 150,
         });
     }
 }

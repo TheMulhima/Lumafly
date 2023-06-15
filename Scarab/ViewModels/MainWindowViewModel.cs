@@ -80,6 +80,7 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Loading settings.");
 
             HandleResetUrlScheme(urlSchemeHandler);
+            HandleResetAllGlobalSettingsUrlScheme(urlSchemeHandler);
 
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
@@ -226,7 +227,8 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IGlobalSettingsFinder>(),
                       sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
-              .AddSingleton<SettingsViewModel>();
+              .AddSingleton<SettingsViewModel>()
+              .AddSingleton<InfoViewModel>();
             
             Trace.WriteLine("Building service provider");
             ServiceProvider sp = sc.BuildServiceProvider(new ServiceProviderOptions
@@ -238,6 +240,7 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Displaying model");
             Tabs = new ObservableCollection<SelectableItem<ViewModelBase>>
             {
+                new(sp.GetRequiredService<InfoViewModel>(), Resources.XAML_Info, false),
                 new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
@@ -277,14 +280,46 @@ namespace Scarab.ViewModels
                     exception = e;
                 }
 
-                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                    title: "Reset installer from command",
+                    message: success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
+                    success ? Icon.Success : Icon.Warning
+                ));
+            }
+        }
+        
+        private void HandleResetAllGlobalSettingsUrlScheme(IUrlSchemeHandler urlSchemeHandler)
+        {
+            if (urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeAllModsGlobalSettings })
+            {
+                bool success = false;
+                Exception? exception = null; 
+                try
                 {
-                    ContentTitle = "Reset installer from command",
-                    ContentMessage = success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
-                    MinWidth = 450,
-                    MinHeight = 150,
-                    Icon = success ? Icon.Success : Icon.Warning
-                }));
+                    var di = new DirectoryInfo(GlobalSettingsFinder.GetSavesFolder());
+
+                    foreach (var file in di.GetFiles())
+                    {
+                        if (file.FullName.EndsWith(".GlobalSettings.json") ||
+                            file.FullName.EndsWith(".GlobalSettings.json.bak"))
+                        {
+                            file.Delete();
+                        } 
+                    }
+                    
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    success = false;
+                    exception = e;
+                }
+
+                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                    title: "Reset all mod global settings installer from command",
+                    message: success ? "All mods global settings have been reset." : $"All mods global settings could not be reset. Please try again.\n{exception}",
+                    success ? Icon.Success : Icon.Warning));
             }
         }
 
@@ -307,14 +342,10 @@ namespace Scarab.ViewModels
                         success = true;
                     }
 
-                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
-                        {
-                            ContentTitle = "Load custom modlinks from command",
-                            ContentMessage = success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
-                            MinWidth = 450,
-                            MinHeight = 150,
-                            Icon = success ? Icon.Success : Icon.Warning,
-                        }));
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                        title:  "Load custom modlinks from command", 
+                        message: success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
+                        success ? Icon.Success : Icon.Warning));
                 }
 
                 if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
@@ -331,14 +362,10 @@ namespace Scarab.ViewModels
                         success = true;
                     }
 
-                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
-                        {
-                            ContentTitle = "Use new baselink from command",
-                            ContentMessage = success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
-                            MinWidth = 450,
-                            MinHeight = 150,
-                            Icon = success ? Icon.Success : Icon.Warning,
-                        }));
+                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                            title: "Use new baselink from command",
+                            message: success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
+                            success ? Icon.Success : Icon.Warning));
                     
                 }
             }

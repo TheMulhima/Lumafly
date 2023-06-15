@@ -81,7 +81,14 @@ namespace Scarab.Services
             _hc = hc;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
-            CheckAPI().Wait();
+            try
+            {
+                CheckAPI().Wait();
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Exception occured when initalizing Installer {e}");
+            }
         }
 
         private void CreateNeededDirectories()
@@ -349,7 +356,8 @@ namespace Scarab.Services
 
             var (data, filename) = await DownloadFile(mod.Link, setProgress);
 
-            ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
+            if (string.IsNullOrEmpty(mod.Sha256))
+                ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
 
             await PlaceMod(mod, enable, filename, data);
             

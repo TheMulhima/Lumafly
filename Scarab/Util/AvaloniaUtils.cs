@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data.Converters;
 using Avalonia.LogicalTree;
 using Avalonia.Styling;
+using Avalonia.Utilities;
+using Scarab.Enums;
 
-namespace Scarab.Extensions;
+namespace Scarab.Util;
 
 /// <summary>
 /// For having the UI how we want we got to do some reflection cuz API doesn't expose it :)
@@ -27,6 +31,10 @@ public static class AvaloniaUtils
         int index = style.Setters.IndexOf(style.Setters.First(x => x is Setter setter && setter.Property == propertyToSet));
         style.Setters[index] = new Setter(propertyToSet, newSetterValue!);
     }
+    
+    public static readonly IValueConverter HowRecentToBoolConvertor =
+        new FuncValueConverter<HowRecentModChanged, bool>((howRecent) => howRecent == 0);
+
     
     public static T? GetFirstChild<T>(this Control? control) where T : Control
     {
@@ -55,7 +63,36 @@ public static class AvaloniaUtils
         var popup_object = MenuItemPopup.GetValue(menuItem);
         return popup_object as Popup ?? throw new Exception("MenuItem popup not found");
     }
-    
+  
+  
     public static Window GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                                             ?? throw new InvalidOperationException();
+}
+
+/// <summary>
+/// A value convertor to be used in the AXAML to convert between <see cref="HowRecentModChanged"/> so that a var of type
+/// <see cref="HowRecentModChanged"/> can be in ViewModel.
+/// </summary>
+public class HowRecentEnumToBoolConvertor : IValueConverter
+{
+    /// <inheritdoc/>
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value == null || parameter == null || targetType != typeof(bool?)) return AvaloniaProperty.UnsetValue;
+
+        return (HowRecentModChanged) value == (HowRecentModChanged) parameter;
+    }
+
+    /// <inheritdoc/>
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value == null || parameter == null || targetType != typeof(HowRecentModChanged)) return AvaloniaProperty.UnsetValue;
+
+        return (HowRecentModChanged)parameter switch
+        {
+            HowRecentModChanged.Month => (bool)value ? HowRecentModChanged.Month : HowRecentModChanged.Week,
+            HowRecentModChanged.Week => (bool)value ? HowRecentModChanged.Week : HowRecentModChanged.Month,
+            _ => AvaloniaProperty.UnsetValue
+        };
+    }
 }

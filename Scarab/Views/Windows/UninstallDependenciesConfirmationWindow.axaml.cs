@@ -9,8 +9,8 @@ namespace Scarab.Views.Windows
         public UninstallDependenciesConfirmationWindow()
         {
             InitializeComponent();
-            this.FindControl<Button>("YesButton").Command = ReactiveCommand.Create(() => Close(true));
-            this.FindControl<Button>("NoButton").Command = ReactiveCommand.Create(() => Close(false));
+            YesButton.Command = ReactiveCommand.Create(() => Close(true));
+            NoButton.Command = ReactiveCommand.Create(() => Close(false));
         }
 
         private void InitializeComponent()

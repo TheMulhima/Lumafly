@@ -5,5 +5,5 @@ namespace Scarab.Interfaces;
 public interface IModLinksChanges
 {
     public Task LoadChanges();
-    public bool? IsReady { get; set; }
+    public bool? IsLoaded { get; }
 }
