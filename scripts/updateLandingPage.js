@@ -1,9 +1,16 @@
 function downloadScarab(latest = false, onclicked = false)
 {
-  let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/"
+  let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/";
+
+  let files = {
+    "Windows" : "Scarab.exe",
+    "Mac"     : "Scarab-MacOS.zip",
+    "Linux"   : "Scarab-Linux.zip"
+  }
 
   if (latest) {
     linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/build/master/";
+    files.Windows = "Scarab-Windows.zip"
   }
 
   var uap = new UAParser();
@@ -13,9 +20,9 @@ function downloadScarab(latest = false, onclicked = false)
   linuxOS = ['Linux'];
   let link = null;
 
-  if (macOS.indexOf(platform) !== -1)          link = linkBase + "Scarab-MacOS.zip";
-  else if (windowsOS.indexOf(platform) !== -1) link = linkBase + "Scarab.exe";
-  else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + "Scarab-Linux.zip"
+  if (macOS.indexOf(platform) !== -1)          link = linkBase + files.Mac;
+  else if (windowsOS.indexOf(platform) !== -1) link = linkBase + files.Windows;
+  else if (linuxOS.indexOf(platform) !== -1)   link = linkBase + files.Linux
 
   if (link !== null) {
     openLink(link, onclicked);
