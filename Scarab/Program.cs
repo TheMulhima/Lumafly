@@ -22,6 +22,9 @@ namespace Scarab
             ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial"
         };
 
+        private static TextWriterTraceListener _traceFile = null!;
+        internal const string LoggingFileName = "ModInstaller.log";
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -50,20 +53,20 @@ namespace Scarab
 
         private static void SetupLogging()
         {
-            var fileListener = new TextWriterTraceListener
+            _traceFile = new TextWriterTraceListener
             (
                 Path.Combine
                 (
                     Settings.GetOrCreateDirPath(),
-                    "ModInstaller.log"
+                    LoggingFileName
                 )
             );
 
-            fileListener.TraceOutputOptions = TraceOptions.DateTime;
+            _traceFile.TraceOutputOptions = TraceOptions.DateTime;
 
             Trace.AutoFlush = true;
 
-            Trace.Listeners.Add(fileListener);
+            Trace.Listeners.Add(_traceFile);
 
             AppDomain.CurrentDomain.UnhandledException += (_, eArgs) =>
             {
@@ -74,6 +77,13 @@ namespace Scarab
             TaskScheduler.UnobservedTaskException += (_, eArgs) => { WriteExceptionToLog(eArgs.Exception); };
 
             Trace.WriteLine("Launching...");
+        }
+
+        public static void CloseTraceFile()
+        {
+            _traceFile.Flush();
+            _traceFile.Close();
+            _traceFile.Dispose();
         }
 
         private static void WriteExceptionToLog(Exception e)

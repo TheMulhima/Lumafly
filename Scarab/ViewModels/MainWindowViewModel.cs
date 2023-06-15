@@ -268,6 +268,8 @@ namespace Scarab.ViewModels
 
                     foreach (FileInfo file in di.GetFiles())
                     {
+                        // we can't delete the currently being used logging file
+                        if (file.Name == Program.LoggingFileName) continue;
                         file.Delete(); 
                     }
                     
@@ -587,6 +589,8 @@ namespace Scarab.ViewModels
         {
             Instance = this;
             LoadApp();
+            ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
+                (_, _) => Program.CloseTraceFile();
         }
 
         public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
