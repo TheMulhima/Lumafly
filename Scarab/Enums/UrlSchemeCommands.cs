@@ -8,4 +8,5 @@ public enum UrlSchemeCommands
     forceUpdateAll,
     customModLinks,
     baseLink,
+    removeAllModsGlobalSettings,
 }

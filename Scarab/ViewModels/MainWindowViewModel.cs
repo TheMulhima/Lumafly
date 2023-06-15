@@ -80,6 +80,7 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Loading settings.");
 
             HandleResetUrlScheme(urlSchemeHandler);
+            HandleResetAllGlobalSettingsUrlScheme(urlSchemeHandler);
 
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
@@ -283,6 +284,45 @@ namespace Scarab.ViewModels
                 {
                     ContentTitle = "Reset installer from command",
                     ContentMessage = success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
+                    MinWidth = 450,
+                    MinHeight = 150,
+                    Icon = success ? Icon.Success : Icon.Warning
+                }));
+            }
+        }
+        
+        private void HandleResetAllGlobalSettingsUrlScheme(IUrlSchemeHandler urlSchemeHandler)
+        {
+            if (urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeAllModsGlobalSettings })
+            {
+                bool success = false;
+                Exception? exception = null; 
+                try
+                {
+                    var di = new DirectoryInfo(GlobalSettingsFinder.GetSavesFolder());
+
+                    foreach (var file in di.GetFiles())
+                    {
+                        if (file.FullName.EndsWith(".GlobalSettings.json") ||
+                            file.FullName.EndsWith(".GlobalSettings.json.bak"))
+                        {
+                            file.Delete();
+                        } 
+                    }
+                    
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    success = false;
+                    exception = e;
+                }
+
+                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Reset all mod global settings installer from command",
+                    ContentMessage = success ? "All mods global settings have been reset." : $"All mods global settings could not be reset. Please try again.\n{exception}",
                     MinWidth = 450,
                     MinHeight = 150,
                     Icon = success ? Icon.Success : Icon.Warning
