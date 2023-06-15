@@ -35,7 +35,7 @@
         <h1 class="center centertext">
           This will open Scarab and download the following mods: 
         </h1>
-        <h3 id="mod-list" class="center centertext">No mods provided</h3>
+        <h3 id="mod-list" class="center centertext" style="line-height: 1.5em">No mods provided</h3>
         <p class="center centertext">
           For this to work you will need to download scarab+ from <a href="/Scarab/?download">download page</a> and set it up
         </p>
@@ -48,19 +48,26 @@
         <h3 class="center centertext">Add mods below to create your own link</h3>
 
         <div class="centerItemContainer">
-          <select title="mod select" id="mySelect" multiple="multiple" class="select2dropdown">
-          </select>
+          <select title="mod select" id="mySelect" multiple="multiple" class="select2dropdown"></select>
         </div>
 
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 10px;">
           <img id="copied" class="center copiedBadge notDisplayed" alt="copied" src="https://img.shields.io/static/v1?style=for-the-badge&message=Link%20Copied&color=fed428&logo=adguard&logoColor=333333&label="/>
         </div>
         
         <div class="centerItemContainer" style="margin-bottom: 30px;">
-          <button id="copy-link" type="button" class="center standardButton whiteGlowButton">Copy Shareable Link</button>
+          <button id="copy-link" onclick="copyLink()" type="button" class="center standardButton whiteGlowButton">Copy Shareable Link</button>
         </div>
-        <div class="centerItemContainer" style="margin-bottom: 60px;">
-          <button id="open-link" type="button" class="center standardButton whiteGlowButton">Open Link</button>
+        <div class="centerItemContainer" style="margin-bottom: 30px;">
+          <button id="open-link" onclick="openModsLink()" type="button" class="center standardButton whiteGlowButton">Open Link</button>
+        </div>
+
+        <div class="centerItemContainer" style="padding: 5px 10px;">
+          <button id="add-custom" onclick="addCustomMod()" type="button" class="center standardButton whiteGlowButton">Add custom mod</button>
+        </div>
+
+        <div class="center fit-width" id="customModsContainer" style="margin-top: 10px; margin-bottom: 60px;">
+          
         </div>
       </div>
     </body>
