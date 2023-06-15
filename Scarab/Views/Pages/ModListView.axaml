@@ -365,10 +365,10 @@
                     <Grid>
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />             <!-- enable (always visible, no need to reserve space for it) -->
-                        <ColumnDefinition Width="*" MaxWidth="120" /> <!-- update -->
-                        <ColumnDefinition Width="Auto" />            <!-- install (always visible, no need to reserve space for it) -->
-                        <ColumnDefinition Width="*" MaxWidth="50"/>  <!-- pin -->
+                        <ColumnDefinition Width="Auto" />  <!-- enable (always visible, no need to reserve space for it) -->
+                        <ColumnDefinition MaxWidth="120" /> <!-- update -->
+                        <ColumnDefinition MaxWidth="90" /> <!-- install-->
+                        <ColumnDefinition MaxWidth="50"/>  <!-- pin -->
                       </Grid.ColumnDefinitions>
                       <TextBlock Grid.Column="0"
                           TextWrapping="Wrap"
@@ -428,6 +428,7 @@
                               IsEnabled="{Binding !InstallingButtonAccessible}"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
                               VerticalAlignment="Top"
+                              HorizontalAlignment="Center"
                               HorizontalContentAlignment="Center">
                               <StackPanel Orientation="Horizontal">
                                   <PathIcon 
