@@ -261,6 +261,9 @@
   <data name="PU_InvalidAppHeader" xml:space="preserve">
     <value>无效的游戏程序！</value>
   </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>无效的游戏程序！</value>
+  </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>请选择包含 “hollow_knight_Data” 或 “Hollow Knight_Data” 的文件夹。</value>
   </data>

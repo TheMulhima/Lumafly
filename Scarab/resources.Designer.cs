@@ -618,6 +618,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut.
+        /// </summary>
+        internal static string PU_InvalidExeHeader {
+            get {
+                return ResourceManager.GetString("PU_InvalidExeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the folder containing hollow_knight_Data or Hollow Knight_Data..
         /// </summary>
         internal static string PU_InvalidPath {

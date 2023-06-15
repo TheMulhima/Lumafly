@@ -261,6 +261,9 @@
   <data name="PU_InvalidAppHeader" xml:space="preserve">
     <value>L'application Hollow Knight est invalide !</value>
   </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>L'exécutable Hollow Knight est invalide !</value>
+  </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Sélectionnez le dossier contenant hollow_knight_Data ou Hollow Knight_Data.</value>
   </data>
