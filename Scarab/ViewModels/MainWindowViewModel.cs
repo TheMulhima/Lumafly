@@ -208,6 +208,7 @@ namespace Scarab.ViewModels
                 content.ml
             );
 
+            Trace.WriteLine("Creating service collection");
             sc
               .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
@@ -245,6 +246,7 @@ namespace Scarab.ViewModels
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = 0;
+            Trace.WriteLine("Selected Tab 0");
         }
 
         private void HandleURLSchemeCommand(IUrlSchemeHandler urlSchemeHandler)
@@ -282,7 +284,7 @@ namespace Scarab.ViewModels
                     exception = e;
                 }
 
-                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
                     title: "Reset installer from command",
                     message: success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
                     success ? Icon.Success : Icon.Warning
@@ -318,7 +320,7 @@ namespace Scarab.ViewModels
                     exception = e;
                 }
 
-                Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
                     title: "Reset all mod global settings installer from command",
                     message: success ? "All mods global settings have been reset." : $"All mods global settings could not be reset. Please try again.\n{exception}",
                     success ? Icon.Success : Icon.Warning));
@@ -344,7 +346,7 @@ namespace Scarab.ViewModels
                         success = true;
                     }
 
-                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                    Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
                         title:  "Load custom modlinks from command", 
                         message: success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
                         success ? Icon.Success : Icon.Warning));
@@ -364,7 +366,7 @@ namespace Scarab.ViewModels
                         success = true;
                     }
 
-                    Task.Run(async () => await urlSchemeHandler.ShowConfirmation(
+                    Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
                             title: "Use new baselink from command",
                             message: success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
                             success ? Icon.Success : Icon.Warning));
@@ -589,6 +591,7 @@ namespace Scarab.ViewModels
         {
             Instance = this;
             LoadApp();
+            Trace.WriteLine("Loaded app");
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 (_, _) => Program.CloseTraceFile();
         }
@@ -614,10 +617,7 @@ namespace Scarab.ViewModels
             }
 
             Loading = false;
-            if (isFirstLoad)
-            {
-                isFirstLoad = false;
-            }
+            if (isFirstLoad) isFirstLoad = false;
         });
     }
 }

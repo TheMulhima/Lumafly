@@ -13,7 +13,6 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
-using Microsoft.VisualBasic.CompilerServices;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -98,6 +97,7 @@ namespace Scarab.ViewModels
             IUrlSchemeHandler urlSchemeHandler, 
             ScarabMode scarabMode)
         {
+            Trace.WriteLine("Initializing ModListViewModel");
             _settings = settings;
             _installer = inst;
             _mods = mods;
@@ -106,9 +106,12 @@ namespace Scarab.ViewModels
             _urlSchemeHandler = urlSchemeHandler;
             _scarabMode = scarabMode; 
 
+            Trace.WriteLine("Creating Items");
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
-
+            Trace.WriteLine("Items Created");
+            
             SelectedItems = _selectedItems = _items;
+            Trace.WriteLine("Items Selected");
             
             _reverseDependencySearch = new ReverseDependencySearch(_items);
 
@@ -121,6 +124,7 @@ namespace Scarab.ViewModels
             ToggleApi = ReactiveCommand.CreateFromTask(ToggleApiCommand);
             UpdateApi = ReactiveCommand.CreateFromTask(UpdateApiAsync);
             ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
+            Trace.WriteLine("Reactive commands created");
 
             HashSet<string> tagsInModlinks = new();
             HashSet<string> authorsInModlinks = new();
@@ -144,34 +148,39 @@ namespace Scarab.ViewModels
             
             TagList.SortBy(AlphabeticalSelectableItem);
             AuthorList.SortBy(AlphabeticalSelectableItem);
+            
+            Trace.WriteLine("Created tag and author list");
 
             Task.Run(async () =>
             {
+                Trace.WriteLine("Started getting modlinks changes");
                 await _modlinksChanges.LoadChanges();
-                RaisePropertyChanged(nameof(LoadedWhatsNew));
-                RaisePropertyChanged(nameof(IsLoadingWhatsNew));
-                RaisePropertyChanged(nameof(ShouldShowWhatsNewInfoText));
-                RaisePropertyChanged(nameof(WhatsNewLoadingText));
-                RaisePropertyChanged(nameof(ShouldShowWhatsNewErrorIcon));
-                SelectMods();
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    RaisePropertyChanged(nameof(LoadedWhatsNew));
+                    RaisePropertyChanged(nameof(IsLoadingWhatsNew));
+                    RaisePropertyChanged(nameof(ShouldShowWhatsNewInfoText));
+                    RaisePropertyChanged(nameof(WhatsNewLoadingText));
+                    RaisePropertyChanged(nameof(ShouldShowWhatsNewErrorIcon));
+                    if (IsInWhatsNew) SelectMods();
+                    Trace.WriteLine("Finished getting modlinks changes");
+                });
             });
 
             // we set isvisible of "all", "out of date", and "whats new" filters to false when offline
             // so only "installed" and "enabled" are shown so we force set the filter state to installed
-            if (_scarabMode == ScarabMode.Offline)
-            {
-                SelectModsWithFilter(ModFilterState.Installed);
-            }
+            if (_scarabMode == ScarabMode.Offline) SelectModsWithFilter(ModFilterState.Installed);
 
-            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme()));
-            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme()));
-            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme()));
+            Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme());
+            Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme());
+            Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme());
         }
 
         private async Task HandleDownloadUrlScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.download })
             {
+                Trace.WriteLine("Handling download url scheme");
                 var modNamesAndUrls = _urlSchemeHandler.ParseDownloadCommand(_urlSchemeHandler.Data);
 
                 if (modNamesAndUrls.Count == 0)
@@ -279,12 +288,14 @@ namespace Scarab.ViewModels
                     title: "Download mod from command", 
                     message, 
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
+                Trace.WriteLine("Handled download url scheme");
             }
         }
         private async Task HandleForceUpdateAllScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.forceUpdateAll })
             {
+                Trace.WriteLine("Handling force update url scheme");
                 await ForceUpdateAll();
                 
                 await _urlSchemeHandler.ShowConfirmation(
@@ -298,6 +309,7 @@ namespace Scarab.ViewModels
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeGlobalSettings })
             {
+                Trace.WriteLine("Handling remove global settings url scheme");
                 var modNames = _urlSchemeHandler.Data.Split('/');
 
                 if (modNames.Length == 0)
@@ -362,6 +374,8 @@ namespace Scarab.ViewModels
                     title: "Remove mod global settings from command", 
                     message,
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
+                
+                Trace.WriteLine("Handled remove global settings url scheme");
             }
         }
         public void ClearSearch()

@@ -37,6 +37,7 @@ public class ModLinksChanges : IModLinksChanges
         currentItems = _items;
         settings = _settings;
         scarabMode = _scarabMode;
+        Trace.WriteLine("ModlinksChanges service created");
     }
     
     /// <summary>

@@ -20,6 +20,7 @@ public partial class InfoViewModel : ViewModelBase
     
     public InfoViewModel(IInstaller installer, IModSource modSource ,ISettings settings)
     {
+        Trace.WriteLine("Initializing InfoViewModel");
         _installer = installer;
         _modSource = modSource;
         _settings = settings;
@@ -31,6 +32,7 @@ public partial class InfoViewModel : ViewModelBase
 
     public async void LaunchGame(object _isVanilla)
     {
+        Trace.WriteLine("Launching game");
         IsLaunchingGame = true;
         try
         {

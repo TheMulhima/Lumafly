@@ -55,11 +55,11 @@ public class UrlSchemeHandler : IUrlSchemeHandler
 
         if (arg.Length < UriPrefix.Length || !arg.StartsWith(UriPrefix))
         {
-            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
+            Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
                     title: "Invalid URL Scheme Command", 
                     message: $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://", 
-                    Icon.Warning)));
+                    Icon.Warning));
             return;
         }
 
@@ -78,11 +78,11 @@ public class UrlSchemeHandler : IUrlSchemeHandler
 
         if (UrlSchemeCommand == UrlSchemeCommands.none && !string.IsNullOrEmpty(UriParam))
         {
-            Task.Run(async () => await Dispatcher.UIThread.InvokeAsync(async () =>
+            Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
                     title: "Invalid URL Scheme Command",
                     message: $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
-                    Icon.Warning)));
+                    Icon.Warning));
         }
     }
 
@@ -217,10 +217,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (Handled) return;
         
         Handled = true;
-        await Dispatcher.UIThread.InvokeAsync(async () =>
-        {
-            await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
-        });
+        await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
     }
     
     public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)

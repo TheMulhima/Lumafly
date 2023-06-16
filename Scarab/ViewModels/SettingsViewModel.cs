@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
@@ -22,6 +23,7 @@ namespace Scarab.ViewModels
 
         public SettingsViewModel(ISettings settings, IModSource mods)
         {
+            Trace.WriteLine("Initializing SettingsViewModel");
             _settings = settings;
             _mods = mods;
             
@@ -32,6 +34,8 @@ namespace Scarab.ViewModels
             _customModlinksUri = _settings.CustomModlinksUri;
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 SaveCustomModlinksUri;
+            
+            Trace.WriteLine("SettingsViewModel Initialized");
         }
 
         public void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)

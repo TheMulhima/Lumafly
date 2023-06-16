@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -15,6 +16,7 @@ public class ReverseDependencySearch : IReverseDependencySearch
         // no need to add non modlinks mod because they dont have a dependency tree
         _items = allModItems.Where(x => x.State is not NotInModLinksState { ModlinksMod: false })
             .ToDictionary(x => x.Name, x => x);
+        Trace.WriteLine("ReverseDependencySearch initialized");
     }
 
     public IEnumerable<ModItem> GetAllDependentAndIntegratedMods(ModItem item)

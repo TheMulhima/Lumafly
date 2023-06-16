@@ -89,6 +89,7 @@ namespace Scarab.Services
             {
                 Trace.TraceError($"Exception occured when initalizing Installer {e}");
             }
+            Trace.TraceError($"Installer initialized");
         }
 
         private void CreateNeededDirectories()
