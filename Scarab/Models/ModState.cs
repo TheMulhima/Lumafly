@@ -12,6 +12,9 @@ namespace Scarab.Models
         public bool Enabled { get; init; }
 
         public bool Pinned { get; init; }
+        
+        [JsonIgnore]
+        public bool Updating { get; init; }
     }
 
     public record InstalledState : ExistsModState
@@ -28,12 +31,6 @@ namespace Scarab.Models
             this.Version = Version;
             this.Updated = Updated;
             this.Pinned = Pinned;
-        }
-
-        public void Deconstruct(out bool enabled, out bool updated)
-        {
-            enabled = Enabled;
-            updated = Updated;
         }
     }
 

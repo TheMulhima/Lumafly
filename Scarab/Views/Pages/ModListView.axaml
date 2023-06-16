@@ -388,7 +388,7 @@
                             OffContent="{ext:Localize XAML_Off}"
                             Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnEnable}"
                             IsChecked="{Binding EnabledIsChecked}"
-                            IsEnabled = "{Binding Installed}"
+                            IsEnabled = "{Binding EnableButtonAccessible}"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
                                                 />
@@ -404,6 +404,7 @@
                               Background="#976526"
                               BorderBrush="#976526"
                               IsVisible="{Binding UpdateAvailable}"
+                              IsEnabled="{Binding !InstallingButtonAccessible}"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnUpdate}"
                               VerticalAlignment="Top">
                               <StackPanel Orientation="Horizontal">

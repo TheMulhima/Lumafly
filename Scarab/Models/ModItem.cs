@@ -116,8 +116,8 @@ namespace Scarab.Models
         public bool IsModContextMenuEnabled => State is ExistsModState;
         public bool CanBePinned => State is ExistsModState { Pinned: false, Enabled: true };
         public bool CanBeRegisteredNotInModlinks => State is not NotInModLinksState;
-
-        public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true };
+        public bool InstallingButtonAccessible => State is NotInstalledState { Installing: true } or ExistsModState { Updating: true };
+        public bool EnableButtonAccessible => Installed && !InstallingButtonAccessible;
 
         public string InstallText => State switch
         {
@@ -179,6 +179,8 @@ namespace Scarab.Models
 
                 // guaranteed to be ExistsModState
                 var enabled = State is ExistsModState { Enabled: true };
+                
+                State = (ExistsModState) State with { Updating = true };
                 
                 setProgress(new ModProgressArgs());
 
