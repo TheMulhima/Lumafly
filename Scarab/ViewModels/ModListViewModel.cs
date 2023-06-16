@@ -155,7 +155,7 @@ namespace Scarab.ViewModels
             {
                 Trace.WriteLine("Started getting modlinks changes");
                 await _modlinksChanges.LoadChanges();
-                Dispatcher.UIThread.InvokeAsync(() =>
+                await Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     RaisePropertyChanged(nameof(LoadedWhatsNew));
                     RaisePropertyChanged(nameof(IsLoadingWhatsNew));

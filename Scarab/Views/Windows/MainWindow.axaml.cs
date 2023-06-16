@@ -21,7 +21,8 @@ namespace Scarab.Views.Windows
             {
                 MacSpacer.IsVisible = true;
                 NonMacSpacer.IsVisible = false;
-                Title.Margin = new Thickness(5,10,0,0);
+                AppName.Margin = new Thickness(5,10,0,0);
+                AppVersion.Margin = new Thickness(1,15,0,-5);
             }
         }
 
