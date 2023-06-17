@@ -23,7 +23,9 @@ namespace Scarab
         };
 
         private static TextWriterTraceListener _traceFile = null!;
-        internal const string LoggingFileName = "ModInstaller.log";
+        internal const string LoggingFile = LoggingFileName + LoggingFileExtension; 
+        private const string LoggingFileName = "ModInstaller";
+        internal const string LoggingFileExtension = ".log";
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -53,16 +55,31 @@ namespace Scarab
 
         private static void SetupLogging()
         {
-            _traceFile = new TextWriterTraceListener
+            var logFile = Path.Combine
             (
-                Path.Combine
-                (
-                    Settings.GetOrCreateDirPath(),
-                    LoggingFileName
-                )
+                Settings.GetOrCreateDirPath(),
+                LoggingFile
             );
 
-            _traceFile.TraceOutputOptions = TraceOptions.DateTime;
+            // if the log file is too big, archive it
+            if (File.Exists(logFile))
+            {
+                if (new FileInfo(logFile).Length > 5 * 1024 * 1024) // if size > 5 MB
+                {
+                    var newFile = Path.Combine(Settings.GetOrCreateDirPath(),
+                        $"{LoggingFileName} ({DateTime.Now:dd/MM/yyyy, HH-mm-ss}){LoggingFileExtension}");
+                    
+                    if (File.Exists(newFile)) File.Delete(newFile);
+                    
+                    // save the old log file
+                    File.Move(logFile, newFile);
+                }
+            }
+
+            _traceFile = new TextWriterTraceListener(logFile)
+            {
+                TraceOutputOptions = TraceOptions.DateTime,
+            };
 
             Trace.AutoFlush = true;
 

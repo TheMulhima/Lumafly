@@ -55,7 +55,7 @@ namespace Scarab.ViewModels
         public string AppVersion => $"v{Assembly.GetExecutingAssembly().GetName().Version}";
 
         [Notify]
-        private ObservableCollection<SelectableItem<ViewModelBase>> _tabs = new ObservableCollection<SelectableItem<ViewModelBase>>();
+        private ObservableCollection<SelectableItem<ViewModelBase>> _tabs = new ();
 
         [Notify]
         private int _selectedTabIndex = -1;
@@ -267,12 +267,12 @@ namespace Scarab.ViewModels
                 Exception? exception = null; 
                 try
                 {
-                    DirectoryInfo di = new DirectoryInfo(Settings.GetOrCreateDirPath());
+                    var di = new DirectoryInfo(Settings.GetOrCreateDirPath());
 
-                    foreach (FileInfo file in di.GetFiles())
+                    foreach (var file in di.GetFiles())
                     {
-                        // we can't delete the currently being used logging file
-                        if (file.Name == Program.LoggingFileName) continue;
+                        // save all log files
+                        if (file.Name.EndsWith(Program.LoggingFileExtension)) continue;
                         file.Delete(); 
                     }
                     
