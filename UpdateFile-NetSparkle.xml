@@ -10,7 +10,7 @@
             https://raw.githubusercontent.com/TheMulhima/Scarab/master/CHANGELOG.md
             </sparkle:releaseNotesLink>
             <enclosure url="https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-AU.exe"
-                       sparkle:version="99.99"
+                       sparkle:version="100.0.0.0"
                        sparkle:os="windows"
                        length="12288"
                        type="application/octet-stream"
