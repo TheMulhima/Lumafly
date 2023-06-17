@@ -27,7 +27,7 @@
                 Margin="10 0 0 40"/>
             
             <StackPanel
-                Margin="10 0"
+                Margin="60 0"
                 Background="#353535">
                 <TextBlock
                     Text="{ext:Localize XAML_InfoLinksHeader}"

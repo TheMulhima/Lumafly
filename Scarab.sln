@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scarab", "Scarab\Scarab.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scarab.Tests", "Scarab.Tests\Scarab.Tests.csproj", "{A8E57CC6-000B-49BE-9863-CC3CB49AFF43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scarab.AU", "Scarab.AU\Scarab.AU.csproj", "{FB924DE6-8E05-49FB-BD72-69BF12E84128}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A8E57CC6-000B-49BE-9863-CC3CB49AFF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E57CC6-000B-49BE-9863-CC3CB49AFF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E57CC6-000B-49BE-9863-CC3CB49AFF43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB924DE6-8E05-49FB-BD72-69BF12E84128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB924DE6-8E05-49FB-BD72-69BF12E84128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB924DE6-8E05-49FB-BD72-69BF12E84128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB924DE6-8E05-49FB-BD72-69BF12E84128}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

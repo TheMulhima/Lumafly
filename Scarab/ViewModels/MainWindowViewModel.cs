@@ -32,7 +32,7 @@ namespace Scarab.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private static bool _Debug
+        internal static bool _Debug
         {
             get {
                 #if DEBUG
@@ -73,7 +73,7 @@ namespace Scarab.ViewModels
 
             Trace.WriteLine("Checking if up to date...");
             
-            await CheckUpToDate();
+            await Updater.CheckUpToDate();
             
             var sc = new ServiceCollection();
             var fs = new FileSystem();
@@ -437,101 +437,6 @@ namespace Scarab.ViewModels
             }
         }
 
-        private static async Task CheckUpToDate()
-        {
-            Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
-            
-            Debug.WriteLine($"Current version of installer is {current_version}");
-
-            if (_Debug)
-                return;
-
-            const int Timeout = 10_000;
-            const string LatestReleaseLinkJson =
-                "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
-
-            string json;
-            string updateLink;
-            
-            try
-            {
-                var hc = new HttpClient();
-                
-                hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
-                CancellationTokenSource cts = new CancellationTokenSource(Timeout);
-                var links = await hc.GetStringAsync(new Uri(LatestReleaseLinkJson), cts.Token);
-                
-                JsonDocument linksDoc = JsonDocument.Parse(links);
-                if (!linksDoc.RootElement.TryGetProperty("latestRelease", out JsonElement latestReleaseLinkElem)) 
-                    return;
-                if (!linksDoc.RootElement.TryGetProperty("updateLink", out JsonElement updateLinkElem)) 
-                    return;
-                
-                string? latestReleaseLink = latestReleaseLinkElem.GetString();
-                string? _updateLink = updateLinkElem.GetString();
-
-                if (latestReleaseLink is null || _updateLink is null)
-                    return;
-                
-                cts = new CancellationTokenSource(Timeout);
-                json = await hc.GetStringAsync(new Uri(latestReleaseLink), cts.Token);
-                updateLink = _updateLink;
-
-            }
-            catch (Exception) {
-                return;
-            }
-
-            JsonDocument doc = JsonDocument.Parse(json);
-
-            if (!doc.RootElement.TryGetProperty("tag_name", out JsonElement tag_elem))
-                return;
-
-            string? tag = tag_elem.GetString();
-
-            if (tag is null)
-                return;
-
-            if (tag.StartsWith("v"))
-                tag = tag[1..];
-
-            if (!Version.TryParse(tag.Length == 1 ? tag + ".0.0.0" : tag, out Version? version))
-                return;
-
-            if (version <= current_version)
-                return;
-            
-            string? res = await MessageBoxUtil.GetMessageBoxCustomWindow
-            (
-                new MessageBoxCustomParams {
-                    ButtonDefinitions = new[] {
-                        new ButtonDefinition {
-                            IsDefault = true,
-                            IsCancel = true,
-                            Name = Resources.MWVM_OutOfDate_GetLatest
-                        },
-                        new ButtonDefinition {
-                            Name = Resources.MWVM_OutOfDate_ContinueAnyways
-                        }
-                    },
-                    ContentTitle = Resources.MWVM_OutOfDate_Title,
-                    ContentMessage = Resources.MWVM_OutOfDate_Message,
-                    SizeToContent = SizeToContent.WidthAndHeight
-                }
-            ).Show();
-
-            if (res == Resources.MWVM_OutOfDate_GetLatest)
-            {
-                Process.Start(new ProcessStartInfo(updateLink) { UseShellExecute = true });
-                
-                ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
-            }
-            else
-            {
-                Trace.WriteLine($"Installer out of date! Version {current_version} with latest {version}!");
-            }
-        }
-        
         private static async Task<Settings> ResetSettings()
         {
             Trace.WriteLine("Settings path is invalid, forcing re-selection.");

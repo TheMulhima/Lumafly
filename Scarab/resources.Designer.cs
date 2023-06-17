@@ -420,6 +420,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See changes.
+        /// </summary>
+        internal static string MVVM_SeeChangelog {
+            get {
+                return ResourceManager.GetString("MVVM_SeeChangelog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please make sure to close all other apps that could be using the mods folder.
         /// </summary>
         internal static string MVVM_SystemIOException_GeneralFileLock {
@@ -555,7 +564,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get the latest release.
+        ///   Looks up a localized string similar to Download manually.
         /// </summary>
         internal static string MWVM_OutOfDate_GetLatest {
             get {
@@ -564,7 +573,16 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This program is out of date! It may not function correctly..
+        ///   Looks up a localized string similar to Download automatically.
+        /// </summary>
+        internal static string MWVM_OutOfDate_GetLatest_Auto {
+            get {
+                return ResourceManager.GetString("MWVM_OutOfDate_GetLatest_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab has a new update available. Please download the newest update to get the latest bug fixed and features {0}.
         /// </summary>
         internal static string MWVM_OutOfDate_Message {
             get {
