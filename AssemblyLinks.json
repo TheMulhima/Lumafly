@@ -1,3 +1,5 @@
 {
-    "Assembly-CSharp.dll.v": "https://files.catbox.moe/pgohuz.v"
+    "Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Windows/Assembly-CSharp.dll.v",
+    "Mac-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Mac/Assembly-CSharp.dll.v",
+    "Linux-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Linux/Assembly-CSharp.dll.v"
 }
