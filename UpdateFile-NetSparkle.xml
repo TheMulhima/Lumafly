@@ -1,11 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <title>Scarab</title>
+        <title>NetSparkle Test App</title>
+        <link>https://netsparkleupdater.github.io/NetSparkle/files/sample-app/appcast.xml</link>
+        <description>Most recent changes with links to updates.</description>
         <language>en</language>
         <item>
-            <title>Scarab</title>
-            <enclosure sparkle:os="windows" sparkle:shortVersionString="200.0.0.0" sparkle:version="200.0.0.0" url="https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-AU.exe"/>
+            <title>Version 2.0 (2 bugs fixed; 3 new features)</title>
+            <sparkle:releaseNotesLink>
+            https://netsparkleupdater.github.io/NetSparkle/files/sample-app/2.0-release-notes.md
+            </sparkle:releaseNotesLink>
+            <pubDate>Thu, 27 Oct 2016 10:30:00 +0000</pubDate>
+            <enclosure url="https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-AU.exe"
+                       sparkle:version="2.0"
+                       sparkle:os="windows"
+                       length="12288"
+                       type="application/octet-stream"
+                        />
         </item>
     </channel>
 </rss>
