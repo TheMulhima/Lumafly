@@ -52,7 +52,7 @@ namespace Scarab.Models
             TagDesc          = string.Join(", ", Tags);
             IntegrationsDesc = string.Join(", ", Integrations);
             AuthorsDesc      = string.Join(", ", Authors);
-            ShortenedRepository = Repository;
+            ShortenedRepository = $"[{Repository}]({Repository})";
 
             if (!string.IsNullOrEmpty(Description))
             {
@@ -72,7 +72,7 @@ namespace Scarab.Models
                 if (ShortenedRepository.Contains("github.com"))
                 {
                     var path = new Uri(Repository).AbsolutePath;
-                    ShortenedRepository = path.TrimStart('/').TrimEnd('/');
+                    ShortenedRepository = $"[{path.TrimStart('/').TrimEnd('/')}]({Repository})";
                 }
             }
             catch (InvalidOperationException e)

@@ -1,7 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Scarab"
-             xmlns:hyperText="clr-namespace:HyperText.Avalonia;assembly=HyperText.Avalonia"
              x:Class="Scarab.App">
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -10,7 +9,6 @@
     <Application.Styles>
         <SimpleTheme/>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
-        <hyperText:HyperLinkStyle/>
         <StyleInclude Source="avares://Scarab/Views/Controls/MenuCheckBox.axaml"/>
         <StyleInclude Source="avares://Scarab/Views/Controls/TextButtonFlyout.axaml"/>
     </Application.Styles>

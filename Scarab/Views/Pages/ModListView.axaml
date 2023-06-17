@@ -9,7 +9,6 @@
             xmlns:pages="clr-namespace:Scarab.Views.Pages"
             xmlns:enums="clr-namespace:Scarab.Enums"
             xmlns:utils="clr-namespace:Scarab.Util"
-            xmlns:hypertext="clr-namespace:HyperText.Avalonia.Controls;assembly=HyperText.Avalonia"
             xmlns:customControls="clr-namespace:Scarab.Views.Controls"
             xmlns:ext="clr-namespace:Scarab.Extensions"
             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
@@ -475,11 +474,9 @@
                         IsVisible="{Binding HasRepo}"
                         Margin="0,10,10,0">
                       <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                      <hypertext:Hyperlink
-                          Alias="{Binding ShortenedRepository}"
-                          Url="{Binding Repository}"
-                          Foreground="#1ebbff"
-                          TextWrapping="Wrap"/>
+                      
+                      <md:MarkdownScrollViewer
+                          Markdown="{Binding ShortenedRepository}"/>
 
                       <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" Margin="0 10 0 0"/>
                       <StackPanel Orientation="Horizontal">
