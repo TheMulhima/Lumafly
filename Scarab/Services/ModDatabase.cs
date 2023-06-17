@@ -210,13 +210,17 @@ namespace Scarab.Services
             var hc = new HttpClient();
             hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
             var json = JsonDocument.Parse(await hc.GetStringAsync(VanillaApiRepo, cts.Token));
-            json.RootElement.TryGetProperty("Assembly-CSharp.dll.v", out var linkElem);
+            
+            var jsonKey = "Assembly-CSharp.dll.v";
+            // windows assembly is just called that because initially this was overlooked and only windows assembly was downloaded
+            if (OperatingSystem.IsMacOS()) jsonKey = "Mac-Assembly-CSharp.dll.v";
+            if (OperatingSystem.IsLinux()) jsonKey = "Linux-Assembly-CSharp.dll.v";
+            
+            json.RootElement.TryGetProperty(jsonKey, out var linkElem);
             
             var link = linkElem.GetString();
             if (link != null)
-            {
                 return link;
-            }
             throw new Exception("Scarab was unable to get vanilla assembly link from its resources. Please verify integrity of game files instead");
         }
     }
