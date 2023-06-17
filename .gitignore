@@ -1,3 +1,5 @@
 .idea/*
 Scarab/*
 Scarab.Tests/*
+out/*
+*.user
