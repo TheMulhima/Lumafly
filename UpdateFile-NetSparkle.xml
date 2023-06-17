@@ -5,7 +5,7 @@
         <language>en</language>
         <item>
             <title>Scarab</title>
-            <enclosure length="100000" sparkle:os="windows" sparkle:shortVersionString="2.0.0.0" sparkle:version="2.0.0.0" type="application/octet-stream" url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab-AU.exe"/>
+            <enclosure sparkle:os="windows" sparkle:shortVersionString="200.0.0.0" sparkle:version="200.0.0.0" url="https://github.com/TheMulhima/Scarab/releases/latest/download/Scarab-AU.exe"/>
         </item>
     </channel>
 </rss>
