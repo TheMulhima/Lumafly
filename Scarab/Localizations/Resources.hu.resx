@@ -261,6 +261,9 @@
   <data name="PU_InvalidAppHeader" xml:space="preserve">
     <value>Érvénytelen Hollow Knight alkalmazás!</value>
   </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>Érvénytelen Hollow Knight alkalmazás!</value>
+  </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Add meg a hollow_knight_data vagy Hollow Knight_Data mappát tartalmazó könyvtárat.</value>
   </data>

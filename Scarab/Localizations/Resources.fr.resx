@@ -261,6 +261,9 @@
   <data name="PU_InvalidAppHeader" xml:space="preserve">
     <value>L'application Hollow Knight est invalide !</value>
   </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>L'exécutable Hollow Knight est invalide !</value>
+  </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Sélectionnez le dossier contenant hollow_knight_Data ou Hollow Knight_Data.</value>
   </data>
@@ -295,7 +298,7 @@
     <value>Tout désinstaller</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Par auteurs</value>
+    <value>Auteurs</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
     <value>Options de recherche</value>
@@ -403,7 +406,7 @@
     <value>Bibliothèque</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expension</value>
+    <value>Expansion</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
     <value>Chargement des mods de modlinks...</value>

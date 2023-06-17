@@ -144,8 +144,7 @@ namespace Scarab.Util
                 
                 if (result.Count == 0)
                 {
-                    await MessageBoxUtil
-                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).Show();
                     if (fail) return null!;
                     continue;
                 }
@@ -153,7 +152,7 @@ namespace Scarab.Util
                 string? root = Path.GetDirectoryName(result[0].Path.LocalPath);
                 if (root is null)
                 {
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).Show();
                     if (fail) return null!;
                     continue;
                 }
@@ -162,8 +161,8 @@ namespace Scarab.Util
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams {
                         ContentTitle = Resources.PU_InvalidPathTitle,
-                        ContentHeader = Resources.PU_InvalidPathHeader,
-                        ContentMessage = Resources.PU_InvalidPath,
+                        ContentHeader = Resources.PU_InvalidExeHeader,
+                        ContentMessage = Resources.PU_InvalidExeHeader,
                         MinHeight = 160,
                         ButtonDefinitions = FailedActionButtons
                     }).Show();

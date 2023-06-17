@@ -317,6 +317,9 @@
     <value>Invalid Hollow Knight app!</value>
     <comment/>
   </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
+  </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Select the folder containing hollow_knight_Data or Hollow Knight_Data.</value>
     <comment/>
