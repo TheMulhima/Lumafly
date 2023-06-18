@@ -1185,6 +1185,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pin a mod so it isn&apos;t automatically replaced by Scarab.
+        /// </summary>
+        internal static string XAML_PinMod_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_PinMod_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record as custom version.
         /// </summary>
         internal static string XAML_RegisterNotInModlinks {

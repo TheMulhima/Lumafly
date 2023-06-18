@@ -345,13 +345,13 @@
                         Header="{ext:Localize XAML_Pin}"
                         Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
                         CommandParameter="{Binding .}"
-                        ToolTip.Tip="{ext:Localize XAML_PinMod_Explanation}"/>
+                        ToolTip.Tip="{ext:Localize XAML_PinMod_Explanation}" ToolTip.ShowDelay="0"/>
                     <MenuItem 
                         IsEnabled="{Binding CanBeRegisteredNotInModlinks}"
                         Header="{ext:Localize XAML_RegisterNotInModlinks}" 
                         Command="{ReflectionBinding $parent[pages:ModListView].DataContext.RegisterNotInModlinks}" 
                         CommandParameter="{Binding .}"
-                        ToolTip.Tip="{ext:Localize XAML_RegisterNotInModlinks_Explanation}"/>
+                        ToolTip.Tip="{ext:Localize XAML_RegisterNotInModlinks_Explanation}" ToolTip.ShowDelay="0"/>
                   </ContextMenu>
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
@@ -447,7 +447,7 @@
                               Background="Transparent"
                               BorderBrush="Transparent"
                               IsVisible="{Binding Pinned}"
-                              ToolTip.Tip="{ext:Localize XAML_Unpin}"
+                              ToolTip.Tip="{ext:Localize XAML_Unpin}" ToolTip.ShowDelay="0"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.PinMod}" 
                               CommandParameter="{Binding .}"
                               HorizontalAlignment="Right">

@@ -32,13 +32,13 @@
                     Margin="2 2 2 5"
                     IsChecked="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
-                    ToolTip.Tip="Search by the mod name"/>
+                    ToolTip.Tip="Search by the mod name" ToolTip.ShowDelay="0"/>
                 <RadioButton 
                     Margin="2 5 2 2"
                     IsChecked="{Binding !$parent[pages:ModListView].DataContext.IsNormalSearch}" 
                     GroupName="SearchMode" 
                     Content="{ext:Localize XAML_Search_Dependents}" 
-                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod"/>
+                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod" ToolTip.ShowDelay="0"/>
             </StackPanel>
         </customControls:TextButtonFlyout>
         

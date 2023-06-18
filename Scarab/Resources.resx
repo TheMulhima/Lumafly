@@ -468,6 +468,9 @@
   <data name="XAML_Pin" xml:space="preserve">
     <value>Pin</value>
   </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Pin a mod so it isn't automatically replaced by Scarab</value>
+  </data>
   <data name="XAML_Unpin" xml:space="preserve">
     <value>Unpin</value>
   </data>

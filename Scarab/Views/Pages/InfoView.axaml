@@ -94,7 +94,7 @@
                             </StackPanel>
                         </Button>
                         <Button
-                            ToolTip.Tip="{ext:Localize XAML_InfoLinkHKMMToolTip}"
+                            ToolTip.Tip="{ext:Localize XAML_InfoLinkHKMMToolTip}" ToolTip.ShowDelay="0"
                             CommandParameter="https://github.com/HKLab/HKModManager">
                             <StackPanel>
                                 <Svg Path="../../Assets/HKMM.svg"/>
