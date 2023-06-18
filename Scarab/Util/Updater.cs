@@ -17,6 +17,7 @@ using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;
+using NetSparkleUpdater.Interfaces;
 using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater.UI.Avalonia;
 using Scarab.Util;
@@ -32,7 +33,79 @@ public static class Updater
         Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
         
         Debug.WriteLine($"Current version of installer is {current_version}");
+        
         if (MainWindowViewModel._Debug) return;
+
+        if (OperatingSystem.IsWindows())
+            HandleWindowsUpdate();
+        else
+            await HandleManualUpdate(current_version);
+    }
+
+    private static void HandleWindowsUpdate()
+    {
+        try
+        {
+            var _sparkle = new SparkleUpdater($"https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml", new DSAChecker(SecurityMode.Unsafe))
+            {
+                UIFactory = new UIFactory(null)
+                {
+                    HideSkipButton = true,
+                    AdditionalReleaseNotesHeaderHTML = """
+                    <style> 
+                    html {background: #282828; background-color: #282828; color: #dedede;}
+                    </style>
+                    """,
+                    ReleaseNotesHTMLTemplate = """
+                    <div style="border-color: #000000; border-width: 3px ">
+                        <div style="font-size: 20px; padding: 5px; padding-top: 4px; padding-bottom: 0;">
+                            {0} ({1})
+                        </div>
+                        <div style="padding: 5px; font-size: 16px;">
+                            {2}
+                        </div>
+                    </div>
+                    """,
+                },
+                ShowsUIOnMainThread = true,
+                TmpDownloadFilePath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]),
+                CustomInstallerArguments = Path.GetFileName(Environment.GetCommandLineArgs()[0]),
+                SecurityProtocolType = SecurityProtocolType.Tls12,
+                CheckServerFileName = false,
+            };
+
+            _sparkle.StartLoop(true, true);
+
+            _sparkle.DownloadHadError += OnDownloadError;
+        }
+        catch(Exception e)
+        {
+            Trace.WriteLine(e);
+            OnDownloadError(null, "", e);
+        }
+    }
+
+    private static void OnDownloadError(AppCastItem? item, string path, Exception exception)
+    {
+        Dispatcher.UIThread.InvokeAsync(() => DisplayErrors.DisplayGenericError("Updating Scarab", 
+            $"Please try to get release manually", exception));
+    }
+
+    private static void RemoveOldAUs()
+    {
+        try
+        {
+            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe")))
+                File.Delete(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe"));
+        }
+        catch (Exception e)
+        {
+            Trace.WriteLine(e);
+        }
+    }
+
+    private static async Task HandleManualUpdate(Version? current_version)
+    {
         const int Timeout = 15_000;
         const string LatestReleaseLinkJson =
             "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
@@ -63,7 +136,6 @@ public static class Updater
             cts = new CancellationTokenSource(Timeout);
             json = await hc.GetStringAsync(new Uri(latestReleaseLink), cts.Token);
             updateLink = _updateLink;
-            changelog = _changelog;
         }
         catch (Exception) {
             return;
@@ -81,23 +153,14 @@ public static class Updater
         if (version <= current_version)
             return;
         
-        var buttons = new List<ButtonDefinition>();
-        if (OperatingSystem.IsWindows())
-        {
-            buttons.Add(new ButtonDefinition { IsDefault = true, IsCancel = true, Name = Resources.MWVM_OutOfDate_GetLatest_Auto });
-            buttons.Add(new ButtonDefinition { Name = Resources.MWVM_OutOfDate_GetLatest });
-        }
-        else
-        {
-            buttons.Add(new ButtonDefinition { IsDefault = true, IsCancel = true, Name = Resources.MWVM_OutOfDate_GetLatest });
-        }
-        
-        buttons.Add(new ButtonDefinition { Name = Resources.MWVM_OutOfDate_ContinueAnyways });
-        
         string? res = await MessageBoxUtil.GetMessageBoxCustomWindow
         (
             new MessageBoxCustomParams {
-                ButtonDefinitions = buttons,
+                ButtonDefinitions = new []
+                {
+                    new ButtonDefinition { IsDefault = true, IsCancel = true, Name = Resources.MWVM_OutOfDate_GetLatest },
+                    new ButtonDefinition { Name = Resources.MWVM_OutOfDate_ContinueAnyways },
+                },
                 ContentTitle = Resources.MWVM_OutOfDate_Title,
                 ContentMessage = string.Format(Resources.MWVM_OutOfDate_Message, version),
                 SizeToContent = SizeToContent.WidthAndHeight
@@ -109,62 +172,9 @@ public static class Updater
             
             ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
         }
-        else if (res == Resources.MWVM_OutOfDate_GetLatest_Auto)
-        {
-            Process.Start(new ProcessStartInfo(changelog) { UseShellExecute = true });
-            await AutoUpdate();
-        }
         else
         {
             Trace.WriteLine($"Installer out of date! Version {current_version} with latest {version}!");
-        }
-    }
-
-    private static async Task AutoUpdate()
-    {
-        try
-        {
-            var _sparkle = new SparkleUpdater($"https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateFile-NetSparkle.xml", new DSAChecker(SecurityMode.Unsafe))
-            {
-                UIFactory = new UIFactory(null),
-                ShowsUIOnMainThread = true,
-                TmpDownloadFilePath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]),
-                CustomInstallerArguments = Path.GetFileName(Environment.GetCommandLineArgs()[0]),
-                SecurityProtocolType = SecurityProtocolType.Tls12,
-                CheckServerFileName = false,
-            };
-
-            var _updateInfo = await _sparkle.CheckForUpdatesQuietly();
-
-            _sparkle.DownloadHadError += OnDownloadError;
-
-            if (_updateInfo.Updates.Any())
-                await _sparkle.InitAndBeginDownload(_updateInfo.Updates.First());
-        }
-        catch(Exception e)
-        {
-            Trace.WriteLine(e);
-            OnDownloadError(null, "", e);
-        }
-    }
-
-
-    private static void OnDownloadError(AppCastItem? item, string path, Exception exception)
-    {
-        Dispatcher.UIThread.InvokeAsync(() => DisplayErrors.DisplayGenericError("Updating Scarab", 
-            $"Please try to get release manually", exception));
-    }
-
-    private static void RemoveOldAUs()
-    {
-        try
-        {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe")))
-                File.Delete(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe"));
-        }
-        catch (Exception e)
-        {
-            Trace.WriteLine(e);
         }
     }
 }
