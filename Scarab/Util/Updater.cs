@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
@@ -15,9 +13,9 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
+using Mono.Cecil.Cil;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;
-using NetSparkleUpdater.Interfaces;
 using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater.UI.Avalonia;
 using Scarab.Util;
@@ -30,11 +28,12 @@ public static class Updater
     public static async Task CheckUpToDate()
     {
         RemoveOldAUs();
+        
         Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
-        
+
         Debug.WriteLine($"Current version of installer is {current_version}");
-        
-        if (MainWindowViewModel._Debug) return;
+
+         if (MainWindowViewModel._Debug) return;
 
         if (OperatingSystem.IsWindows())
             HandleWindowsUpdate();
@@ -46,7 +45,8 @@ public static class Updater
     {
         try
         {
-            var _sparkle = new SparkleUpdater($"https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml", new DSAChecker(SecurityMode.Unsafe))
+            var _sparkle = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
+                new DSAChecker(SecurityMode.Unsafe))
             {
                 UIFactory = new UIFactory(null)
                 {
@@ -74,11 +74,10 @@ public static class Updater
                 CheckServerFileName = false,
             };
 
-            _sparkle.StartLoop(true, true);
-
             _sparkle.DownloadHadError += OnDownloadError;
+            _sparkle.StartLoop(true, true);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Trace.WriteLine(e);
             OnDownloadError(null, "", e);
@@ -87,8 +86,18 @@ public static class Updater
 
     private static void OnDownloadError(AppCastItem? item, string path, Exception exception)
     {
-        Dispatcher.UIThread.InvokeAsync(() => DisplayErrors.DisplayGenericError("Updating Scarab", 
-            $"Please try to get release manually", exception));
+        Dispatcher.UIThread.InvokeAsync(async () =>
+        {
+            var links = GetUpdateLinks();
+            
+            await DisplayErrors.DisplayGenericError(Resources.MWVM_UpdateDownloadError_Message, exception);
+
+            var updateLink = (await links)?.updateLink ?? "https://github.com/TheMulhima/Scarab/releases/latest";
+
+            Process.Start(new ProcessStartInfo(updateLink) { UseShellExecute = true });
+
+            ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)?.Shutdown();
+        });
     }
 
     private static void RemoveOldAUs()
@@ -104,77 +113,99 @@ public static class Updater
         }
     }
 
-    private static async Task HandleManualUpdate(Version? current_version)
+    private static async Task<(string latestReleaseInfo, string updateLink, string changelog)?> GetUpdateLinks()
     {
-        const int Timeout = 15_000;
-        const string LatestReleaseLinkJson =
-            "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
-        string json, updateLink, changelog;
-        
         try
         {
-            var hc = new HttpClient();
+            const string LatestReleaseLinkJson =
+                "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
+            string? latestRelease, updateLink, changelog;
             
+            var hc = new HttpClient();
             hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
+            
             CancellationTokenSource cts = new CancellationTokenSource(Timeout);
             var links = await hc.GetStringAsync(new Uri(LatestReleaseLinkJson), cts.Token);
             
             JsonDocument linksDoc = JsonDocument.Parse(links);
-            if (!linksDoc.RootElement.TryGetProperty("latestRelease", out JsonElement latestReleaseLinkElem)) 
-                return;
+            if (!linksDoc.RootElement.TryGetProperty(nameof(latestRelease), out JsonElement latestReleaseLinkElem)) 
+                return null;
             if (!linksDoc.RootElement.TryGetProperty(nameof(updateLink), out JsonElement updateLinkElem)) 
-                return;
+                return null;
             if (!linksDoc.RootElement.TryGetProperty(nameof(changelog), out JsonElement changeLogElem)) 
-                return;
+                return null;
             
-            string? latestReleaseLink = latestReleaseLinkElem.GetString();
-            string? _updateLink = updateLinkElem.GetString();
-            string? _changelog = changeLogElem.GetString();
-            if (latestReleaseLink is null || _updateLink is null || _changelog is null)
-                return;
+            latestRelease = latestReleaseLinkElem.GetString();
+            updateLink = updateLinkElem.GetString();
+            changelog = changeLogElem.GetString();
+            if (latestRelease is null || updateLink is null || changelog is null)
+                return null;
             
-            cts = new CancellationTokenSource(Timeout);
-            json = await hc.GetStringAsync(new Uri(latestReleaseLink), cts.Token);
-            updateLink = _updateLink;
+            return (latestRelease, updateLink, changelog);
         }
-        catch (Exception) {
-            return;
-        }
-        JsonDocument doc = JsonDocument.Parse(json);
-        if (!doc.RootElement.TryGetProperty("tag_name", out JsonElement tag_elem))
-            return;
-        string? tag = tag_elem.GetString();
-        if (tag is null)
-            return;
-        if (tag.StartsWith("v"))
-            tag = tag[1..];
-        if (!Version.TryParse(tag.Length == 1 ? tag + ".0.0.0" : tag, out Version? version))
-            return;
-        if (version <= current_version)
-            return;
-        
-        string? res = await MessageBoxUtil.GetMessageBoxCustomWindow
-        (
-            new MessageBoxCustomParams {
-                ButtonDefinitions = new []
-                {
-                    new ButtonDefinition { IsDefault = true, IsCancel = true, Name = Resources.MWVM_OutOfDate_GetLatest },
-                    new ButtonDefinition { Name = Resources.MWVM_OutOfDate_ContinueAnyways },
-                },
-                ContentTitle = Resources.MWVM_OutOfDate_Title,
-                ContentMessage = string.Format(Resources.MWVM_OutOfDate_Message, version),
-                SizeToContent = SizeToContent.WidthAndHeight
-            }
-        ).Show();
-        if (res == Resources.MWVM_OutOfDate_GetLatest)
+        catch (Exception e) 
         {
-            Process.Start(new ProcessStartInfo(updateLink) { UseShellExecute = true });
-            
-            ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
-        }
-        else
-        {
-            Trace.WriteLine($"Installer out of date! Version {current_version} with latest {version}!");
+            Trace.WriteLine(e);
+            return null;
         }
     }
+
+    private static async Task HandleManualUpdate(Version? current_version)
+    {
+        try
+        {
+            var hc = new HttpClient();
+            hc.DefaultRequestHeaders.Add("User-Agent", "Scarab");
+            
+            var links = await GetUpdateLinks();
+            if (links is null)
+                return;
+            
+            var cts = new CancellationTokenSource(Timeout);
+            var latestRepoInfo = await hc.GetStringAsync(new Uri(links.Value.latestReleaseInfo), cts.Token);
+
+            JsonDocument doc = JsonDocument.Parse(latestRepoInfo);
+            if (!doc.RootElement.TryGetProperty("tag_name", out JsonElement tag_elem))
+                return;
+            string? tag = tag_elem.GetString();
+            if (tag is null)
+                return;
+            if (tag.StartsWith("v"))
+                tag = tag[1..];
+            if (!Version.TryParse(tag.Length == 1 ? tag + ".0.0.0" : tag, out Version? version))
+                return;
+            if (version <= current_version)
+                return;
+            
+            string? res = await MessageBoxUtil.GetMessageBoxCustomWindow
+            (
+                new MessageBoxCustomParams {
+                    ButtonDefinitions = new []
+                    {
+                        new ButtonDefinition { IsDefault = true, IsCancel = true, Name = Resources.MWVM_OutOfDate_GetLatest },
+                        new ButtonDefinition { Name = Resources.MWVM_OutOfDate_ContinueAnyways },
+                    },
+                    ContentTitle = Resources.MWVM_OutOfDate_Title,
+                    ContentMessage = string.Format(Resources.MWVM_OutOfDate_Message, version),
+                    SizeToContent = SizeToContent.WidthAndHeight
+                }
+            ).Show();
+            if (res == Resources.MWVM_OutOfDate_GetLatest)
+            {
+                Process.Start(new ProcessStartInfo(links.Value.updateLink) { UseShellExecute = true });
+                
+                ((IClassicDesktopStyleApplicationLifetime?) Application.Current?.ApplicationLifetime)?.Shutdown();
+            }
+            else
+            {
+                Trace.WriteLine($"Installer out of date! Version {current_version} with latest {version}!");
+            }
+        }
+        catch (Exception e)
+        {
+            Trace.WriteLine(e);
+        }
+    }
+    
+    const int Timeout = 15_000;
 }

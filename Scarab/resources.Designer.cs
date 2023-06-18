@@ -420,15 +420,6 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See changes.
-        /// </summary>
-        internal static string MVVM_SeeChangelog {
-            get {
-                return ResourceManager.GetString("MVVM_SeeChangelog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please make sure to close all other apps that could be using the mods folder.
         /// </summary>
         internal static string MVVM_SystemIOException_GeneralFileLock {
@@ -564,7 +555,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download manually.
+        ///   Looks up a localized string similar to Get the latest release.
         /// </summary>
         internal static string MWVM_OutOfDate_GetLatest {
             get {
@@ -573,16 +564,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download automatically.
-        /// </summary>
-        internal static string MWVM_OutOfDate_GetLatest_Auto {
-            get {
-                return ResourceManager.GetString("MWVM_OutOfDate_GetLatest_Auto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scarab has a new update available. Please download the newest update to get the latest bug fixed and features {0}.
+        ///   Looks up a localized string similar to Scarab has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features..
         /// </summary>
         internal static string MWVM_OutOfDate_Message {
             get {
@@ -605,6 +587,15 @@ namespace Scarab {
         internal static string MWVM_UnableToDetect_Message {
             get {
                 return ResourceManager.GetString("MWVM_UnableToDetect_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab failed to download update automatically. Scarab will now open the link to get the latest version.
+        /// </summary>
+        internal static string MWVM_UpdateDownloadError_Message {
+            get {
+                return ResourceManager.GetString("MWVM_UpdateDownloadError_Message", resourceCulture);
             }
         }
         
