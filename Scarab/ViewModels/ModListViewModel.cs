@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
@@ -1026,6 +1027,46 @@ namespace Scarab.ViewModels
             FixupModList();
             await Task.Delay(100); // sometimes installed buttons lose icons idk why
             FixupModList();
+        }
+        
+        public async Task ResetMod(object itemObj)
+        {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to reset an object which isn't a mod");
+            if (item.State is not ExistsModState) return;
+
+            if (item.State is InstalledState or NotInModLinksState { ModlinksMod: true })
+            {
+                await OnInstall(item); // uninstall it
+                await OnInstall(item); // reinstall it
+            }
+            var file = _settingsFinder.GetSettingsFileLocation(item);
+
+            if (file is null) 
+                return;
+
+            if (File.Exists(file)) 
+                File.Delete(file);
+                    
+            if (File.Exists(file + ".bak")) 
+                File.Delete(file + ".bak");
+        }
+        
+        public void OpenFolder(object itemObj)
+        {
+            var item = itemObj as ModItem ?? throw new Exception("Tried to opening an object which isn't a mod");
+            if (item.State is not ExistsModState state) return;
+            
+            string base_folder = state.Enabled
+                ? _settings.ModsFolder
+                : _settings.DisabledFolder;
+
+            string mod_folder = Path.Combine(base_folder, item.Name);
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = mod_folder,
+                UseShellExecute = true,
+            });
         }
         
         public async Task RegisterNotInModlinks(object itemObj)

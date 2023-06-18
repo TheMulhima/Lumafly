@@ -1,8 +1,6 @@
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
-using Scarab.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Scarab.Models
 {
@@ -234,14 +231,11 @@ namespace Scarab.Models
             {
                 if (HasSettings && File.Exists(_settingsFile))
                 {
-                    var process = new Process();
-                    process.StartInfo = new ProcessStartInfo()
+                    Process.Start(new ProcessStartInfo()
                     {
                         UseShellExecute = true,
                         FileName = _settingsFile
-                    };
-
-                    process.Start();
+                    });
                 }
                 else
                 {
@@ -255,6 +249,22 @@ namespace Scarab.Models
             }
         }
 
+        public void Share()
+        {
+            //encode name
+            var shareLink = $"https://themulhima.github.io/Scarab/commands/download/?list={Uri.EscapeDataString(Name)}";
+            Process.Start(new ProcessStartInfo(shareLink) { UseShellExecute = true });
+        }
+
+        public void ReportBug()
+        {
+            if (Repository.Contains("github.com"))
+            {
+                var shareLink = $"{Repository}/issues/new";
+                Process.Start(new ProcessStartInfo(shareLink) { UseShellExecute = true });
+            }
+        }
+        
         public static ModItem Empty(
             ModState? state = null,
             Version? version = null,

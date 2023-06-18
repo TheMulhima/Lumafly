@@ -807,7 +807,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit settings file.
+        ///   Looks up a localized string similar to Edit mod&apos;s settings file.
         /// </summary>
         internal static string XAML_EditSettings {
             get {
@@ -1140,6 +1140,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open folder where this mod is installed.
+        /// </summary>
+        internal static string XAML_OpenFolder {
+            get {
+                return ResourceManager.GetString("XAML_OpenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please wait launching game....
         /// </summary>
         internal static string XAML_OpeningGame {
@@ -1172,15 +1181,6 @@ namespace Scarab {
         internal static string XAML_Pin {
             get {
                 return ResourceManager.GetString("XAML_Pin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab.
-        /// </summary>
-        internal static string XAML_PinMod_Explanation {
-            get {
-                return ResourceManager.GetString("XAML_PinMod_Explanation", resourceCulture);
             }
         }
         
@@ -1221,6 +1221,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report a bug or an issue with this mod.
+        /// </summary>
+        internal static string XAML_ReportBug {
+            get {
+                return ResourceManager.GetString("XAML_ReportBug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report Error.
         /// </summary>
         internal static string XAML_ReportError {
@@ -1235,6 +1244,15 @@ namespace Scarab {
         internal static string XAML_Repository {
             get {
                 return ResourceManager.GetString("XAML_Repository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Mod: force re-installs the mod and removes its persistent settings.
+        /// </summary>
+        internal static string XAML_ResetMod {
+            get {
+                return ResourceManager.GetString("XAML_ResetMod", resourceCulture);
             }
         }
         
@@ -1316,6 +1334,15 @@ namespace Scarab {
         internal static string XAML_Settings {
             get {
                 return ResourceManager.GetString("XAML_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get link to share this mod. When link is opened, it will open Scarab and download the mod for them.
+        /// </summary>
+        internal static string XAML_Share {
+            get {
+                return ResourceManager.GetString("XAML_Share", resourceCulture);
             }
         }
         

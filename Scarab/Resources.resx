@@ -358,7 +358,7 @@
     <value>Click to show full error</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edit settings file</value>
+    <value>Edit mod's settings file</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
     <value>Loading the newest mods that are on modlinks...</value>
@@ -570,7 +570,16 @@
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
     <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab</value>
   </data>
-  <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Pinning a mod places it at the top of modlist and ensures it never automatically removed by scarab</value>
+  <data name="XAML_ResetMod" xml:space="preserve">
+    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
+  </data>
+  <data name="XAML_Share" xml:space="preserve">
+    <value>Get link to share this mod. When link is opened, it will open Scarab and download the mod for them</value>
+  </data>
+  <data name="XAML_OpenFolder" xml:space="preserve">
+    <value>Open folder where this mod is installed</value>
+  </data>
+  <data name="XAML_ReportBug" xml:space="preserve">
+    <value>Report a bug or an issue with this mod</value>
   </data>
 </root>
