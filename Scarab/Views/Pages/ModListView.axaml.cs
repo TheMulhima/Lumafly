@@ -100,7 +100,7 @@ namespace Scarab.Views.Pages
             if (e.Element.DataContext is ModItem modItem)
             {
                 var modname = e.Element.GetLogicalDescendants().OfType<TextBlock>().First(x => x.Name == "ModName");
-                var disclaimer = " (Version not from modlinks)";
+                var disclaimer = $" ({Scarab.Resources.MVVM_NotInModlinks_Disclaimer})";
                 if (modItem is { State: NotInModLinksState })
                 {
                     if (modname is { Text: not null })

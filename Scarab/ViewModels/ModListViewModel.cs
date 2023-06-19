@@ -187,8 +187,8 @@ namespace Scarab.ViewModels
                 if (modNamesAndUrls.Count == 0)
                 {
                     await _urlSchemeHandler.ShowConfirmation(
-                        title: "Download mod from command", 
-                        message: "Invalid download mod command", 
+                        title: Resources.MVVM_DownloadModUrlScheme_Header, 
+                        message: Resources.MVVM_DownloadModUrlScheme_Invalid, 
                         Icon.Warning);
                     return;
                 }
@@ -216,7 +216,7 @@ namespace Scarab.ViewModels
                         }
 
                         correspondingMod = ModItem.Empty(name: modName, link: url,
-                            description: "This mod was manually installed and is not from official modlinks");
+                            description: Resources.MVVM_NotInModlinks_Description);
                     }
                     else
                     {
@@ -275,18 +275,15 @@ namespace Scarab.ViewModels
 
                 if (successfulDownloads.Count > 0)
                     message +=
-                        $"Scarab has successfully downloaded {string.Join(", ", successfulDownloads)} from command";
+                        string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Success, string.Join(", ", successfulDownloads));
 
                 if (failedDownloads.Count > 0)
                 {
-                    if (successfulDownloads.Count > 0) message += "\nHowever, ";
-
-                    message +=
-                        $"Scarab has was unable to download {string.Join(", ", failedDownloads)} from command. Please check if the command is correct";
+                    message += string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Failure, string.Join(", ", failedDownloads));
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: "Download mod from command", 
+                    title: Resources.MVVM_DownloadModUrlScheme_Header,
                     message, 
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
                 Trace.WriteLine("Handled download url scheme");
@@ -300,8 +297,8 @@ namespace Scarab.ViewModels
                 await ForceUpdateAll();
                 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: "Force update all from command", 
-                    message: "Scarab has successfully run force updated all command");
+                    title: Resources.MVVM_ForceUpdateUrlScheme_Header, 
+                    message: Resources.MVVM_ForceUpdateUrlScheme_Body_Success);
             }
                 
         }
@@ -316,8 +313,8 @@ namespace Scarab.ViewModels
                 if (modNames.Length == 0)
                 {
                     await _urlSchemeHandler.ShowConfirmation(
-                        title:  "Remove mod global setting", 
-                        message: "Invalid download mod command",
+                        title: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Header, 
+                        message: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Invalid,
                         Icon.Warning);
                     return;
                 }
@@ -358,21 +355,15 @@ namespace Scarab.ViewModels
                 string message = string.Empty;
 
                 if (successfulDownloads.Count > 0)
-                    message +=
-                        $"Scarab has successfully removed global settings for {string.Join(", ", successfulDownloads)} from command";
+                    message += String.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Success, string.Join(", ", successfulDownloads));
 
                 if (failedDownloads.Count > 0)
                 {
-                    if (successfulDownloads.Count > 0) 
-                        message += "\nHowever, ";
-
-                    message +=
-                        $"Scarab has was unable to find the global settings for {string.Join(", ", failedDownloads)}." +
-                        $" Please check if the mod name is correct and the mod is installed";
+                    message += string.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Failure, string.Join(", ", failedDownloads));
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: "Remove mod global settings from command", 
+                    title: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Header, 
                     message,
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
                 
@@ -940,7 +931,7 @@ namespace Scarab.ViewModels
                     
                     var mod = correspondingMod ?? ModItem.Empty(
                         name: Path.GetFileNameWithoutExtension(file.Name), 
-                        description: "This mod was manually installed and is not from official modlinks");
+                        description: Resources.MVVM_NotInModlinks_Description);
                     
                     var oldState = mod.State;
                     

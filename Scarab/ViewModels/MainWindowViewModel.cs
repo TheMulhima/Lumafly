@@ -1,5 +1,4 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -7,7 +6,6 @@ using JetBrains.Annotations;
 using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
-using MessageBox.Avalonia.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -22,11 +20,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Enums;
+using FileSystem = System.IO.Abstractions.FileSystem;
 
 namespace Scarab.ViewModels
 {
@@ -286,8 +283,8 @@ namespace Scarab.ViewModels
                 }
 
                 Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                    title: "Reset installer from command",
-                    message: success ? "The installer has been reset." : $"The installer could not be reset. Please try again.\n{exception}",
+                    title: Resources.MVVM_ResetUrlScheme_Header,
+                    message: success ? Resources.MVVM_ResetUrlScheme_Body_Success : string.Format(Resources.MVVM_ResetUrlScheme_Body_Failure, exception),
                     success ? Icon.Success : Icon.Warning
                 ));
             }
@@ -322,8 +319,10 @@ namespace Scarab.ViewModels
                 }
 
                 Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                    title: "Reset all mod global settings installer from command",
-                    message: success ? "All mods global settings have been reset." : $"All mods global settings could not be reset. Please try again.\n{exception}",
+                    title: Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Header,
+                    message: success 
+                        ? Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success 
+                        : string.Format(Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure, exception),
                     success ? Icon.Success : Icon.Warning));
             }
         }
@@ -348,8 +347,8 @@ namespace Scarab.ViewModels
                     }
 
                     Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                        title:  "Load custom modlinks from command", 
-                        message: success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
+                        title: Resources.MVVM_LoadCustomModlinksUrlScheme_Header, 
+                        message: success ? string.Format(Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Success, settings.CustomModlinksUri) : Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Failure,
                         success ? Icon.Success : Icon.Warning));
                 }
 
@@ -368,8 +367,8 @@ namespace Scarab.ViewModels
                     }
 
                     Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                            title: "Use new baselink from command",
-                            message: success ? $"Got the base link \"{settings.BaseLink}\" from command." : "No baselink was provided. Please try again",
+                            title: Resources.MVVM_LoadCustomBaseLinkUrlScheme_Header,
+                            message: success ? string.Format(Resources.MVVM_LoadCustomBaseLinkUrlScheme_Body_Success, settings.BaseLink) : Resources.MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure,
                             success ? Icon.Success : Icon.Warning));
                     
                 }

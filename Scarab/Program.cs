@@ -93,7 +93,7 @@ namespace Scarab
 
             TaskScheduler.UnobservedTaskException += (_, eArgs) => { WriteExceptionToLog(eArgs.Exception); };
 
-            Trace.WriteLine("Launching...");
+            Trace.TraceInformation("Launching...");
         }
 
         public static void CloseTraceFile()

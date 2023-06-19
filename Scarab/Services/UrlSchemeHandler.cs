@@ -57,8 +57,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
-                    title: "Invalid URL Scheme Command", 
-                    message: $"{arg} is an invalid command.\nScarab only accepts command prefixed by scarab://", 
+                    title: Resources.MVVM_InvalidUrlScheme_Header, 
+                    message: string.Format(Resources.MVVM_InvalidUrlScheme_Body_InvalidCommand, arg), 
                     Icon.Warning));
             return;
         }
@@ -80,8 +80,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
-                    title: "Invalid URL Scheme Command",
-                    message: $"{arg} is an invalid command.\nIt was not found in scarab's accepted command list",
+                    title: Resources.MVVM_InvalidUrlScheme_Header,
+                    message: string.Format(Resources.MVVM_InvalidUrlScheme_Body_NotFound, arg),
                     Icon.Warning));
         }
     }

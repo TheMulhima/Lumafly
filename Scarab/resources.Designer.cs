@@ -303,11 +303,65 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \nHowever, Scarab has was unable to download {0} from command. Please check if the command is correct.
+        /// </summary>
+        internal static string MVVM_DownloadModUrlScheme_Body_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Body_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab has successfully downloaded {0} from command.
+        /// </summary>
+        internal static string MVVM_DownloadModUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download mod from command.
+        /// </summary>
+        internal static string MVVM_DownloadModUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid download mod command.
+        /// </summary>
+        internal static string MVVM_DownloadModUrlScheme_Invalid {
+            get {
+                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An exception occured while {0} {1}.
         /// </summary>
         internal static string MVVM_ExceptionOccur {
             get {
                 return ResourceManager.GetString("MVVM_ExceptionOccur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab has successfully run force updated all command.
+        /// </summary>
+        internal static string MVVM_ForceUpdateUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_ForceUpdateUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force update all from command.
+        /// </summary>
+        internal static string MVVM_ForceUpdateUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_ForceUpdateUrlScheme_Header", resourceCulture);
             }
         }
         
@@ -339,11 +393,92 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is an invalid command.\nScarab only accepts command prefixed by scarab://.
+        /// </summary>
+        internal static string MVVM_InvalidUrlScheme_Body_InvalidCommand {
+            get {
+                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Body_InvalidCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is an invalid command.\nIt was not found in scarab&apos;s accepted command list.
+        /// </summary>
+        internal static string MVVM_InvalidUrlScheme_Body_NotFound {
+            get {
+                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Body_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid URL Scheme Command.
+        /// </summary>
+        internal static string MVVM_InvalidUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to launch scarab in offline mode?.
         /// </summary>
         internal static string MVVM_LaunchOfflineMode {
             get {
                 return ResourceManager.GetString("MVVM_LaunchOfflineMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No baselink were provided. Please try again.
+        /// </summary>
+        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Got the new base link &apos;{0}&apos; from command..
+        /// </summary>
+        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load new baselink from command.
+        /// </summary>
+        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No modlinks were provided. Please try again.
+        /// </summary>
+        internal static string MVVM_LoadCustomModlinksUrlScheme_Body_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Body_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Got the custom modlinks \&quot;{0}\&quot; from command..
+        /// </summary>
+        internal static string MVVM_LoadCustomModlinksUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load custom modlinks from command.
+        /// </summary>
+        internal static string MVVM_LoadCustomModlinksUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Header", resourceCulture);
             }
         }
         
@@ -407,6 +542,114 @@ namespace Scarab {
         internal static string MVVM_NotAbleToLoadWhatsNew {
             get {
                 return ResourceManager.GetString("MVVM_NotAbleToLoadWhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This mod was manually installed and is not from official modlinks.
+        /// </summary>
+        internal static string MVVM_NotInModlinks_Description {
+            get {
+                return ResourceManager.GetString("MVVM_NotInModlinks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version not from modlinks.
+        /// </summary>
+        internal static string MVVM_NotInModlinks_Disclaimer {
+            get {
+                return ResourceManager.GetString("MVVM_NotInModlinks_Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All mods global settings could not be reset. Please try again.\n{0}.
+        /// </summary>
+        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All mods global settings have been reset..
+        /// </summary>
+        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all mod global settings installer from command.
+        /// </summary>
+        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to However\nScarab has was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
+        /// </summary>
+        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove mod global setting.
+        /// </summary>
+        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid remove mod global command.
+        /// </summary>
+        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Invalid {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab has removed global settings for {0} from command.
+        /// </summary>
+        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Success {
+            get {
+                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The installer could not be reset. Please try again.\n{0}.
+        /// </summary>
+        internal static string MVVM_ResetUrlScheme_Body_Failure {
+            get {
+                return ResourceManager.GetString("MVVM_ResetUrlScheme_Body_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The installer has been reset..
+        /// </summary>
+        internal static string MVVM_ResetUrlScheme_Body_Success {
+            get {
+                return ResourceManager.GetString("MVVM_ResetUrlScheme_Body_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset installer from command.
+        /// </summary>
+        internal static string MVVM_ResetUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_ResetUrlScheme_Header", resourceCulture);
             }
         }
         
