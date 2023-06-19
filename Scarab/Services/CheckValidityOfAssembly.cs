@@ -39,7 +39,7 @@ public class CheckValidityOfAssembly : ICheckValidityOfAssembly
             
             return (int) ver.Constant;
         }
-        catch (InvalidOperationException e) 
+        catch (Exception e) 
         {
             Trace.WriteLine(e);
             return null;

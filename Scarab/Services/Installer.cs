@@ -81,14 +81,18 @@ namespace Scarab.Services
             _hc = hc;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
-            try
+        
+            Task.Run(async () => 
             {
-                CheckAPI().Wait();
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError($"Exception occured when initalizing Installer {e}");
-            }
+                try
+                {
+                    await CheckAPI();
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Exception occured when initalizing Installer {e}");
+                }
+            });
             Trace.TraceError($"Installer initialized");
         }
 
