@@ -13,7 +13,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
-using Mono.Cecil.Cil;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;
 using NetSparkleUpdater.SignatureVerifiers;
@@ -25,15 +24,16 @@ namespace Scarab.Services;
 
 public static class Updater
 {
+    /// <summary>
+    /// Runs the code to check for update. If its windows it uses NetSparkle, otherwise it does it manually
+    /// </summary>
     public static async Task CheckUpToDate()
     {
-        RemoveOldAUs();
-        
         Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
 
         Debug.WriteLine($"Current version of installer is {current_version}");
 
-         if (MainWindowViewModel._Debug) return;
+         // if (MainWindowViewModel._Debug) return;
 
         if (OperatingSystem.IsWindows())
             HandleWindowsUpdate();
@@ -41,12 +41,15 @@ public static class Updater
             await HandleManualUpdate(current_version);
     }
 
+    /// <summary>
+    /// Automatically download updated from github and replace the current exe using NetSparkleUpdater
+    /// </summary>
     private static void HandleWindowsUpdate()
     {
         try
         {
             var _sparkle = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
-                new DSAChecker(SecurityMode.Unsafe))
+                new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
             {
                 UIFactory = new UIFactory(null)
                 {
@@ -67,11 +70,15 @@ public static class Updater
                     </div>
                     """,
                 },
-                ShowsUIOnMainThread = true,
-                TmpDownloadFilePath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]),
-                CustomInstallerArguments = Path.GetFileName(Environment.GetCommandLineArgs()[0]),
+                ShowsUIOnMainThread = true, // required for avalonia
+                ClearOldInstallers = RemoveOldAUs,
+                TmpDownloadFilePath = Settings.GetOrCreateDirPath(), // download to appdata folder which we have full perms in
+                // run installer with exe name and path so scarab is replaced correctly
+                CustomInstallerArguments = $"{Path.GetFileName(Environment.GetCommandLineArgs()[0])} {Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])}",
                 SecurityProtocolType = SecurityProtocolType.Tls12,
+                // GitHub doesn't support CheckServerFileName, if server is checked, it returns a UUID without any file extension which is not windows friendly
                 CheckServerFileName = false,
+                RelaunchAfterUpdate = true,
             };
 
             _sparkle.DownloadHadError += OnDownloadError;
@@ -84,6 +91,9 @@ public static class Updater
         }
     }
 
+    /// <summary>
+    /// Show a popup when the update fails or cancelled, Will open the update link on the browser and close the app
+    /// </summary>
     private static void OnDownloadError(AppCastItem? item, string path, Exception exception)
     {
         Dispatcher.UIThread.InvokeAsync(async () =>
@@ -100,12 +110,15 @@ public static class Updater
         });
     }
 
+    /// <summary>
+    /// Removes old AutoUpdaters from settings path
+    /// </summary>
     private static void RemoveOldAUs()
     {
         try
         {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe")))
-                File.Delete(Path.Combine(Environment.CurrentDirectory, "Scarab.AU.exe"));
+            if (File.Exists(Path.Combine(Settings.GetOrCreateDirPath(), "Scarab.AU.exe")))
+                File.Delete(Path.Combine(Settings.GetOrCreateDirPath(), "Scarab.AU.exe"));
         }
         catch (Exception e)
         {
@@ -113,6 +126,11 @@ public static class Updater
         }
     }
 
+    /// <summary>
+    /// Get the latest release info, update link and changelog from the UpdateLinks.json file in static-resources.
+    /// It was done like that so the update links and such can change without forcing app update
+    /// </summary>
+    /// <returns></returns>
     private static async Task<(string latestReleaseInfo, string updateLink, string changelog)?> GetUpdateLinks()
     {
         try
@@ -150,6 +168,9 @@ public static class Updater
         }
     }
 
+    /// <summary>
+    /// Manually check latest release tag from github and prompt download if version is higher on github
+    /// </summary>
     private static async Task HandleManualUpdate(Version? current_version)
     {
         try

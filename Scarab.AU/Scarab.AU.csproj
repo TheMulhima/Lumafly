@@ -13,5 +13,6 @@
         <PublishAot>true</PublishAot>
         <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
         <DebugType>embedded</DebugType>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 </Project>
