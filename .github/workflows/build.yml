@@ -2,6 +2,9 @@ name: Build
 
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -76,6 +79,8 @@ jobs:
 
   # needs to run when releasing but before main release action
   build-auto-updater:
+    # needs windows build for the exe to embed in the updater
+    needs: [build-windows]
     runs-on: windows-latest
     env:
       NUGET_CERT_REVOCATION_MODE: offline
@@ -88,10 +93,15 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+      with: 
+       path: ./artifacts
     - name: Restore dependencies
       run: dotnet restore -r win-x64
     - name: Build
       run: |
+        cp ./artifacts/Scarab-Windows/Scarab.exe ./Scarab.AU/Scarab.exe
         cd Scarab.AU
         dotnet publish -r win-x64 -c Release --self-contained true
         cd ..
@@ -145,20 +155,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: master
-          path: master
       - name: Get tag
         id: vars
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Update appcast
-        run : python3 ./master/make_appcast.py ${{ steps.vars.outputs.tag }}
+        run : |
+          python3 make_appcast.py ${{ steps.vars.outputs.tag }}
+          cat appcast.xml
 
       - name: Push updated appcast
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: master
-          folder: master
+          folder: .
           clean: true
-          commit-message: Update appcast for ${{ steps.vars.outputs.tag }}
+          commit-message: Update appcast to ${{ steps.vars.outputs.tag }}
