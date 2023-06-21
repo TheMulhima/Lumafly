@@ -9,7 +9,7 @@ jobs:
       NUGET_CERT_REVOCATION_MODE: offline
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET for windows build
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
@@ -20,7 +20,7 @@ jobs:
         cd Scarab
         dotnet publish --no-restore -r win-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
-    - name: Upload Binary
+    - name: Upload windows binary
       uses: actions/upload-artifact@v3
       with:
         name: Scarab-Windows
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET for linux build
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
@@ -43,7 +43,7 @@ jobs:
         cd ..
         chmod +x Scarab/bin/Release/net7.0/linux-x64/publish/Scarab
         zip -jr linux.zip Scarab/bin/Release/net7.0/linux-x64/publish/*
-    - name: Upload Binary
+    - name: Upload linux binary
       uses: actions/upload-artifact@v3
       with:
         name: Scarab-Linux
@@ -55,7 +55,7 @@ jobs:
       NUGET_CERT_REVOCATION_MODE: offline
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET for macos build
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
@@ -68,14 +68,42 @@ jobs:
         cd ..
         mkdir out
         python3 make_app.py Scarab.app Scarab/bin/Release/net7.0/osx-x64/publish
-    - name: Upload Binary
+    - name: Upload macos binary
       uses: actions/upload-artifact@v3
       with:
         name: Scarab-MacOS
         path: out/mac.zip
 
+  # needs to run when releasing but before main release action
+  build-auto-updater:
+    runs-on: windows-latest
+    env:
+      NUGET_CERT_REVOCATION_MODE: offline
+
+    if: startsWith(github.ref, 'refs/tags')
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET for AU build
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore -r win-x64
+    - name: Build
+      run: |
+        cd Scarab.AU
+        dotnet publish -r win-x64 -c Release --self-contained true
+        cd ..
+    - name: Upload windows binary
+      uses: actions/upload-artifact@v3
+      with:
+        name: Scarab-AU
+        path: Scarab.AU/bin/Release/net7.0/win-x64/publish/
+
+
   release:
-    needs: [build-macos, build-windows, build-linux]
+    needs: [build-macos, build-windows, build-linux, build-auto-updater]
     runs-on: ubuntu-latest
 
     if: startsWith(github.ref, 'refs/tags')
@@ -86,9 +114,13 @@ jobs:
         with: 
           path: ./artifacts
 
-      - name: Zip
+      - name: Zip files
         run: |
           zip -jr Scarab-Windows.zip ./artifacts/Scarab-Windows/*
+
+          cp ./artifacts/Scarab-Windows/Scarab.exe ./Scarab.exe
+
+          cp ./artifacts/Scarab-AU/Scarab.AU.exe ./Scarab.AU.exe
           
           mv ./artifacts/Scarab-Linux/linux.zip Scarab-Linux.zip
           
@@ -98,6 +130,35 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
+            ./Scarab.exe
+            ./Scarab.AU.exe
             ./Scarab-Windows.zip
             ./Scarab-MacOS.zip
-            ./Scarab-Linux.zip
+            ./Scarab-Linux.zip 
+ 
+  # run after release so no one downloads non existent files
+  create-appcast:
+    needs: [release]
+    runs-on: ubuntu-latest
+
+    if: startsWith(github.ref, 'refs/tags')
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+          path: master
+      - name: Get tag
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Update appcast
+        run : python3 ./master/make_appcast.py ${{ steps.vars.outputs.tag }}
+
+      - name: Push updated appcast
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: master
+          folder: master
+          clean: true
+          commit-message: Update appcast for ${{ steps.vars.outputs.tag }}
