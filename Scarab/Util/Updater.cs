@@ -18,7 +18,6 @@ using NetSparkleUpdater.Enums;
 using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater.UI.Avalonia;
 using Scarab.Util;
-using Scarab.ViewModels;
 
 namespace Scarab.Services;
 
@@ -74,8 +73,8 @@ public static class Updater
                 ClearOldInstallers = RemoveOldAUs,
                 TmpDownloadFilePath = Settings.GetOrCreateDirPath(), // download to appdata folder which we have full perms in
                 // run installer with exe name and path so scarab is replaced correctly
-                CustomInstallerArguments = $"{Path.GetFileName(Environment.GetCommandLineArgs()[0])} {Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])}",
-                SecurityProtocolType = SecurityProtocolType.Tls12,
+                CustomInstallerArguments = Environment.GetCommandLineArgs()[0], // send the full exe path to the installer so it can replace it correctly
+                SecurityProtocolType = SecurityProtocolType.Tls12, // required by github
                 // GitHub doesn't support CheckServerFileName, if server is checked, it returns a UUID without any file extension which is not windows friendly
                 CheckServerFileName = false,
                 RelaunchAfterUpdate = true,

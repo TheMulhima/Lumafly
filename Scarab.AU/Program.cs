@@ -1,27 +1,32 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Web;
 
 try
 {
-    // we accept 2 optional parameters, the app name and the path to the app
-    string ScarabExeName = "Scarab.exe"; // default filename
-    string ScarabPath = Environment.CurrentDirectory; // default path to place scarab. Just in case someone opens the AU
+    // set defaults to allow AU.exe to be run manually just incase
+    string ScarabExeName = "Scarab.exe"; 
+    string ScarabPath = Environment.CurrentDirectory;
     bool shouldLaunchUpdated = true; // default to launching the updated app
 
-    // if provided file name use that
-    if (Environment.GetCommandLineArgs().Length >= 2)
-    {
-        // just in case someone renamed their exe, we'll replace the provided name
-        ScarabExeName = Environment.GetCommandLineArgs()[1];
-    }
+    string fullPath = string.Empty;
     
-    // if provided path use that
-    if (Environment.GetCommandLineArgs().Length >= 3)
+    // concat all cli args (except first which is the path of this app) to form the full path of scarab which is passed
+    // in by the installer. This is done because the path may contain spaces which would be split into multiple args
+    for (int i = 1; i < Environment.GetCommandLineArgs().Length; i++)
     {
-        ScarabPath = Environment.GetCommandLineArgs()[2];
-        // if path is provided is is 99.99% likely that its opened from the app (and not manually)
-        // so we can let NetSparkleUpdater handle the relaunch. 
-        shouldLaunchUpdated = false;
+        Console.WriteLine($"Arg passed {i}: '{Environment.GetCommandLineArgs()[i]}'");
+        fullPath += Environment.GetCommandLineArgs()[i] + " ";
+    }
+
+    fullPath = fullPath.Trim(); // trim the last space
+
+    // see if full path is a valid file
+    if (File.Exists(fullPath))
+    {
+        ScarabExeName = Path.GetFileName(fullPath);
+        ScarabPath = Path.GetDirectoryName(fullPath) ?? throw new Exception("Invalid path given in arguments.");
+        shouldLaunchUpdated = false; // don't launch the updated app as it'll be handled by NetSparkle
     }
 
     var originalScarabExe = Path.Combine(ScarabPath, ScarabExeName);
@@ -34,6 +39,10 @@ try
     if (File.Exists(originalScarabExe)) File.Delete(originalScarabExe); // delete the old file
     File.Move(updatedScarabFile, originalScarabExe); // move the new file to the old file's location
     
+    Console.WriteLine("Successfully updated Scarab.");
+    
+    Task.Delay(500).Wait(); // wait a second to show message
+
     // only relaunch app if it was launched manually
     if (shouldLaunchUpdated)
     {
