@@ -60,6 +60,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to , .
+        /// </summary>
+        internal static string Array_Sep {
+            get {
+                return ResourceManager.GetString("Array_Sep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall.
         /// </summary>
         internal static string MI_InstallText_Installed {
