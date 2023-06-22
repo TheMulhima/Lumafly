@@ -5,6 +5,8 @@ import argparse
 ''' 
 This creates a xml file to make net sparkle updater find updates to the app
 see more info here https://github.com/NetSparkleUpdater/NetSparkle#app-cast
+
+Make sure to run it from root directory so it can replace the correct appcast file
 '''
 
 parser = argparse.ArgumentParser()

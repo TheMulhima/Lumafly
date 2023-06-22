@@ -70,7 +70,7 @@ jobs:
         dotnet publish --no-restore -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
         cd ..
         mkdir out
-        python3 make_app.py Scarab.app Scarab/bin/Release/net7.0/osx-x64/publish
+        python3 Scripts/make_mac_app.py Scripts/Scarab.app Scarab/bin/Release/net7.0/osx-x64/publish
     - name: Upload macos binary
       uses: actions/upload-artifact@v3
       with:
@@ -161,7 +161,7 @@ jobs:
 
       - name: Update appcast
         run : |
-          python3 make_appcast.py ${{ steps.vars.outputs.tag }}
+          python3 Scripts/make_appcast.py ${{ steps.vars.outputs.tag }}
           cat appcast.xml
 
       - name: Push updated appcast
