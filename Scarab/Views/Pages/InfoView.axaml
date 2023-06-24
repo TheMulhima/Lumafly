@@ -18,16 +18,18 @@
                 FontSize="26"
                 FontWeight="Heavy"
                 HorizontalAlignment="Center"
-                Margin="0 0 0 20"/>
+                Margin="0 10 0 20"/>
             
             <TextBlock
                 Text="{ext:Localize XAML_InfoBody}"
                 FontSize="16"
                 TextWrapping="Wrap"
-                Margin="10 0 0 40"/>
+                HorizontalAlignment="Center"
+                Margin="20 0 20 40"/>
             
             <StackPanel
                 Margin="60 0"
+                MaxWidth="755"
                 Background="#353535">
                 <TextBlock
                     Text="{ext:Localize XAML_InfoLinksHeader}"
@@ -35,7 +37,7 @@
                     FontWeight="Heavy"
                     HorizontalAlignment="Center"
                     Margin="0 0 0 10"/>
-                <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
                     <StackPanel 
                         Margin="20 0"
                         Orientation="Horizontal">
@@ -168,6 +170,7 @@
                 IsVisible="{Binding IsLaunchingGame}"
                 Text="{ext:Localize XAML_OpeningGame}"
                 TextAlignment="Center"/>
+            <Panel Height="20"/> <!-- Bottom Spacer -->
         </StackPanel>
     </ScrollViewer>
 </views:View>
