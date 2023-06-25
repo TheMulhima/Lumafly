@@ -90,16 +90,15 @@ namespace Scarab.Services
             {
                 try
                 {
-                    Trace.WriteLine($"Starting initial check api");
                     await CheckAPI();
-                    Trace.TraceError($"ending initial check api");
+                    Trace.WriteLine("Initial API check complete");
                 }
                 catch (Exception e)
                 {
-                    Trace.TraceError($"Exception occured when initalizing Installer {e}");
+                    Trace.TraceError($"Exception occured when checking api in init of Installer {e}");
                 }
             });
-            Trace.TraceError($"Installer initialized");
+            Trace.WriteLine($"Installer initialized");
         }
 
         private void CreateNeededDirectories()
@@ -578,45 +577,34 @@ namespace Scarab.Services
         
         public async Task<bool> CheckAPI()
         {
-            Trace.TraceInformation("CheckAPI: Starting check API");
             _installed.HasVanilla =
                 _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla);
             
-            Trace.TraceInformation("CheckAPI: Vanilla check done");
-
             int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current);
-
-            Trace.TraceInformation("CheckAPI: Current assembly check done");
-
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
                 current_version = _checkValidityOfAssembly.GetAPIVersion(Modded);
-                Trace.TraceInformation("CheckAPI: Modded assembly check done");
             }
             
             if (current_version == null)
             {
                 await _installed.RecordApiState(new NotInstalledState());
-                Trace.TraceInformation("CheckAPI: API not installed");
                 return false;
             }
             
             if (_installed.ApiInstall is not InstalledState api_state)
             {
                 await _installed.RecordApiState(new InstalledState(enabled, new((int)current_version, 0, 0), false));
-                Trace.TraceInformation("CheckAPI: API is installed but was recorded wrongly");
                 return true;
             }
             
             if (api_state.Version.Major != current_version || api_state.Enabled != enabled)
             {
                 await _installed.RecordApiState(new InstalledState(enabled, new((int)current_version, 0, 0), api_state.Updated));
-                Trace.TraceInformation("CheckAPI: API is installed but version was recorded wrongly");
             }
             
-            Trace.TraceInformation("CheckAPI: API state matches reality");
             return true;
         }
     }
