@@ -257,6 +257,9 @@ namespace Scarab.ViewModels
                                 ModlinksMod: isModlinksMod,
                                 Enabled: state.Enabled,
                                 Pinned: state.Pinned);
+                            
+                            // ensure the state is correctly recorded
+                            await _mods.RecordInstalledState(correspondingMod);
                         }
                         else
                         {
@@ -945,9 +948,7 @@ namespace Scarab.ViewModels
                     true,
                     file.Name,
                     await File.ReadAllBytesAsync(file.Path.LocalPath));
-                    
-                    FixupModList(mod);
-                    
+
                     // make sure to only change state if the place is a success
                     if (correspondingMod != null)
                     {
@@ -961,8 +962,11 @@ namespace Scarab.ViewModels
                             NotInstalledState => new NotInModLinksState(ModlinksMod:false),
                             _ => throw new UnreachableException(),
                         };
+
+                        await _mods.RecordInstalledState(correspondingMod);
                     }
                     
+                    FixupModList(itemToAdd: correspondingMod == null ? mod : null);
                 }
                 catch(Exception e)
                 {

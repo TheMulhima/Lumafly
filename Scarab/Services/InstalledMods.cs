@@ -182,6 +182,7 @@ namespace Scarab.Services
             if (item.State is NotInModLinksState notInModLinksState)
             {
                 NotInModlinksMods[item.Name] = notInModLinksState;
+                Mods.Remove(item.Name);
             }
 
             await SaveToDiskAsync();
