@@ -30,7 +30,14 @@ public static class DisplayErrors
 
     public static async Task DisplayGenericError(string action, string name, Exception e)
     {
-        await DisplayGenericError(string.Format(Resources.MVVM_ExceptionOccur, action, name), e);
+        Trace.TraceError(e.ToString());
+    
+        string additionalInfo = string.Empty;
+        if (e is ReadableError readableException) 
+            additionalInfo = $" {readableException.Message}";
+            
+        await DisplayGenericError(string.Format(Resources.MVVM_ExceptionOccur + additionalInfo, action, name), e);
+        
     }
     
     public static async Task DisplayGenericError(string errorText, Exception? e = null)
@@ -218,4 +225,12 @@ public static class DisplayErrors
 
         return additionalText;
     }
+}
+
+/// <summary>
+/// An generic error that should display additional information to the user
+/// </summary>
+public class ReadableError : Exception
+{
+    public ReadableError(string additionalText) : base(additionalText) { }
 }

@@ -724,12 +724,6 @@ namespace Scarab.ViewModels
                 
                 await _installer.Toggle(item);
 
-                // to reset the visuals of the toggle to the correct value
-                item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
-                RaisePropertyChanged(nameof(CanDisableAll));
-                RaisePropertyChanged(nameof(CanEnableAll));
-                SelectMods();
-
             }
             catch (IOException io)
             {
@@ -739,6 +733,12 @@ namespace Scarab.ViewModels
             {
                 await DisplayErrors.DisplayGenericError("toggling", item.Name, e);
             }
+            
+            // to reset the visuals of the toggle to the correct value
+            item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
+            RaisePropertyChanged(nameof(CanDisableAll));
+            RaisePropertyChanged(nameof(CanEnableAll));
+            SelectMods();
         }
 
         public async Task UpdateApiAsync()

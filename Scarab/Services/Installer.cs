@@ -13,6 +13,7 @@ using Microsoft.Toolkit.HighPerformance;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
+using Scarab.ViewModels;
 
 namespace Scarab.Services
 {
@@ -64,6 +65,9 @@ namespace Scarab.Services
         // ReSharper restore MemberCanBePrivate.Global
 
         private readonly SemaphoreSlim _semaphore = new (1);
+        // special semaphore for mod toggle because it can occur in concurrently to other installer actions but
+        // 2 mod toggles shouldn't happen at the same time because if they are conflicting it can cause problems
+        private readonly SemaphoreSlim _modToggleSemaphore = new (1);
         private readonly HttpClient _hc;
 
         public Installer(
@@ -134,7 +138,22 @@ namespace Scarab.Services
                     await Toggle(dep);
                 }
             }
+            
+            await _modToggleSemaphore.WaitAsync();
 
+            try
+            {
+                await _Toggle(mod, enabled, state);
+            }
+            finally
+            {
+                _modToggleSemaphore.Release();
+            }
+
+        }
+
+        private async Task _Toggle(ModItem mod, bool enabled, ExistsModState state)
+        {
             CreateNeededDirectories();
 
             var (prev, after) = !enabled
@@ -145,17 +164,26 @@ namespace Scarab.Services
                 Path.Combine(prev, mod.Name),
                 Path.Combine(after, mod.Name)
             );
-            
-            // If it's already in the other state due to user usage or an error, let it fix itself.
-            if (_fs.Directory.Exists(prev) && !_fs.Directory.Exists(after))
-                _fs.Directory.Move(prev, after);
 
-            
+            // just in case the mod was deleted or manually moved
+            if (!_fs.Directory.Exists(prev))
+                throw new ReadableError("because it doesn't exist where it is supposed to. Please try to reinstall the mod");
+
+            // just in case the destination already has same folder 
+            if (_fs.Directory.Exists(after))
+                _fs.Directory.Delete(after, true);
+
+            // the actual toggling
+            _fs.Directory.Move(prev, after);
+
+            // just in case there is left overs
+            if (_fs.Directory.Exists(prev))
+                _fs.Directory.Delete(prev, true);
+
             mod.State = state with { Enabled = !state.Enabled };
-            
+
 
             await _installed.RecordInstalledState(mod);
-
         }
 
         public async Task InstallVanilla()
