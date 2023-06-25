@@ -580,7 +580,7 @@
     <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Get link to share this mod. When link is opened, it will open Scarab and download the mod for them</value>
+    <value>Get the shareable download link of this mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
     <value>Open folder where this mod is installed</value>

@@ -1599,7 +1599,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get link to share this mod. When link is opened, it will open Scarab and download the mod for them.
+        ///   Looks up a localized string similar to Get the shareable download link of this mod..
         /// </summary>
         internal static string XAML_Share {
             get {
