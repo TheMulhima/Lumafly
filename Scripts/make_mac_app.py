@@ -4,14 +4,19 @@ from errno import ENOENT
 from zipfile import ZipInfo, ZIP_DEFLATED, ZipFile
 from time import localtime
 from pathlib import Path
-from sys import argv
+import argparse
 
-if len(argv) != 3:
-    print(f"USAGE: {argv[0]} [APP_DIRECTORY] [PUBLISH DIR]")
-    exit(-1)
 
-app_dir = Path(argv[1])
-publish = Path(argv[2])
+parser = argparse.ArgumentParser()
+parser.add_argument("app_dir", help="The path of the Scarab.app directory")
+parser.add_argument("publish", help="The directory of the published mac executable")
+parser.add_argument("out", help="The output directory for the zip file")
+
+args = parser.parse_args()
+
+app_dir = Path(args.app_dir)
+publish = Path(args.publish)
+out = Path(args.out)
 exe = publish / "Scarab"
 
 if app_dir.suffix != ".app":
@@ -40,7 +45,10 @@ def write_executable(zfile, path, zip_path=None):
 
     zip_f.writestr(info, fbytes, ZIP_DEFLATED)
     
-with ZipFile("out/mac.zip", 'w', ZIP_DEFLATED) as zip_f:
+if not Path(out).exists():
+    Path(out).mkdir()
+
+with ZipFile(out / "mac.zip", 'w', ZIP_DEFLATED) as zip_f:
     for root, dirs, files in walk(app_dir):
         root = Path(root)
 

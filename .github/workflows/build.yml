@@ -69,8 +69,9 @@ jobs:
         cd Scarab
         dotnet publish --no-restore -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
         cd ..
-        mkdir out
-        python3 Scripts/make_mac_app.py Scripts/Scarab.app Scarab/bin/Release/net7.0/osx-x64/publish
+        cd Scripts
+        python3 make_mac_app.py Scarab.app ../Scarab/bin/Release/net7.0/osx-x64/publish ../out
+        cd ..
     - name: Upload macos binary
       uses: actions/upload-artifact@v3
       with:

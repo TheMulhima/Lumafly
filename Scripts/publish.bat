@@ -1,7 +1,7 @@
 if not exist "%~dp0\..\out\*" (
-    mkdir "%~dp0\..\out\*"
+    mkdir "%~dp0\..\out"
 ) else (
-    del /Q /F "%~dp0\..\out\*"
+    rmdir /S /Q "%~dp0\..\out"
 )
 
 cd ../Scarab
@@ -14,6 +14,9 @@ dotnet publish -r osx-x64 -p:Configuration=Release -p:PublishSingleFile=true -p:
 
 cd ..
 
-python Scripts/make_mac_app.py Scripts/Scarab.app Scarab/bin/Release/net7.0/osx-x64/publish
+cd Scripts
+python make_mac_app.py Scarab.app ../Scarab/bin/Release/net7.0/osx-x64/publish ../out
+cd ..
+
 7z a "out/windows.zip" "./Scarab/bin/Release/net7.0/win-x64/publish/*"
 7z a "out/linux.zip" "./Scarab/bin/Release/net7.0/linux-x64/publish/*"
