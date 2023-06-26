@@ -295,6 +295,9 @@
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
     <value>Desativar Tudo</value>
   </data>
+  <data name="XAML_Enable_All_Installed" xml:space="preserve">
+    <value>Ativar Tudo</value>
+  </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
     <value>Pesquisa Exata</value>
   </data>

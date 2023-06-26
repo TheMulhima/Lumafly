@@ -1059,6 +1059,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable All.
+        /// </summary>
+        internal static string XAML_Enable_All_Installed {
+            get {
+                return ResourceManager.GetString("XAML_Enable_All_Installed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exact Search.
         /// </summary>
         internal static string XAML_Exact_Search {

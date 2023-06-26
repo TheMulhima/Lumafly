@@ -294,6 +294,9 @@
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
     <value>Tout désactiver</value>
   </data>
+  <data name="XAML_Enable_All_Installed" xml:space="preserve">
+    <value>Tout activer</value>
+  </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
     <value>Tout désinstaller</value>
   </data>

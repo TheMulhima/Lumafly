@@ -294,6 +294,9 @@
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
     <value>全部禁用</value>
   </data>
+  <data name="XAML_Enable_All_Installed" xml:space="preserve">
+      <value>启用所有</value>
+  </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
     <value>全部卸载</value>
   </data>

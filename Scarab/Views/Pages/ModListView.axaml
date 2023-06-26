@@ -134,6 +134,10 @@
             Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
             IsEnabled="{Binding CanUpdateAll}" />
         <MenuItem
+            Header="{ext:Localize XAML_Enable_All_Installed}"
+            Command="{Binding EnableAllInstalled}"
+            IsEnabled="{Binding CanEnableAll}" />
+        <MenuItem
             Header="{ext:Localize XAML_Disable_All_Installed}"
             Command="{Binding DisableAllInstalled}"
             IsEnabled="{Binding CanDisableAll}" />

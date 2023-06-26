@@ -353,6 +353,7 @@ namespace Scarab.ViewModels
                         File.Delete(file + ".bak");
 
                     successfulDownloads.Add(modName);
+                    correspondingMod.FindSettingsFile(_settingsFinder);
                 }
                 
                 string message = string.Empty;
@@ -529,9 +530,7 @@ namespace Scarab.ViewModels
             // so we don't open a non-existent folder.
             Directory.CreateDirectory(modsFolder);
             
-            Process.Start(new ProcessStartInfo(modsFolder) {
-                    UseShellExecute = true
-            });
+            Process.Start(new ProcessStartInfo(modsFolder) { UseShellExecute = true });
         }
         
         public void OpenSavesDirectory()
@@ -638,7 +637,7 @@ namespace Scarab.ViewModels
                 });
         }
 
-        public void DisableAllInstalled()
+        public async Task DisableAllInstalled()
         {
             var toDisable = _items.Where(x => x.State is ExistsModState { Enabled:true, Pinned: false }).ToList();
 
@@ -648,11 +647,28 @@ namespace Scarab.ViewModels
                     continue;
 
                 if (!HasPinnedDependents(mod))
-                    _installer.Toggle(mod);
+                    await OnEnable(mod);
             }
 
             RaisePropertyChanged(nameof(CanDisableAll));
             RaisePropertyChanged(nameof(CanEnableAll));
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
+        }
+
+        public async Task EnableAllInstalled()
+        {
+            var toEnable = _items.Where(x => x.State is ExistsModState { Enabled: false }).ToList();
+
+            foreach (ModItem mod in toEnable)
+            {
+                if (mod.State is not ExistsModState { Enabled: false })
+                    continue;
+
+                await OnEnable(mod);
+            }
+            await Task.Delay(100); // sometimes installed buttons lose icons idk why
+            FixupModList();
         }
         
         public async Task ForceUpdateAll()
@@ -721,9 +737,8 @@ namespace Scarab.ViewModels
                     }
                 }
                 
-                
                 await _installer.Toggle(item);
-
+                item.FindSettingsFile(_settingsFinder);
             }
             catch (IOException io)
             {
@@ -830,6 +845,10 @@ namespace Scarab.ViewModels
             FixupModList();
         }
         
+        /// <summary>
+        /// Fixes up the mod list by removing mods that are not installed and not in mod links and then sorting the list.
+        /// </summary>
+        /// <param name="itemToAdd">A not in modlinks mod to be appended to the mod list display</param>
         public void FixupModList(ModItem? itemToAdd = null)
         {
             var removeList = _items.Where(x => x.State is NotInModLinksState { Installed: false }).ToList();
@@ -839,9 +858,9 @@ namespace Scarab.ViewModels
                 SelectedItems = SelectedItems.Where(x => x != _item);
             }
 
-            if (itemToAdd != null)
+            if (itemToAdd != null && itemToAdd.State is NotInModLinksState {ModlinksMod: false})
             {
-                // we add notinmodlinks mods so no need to actually save to disk because
+                // we add notinmodlinks mods to db but no need to actually save to disk because
                 // next time we open scarab, moddatabase will handle it
                 _db.Items.Add(itemToAdd);
                 _items.Add(itemToAdd);
@@ -959,14 +978,15 @@ namespace Scarab.ViewModels
                                 ModlinksMod: true,
                                 Enabled: true,
                                 Pinned:installedState.Pinned),
-                            NotInstalledState => new NotInModLinksState(ModlinksMod:false),
+                            NotInstalledState => new NotInModLinksState(ModlinksMod: false),
                             _ => throw new UnreachableException(),
                         };
 
                         await _mods.RecordInstalledState(correspondingMod);
+                        correspondingMod.FindSettingsFile(_settingsFinder);
                     }
                     
-                    FixupModList(itemToAdd: correspondingMod == null ? mod : null);
+                    FixupModList(mod);
                 }
                 catch(Exception e)
                 {
@@ -1044,6 +1064,8 @@ namespace Scarab.ViewModels
                     
             if (File.Exists(file + ".bak")) 
                 File.Delete(file + ".bak");
+            
+            item.FindSettingsFile(_settingsFinder);
         }
         
         public void OpenFolder(object itemObj)
