@@ -155,7 +155,7 @@ namespace Scarab.Models
             CallOnPropertyChanged(nameof(HasSettings));
         }
 
-        public bool HasSettings => State is InstalledState && !string.IsNullOrEmpty(_settingsFile);
+        public bool HasSettings => State is ExistsModState && !string.IsNullOrEmpty(_settingsFile);
 
         public string VersionText => State switch
         {
@@ -260,7 +260,7 @@ namespace Scarab.Models
         {
             if (Repository.Contains("github.com"))
             {
-                var shareLink = $"{Repository}/issues/new";
+                var shareLink = $"{Repository}/issues/new/choose";
                 Process.Start(new ProcessStartInfo(shareLink) { UseShellExecute = true });
             }
         }
