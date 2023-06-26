@@ -66,43 +66,22 @@ namespace Scarab.Services
                 _itemNames.Add(mod.Name);
             }
 
-
-            if (settings is not null && Directory.Exists(settings.ModsFolder))
+            if (settings is not null)
             {
-                foreach (var dir in Directory.GetDirectories(settings.ModsFolder).Where(x => x != settings.DisabledFolder))
+                foreach (var (externalModName, externalModState) in mods.NotInModlinksMods)
                 {
-                    AddExternalMod(dir, true);
-                }
-
-                if (Directory.Exists(settings.DisabledFolder))
-                {
-                    foreach (var dir in Directory.GetDirectories(settings.DisabledFolder))
+                    if (externalModState.ModlinksMod)
                     {
-                        AddExternalMod(dir, false);
+                        var mod = _items.First(x => x.Name == externalModName);
+                        mod.State = externalModState;
                     }
-                }
-            }
-
-            void AddExternalMod(string dir, bool enabled)
-            {
-                // get only folder name
-                var name = new DirectoryInfo(dir).Name;
-
-                var isModlinksMod = _itemNames.Contains(name);
-                if (isModlinksMod)
-                {
-                    var mod = _items.First(x => x.Name == name);
-                    if (mod.Installed) 
-                        return;
-
-                    mod.State = new NotInModLinksState(ModlinksMod:true, Enabled: enabled);
-                }
-                else
-                {
-                    _items.Add(ModItem.Empty(
-                        state: new NotInModLinksState(ModlinksMod:false, Enabled: enabled),
-                        name: name,
-                        description: "This mod is not from official modlinks"));
+                    else
+                    {
+                        _items.Add(ModItem.Empty(
+                            state: externalModState,
+                            name: externalModName,
+                            description: "This mod is not from official modlinks"));
+                    }
                 }
             }
 

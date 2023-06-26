@@ -858,12 +858,11 @@ namespace Scarab.ViewModels
                 SelectedItems = SelectedItems.Where(x => x != _item);
             }
 
-            if (itemToAdd != null && itemToAdd.State is NotInModLinksState {ModlinksMod: false})
+            if (itemToAdd != null && itemToAdd.State is NotInModLinksState { ModlinksMod: false })
             {
-                // we add notinmodlinks mods to db but no need to actually save to disk because
-                // next time we open scarab, moddatabase will handle it
                 _db.Items.Add(itemToAdd);
                 _items.Add(itemToAdd);
+                _mods.RecordInstalledState(itemToAdd);
             }
 
             Sort();
