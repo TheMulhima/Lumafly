@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Array_Sep" xml:space="preserve">
+    <value>, </value>
+  </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
     <value>Desinstalar</value>
   </data>
@@ -178,7 +181,10 @@
     <value>Desatualizado!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Este programa está desatualizado! Ele pode não funcionar corretamente.</value>
+    <value>Scarab tem uma nova atualização disponível. Por favor baixe a atualização mais nova (v{0}) para obter as últimas correções de erros e funcionalidades.</value>
+  </data>
+  <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
+    <value>Scarab falhou em baixar atualização automaticamente. Scarab abrirá agora o link para obter a última versão</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
     <value>Aviso</value>
@@ -262,7 +268,7 @@
     <value>Aplicativo do Hollow Knight inválido!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Aplicativo do Hollow Knight inválido!</value>
+    <value>Exe do Hollow Knight inválido! Por favor selecione o exe do Hollow Knight ou seu atalho</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Selecione a pasta que contém hollow_knight_Data ou Hollow Knight_Data.</value>
@@ -350,13 +356,13 @@
     <value>Clique para mostrar o erro completo</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Editar arquivo de configurações</value>
+    <value>Editar arquivo de configurações do mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
     <value>Carregando os novos mods que estão em modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Desculpe, Scarab não conseguiu carregar os últimos mods em modlinks.\n\nPor favor tente novamente após algum tempo.</value>
+    <value>Scarab não conseguiu carregar os últimos mods em modlinks.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>Possivelmente causado por uma conexão à internet ruim ou não existente. Por favor cheque isso e tente novamente.</value>
@@ -469,6 +475,9 @@
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
     <value>Selecionar manualmente</value>
   </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Fixar um mod para que não seja automaticamente substituído por Scarab</value>
+  </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
     <value> Normalmente, Scarab carrega sua lista de mods do modlinks oficial. Se você quiser carregar o seu próprio então insira sua URI aqui. Aceita-se links https ou arquivos (no formato file://{caminho do arquivo}). \nLinks vazios ou links inválidos vão carregar o modlinks oficial</value>
   </data>
@@ -519,5 +528,149 @@
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
     <value>Avisar antes de remover um mod dependente</value>
+  </data>
+  <data name="XAML_Info" xml:space="preserve">
+    <value>Informações</value>
+  </data>
+  <data name="XAML_InfoHeader" xml:space="preserve">
+    <value>Scarab+</value>
+  </data>
+  <data name="XAML_InfoBody" xml:space="preserve">
+    <value>Scarab+ é um instalador para Hollow Knight versão 1.5. Não funcionará para versões mais antigas de Hollow Knight.</value>
+  </data>
+  <data name="XAML_InfoLinksHeader" xml:space="preserve">
+    <value>Links Relevantes</value>
+  </data>
+  <data name="XAML_InfoLinkWebsite" xml:space="preserve">
+    <value>Website\n</value>
+  </data>
+  <data name="XAML_InfoLinkGithub" xml:space="preserve">
+    <value>GitHub\n</value>
+  </data>
+  <data name="XAML_InfoLinkReadme" xml:space="preserve">
+    <value>Leia-me\n</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord\n</value>
+  </data>
+  <data name="XAML_InfoLinkHKMM" xml:space="preserve">
+    <value>HK Gerenciador\nde Mods</value>
+  </data>
+  <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
+    <value>Um Instalador Alternativo</value>
+  </data>
+  <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
+    <value>Crie Mods\n</value>
+  </data>
+  <data name="XAML_InfoLinkTutorial" xml:space="preserve">
+    <value>Tutorial\nde Modding</value>
+  </data>
+  <data name="XAML_LaunchVanilla" xml:space="preserve">
+    <value>Iniciar Jogo Padrão</value>
+  </data>
+  <data name="XAML_LaunchModded" xml:space="preserve">
+    <value>Iniciar Jogo Modificado</value>
+  </data>
+  <data name="XAML_OpeningGame" xml:space="preserve">
+    <value>Por favor espere, o jogo está iniciando...</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>Lembre como uma versão personalizada</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>Lembre essa versão do mod como não vinda do modlinks. Não afeta o mod de nenhuma forma, apenas afeta como Scarab lida com ele. Uma versão do mod fixada nunca será substituída pelo Scarab</value>
+  </data>
+  <data name="XAML_ResetMod" xml:space="preserve">
+    <value>Redefinir Mod: força a reinstalação do mod e remove suas configurações persistentes</value>
+  </data>
+  <data name="XAML_Share" xml:space="preserve">
+    <value>Obter um link para compartilhar esse mod. Quando o link é aberto, ele irá abrir Scarab e baixar o mod</value>
+  </data>
+  <data name="XAML_OpenFolder" xml:space="preserve">
+    <value>Abrir pasta onde esse mod está instalado</value>
+  </data>
+  <data name="XAML_ReportBug" xml:space="preserve">
+    <value>Reportar um erro ou problema com esse mod</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
+    <value>Esse mod foi manualmente instalado e não é do modlinks oficial</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
+    <value>Versão não vinda do modlinks</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
+    <value>Comando de Esquema de URL Inválido</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
+    <value>{0} é um comando inválido.\nScarab apenas aceita comandos prefixados por scarab://</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
+    <value>{0} é um comando inválido.\nEle não foi encontrado na lista de comandos aceitos do Scarab</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
+    <value>Redefinir instalador por comando</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
+    <value>O instalador foi redefinido.</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
+    <value>O instalador não pôde ser redefinido. Por favor tente novamente.\n{0}</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Redefinir todas as configurações globais de mods por comando</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
+    <value>Todas as configurações globais de mods foram redefinidas.</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Todas as configurações globais de mods não puderam ser redefinidas. Por favor tente novamente.\n{0}</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
+    <value>Baixar mod por comando</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
+    <value>Comando de baixar mod inválido</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab baixou {0} com sucesso por comando</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
+    <value>\nPorém, Scarab não conseguiu baixar {0} por comando. Por favor cheque se o comando está correto</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Remover configuração global de mod</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
+    <value>Comando de remover global de mod inválido</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
+    <value>Scarab removeu configurações globais para {0} por comando</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
+    <value>Porém\nScarab não conseguiu achar as configurações globais para {0}. Por favor cheque se o nome do mod está correto e se o mod está instalado</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
+    <value>Forçar atualização de tudo por comando</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab executou o comando de forçar atualização de tudo com sucesso</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
+    <value>Carregar modlinks personalizado por comando</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
+    <value>Modlinks personalizado \"{0}\" obtido por comando.</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Nenhum modlinks foi disponibilizado. Por favor tente novamente</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
+    <value>Carregar novo baselink por comando</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
+    <value>Novo baselink '{0}' obtido por comando.</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Nenhum baselink foi disponibilizado. Por favor tente novamente</value>
   </data>
 </root>

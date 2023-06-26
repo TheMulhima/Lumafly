@@ -60,6 +60,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to , .
+        /// </summary>
+        internal static string Array_Sep {
+            get {
+                return ResourceManager.GetString("Array_Sep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall.
         /// </summary>
         internal static string MI_InstallText_Installed {
@@ -1599,7 +1608,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get link to share this mod. When link is opened, it will open Scarab and download the mod for them.
+        ///   Looks up a localized string similar to Get the shareable download link of this mod..
         /// </summary>
         internal static string XAML_Share {
             get {

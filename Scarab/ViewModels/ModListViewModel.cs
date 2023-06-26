@@ -278,11 +278,11 @@ namespace Scarab.ViewModels
 
                 if (successfulDownloads.Count > 0)
                     message +=
-                        string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Success, string.Join(", ", successfulDownloads));
+                        string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Success, string.Join(Resources.Array_Sep, successfulDownloads));
 
                 if (failedDownloads.Count > 0)
                 {
-                    message += string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Failure, string.Join(", ", failedDownloads));
+                    message += string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Failure, string.Join(Resources.Array_Sep, failedDownloads));
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
@@ -359,11 +359,11 @@ namespace Scarab.ViewModels
                 string message = string.Empty;
 
                 if (successfulDownloads.Count > 0)
-                    message += String.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Success, string.Join(", ", successfulDownloads));
+                    message += String.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Success, string.Join(Resources.Array_Sep, successfulDownloads));
 
                 if (failedDownloads.Count > 0)
                 {
-                    message += string.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Failure, string.Join(", ", failedDownloads));
+                    message += string.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Failure, string.Join(Resources.Array_Sep, failedDownloads));
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
