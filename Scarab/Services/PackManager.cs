@@ -161,21 +161,21 @@ public class PackManager : IPackManager
                 
                 // since it isn't a listed pack mod or a dependency, uninstall it
                 if (_fs.Directory.Exists(Path.Combine(_settings.ModsFolder, modName)))
-                    _fs.Directory.Delete(Path.Combine(_settings.ModsFolder, modName));
+                    _fs.Directory.Delete(Path.Combine(_settings.ModsFolder, modName), true);
                 if (_fs.Directory.Exists(Path.Combine(_settings.DisabledFolder, modName)))
-                    _fs.Directory.Delete(Path.Combine(_settings.DisabledFolder, modName));
+                    _fs.Directory.Delete(Path.Combine(_settings.DisabledFolder, modName), true);
             }
             
             // cache result so it is easier to load next time
             await SavePack(pack.Name, pack.Description);
             
             // delete temp folder
-            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"));
+            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), true);
 
         }
         catch (Exception e)
         {
-            _fs.Directory.Delete(_settings.ModsFolder);
+            _fs.Directory.Delete(_settings.ModsFolder, true);
             _fs.Directory.Move(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), _settings.ModsFolder);
             await _mods.SetMods(tempDbMods, tempDbNotInModlinksMods);
             
@@ -191,7 +191,7 @@ public class PackManager : IPackManager
         var packFolder = Path.Combine(_settings.ManagedFolder, name);
         
         if (_fs.Directory.Exists(packFolder)) 
-            _fs.Directory.Delete(packFolder);
+            _fs.Directory.Delete(packFolder, true);
         
         CopyDirectory(_settings.ModsFolder, packFolder);
 
@@ -235,7 +235,7 @@ public class PackManager : IPackManager
         }
         if (_fs.Directory.Exists(Path.Combine(_settings.ManagedFolder, packName)))
         {
-            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, packName));
+            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, packName), true);
         }
     }
     
