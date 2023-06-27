@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Array_Sep" xml:space="preserve">
+    <value>，</value>
+  </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
     <value>卸载</value>
   </data>
@@ -133,7 +136,7 @@
     <value>切换 API</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>重启安装器来使用新路径。</value>
+    <value>重启 Scarab 来使用新路径。</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
     <value>游戏路径已更改！</value>
@@ -175,10 +178,13 @@
     <value>暂不更新</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>安装器有更新！</value>
+    <value>有更新！</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>安装器有更新，建议更新以获取最佳使用体验。</value>
+    <value>Scarab 有更新，建议更新到最新版（v{0}）以获取最新的 bug 修复以及功能。</value>
+  </data>
+  <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
+    <value>Scarab 下载自动更新失败，将会在浏览器中打开最新版下载链接。</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
     <value>警告</value>
@@ -262,7 +268,7 @@
     <value>无效的游戏程序！</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>无效的游戏程序！</value>
+    <value>无效的游戏程序！请选择游戏 exe 文件或其快捷方式。</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>请选择包含 “hollow_knight_Data” 或 “Hollow Knight_Data” 的文件夹。</value>
@@ -358,13 +364,13 @@
     <value>点击显示完整错误信息</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>编辑配置文件</value>
+    <value>编辑 Mod 配置文件</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>正在加载最新 Mod……</value>
+    <value>正在加载 Mod 列表中的最新 Mod……</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>无法加载最新 Mod，请稍后再试。</value>
+    <value>无法从 Mod 列表加载最新 Mod。</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>可能为网络连接问题，请再试一次。</value>
@@ -412,7 +418,7 @@
     <value>拓展</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>正在下载 Mod 列表……</value>
+    <value>正在加载 Mod 列表……</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
     <value>正在等待 GitHub 响应……</value>
@@ -466,10 +472,13 @@
     <value>自动移除前置？</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>固定版本</value>
+    <value>固定</value>
+  </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>固定 Mod 以使 Scarab 不再自动替换它</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>取消固定版本</value>
+    <value>取消固定</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
     <value>无法获取 Mod 列表</value>
@@ -517,6 +526,150 @@
     <value>无效自定义 Mod 列表</value>
   </data>
   <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Scarab 无法从 {0} 加载 Mod 列表，将会加载官方 Mod 列表</value>
+    <value>Scarab 无法从 {0} 加载 Mod 列表，将会加载官方 Mod 列表。</value>
+  </data>
+  <data name="XAML_Info" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="XAML_InfoHeader" xml:space="preserve">
+    <value>Scarab+</value>
+  </data>
+  <data name="XAML_InfoBody" xml:space="preserve">
+    <value>Scarab+ 是适用于《空洞骑士》1.5 版本的 Mod 安装器，不适用于更旧版的《空洞骑士》。</value>
+  </data>
+  <data name="XAML_InfoLinksHeader" xml:space="preserve">
+    <value>相关链接</value>
+  </data>
+  <data name="XAML_InfoLinkWebsite" xml:space="preserve">
+    <value>网站\n</value>
+  </data>
+  <data name="XAML_InfoLinkGithub" xml:space="preserve">
+    <value>GitHub\n</value>
+  </data>
+  <data name="XAML_InfoLinkReadme" xml:space="preserve">
+    <value>自述文件\n</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord\n</value>
+  </data>
+  <data name="XAML_InfoLinkHKMM" xml:space="preserve">
+    <value>HK Mod\nManager</value>
+  </data>
+  <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
+    <value>另一个 Mod 安装器</value>
+  </data>
+  <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
+    <value>制作 Mod\n</value>
+  </data>
+  <data name="XAML_InfoLinkTutorial" xml:space="preserve">
+    <value>Mod\n使用教程</value>
+  </data>
+  <data name="XAML_LaunchVanilla" xml:space="preserve">
+    <value>启动原版游戏</value>
+  </data>
+  <data name="XAML_LaunchModded" xml:space="preserve">
+    <value>启动装有 Mod 的游戏</value>
+  </data>
+  <data name="XAML_OpeningGame" xml:space="preserve">
+    <value>正在启动游戏，请稍候……</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>标记为自定义版本</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>标记现版本 Mod 为 Mod 列表外的 Mod。不影响 Mod 本身，只决定 Scarab 如何处理该 Mod。被固定的列表外 Mod 将永远不会被 Scarab 替换</value>
+  </data>
+  <data name="XAML_ResetMod" xml:space="preserve">
+    <value>重置 Mod：强制重新安装 Mod 并删除配置文件</value>
+  </data>
+  <data name="XAML_Share" xml:space="preserve">
+    <value>获取 Mod 分享链接。链接会打开 Scarab 并下载该 Mod</value>
+  </data>
+  <data name="XAML_OpenFolder" xml:space="preserve">
+    <value>打开 Mod 所在的文件夹</value>
+  </data>
+  <data name="XAML_ReportBug" xml:space="preserve">
+    <value>报告该 Mod 的 bug 或问题</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
+    <value>该 Mod 是手动安装的，不在官方 Mod 列表中</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
+    <value>该版本不在 Mod 列表中</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
+    <value>无效的 URL Scheme 命令</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
+    <value>命令 {0} 无效。\nScarab 只接受以 scarab:// 开头的命令</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
+    <value>命令 {0} 无效。\n它不在 Scarab 的命令列表中。</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：重置 Scarab</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab 已重置。</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
+    <value>无法重置 Scarab。请重试。\n{0}</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：重置全部 Mod 的全局配置文件</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
+    <value>已重置全部 Mod 的全局配置文件。</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
+    <value>无法重置全部 Mod 的全局配置文件。请重试。\n{0}</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：下载 Mod</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
+    <value>无效的 Mod 下载命令</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab 已成功下载 {0}。</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
+    <value>\n然而，Scarab 无法下载 {0}。请检查命令是否正确。</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：清除 Mod 全局配置文件</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
+    <value>无效的清除 Mod 全局配置文件命令</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
+    <value>Scarab 已移除 {0} 的全局配置文件。</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
+    <value>\n然而，Scarab 无法找到 {0} 的全局配置文件。请检查 Mod 名称是否正确且已经安装。</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：强制全部更新</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab 已成功强制全部更新。</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：加载自定义 Mod 列表。</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
+    <value>已成功获取自定义 Mod 列表 \"{0}\"。</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
+    <value>未提供 Mod 列表。请重试。</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
+    <value>命令触发：加载新基础链接</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
+    <value>已获取新基础链接 \"{0}\"。</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
+    <value>未提供基础链接。请重试。</value>
   </data>
 </root>

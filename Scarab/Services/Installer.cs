@@ -390,7 +390,7 @@ namespace Scarab.Services
 
             var (data, filename) = await DownloadFile(mod.Link, setProgress);
 
-            if (string.IsNullOrEmpty(mod.Sha256))
+            if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
 
             await PlaceMod(mod, enable, filename, data);

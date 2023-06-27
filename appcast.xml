@@ -5,13 +5,13 @@
         <link>https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml</link>
         <language>en</language>
         <item>
-            <title>Scarab Update v2.0.0.0</title>
+            <title>Scarab Update v2.1.0.1</title>
             <sparkle:releaseNotesLink>
-            https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v2.0.0.0.md
+            https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v2.1.0.1.md
             </sparkle:releaseNotesLink>
-            <pubDate>Fri, 19 May 2023 00:00:00 +0000</pubDate>
-            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.0.0.0/Scarab.AU.exe"
-                       sparkle:version="2.0.0.0"
+            <pubDate>Mon, 26 Jun 2023 20:12:29 +0000</pubDate>
+            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.1.0.1/Scarab.AU.exe"
+                       sparkle:version="2.1.0.1"
                        sparkle:os="windows"
                        length="12288"
                        type="application/octet-stream"
