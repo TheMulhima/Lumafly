@@ -202,10 +202,16 @@ namespace Scarab.ViewModels
                     bool isModlinksMod = true;
                     string? originalUrl = null;
 
+                    var correspondingMod = _items.FirstOrDefault(x => x.Name == modName);
+                    
+                    // delete the corresponding mod if a custom link is provided
+                    if (isCustomInstall && correspondingMod != null)
+                        await InternalModDownload(correspondingMod, correspondingMod.OnInstall);
 
-                    var correspondingMod = _items.FirstOrDefault(x =>
-                        x.Name == modName && x.State is not NotInModLinksState { ModlinksMod: false });
-                    if (correspondingMod == null)
+                    // re get the corresponding mod because the mod might have been manually installed and hence when uninstalled removed from list
+                    correspondingMod = _items.FirstOrDefault(x => x.Name == modName);
+                    
+                    if (correspondingMod == null) // if its a manually installed mod
                     {
                         isModlinksMod = false;
                         if (url == null)
@@ -215,23 +221,25 @@ namespace Scarab.ViewModels
                             continue;
                         }
 
-                        correspondingMod = ModItem.Empty(name: modName, link: url,
-                            description: Resources.MVVM_NotInModlinks_Description);
+                        // create a new ModItem for our manually installed mod
+                        correspondingMod = ModItem.Empty(
+                            name: modName,
+                            link: url,
+                            description: Resources.MVVM_NotInModlinks_Description, 
+                            state: new NotInstalledState());
                     }
-                    else
+                    else // This is a mod that exists in modlinks
                     {
                         isModlinksMod = true;
                         originalUrl = correspondingMod.Link;
                         if (isCustomInstall)
                         {
-                            correspondingMod.Link = url ?? correspondingMod.Link;
+                            correspondingMod.Link = url ?? correspondingMod.Link; // replace with custom link if it exists
+                            
+                            // change the state from NotInModLinksState to NotInModlinks so it can skip hash check
+                            correspondingMod.State = new NotInModLinksState(ModlinksMod: true);
+                            
                         }
-                    }
-
-                    // delete mods that have custom links provided so it can be downloaded correctly
-                    if (isCustomInstall && correspondingMod.State is ExistsModState)
-                    {
-                        await OnInstall(correspondingMod);
                     }
 
                     switch (correspondingMod.State)
@@ -250,7 +258,7 @@ namespace Scarab.ViewModels
 
                     if (isCustomInstall)
                     {
-                        correspondingMod.Link = originalUrl ?? throw new NullReferenceException("originalUrl is null");
+                        correspondingMod.Link = originalUrl ?? "";
                         if (correspondingMod.State is ExistsModState state)
                         {
                             correspondingMod.State = new NotInModLinksState(
@@ -260,6 +268,9 @@ namespace Scarab.ViewModels
                             
                             // ensure the state is correctly recorded
                             await _mods.RecordInstalledState(correspondingMod);
+                            correspondingMod.FindSettingsFile(_settingsFinder);
+                        
+                            FixupModList(correspondingMod);
                         }
                         else
                         {
