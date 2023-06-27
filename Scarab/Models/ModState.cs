@@ -36,9 +36,22 @@ namespace Scarab.Models
 
     public record NotInstalledState(bool Installing = false) : ModState;
 
+    /// <summary>
+    /// Mods that are not installed, but are in modlinks.xml file.
+    /// </summary>
     public record NotInModLinksState : ExistsModState
     {
+        /// <summary>
+        /// A helper bool to indicate whether a custom mod has been uninstalled and needs to be removed from the list
+        /// Defaults to always being true except after being uninstalled.
+        /// </summary>
         public bool Installed { get; init; }
+        
+        /// <summary>
+        /// This specifies whether or not the mod has a corresponding modlinks entry.
+        /// If set to false, this is a completely custom mod.
+        /// If set to true, this is a mod that is in modlinks but is currently a custom non modlinks version of it is installed
+        /// </summary>
         public bool ModlinksMod { get; init; }
 
         public NotInModLinksState(bool ModlinksMod, bool Enabled = true, bool Installed = true, bool Pinned = false)
