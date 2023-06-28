@@ -65,10 +65,10 @@
                      HorizontalAlignment="Right">
 
         <Button Content="Yes"
-                Name="YesButton"
+				Click="Close_Yes"
                 Margin="0 0 15 0"/>
         <Button Content="No"
-                Name="NoButton"
+				Click="Close_No"
                 IsCancel="True"/>
 
       </StackPanel>
