@@ -1,4 +1,7 @@
+using System.Windows.Input;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 
@@ -9,9 +12,10 @@ namespace Scarab.Views.Windows
         public UninstallDependenciesConfirmationWindow()
         {
             InitializeComponent();
-            YesButton.Command = ReactiveCommand.Create(() => Close(true));
-            NoButton.Command = ReactiveCommand.Create(() => Close(false));
         }
+        
+        public void Close_Yes(object sender, RoutedEventArgs args) => Close(true);
+        public void Close_No(object sender, RoutedEventArgs args) => Close(false);
 
         private void InitializeComponent()
         {
