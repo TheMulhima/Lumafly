@@ -228,7 +228,8 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
               .AddSingleton<SettingsViewModel>()
-              .AddSingleton<InfoViewModel>();
+              .AddSingleton<InfoViewModel>()
+              .AddSingleton<PackManagerViewModel>();
             
             Trace.WriteLine("Building service provider");
             ServiceProvider sp = sc.BuildServiceProvider(new ServiceProviderOptions
@@ -242,6 +243,7 @@ namespace Scarab.ViewModels
             {
                 new(sp.GetRequiredService<InfoViewModel>(), Resources.XAML_Info, false),
                 new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
+                new(sp.GetRequiredService<PackManagerViewModel>(), Resources.XAML_Packs, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = 0;

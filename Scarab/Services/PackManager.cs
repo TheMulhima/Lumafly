@@ -32,7 +32,7 @@ public class PackManager : IPackManager
     /// </summary>
     private readonly SortableObservableCollection<Pack> _packList;
     
-    public IEnumerable<Pack> PackList => _packList;
+    public SortableObservableCollection<Pack> PackList => _packList;
 
     private const string packInfoFileName = "packMods.json";
 
@@ -70,8 +70,8 @@ public class PackManager : IPackManager
 
             try
             {
-                var pack = JsonSerializer.Deserialize<Pack>(packInfo) ?? throw new NullReferenceException();
-                if (pack.Name == folder) // only add packs with same name as folder
+                var pack = JsonSerializer.Deserialize<Pack>(File.ReadAllText(packInfo));
+                if (pack?.Name == folder) // only add packs with same name as folder
                     packs.Add(pack);
             }
             catch (Exception e)

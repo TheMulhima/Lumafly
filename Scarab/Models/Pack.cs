@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Scarab.Services;
 
 namespace Scarab.Models;
@@ -22,4 +23,12 @@ public record Pack(string Name, string Description, InstalledMods InstalledMods)
     /// The description of the pack
     /// </summary>
     public string Description { get; set; } = Description;
+
+    public string? SharingCode { get; set; }
+    
+    public bool HasSharingCode => !string.IsNullOrEmpty(SharingCode);
+    
+    public string ModList => InstalledMods.Mods.Keys
+        .Concat(InstalledMods.NotInModlinksMods.Keys.Select(x => $"{x} ({Resources.MVVM_NotInModlinks_Disclaimer})"))
+        .Aggregate("", (x, y) => x + y + "\n");
 }

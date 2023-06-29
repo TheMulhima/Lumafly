@@ -672,4 +672,34 @@
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
     <value>No baselink were provided. Please try again</value>
   </data>
+  <data name="XAML_SharingCode" xml:space="preserve">
+    <value>Sharing Code:</value>
+  </data>
+  <data name="XAML_GenerateSharingCode" xml:space="preserve">
+    <value>Generate sharing code</value>
+  </data>
+  <data name="XAML_EditPack" xml:space="preserve">
+    <value>Edit pack</value>
+  </data>
+  <data name="XAML_DeletePack" xml:space="preserve">
+    <value>Delete pack</value>
+  </data>
+  <data name="XAML_CreateNewPack" xml:space="preserve">
+    <value>Create new pack</value>
+  </data>
+  <data name="XAML_ImportPack" xml:space="preserve">
+    <value>Import pack</value>
+  </data>
+  <data name="XAML_Packs" xml:space="preserve">
+    <value>Packs</value>
+  </data>
+  <data name="XAML_LoadPack" xml:space="preserve">
+    <value>Load Pack</value>
+  </data>
+  <data name="XAML_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="XAML_ModsInPack" xml:space="preserve">
+    <value>Mods In Pack:</value>
+  </data>
 </root>

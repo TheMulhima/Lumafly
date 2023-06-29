@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Scarab.Models;
+using Scarab.Util;
 
 namespace Scarab.Interfaces;
 
 public interface IPackManager
 {
-   public IEnumerable<Pack> PackList { get; }
+   public SortableObservableCollection<Pack> PackList { get; }
    
    Task LoadPack(string packName);
 
