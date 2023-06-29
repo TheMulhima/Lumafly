@@ -44,6 +44,11 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
         };
     }
+
+    public void SetCommand(UrlSchemeCommands arg)
+    {
+        UrlSchemeCommand = arg;
+    }
     
     public void SetCommand(string arg)
     {
