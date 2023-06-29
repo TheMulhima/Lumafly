@@ -283,7 +283,7 @@ namespace Scarab.ViewModels
             {
                 var mods = urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
                 if (mods.Count == 0) return "None";
-                var list = "\n";
+                var list = "\n\n";
                 foreach (var (mod, url) in mods)
                 {
                     list += mod;
