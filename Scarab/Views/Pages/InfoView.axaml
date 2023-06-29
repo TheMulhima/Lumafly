@@ -20,7 +20,9 @@
                 HorizontalAlignment="Center"
                 Margin="0 10 0 20"/>
             
-            <TextBlock
+            <TextBox
+                BorderThickness="0"
+                IsReadOnly="True"
                 Text="{ext:Localize XAML_InfoBody}"
                 FontSize="16"
                 TextWrapping="Wrap"

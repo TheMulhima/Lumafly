@@ -49,7 +49,9 @@
 				<ScrollViewer
 					MinHeight="100"
 					MaxHeight="200">
-					<TextBlock
+					<TextBox
+						BorderThickness="0"
+						IsReadOnly="True"
 						Text="{Binding UrlSchemePromptText}"
 						FontSize="14"
 						TextWrapping="Wrap"/>
