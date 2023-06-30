@@ -42,9 +42,12 @@ namespace Scarab.ViewModels
 
         private static bool isFirstLoad { get; set; } = true;
         public static MainWindowViewModel? Instance { get; private set; }
+        
+        [Notify]
+        private LoadingViewModel _loadingPage { get; set; }
 
         [UsedImplicitly]
-        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? new LoadingViewModel() : Tabs[SelectedTabIndex].Item;
+        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? LoadingPage : Tabs[SelectedTabIndex].Item;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
@@ -62,11 +65,13 @@ namespace Scarab.ViewModels
 
         private async Task Impl()
         {
+            LoadingPage = new LoadingViewModel();
+            
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             
             var urlSchemeHandler = new UrlSchemeHandler(handled: !isFirstLoad);
 
-            HandleURLSchemeCommand(urlSchemeHandler);
+            await HandleURLSchemeCommand(urlSchemeHandler);
 
             Trace.WriteLine("Checking if up to date...");
             
@@ -250,12 +255,48 @@ namespace Scarab.ViewModels
             Trace.WriteLine("Selected Tab 0");
         }
 
-        private void HandleURLSchemeCommand(IUrlSchemeHandler urlSchemeHandler)
+        private async Task HandleURLSchemeCommand(IUrlSchemeHandler urlSchemeHandler)
         {
             var args = Environment.GetCommandLineArgs();
             if (args.Length == 2) // only accept 2 args, the exe location and the uri 
             {
                 urlSchemeHandler.SetCommand(args[1]);
+            }
+
+            if (!urlSchemeHandler.Handled && urlSchemeHandler.UrlSchemeCommand != UrlSchemeCommands.none)
+            {
+                var prompt = urlSchemeHandler.UrlSchemeCommand switch
+                {
+                    UrlSchemeCommands.download                    => $"Download the following mods: {GetListOfMods()}",
+                    UrlSchemeCommands.reset                       => $"Reset Scarab's persistent settings",
+                    UrlSchemeCommands.forceUpdateAll              => $"Reinstall all mods which could help fix issues that happened because mods are not downloaded correctly.",
+                    UrlSchemeCommands.customModLinks              => $"Load a custom mod list from: {urlSchemeHandler.Data}",
+                    UrlSchemeCommands.baseLink                    => $"Load Modlinks and APILinks from: {urlSchemeHandler.Data}",
+                    UrlSchemeCommands.removeAllModsGlobalSettings => $"Reset all mods' global settings",
+                    UrlSchemeCommands.removeGlobalSettings        => $"Remove global settings for the following mods: {GetListOfMods()}",
+                    _ => ""
+                };
+                bool accepted = await LoadingPage.ShowUrlSchemePrompt(prompt);
+
+                if (!accepted) urlSchemeHandler.SetCommand(UrlSchemeCommands.none);
+            }
+            
+            
+            string GetListOfMods()
+            {
+                var mods = urlSchemeHandler.ParseDownloadCommand(urlSchemeHandler.Data);
+                if (mods.Count == 0) return "None";
+                var list = "\n\n";
+                foreach (var (mod, url) in mods)
+                {
+                    list += mod;
+                    if (url is not null)
+                        list += $" ({Resources.MVVM_NotInModlinks_Disclaimer}),\n";
+                    else
+                        list += ",\n";
+                }
+
+                return list;
             }
         }
 

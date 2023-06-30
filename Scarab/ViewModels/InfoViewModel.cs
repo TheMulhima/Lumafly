@@ -2,9 +2,13 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
 using Scarab.Models;
+using Scarab.Services;
 using Scarab.Util;
 
 namespace Scarab.ViewModels;
@@ -14,16 +18,23 @@ public partial class InfoViewModel : ViewModelBase
     private readonly IInstaller _installer;
     private readonly IModSource _modSource;
     private readonly ISettings _settings;
+    private readonly HttpClient _hc;
     
     [Notify]
     private bool _isLaunchingGame;
+    [Notify]
+    private string _additionalInfo = "";
+    [Notify]
+    private bool _additionalInfoVisible;
     
-    public InfoViewModel(IInstaller installer, IModSource modSource ,ISettings settings)
+    public InfoViewModel(IInstaller installer, IModSource modSource ,ISettings settings, HttpClient hc)
     {
         Trace.WriteLine("Initializing InfoViewModel");
         _installer = installer;
         _modSource = modSource;
         _settings = settings;
+        _hc = hc;
+        Task.Run(FetchAdditionalInfo);
     }
     public void OpenLink(object link) => Process.Start(new ProcessStartInfo((string)link) { UseShellExecute = true });
 
@@ -116,5 +127,23 @@ public partial class InfoViewModel : ViewModelBase
         string exePath = hkExeFolder.FullName;
 
         return (exePath, exeName);
+    }
+
+    public async Task FetchAdditionalInfo()
+    {
+        const string additionalInfoLink = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AdditionalInfo.md";
+        try
+        {
+            AdditionalInfo = await _hc.GetStringAsync(
+                new Uri(additionalInfoLink),
+                new CancellationTokenSource(ModDatabase.TIMEOUT).Token);
+            
+            if (!string.IsNullOrEmpty(AdditionalInfo)) 
+                AdditionalInfoVisible = true;
+        }
+        catch (Exception)
+        {
+            // ignored not important
+        }
     }
 }

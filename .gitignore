@@ -346,3 +346,4 @@ ASALocalRun/
 healthchecksdb
 *.exe
 *.zip
+.vscode/settings.json

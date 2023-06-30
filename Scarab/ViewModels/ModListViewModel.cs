@@ -245,11 +245,11 @@ namespace Scarab.ViewModels
                     switch (correspondingMod.State)
                     {
                         case NotInstalledState:
-                            await OnInstall(correspondingMod);
+                            await InternalModDownload(correspondingMod, correspondingMod.OnInstall);
                             break;
                         case InstalledState { Updated: false }:
                         case NotInModLinksState { ModlinksMod: true }:
-                            await OnUpdate(correspondingMod);
+                            await InternalModDownload(correspondingMod, correspondingMod.OnUpdate);
                             break;
                         case InstalledState { Enabled: false }:
                             await OnEnable(correspondingMod);

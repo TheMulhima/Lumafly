@@ -1,8 +1,23 @@
 # Changelogs
 
+- [v2.2.0.0](#changes-in-v2200)
 - [v2.1.0.0](#changes-in-v2100)
 - [v2.0.0.0](#changes-in-v2000)
 
+## Changes in v2.2.0.0
+
+- Additional Features
+  - Add confirmation prompt for url scheme commands.
+  - Add additional info that can be changed without needing update.
+
+- Bug Fixes
+  - Correct SHA256 checking when downloading from modlinks.
+  - Fix handling of download url scheme when custom links provided.
+  - Fix crash that happens on auto uninstall dependencies confimation window.
+
+- Credits
+  - [TheMulhima](https://github.com/TheMulhima) - All the changes.
+  
 ## Changes in v2.1.0.0
 
 - Additional Features
@@ -11,7 +26,7 @@
   - Add mod actions panel, a set of buttons in the mod's expander that allow you to
     - Get shareable link of that mod.
     - Reset the mod.
-    - Report an error in the mod. 
+    - Report an error in the mod.
     - Open the folder of the mod.
     - Edit the mod's global settings file.
   - Sort mods in whats new tab by date.
