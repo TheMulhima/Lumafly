@@ -10,7 +10,7 @@ if (link === null || link === undefined || link === "") {
   document.body.appendChild(error);
   document.body.appendChild(example);
 } else {
-  if (link.startsWith("scarab://")) {
+  if (link.startsWith("scarab://") || link.startsWith("steam://")) {
     document.getElementById("message").innerHTML = link;
     openLink(link);
   } else {
