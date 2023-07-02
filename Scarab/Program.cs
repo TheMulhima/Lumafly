@@ -34,12 +34,18 @@ namespace Scarab
         {
             //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             
+            Console.WriteLine("Starting Scarab...");
+            
             SetupLogging();
             
+            Console.WriteLine("Logging sucessfully setup...");
+            
             UrlSchemeHandler.Setup();
-
+            
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
             PosixSignalRegistration.Create(PosixSignal.SIGINT, Handler);
+            
+            Console.WriteLine("Starting Avalonia Setup...");
             
             try
             {
@@ -60,19 +66,31 @@ namespace Scarab
                 Settings.GetOrCreateDirPath(),
                 LoggingFile
             );
-
-            // if the log file is too big, archive it
-            if (File.Exists(logFile))
+            
+            try
             {
-                if (new FileInfo(logFile).Length > 5 * 1024 * 1024) // if size > 5 MB
+                // if the log file is too big, archive it
+                if (File.Exists(logFile) && new FileInfo(logFile).Length > 5 * 1024 * 1024) // if size > 5 MB
                 {
                     var newFile = Path.Combine(Settings.GetOrCreateDirPath(),
                         $"{LoggingFileName} ({DateTime.Now:dd/MM/yyyy, HH-mm-ss}){LoggingFileExtension}");
-                    
+
                     if (File.Exists(newFile)) File.Delete(newFile);
-                    
+
                     // save the old log file
                     File.Move(logFile, newFile);
+                }
+            }
+            catch (Exception)
+            {
+                // if it fails, just delete old file
+                try
+                {
+                    if (File.Exists(logFile)) File.Delete(logFile);
+                }
+                catch (Exception)
+                {
+                    // if it fails again, just give up
                 }
             }
 
