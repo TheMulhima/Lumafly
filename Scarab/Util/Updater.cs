@@ -13,6 +13,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
+using MsBox.Avalonia.Dto;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;
 using NetSparkleUpdater.SignatureVerifiers;
@@ -209,7 +210,7 @@ public static class Updater
                     ContentMessage = string.Format(Resources.MWVM_OutOfDate_Message, version),
                     SizeToContent = SizeToContent.WidthAndHeight
                 }
-            ).Show();
+            ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
             if (res == Resources.MWVM_OutOfDate_GetLatest)
             {
                 Process.Start(new ProcessStartInfo(links.Value.updateLink) { UseShellExecute = true });

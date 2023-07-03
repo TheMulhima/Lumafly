@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Threading;
 using JetBrains.Annotations;
-using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +20,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using Scarab.Enums;
 using FileSystem = System.IO.Abstractions.FileSystem;
@@ -136,7 +136,7 @@ namespace Scarab.ViewModels
                             Resources.MVVM_InvalidCustomModlinks_Header,
                             string.Format(Resources.MVVM_InvalidCustomModlinks_Body, settings.CustomModlinksUri),
                             icon: Icon.Error
-                        ).Show();
+                        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     }
                 }
 
@@ -182,7 +182,7 @@ namespace Scarab.ViewModels
                         title: Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title,
                         text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp),
                         icon: Icon.Error
-                    ).Show();
+                    ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     throw;
                 }
 
@@ -193,7 +193,7 @@ namespace Scarab.ViewModels
                           $"{Resources.MVVM_LaunchOfflineMode}",
                     icon: Icon.Warning,
                     @enum: ButtonEnum.YesNo
-                ).Show() == ButtonResult.Yes;
+                ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow()) == ButtonResult.Yes;
 
                 if (!offlineMode) throw;
 
@@ -467,7 +467,7 @@ namespace Scarab.ViewModels
                             text: $"Scarab cannot run without being able to access {InstalledMods.ConfigPath}.\n" +
                                   $"Please close any other apps that could be using that" + additionalInfo,
                             icon: Icon.Error
-                        ).Show();
+                        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     }
                 }
             }
@@ -490,7 +490,7 @@ namespace Scarab.ViewModels
                     // ensure that the message doesn't get cut off 
                     MinWidth = 550
                 }
-            ).Show();
+            ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
             return Settings.Create(await GetSettingsPath());
         }
@@ -499,7 +499,7 @@ namespace Scarab.ViewModels
         {
             if (!Settings.TryAutoDetect(out ValidPath? path))
             {
-                IMsBoxWindow<ButtonResult> info = MessageBoxUtil.GetMessageBoxStandardWindow
+                var info = MessageBoxUtil.GetMessageBoxStandardWindow
                 (
                     new MessageBoxStandardParams
                     {
@@ -509,14 +509,14 @@ namespace Scarab.ViewModels
                     }
                 );
 
-                await info.Show();
+                await info.ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                 
                 return await PathUtil.SelectPath();
             }
 
             Trace.WriteLine($"Settings doesn't exist. Creating it at detected path {path}.");
 
-            IMsBoxWindow<ButtonResult> window = MessageBoxUtil.GetMessageBoxStandardWindow
+            var window = MessageBoxUtil.GetMessageBoxStandardWindow
             (
                 new MessageBoxStandardParams
                 {
@@ -526,7 +526,7 @@ namespace Scarab.ViewModels
                 }
             );
 
-            ButtonResult res = await window.Show();
+            ButtonResult res = await window.ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
             return res == ButtonResult.Yes
                 ? Path.Combine(path.Root, path.Suffix)
@@ -536,6 +536,7 @@ namespace Scarab.ViewModels
         public MainWindowViewModel()
         {
             Instance = this;
+            _loadingPage = new LoadingViewModel();
             LoadApp();
             Trace.WriteLine("Loaded app");
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=

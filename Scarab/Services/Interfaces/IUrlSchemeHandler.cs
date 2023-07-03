@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using Scarab.Enums;
 
 namespace Scarab.Interfaces;

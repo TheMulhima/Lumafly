@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using MessageBox.Avalonia.DTO;
 using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -222,7 +223,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (Handled) return;
         
         Handled = true;
-        await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+        await MessageBoxUtil.GetMessageBoxStandardWindow(param).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
     }
     
     public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)

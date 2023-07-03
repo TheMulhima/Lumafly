@@ -14,6 +14,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -21,7 +22,6 @@ using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
-using Icon = MessageBox.Avalonia.Enums.Icon;
 
 namespace Scarab.ViewModels
 {
@@ -801,7 +801,7 @@ namespace Scarab.ViewModels
                     ButtonDefinitions = ButtonEnum.YesNo,
                     MinHeight = 200,
                     SizeToContent = SizeToContent.WidthAndHeight,
-                }).Show();
+                }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
                 if (res == ButtonResult.Yes)
                     proc.Kill();

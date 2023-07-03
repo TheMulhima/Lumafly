@@ -5,11 +5,13 @@
         xmlns:ext="clr-namespace:Scarab.Extensions"
         xmlns:customControls="clr-namespace:Scarab.Views.Controls"
         xmlns:vm="clr-namespace:Scarab.ViewModels"
+        xmlns:models="clr-namespace:Scarab.Models"
         mc:Ignorable="d" d:DesignWidth="500"
         x:DataType="vm:UninstallDependenciesConfirmationWindowViewModel"
         x:Class="Scarab.Views.Windows.UninstallDependenciesConfirmationWindow"
         Title="{ext:Localize XAML_UninstallDependencies_Title}"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        x:CompileBindings="True">
   
   <Window.Styles>
     <Style Selector="Button">
@@ -20,7 +22,7 @@
   <Grid ColumnDefinitions="65, Auto">
     <Image Grid.Row="0" Grid.Column="0" Margin="0 5 0 0"
                VerticalAlignment="Top"
-               Source="avares://MessageBox.Avalonia/Assets/stop.png"/>
+               Source="../../Assets/stop.png"/>
     <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="5,*,15"
           RowDefinitions="15,Auto,Auto,Auto,15">
 
@@ -43,18 +45,16 @@
               <Button Content="{ext:Localize XAML_ModsFilter_All}" Command="{Binding ToggleAll}" CommandParameter="True" MinWidth="40"></Button>
               <Button Content="{ext:Localize XAML_None}" Command="{Binding ToggleAll}" CommandParameter="False" MinWidth="40"></Button>
             </StackPanel>
-
             <ScrollViewer Margin="0 5 0 0" MaxHeight="300">
-              <ItemsControl ItemsSource="{Binding Options}">
-                <ItemsControl.ItemTemplate>
+              <ItemsRepeater ItemsSource="{Binding Options}">
+                <ItemsRepeater.ItemTemplate>
                   <DataTemplate>
-                    <customControls:MenuCheckBox Margin="0 5 0 0"
-                              
-                              IsSelected="{Binding IsSelected}"
-                              Header="{Binding DisplayName}"/>
+                   <customControls:MenuCheckBox Margin="0 5 0 0"
+                              IsSelected="{ReflectionBinding IsSelected}"
+                              Header="{ReflectionBinding DisplayName}"/>
                   </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
+                </ItemsRepeater.ItemTemplate>
+              </ItemsRepeater>
             </ScrollViewer>
           </StackPanel>
         </Expander>
