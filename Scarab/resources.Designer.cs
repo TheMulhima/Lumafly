@@ -960,6 +960,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ask.
+        /// </summary>
+        internal static string XAML_Ask {
+            get {
+                return ResourceManager.GetString("XAML_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask for help.
         /// </summary>
         internal static string XAML_AskForHelp {

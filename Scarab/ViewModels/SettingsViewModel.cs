@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
@@ -37,6 +39,13 @@ namespace Scarab.ViewModels
             
             Trace.WriteLine("SettingsViewModel Initialized");
         }
+        
+        private readonly Dictionary<AutoRemoveUnusedDepsOptions, string> LocalizedAutoRemoveDepsOptions = new()
+        {
+            { AutoRemoveUnusedDepsOptions.Never, Resources.XAML_Off },
+            { AutoRemoveUnusedDepsOptions.Ask, Resources.XAML_Ask },
+            { AutoRemoveUnusedDepsOptions.Always, Resources.XAML_On }
+        };
 
         public void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
         {
@@ -44,38 +53,37 @@ namespace Scarab.ViewModels
             _settings.Save();
         }
 
-        public string WarnBeforeRemovingDependents
+        public bool WarnBeforeRemovingDependents
         {
-            get => _settings.WarnBeforeRemovingDependents ? "Yes" : "No";
+            get => _settings.WarnBeforeRemovingDependents;
             set
             {
-                _settings.WarnBeforeRemovingDependents = value == "Yes";
+                _settings.WarnBeforeRemovingDependents = value;
                 _settings.Save();
+                RaisePropertyChanged(nameof(WarnBeforeRemovingDependents));
             }
         }
 
-        public ObservableCollection<string> AutoRemoveDepsOptions => new (Enum.GetNames<AutoRemoveUnusedDepsOptions>());
+        public ObservableCollection<string> AutoRemoveDepsOptions => new (LocalizedAutoRemoveDepsOptions.Values);
 
         public string AutoRemoveDepSelection
         {
-            get => _settings.AutoRemoveUnusedDeps.ToString();
+            get => LocalizedAutoRemoveDepsOptions[_settings.AutoRemoveUnusedDeps];
             set
             {
-                _settings.AutoRemoveUnusedDeps = Enum.Parse<AutoRemoveUnusedDepsOptions>(value);
+                _settings.AutoRemoveUnusedDeps = LocalizedAutoRemoveDepsOptions.First(x => x.Value == value).Key;
                 _settings.Save();
             }
         }
-
-        public bool UsingCustomModlinks => UseCustomModlinks == "Yes";
-        public string UseCustomModlinks
+        
+        public bool UseCustomModlinks
         {
-            get => _settings.UseCustomModlinks ? "Yes" : "No";
+            get => _settings.UseCustomModlinks;
             set
             {
-                _settings.UseCustomModlinks = value == "Yes";
+                _settings.UseCustomModlinks = value;
                 _settings.Save();
                 RaisePropertyChanged(nameof(UseCustomModlinks));
-                RaisePropertyChanged(nameof(UsingCustomModlinks));
                 RaisePropertyChanged(nameof(AskForReload));
             }
         }

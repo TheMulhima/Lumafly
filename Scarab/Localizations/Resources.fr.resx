@@ -252,6 +252,9 @@
   <data name="XAML_Off" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Consulter</value>
+  </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Mettre à jour</value>
   </data>

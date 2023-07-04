@@ -13,7 +13,7 @@
 	<Grid
 		Margin="20 10"
 		ColumnDefinitions="Auto * Auto"
-		RowDefinitions="Auto Auto Auto Auto Auto *">
+		RowDefinitions="Auto Auto Auto Auto Auto Auto *">
 		
 		<TextBlock
 			Grid.Column="0"
@@ -29,7 +29,7 @@
 			VerticalAlignment="Center"/>
 		<TextBlock
 			Grid.Column="0"
-			Grid.Row="4"
+			Grid.Row="5"
 			Margin="0 15"
 			VerticalAlignment="Center"
 			Text="{ext:Localize XAML_GamePath}"/>
@@ -49,18 +49,20 @@
 			VerticalAlignment="Center"
 			ItemsSource="{Binding AutoRemoveDepsOptions}"
 			SelectedItem="{Binding AutoRemoveDepSelection}"/>
-		<ComboBox
+		
+		<ToggleSwitch
 			Grid.Column="1"
 			Grid.Row="1"
 			Margin="10 0 5 0"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
-			ItemsSource="{Binding YesNo}"
-			SelectedItem="{Binding WarnBeforeRemovingDependents}"/>
-		
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding WarnBeforeRemovingDependents}"
+			/>
 		<TextBox
 			Grid.Column="1"
-			Grid.Row="4"
+			Grid.Row="5"
 			Text="{Binding CurrentPath}"
 			AcceptsReturn="False"
 			IsReadOnly="True"
@@ -68,21 +70,22 @@
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Center"/>
 		
-		<ComboBox
+		<ToggleSwitch
 			Grid.Column="1"
 			Grid.Row="2"
-			ItemsSource="{Binding YesNo}"
-			SelectedItem="{Binding UseCustomModlinks}"
-			MaxHeight="40"
 			Margin="10 0 5 0"
 			HorizontalAlignment="Left"
-			VerticalAlignment="Center"/>
+			VerticalAlignment="Center"
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding UseCustomModlinks}"
+		/>
 		<TextBox
 			Grid.Column="0"
 			Grid.ColumnSpan="2"
 			Grid.Row="3"
 			Margin="0 0 5 15"
-			IsVisible="{Binding UsingCustomModlinks}"
+			IsVisible="{Binding UseCustomModlinks}"
 			HorizontalAlignment="Stretch"
 			Watermark="{ext:Localize XAML_CustomModlinksWatermark}"
 			UseFloatingWatermark="True"
@@ -96,11 +99,11 @@
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
 			Margin="5 0 5 10"
-			IsVisible="{Binding UsingCustomModlinks}"
+			IsVisible="{Binding UseCustomModlinks}"
 			ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}" ToolTip.ShowDelay="0"/>
 		<Button
 			Grid.Column="2"
-			Grid.Row="4"
+			Grid.Row="5"
 			Padding="20 5"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
@@ -111,7 +114,7 @@
 		
 		<Button
 			Grid.Column="2"
-			Grid.Row="5"
+			Grid.Row="6"
 			Padding="20 5"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Bottom"
@@ -120,7 +123,7 @@
 			Content="{ext:Localize XAML_ReloadScarab}"/>
 		<TextBlock
 				Grid.Column="1"
-				Grid.Row="5"
+				Grid.Row="6"
 				IsVisible="{Binding AskForReload}"
 				FontSize="10"
 				VerticalAlignment="Bottom"
