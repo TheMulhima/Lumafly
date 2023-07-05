@@ -675,4 +675,7 @@
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
     <value>Aucun baselink n'a été fourni. Veuillez réessayer</value>
   </data>
+  <data name="XAML_Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
 </root>

@@ -5,7 +5,6 @@ using Scarab.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -28,6 +27,7 @@ namespace Scarab
         public bool UseCustomModlinks { get; set; }
         public string CustomModlinksUri { get; set; } = string.Empty;
         public string BaseLink { get; set; } = ModDatabase.DEFAULT_LINKS_BASE;
+        public SupportedLanguages? PreferredLanguage { get; set; }
 
         public bool RequiresWorkaroundClient { get; set; }
 

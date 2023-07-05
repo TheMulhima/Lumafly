@@ -13,12 +13,14 @@ using Scarab.Util;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
@@ -62,8 +64,14 @@ namespace Scarab.ViewModels
 
         [Notify]
         private bool _loading = true;
+        
+        public event Action? OnSelectTab;
 
-        private async Task Impl()
+        /// <summary>
+        /// The main function that loads the data the app needs and sets up all the services
+        /// </summary>
+        /// <param name="initialTab">The index of the tab that is shown after load is finished</param>
+        private async Task Impl(int initialTab)
         {
             LoadingPage = new LoadingViewModel();
             
@@ -248,7 +256,8 @@ namespace Scarab.ViewModels
                 new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
-            SelectedTabIndex = 0;
+            SelectedTabIndex = initialTab;
+            OnSelectTab?.Invoke();
             Trace.WriteLine("Selected Tab 0");
         }
 
@@ -543,12 +552,12 @@ namespace Scarab.ViewModels
                 (_, _) => Program.CloseTraceFile();
         }
 
-        public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
+        public void LoadApp(int initialTab = 0) => Dispatcher.UIThread.InvokeAsync(async () =>
         {
             Loading = true;
             try
             {
-                await Impl();
+                await Impl(initialTab);
             }
             catch (Exception e)
             {

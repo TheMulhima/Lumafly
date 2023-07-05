@@ -19,8 +19,8 @@
 			Grid.Column="0"
 			Grid.Row="0"
 			Margin="0 15"
-			Text="{ext:Localize XAML_AutoRemoveDeps}"
-			VerticalAlignment="Center"/>
+			VerticalAlignment="Center"
+			Text="{ext:Localize XAML_GamePath}"/>
 		<TextBlock
 			Grid.Column="0"
 			Grid.Row="1"
@@ -29,26 +29,44 @@
 			VerticalAlignment="Center"/>
 		<TextBlock
 			Grid.Column="0"
-			Grid.Row="5"
-			Margin="0 15"
-			VerticalAlignment="Center"
-			Text="{ext:Localize XAML_GamePath}"/>
-		<TextBlock
-			Grid.Column="0"
 			Grid.Row="2"
 			Margin="0 15"
 			Text="{ext:Localize XAML_UseCustomModlinks}"
 			VerticalAlignment="Center"/>
+		<!-- 3 reserved for custom modlinks text box -->
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="4"
+			Margin="0 15"
+			Text="{ext:Localize XAML_AutoRemoveDeps}"
+			VerticalAlignment="Center"/>
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="5"
+			Margin="0 15"
+			Text="{ext:Localize XAML_Language}"
+			VerticalAlignment="Center"/>
 		
-		
-		<ComboBox
+		<TextBox
 			Grid.Column="1"
 			Grid.Row="0"
+			Text="{Binding CurrentPath}"
+			AcceptsReturn="False"
+			IsReadOnly="True"
 			Margin="10 0 5 0"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Center"/>
+		
+		<Button
+			Grid.Column="2"
+			Grid.Row="0"
+			Padding="20 5"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
-			ItemsSource="{Binding AutoRemoveDepsOptions}"
-			SelectedItem="{Binding AutoRemoveDepSelection}"/>
+			HorizontalContentAlignment="Center"
+			Margin="5 0"
+			Command="{Binding ChangePath}"
+			Content="{ext:Localize XAML_ChangPath}"/>
 		
 		<ToggleSwitch
 			Grid.Column="1"
@@ -58,17 +76,7 @@
 			VerticalAlignment="Center"
 			OnContent="{ext:Localize XAML_On}"
 			OffContent="{ext:Localize XAML_Off}"
-			IsChecked="{Binding WarnBeforeRemovingDependents}"
-			/>
-		<TextBox
-			Grid.Column="1"
-			Grid.Row="5"
-			Text="{Binding CurrentPath}"
-			AcceptsReturn="False"
-			IsReadOnly="True"
-			Margin="10 0 5 0"
-			HorizontalAlignment="Stretch"
-			VerticalAlignment="Center"/>
+			IsChecked="{Binding WarnBeforeRemovingDependents}"/>
 		
 		<ToggleSwitch
 			Grid.Column="1"
@@ -91,6 +99,7 @@
 			UseFloatingWatermark="True"
 			Text="{Binding CustomModlinksUri}"
 			AcceptsReturn="False"/>
+		
 		<PathIcon
 			Grid.Column="2"
 			Grid.Row="3"
@@ -101,16 +110,26 @@
 			Margin="5 0 5 10"
 			IsVisible="{Binding UseCustomModlinks}"
 			ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}" ToolTip.ShowDelay="0"/>
-		<Button
-			Grid.Column="2"
-			Grid.Row="5"
-			Padding="20 5"
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="4"
+			Margin="10 0 5 0"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
-			HorizontalContentAlignment="Center"
-			Margin="5 0"
-			Command="{Binding ChangePath}"
-			Content="{ext:Localize XAML_ChangPath}"/>
+			MinWidth="75"
+			ItemsSource="{Binding AutoRemoveDepsOptions}"
+			SelectedItem="{Binding AutoRemoveDepSelection}"/>
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="5"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			MinWidth="75"
+			ItemsSource="{Binding LanguageOptions}"
+			SelectedItem="{Binding LanguageSelection}"/>
 		
 		<Button
 			Grid.Column="2"
@@ -121,6 +140,7 @@
 			HorizontalContentAlignment="Center"
 			Command="{Binding ReloadApp}"
 			Content="{ext:Localize XAML_ReloadScarab}"/>
+		
 		<TextBlock
 				Grid.Column="1"
 				Grid.Row="6"

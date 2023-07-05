@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using HarfBuzzSharp;
 using ReactiveUI;
 using Scarab.Enums;
 using Scarab.Interfaces;
@@ -46,6 +49,15 @@ namespace Scarab.ViewModels
             { AutoRemoveUnusedDepsOptions.Ask, Resources.XAML_Ask },
             { AutoRemoveUnusedDepsOptions.Always, Resources.XAML_On }
         };
+        
+        private readonly Dictionary<SupportedLanguages, string> LocalizedLanguageOptions = new()
+        {
+            { SupportedLanguages.en, "English" },
+            { SupportedLanguages.es, "Español" },
+            { SupportedLanguages.pt, "Português" },
+            { SupportedLanguages.fr, "Français" },
+            { SupportedLanguages.zh, "中国人" }
+        };
 
         public void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
         {
@@ -65,6 +77,7 @@ namespace Scarab.ViewModels
         }
 
         public ObservableCollection<string> AutoRemoveDepsOptions => new (LocalizedAutoRemoveDepsOptions.Values);
+        public ObservableCollection<string> LanguageOptions => new (LocalizedLanguageOptions.Values);
 
         public string AutoRemoveDepSelection
         {
@@ -73,6 +86,19 @@ namespace Scarab.ViewModels
             {
                 _settings.AutoRemoveUnusedDeps = LocalizedAutoRemoveDepsOptions.First(x => x.Value == value).Key;
                 _settings.Save();
+            }
+        }
+        
+        public string LanguageSelection
+        {
+            get => LocalizedLanguageOptions[_settings.PreferredLanguage ?? SupportedLanguages.en];
+            set
+            {
+                _settings.PreferredLanguage = LocalizedLanguageOptions.First(x => x.Value == value).Key;
+                _settings.Save();
+                Thread.CurrentThread.CurrentUICulture =
+                    new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[_settings.PreferredLanguage ?? SupportedLanguages.en]);
+                ReloadApp();
             }
         }
         
@@ -113,12 +139,12 @@ namespace Scarab.ViewModels
                                      pathOriginalValue != _settings.ManagedFolder;
 
         public string[] YesNo => new[] { "Yes", "No" };
-
+        
         public void ReloadApp()
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
             _settings.Save();
-            MainWindowViewModel.Instance?.LoadApp();
+            MainWindowViewModel.Instance?.LoadApp(2);
         }
 
         public async Task ChangePathAsync()

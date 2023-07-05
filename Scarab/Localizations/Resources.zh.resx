@@ -675,4 +675,7 @@
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
     <value>未提供基础链接。请重试。</value>
   </data>
+  <data name="XAML_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
 </root>

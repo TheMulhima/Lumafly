@@ -74,8 +74,9 @@
             
             <TabStrip Grid.Row="0" Grid.Column="4"
                       HorizontalAlignment="Center"
+                      Name="TabStrip"
                       SelectedIndex="{Binding SelectedTabIndex}"
-                      SelectionChanged="OnTabSelected"
+                      SelectionChanged="TabSelected"
                       ItemsSource="{CompiledBinding Tabs}">
 	            <TabStrip.Styles>
 		            <Style Selector="TabStripItem">

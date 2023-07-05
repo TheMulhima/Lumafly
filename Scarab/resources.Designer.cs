@@ -1221,6 +1221,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string XAML_Language {
+            get {
+                return ResourceManager.GetString("XAML_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Month.
         /// </summary>
         internal static string XAML_LastMonth {

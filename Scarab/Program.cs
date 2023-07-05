@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@ using Avalonia.Media;
 using Avalonia.Media.Fonts;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
+using Scarab.Enums;
 using Scarab.Util;
 
 namespace Scarab
@@ -32,14 +34,13 @@ namespace Scarab
         // yet and stuff might break.
         public static void Main(string[] args)
         {
-            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            
             Console.WriteLine("Starting Scarab...");
-            
             SetupLogging();
             
-            Console.WriteLine("Logging sucessfully setup...");
+            Console.WriteLine("Finding preferred language...");
+            SetPreferredLanguage();
             
+            Console.WriteLine("Logging sucessfully setup...");
             UrlSchemeHandler.Setup();
             
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
@@ -151,6 +152,33 @@ namespace Scarab
             File.WriteAllText(Path.Combine(Settings.GetOrCreateDirPath(), $"ModInstaller_Error_{date}.log"), e.ToString());
 
             Trace.Flush();
+        }
+        
+        private static void SetPreferredLanguage()
+        {
+            SupportedLanguages preferredLanguage = SupportedLanguages.en;
+            try
+            {
+                var settings = Settings.Load() ?? throw new NullReferenceException();
+                if (settings.PreferredLanguage != null)
+                {
+                    preferredLanguage = settings.PreferredLanguage.Value;
+                }
+                else
+                {
+                    var culture = Thread.CurrentThread.CurrentUICulture;
+                    // if culture is supported, set that as preferred
+                    if (Enum.TryParse(culture.TwoLetterISOLanguageName, out preferredLanguage))
+                        settings.PreferredLanguage = preferredLanguage;
+                }
+            }
+            catch (Exception)
+            {
+                preferredLanguage = SupportedLanguages.en;
+            }
+
+            Thread.CurrentThread.CurrentUICulture =
+                new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[preferredLanguage]);
         }
 
         private static void SetCultureSpecificFontOptions(AppBuilder builder, string culture, string fontFamily) {
