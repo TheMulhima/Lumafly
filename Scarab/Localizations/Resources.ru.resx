@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Array_Sep" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="MI_InstallText_Installed" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MI_InstallText_NotInstalled" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
+    <value>Отключить API</value>
+  </data>
+  <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
+    <value>Включить API</value>
+  </data>
+  <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
+    <value>Переключить API</value>
+  </data>
+  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
+    <value>Повторно откройте установщик, чтобы использовать новый путь.</value>
+  </data>
+  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
+    <value>Путь Изменён!</value>
+  </data>
+  <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
+    <value>Хэш загрузки для {0} ({1}) не соответствует заданной подписи ({2}). Либо он повреждён, либо введена неверная информация.</value>
+  </data>
+  <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
+    <value>Несоответствие Хэша!</value>
+  </data>
+  <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
+    <value>Не удалось загрузить {0}! Возможно, сайт не работает или у вас отсутствует подключение к сети.</value>
+  </data>
+  <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
+    <value>Ошибка Сети</value>
+  </data>
+  <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
+    <value>Hollow Knight открыт! Это может привести к проблемам при установке модов. Закрыть Hollow Knight?</value>
+  </data>
+  <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
+    <value>Внимание!</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
+    <value>произошёл сбой с ошибкой HTTP {0}</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
+    <value>Не удаётся получить список модов из modlinks, операция {0}</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
+    <value>превышено время ожидания. Пожалуйста, проверьте подключение к Интернету и повторите попытку</value>
+  </data>
+  <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
+    <value>Обновить до последней версии</value>
+  </data>
+  <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
+    <value>Всё равно продолжить.</value>
+  </data>
+  <data name="MWVM_OutOfDate_Title" xml:space="preserve">
+    <value>Устарело!</value>
+  </data>
+  <data name="MWVM_OutOfDate_Message" xml:space="preserve">
+    <value>У Scarab появилось новое обновление. Пожалуйста, загрузите новейшую версию (v{0}), чтобы получить последние исправления ошибок и функции.</value>
+  </data>
+  <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
+    <value>Scarab не удалось автоматически загрузить обновление. Scarab откроет ссылку для получения последней версии</value>
+  </data>
+  <data name="MWVM_Warning" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+  <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
+    <value>Сохранённый путь Hollow Knight недействителен, пожалуйста, введите допустимый путь.</value>
+  </data>
+  <data name="MWVM_Info" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
+    <value>Не удаётся найти установочную папку Hollow Knight. Пожалуйста, выберите её.</value>
+  </data>
+  <data name="MWVM_DetectedPath_Title" xml:space="preserve">
+    <value>Обнаруженный путь!</value>
+  </data>
+  <data name="MWVM_DetectedPath_Message" xml:space="preserve">
+    <value>Обнаружен установщик Hollow Knight в {0}. Она верна?</value>
+  </data>
+  <data name="XAML_ChangPath" xml:space="preserve">
+    <value>Изменить Путь</value>
+  </data>
+  <data name="XAML_Dependencies" xml:space="preserve">
+    <value>Зависимости:</value>
+  </data>
+  <data name="XAML_Donate" xml:space="preserve">
+    <value>Пожертвование</value>
+  </data>
+  <data name="XAML_ModsFilter_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
+    <value>Включённые</value>
+  </data>
+  <data name="XAML_ModsFilter_Installed" xml:space="preserve">
+    <value>Установленные</value>
+  </data>
+  <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
+    <value>Устаревшие</value>
+  </data>
+  <data name="XAML_OpenMods" xml:space="preserve">
+    <value>Открыть Mods</value>
+  </data>
+  <data name="XAML_Repository" xml:space="preserve">
+    <value>Репозиторий и Readme:</value>
+  </data>
+  <data name="XAML_SearchMark" xml:space="preserve">
+    <value>Найти мод</value>
+  </data>
+  <data name="XAML_UpdateAPI" xml:space="preserve">
+    <value>Обновить API</value>
+  </data>
+  <data name="XAML_Version" xml:space="preserve">
+    <value>Версия:</value>
+  </data>
+  <data name="XAML_Integrations" xml:space="preserve">
+    <value>Интеграции:</value>
+  </data>
+  <data name="XAML_Tags" xml:space="preserve">
+    <value>Теги:</value>
+  </data>
+  <data name="XAML_On" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="XAML_Off" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="XAML_Update" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="PU_NoSelect" xml:space="preserve">
+    <value>Путь не был выбран!</value>
+  </data>
+  <data name="PU_NoSelectMac" xml:space="preserve">
+    <value>Ни одна заявка не была выбрана!</value>
+  </data>
+  <data name="PU_InvalidPathHeader" xml:space="preserve">
+    <value>Недействительный путь Hollow Knight!</value>
+  </data>
+  <data name="PU_InvalidAppHeader" xml:space="preserve">
+    <value>Недействительное приложение Hollow Knight!</value>
+  </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>Недействителньый Hollow Knight exe! Пожалуйста, выберите hollow knight exe или ярлык</value>
+  </data>
+  <data name="PU_InvalidPath" xml:space="preserve">
+    <value>Выберите папку, содержащую hollow_knight_Data или Hollow Knight_Data.</value>
+  </data>
+  <data name="PU_InvalidApp" xml:space="preserve">
+    <value>Отсутствует Уплавляемая папка или Assembly-CSharp!</value>
+  </data>
+  <data name="PU_SelectPath" xml:space="preserve">
+    <value>Выберите свою папку Hollow Knight.</value>
+  </data>
+  <data name="PU_InvalidPathTitle" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="PU_SelectApp" xml:space="preserve">
+    <value>Выберите своё приложение Hollow Knight.</value>
+  </data>
+  <data name="PU_SelectEXE" xml:space="preserve">
+    <value>Выберите свой исполняемый файл Hollow Knight или его ярлык.</value>
+  </data>
+  <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
+    <value>Обновить Всё</value>
+  </data>
+  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="XAML_Open_Bulk_Action" xml:space="preserve">
+    <value>Массовые действия</value>
+  </data>
+  <data name="XAML_Disable_All_Installed" xml:space="preserve">
+    <value>Отключить Все</value>
+  </data>
+  <data name="XAML_Enable_All_Installed" xml:space="preserve">
+    <value>Включить Все</value>
+  </data>
+  <data name="XAML_Uninstall_All" xml:space="preserve">
+    <value>Удалить Все</value>
+  </data>
+  <data name="XAML_Authors" xml:space="preserve">
+    <value>Авторы:</value>
+  </data>
+  <data name="XAML_Search_Options" xml:space="preserve">
+    <value>Параметры Поиска</value>
+  </data>
+  <data name="XAML_Search_Type" xml:space="preserve">
+    <value>Тип Поиска</value>
+  </data>
+  <data name="XAML_Select_Tags" xml:space="preserve">
+    <value>Выбрать Теги</value>
+  </data>
+  <data name="XAML_Exact_Search" xml:space="preserve">
+    <value>Точный Поиск</value>
+  </data>
+  <data name="XAML_Normal_Search" xml:space="preserve">
+    <value>Обычный Поиск</value>
+  </data>
+  <data name="XAML_Search_Dependents" xml:space="preserve">
+    <value>Поиск по Зависимостям</value>
+  </data>
+  <data name="XAML_Select_Mod" xml:space="preserve">
+    <value>Выбрать Мод</value>
+  </data>
+  <data name="XAML_No_Items" xml:space="preserve">
+    <value>Нет модов для отображения</value>
+  </data>
+  <data name="XAML_SavesFolder" xml:space="preserve">
+    <value>Открыть Папку Сохранений</value>
+  </data>
+  <data name="XAML_Manual_Install" xml:space="preserve">
+    <value>Установить Вручную</value>
+  </data>
+  <data name="MLVM_Select_Mod" xml:space="preserve">
+    <value>Выберите dll или zip мод</value>
+  </data>
+  <data name="XAML_NewMods" xml:space="preserve">
+    <value>Новые Моды</value>
+  </data>
+  <data name="XAML_UpdatedMods" xml:space="preserve">
+    <value>Обновлённые Моды</value>
+  </data>
+  <data name="XAML_LastWeek" xml:space="preserve">
+    <value>Последняя Неделя</value>
+  </data>
+  <data name="XAML_LastMonth" xml:space="preserve">
+    <value>Последний Месяц</value>
+  </data>
+  <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
+    <value>Новинки</value>
+  </data>
+  <data name="XAML_CopyError" xml:space="preserve">
+    <value>Скопировать Ошибку</value>
+  </data>
+  <data name="XAML_ShowError" xml:space="preserve">
+    <value>Нажмите, чтобы показать ошибку полностью</value>
+  </data>
+  <data name="XAML_EditSettings" xml:space="preserve">
+    <value>Отредактировать файл настроек мода</value>
+  </data>
+  <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
+    <value>Загрузка новейших модов из modlinks...</value>
+  </data>
+  <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
+    <value>Scarab не смог загрузить новейшие моды из modlinks.</value>
+  </data>
+  <data name="MVVM_DNSError" xml:space="preserve">
+    <value>Возможно, это вызвано плохим подключением к интернету. Пожалуйста, проверьте подключение и повторите попытку</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
+    <value>Внимание! Этот мод необходим для работы других модов!</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
+    <value>{0} требуется для правильной работы {1}. Вы всё ещё хотите продолжить?</value>
+  </data>
+  <data name="MVVM_AreYouSure" xml:space="preserve">
+    <value>Внимание! Вы уверены, что хотите это сделать?</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
+    <value>Scarab не смог получить доступ к файлу в папке mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
+    <value>Пожалуйста, убедитесь, что папка mods не находится в папке, защищённой от записи</value>
+  </data>
+  <data name="MVVM_SystemIOException_ScarabCantAccessFile" xml:space="preserve">
+    <value>Scarab не может получить доступ к файлу:</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
+    <value>Пожалуйста, не забудьте закрыть все другие приложения, которые могут использовать папку mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
+    <value>Пожалуйста, закройте следующие процессы, которые следующие процессы, посколько они блокируют важные файлы:</value>
+  </data>
+  <data name="ModLinks_Tags_Boss" xml:space="preserve">
+    <value>Босс</value>
+  </data>
+  <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
+    <value>Геймплей</value>
+  </data>
+  <data name="ModLinks_Tags_Utility" xml:space="preserve">
+    <value>Утилиты</value>
+  </data>
+  <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
+    <value>Косметика</value>
+  </data>
+  <data name="ModLinks_Tags_Library" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="ModLinks_Tags_Expansion" xml:space="preserve">
+    <value>Расширение</value>
+  </data>
+  <data name="MVVM_Loading1" xml:space="preserve">
+    <value>Извлечение модов из modlinks...</value>
+  </data>
+  <data name="MVVM_Loading2" xml:space="preserve">
+    <value>Ожидание ответа от github...</value>
+  </data>
+  <data name="MVVM_Loading3" xml:space="preserve">
+    <value>Всё ещё ожидается...</value>
+  </data>
+  <data name="MVVM_Loading4" xml:space="preserve">
+    <value>Попытка загрузки из резервного хранилища...</value>
+  </data>
+  <data name="MVVM_Loading5" xml:space="preserve">
+    <value>Ожидание ответа от jsdelivr...</value>
+  </data>
+  <data name="MVVM_RunAsAdmin" xml:space="preserve">
+    <value>Попробуйте запустить scarab от имени администратора, это может исправить проблему</value>
+  </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>Возникло исключение во время {0} {1}</value>
+  </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value>Попросить помощи</value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>Сообщить об Ошибке</value>
+  </data>
+  <data name="MVVM_Install" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
+    <value>{0} требуется для правильной работы {1}. Хотите установить?</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
+    <value>Мод имеет зависимости, которые не установлены!</value>
+  </data>
+  <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
+    <value>Выберите вручную</value>
+  </data>
+  <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
+    <value>Примечание: они могут использоваться любыми модами, которые вы установили в ручную</value>
+  </data>
+  <data name="XAML_None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="XAML_UninstallDependencies" xml:space="preserve">
+    <value>Удаление этого мода оставит зависимости, которые не будут использоваться</value>
+  </data>
+  <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
+    <value>Автоматически удалять зависимости?</value>
+  </data>
+  <data name="XAML_Pin" xml:space="preserve">
+    <value>Закрепить</value>
+  </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Закрепить мод, чтобы он автоматически не заменялся в Scarab</value>
+  </data>
+  <data name="XAML_Unpin" xml:space="preserve">
+    <value>Открепить</value>
+  </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>Не удалось получить modlinks</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>Вы хотите запустить scarab в автономном режиме?</value>
+  </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>Отобрать по Авторам</value>
+  </data>
+  <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
+    <value>Предупреждать перед удалением зависимости мода</value>
+  </data>
+  <data name="XAML_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="XAML_Mods" xml:space="preserve">
+    <value>Моды</value>
+  </data>
+  <data name="XAML_AutoRemoveDeps" xml:space="preserve">
+    <value>Автоматически Удалять Неиспользуемые Зависимости</value>
+  </data>
+  <data name="XAML_OpenModsOrSaves" xml:space="preserve">
+    <value>Открыть Папку</value>
+  </data>
+  <data name="XAML_GamePath" xml:space="preserve">
+    <value>Путь до Игры</value>
+  </data>
+  <data name="XAML_UseCustomModlinks" xml:space="preserve">
+    <value>Использовать Пользоватеский Modlinks</value>
+  </data>
+  <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
+    <value>Обычно Scarab загружает свой список модов с официального modlinks. Если хотите загрузить свой собственный, введите сюда URI, он примет https-ссылки или файлы (в формате file://{filepath}). \nПустые или недействительные ссылки будет загружать официальный modlinks</value>
+  </data>
+  <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
+    <value>Введите ссылку в пользовательском modlinks. Требуется перезагрузка</value>
+  </data>
+  <data name="XAML_ReloadScarab" xml:space="preserve">
+    <value>Перезагрузить Scarab</value>
+  </data>
+  <data name="XAML_ReloadPrompt" xml:space="preserve">
+    <value>(Перезагрузите, чтобы изменения вступили в силу)</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
+    <value>Недопустимые Пользовательские Ссылки на Моды</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
+    <value>Scarab не удалось загрузить modlinks из {0}. Вместо этого Scarab загрузит официальный modlinks.</value>
+  </data>
+  <data name="XAML_Info" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="XAML_InfoHeader" xml:space="preserve">
+    <value>Scarab+</value>
+  </data>
+  <data name="XAML_InfoBody" xml:space="preserve">
+    <value>Scarab+ - это установщик Hollow Knight версии 1.5. Он не будет работать для более старых версий Hollow Knight.</value>
+  </data>
+  <data name="XAML_InfoLinksHeader" xml:space="preserve">
+    <value>Соответствующие Ссылки</value>
+  </data>
+  <data name="XAML_InfoLinkWebsite" xml:space="preserve">
+    <value>Сайт\n</value>
+  </data>
+  <data name="XAML_InfoLinkGithub" xml:space="preserve">
+    <value>Github\n</value>
+  </data>
+  <data name="XAML_InfoLinkReadme" xml:space="preserve">
+    <value>Readme\n</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord\n</value>
+  </data>
+  <data name="XAML_InfoLinkHKMM" xml:space="preserve">
+    <value>HK Mod\nManager</value>
+  </data>
+  <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
+    <value>Альтернативный Установщик</value>
+  </data>
+  <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
+    <value>Создать Моды\n</value>
+  </data>
+  <data name="XAML_InfoLinkTutorial" xml:space="preserve">
+    <value>Моддинг\nТуториал</value>
+  </data>
+  <data name="XAML_LaunchVanilla" xml:space="preserve">
+    <value>Запустить Ванильную Игру</value>
+  </data>
+  <data name="XAML_LaunchModded" xml:space="preserve">
+    <value>Запустить Игру с Модами</value>
+  </data>
+  <data name="XAML_OpeningGame" xml:space="preserve">
+    <value>Пожалуйста, дождитесь запуска игры...</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>Записать как пользовательскую версию</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>Запишите версию этого мода как не из modlinks. Это никаким образом не влияет на мод, а только на то, как scarab с ним справляется. Закреплённый мод пользовательской версии никогда не будет заменён scarab</value>
+  </data>
+  <data name="XAML_ResetMod" xml:space="preserve">
+    <value>Сброс Мода: принудительно переустановить моды и удалить его постоянные настройки</value>
+  </data>
+  <data name="XAML_Share" xml:space="preserve">
+    <value>Получите доступную ссылку для скачивания этого мода.</value>
+  </data>
+  <data name="XAML_OpenFolder" xml:space="preserve">
+    <value>Открыть папку, в которой установлен этот мод</value>
+  </data>
+  <data name="XAML_ReportBug" xml:space="preserve">
+    <value>Сообщить об ошибке или проблеме с этим модом</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
+    <value>Этот мод был установлен вручную и не из официального modlinks</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
+    <value>Версия не из modlinks</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
+    <value>Недопустимая Команда Схемы URL-Адреса</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
+    <value>{0} - недопустимая команда.\nScarab принимает только команду с префиксом scarab://</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
+    <value>{0} - недопустимая команда.\nОна не была найдена в списке принятых команда scarab</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
+    <value>Сбросить установщик с помощью команды</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
+    <value>Установщик был сброшен.</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Не удалось сбросить установщик. Пожалуйста, попробуйте ещё раз.\n{0}</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Сбросить все глобальные настройки установщика мода с помощью команды</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
+    <value>Все глобальные настройки модов были сброшены.</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Не удалось сбросить глобальные настройки всех модов. Пожалуйста, повторите попытку.\n{0}</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
+    <value>Установить мод с помощью команды</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
+    <value>Неверная команда загрузки мода</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab успешно загрузил {0} с помощью команды</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
+    <value>\nОднако, Scarab не смог загрузить {0} с помощью команды. Пожалуйста, проверьте правильность команды</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Удалить глобальные настройки мода</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
+    <value>Неверная глобальная команда удаления мода</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
+    <value>Scarab удалил глобальные настройки для {0} с помощью команды</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
+    <value>Однако\nScarab не смог найти гробальные настройки для {0}. Пожалуйста, проверьте, правильно ли указано название мода и установлен ли сам мод</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
+    <value>Принудительное обновление всего с помощью команды</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
+    <value>Scarab успешно запустил принудительное обновление всех команд</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
+    <value>Загрузить пользовательский modlinks с помощью команды</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
+    <value>Получить пользовательский modlinks \"{0}\" с помощью команды.</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Не были предоставлены modlinks. Пожалуйста, повторите попытку</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
+    <value>Загрузить новую базовую ссылку с помощью команды</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
+    <value>Получена новая базовая ссылка '{0}' с помощью команды.</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Базовая ссылка не была предоставлена. Пожалуйста, повторите попытку	</value>
+  </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Спросите</value>
+  </data>
+  <data name="XAML_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+</root>

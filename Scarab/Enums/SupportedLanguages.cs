@@ -5,10 +5,11 @@ namespace Scarab.Enums;
 public enum SupportedLanguages
 {
     en,
-    pt,
-    zh,
     es,
-    fr
+    pt,
+    fr,
+    zh,
+    ru,
 }
 
 public static class SupportedLanguagesInfo
@@ -19,6 +20,17 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.es, "es-ES" },
         { SupportedLanguages.pt, "pt-BR" },
         { SupportedLanguages.fr, "fr-FR" },
-        { SupportedLanguages.zh, "zh-CN" }
+        { SupportedLanguages.zh, "zh-CN" },
+        { SupportedLanguages.ru, "ru-RU" },
+    };
+
+    public static readonly Dictionary<SupportedLanguages, string> LocalizedLanguageOptions = new()
+    {
+        { SupportedLanguages.en, "English" },
+        { SupportedLanguages.es, "Español" },
+        { SupportedLanguages.pt, "Português" },
+        { SupportedLanguages.fr, "Français" },
+        { SupportedLanguages.zh, "中国人" },
+        { SupportedLanguages.ru, "Русский" },
     };
 }

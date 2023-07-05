@@ -49,15 +49,6 @@ namespace Scarab.ViewModels
             { AutoRemoveUnusedDepsOptions.Ask, Resources.XAML_Ask },
             { AutoRemoveUnusedDepsOptions.Always, Resources.XAML_On }
         };
-        
-        private readonly Dictionary<SupportedLanguages, string> LocalizedLanguageOptions = new()
-        {
-            { SupportedLanguages.en, "English" },
-            { SupportedLanguages.es, "Español" },
-            { SupportedLanguages.pt, "Português" },
-            { SupportedLanguages.fr, "Français" },
-            { SupportedLanguages.zh, "中国人" }
-        };
 
         public void SaveCustomModlinksUri(object? sender, ShutdownRequestedEventArgs e)
         {
@@ -77,7 +68,7 @@ namespace Scarab.ViewModels
         }
 
         public ObservableCollection<string> AutoRemoveDepsOptions => new (LocalizedAutoRemoveDepsOptions.Values);
-        public ObservableCollection<string> LanguageOptions => new (LocalizedLanguageOptions.Values);
+        public ObservableCollection<string> LanguageOptions => new (SupportedLanguagesInfo.LocalizedLanguageOptions.Values);
 
         public string AutoRemoveDepSelection
         {
@@ -91,10 +82,10 @@ namespace Scarab.ViewModels
         
         public string LanguageSelection
         {
-            get => LocalizedLanguageOptions[_settings.PreferredLanguage ?? SupportedLanguages.en];
+            get => SupportedLanguagesInfo.LocalizedLanguageOptions[_settings.PreferredLanguage ?? SupportedLanguages.en];
             set
             {
-                _settings.PreferredLanguage = LocalizedLanguageOptions.First(x => x.Value == value).Key;
+                _settings.PreferredLanguage = SupportedLanguagesInfo.LocalizedLanguageOptions.First(x => x.Value == value).Key;
                 _settings.Save();
                 Thread.CurrentThread.CurrentUICulture =
                     new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[_settings.PreferredLanguage ?? SupportedLanguages.en]);
