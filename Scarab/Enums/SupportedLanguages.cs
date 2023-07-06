@@ -30,7 +30,7 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.es, "Español" },
         { SupportedLanguages.pt, "Português" },
         { SupportedLanguages.fr, "Français" },
-        { SupportedLanguages.zh, "中国人" },
+        { SupportedLanguages.zh, "中文" },
         { SupportedLanguages.ru, "Русский" },
     };
 }
