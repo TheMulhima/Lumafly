@@ -43,6 +43,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.baseLink, s => Data = s},
             {UrlSchemeCommands.removeAllModsGlobalSettings, null},
             {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
+            {UrlSchemeCommands.useOfficialModLinks, null},
         };
     }
 

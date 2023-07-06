@@ -312,7 +312,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nHowever, Scarab has was unable to download {0} from command. Please check if the command is correct.
+        ///   Looks up a localized string similar to However, Scarab was unable to download {0} from command. Please check if the command is correct.
         /// </summary>
         internal static string MVVM_DownloadModUrlScheme_Body_Failure {
             get {
@@ -600,7 +600,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to However\nScarab has was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
+        ///   Looks up a localized string similar to However, Scarab was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
         /// </summary>
         internal static string MVVM_RemoveModGlobalSettingUrlScheme_Failure {
             get {
@@ -722,6 +722,24 @@ namespace Scarab {
         internal static string MVVM_UnableToGetModlinks {
             get {
                 return ResourceManager.GetString("MVVM_UnableToGetModlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scarab will now use official modlinks.
+        /// </summary>
+        internal static string MVVM_UseOfficialModlinksUrlScheme_Body {
+            get {
+                return ResourceManager.GetString("MVVM_UseOfficialModlinksUrlScheme_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use official modlinks url command.
+        /// </summary>
+        internal static string MVVM_UseOfficialModlinksUrlScheme_Header {
+            get {
+                return ResourceManager.GetString("MVVM_UseOfficialModlinksUrlScheme_Header", resourceCulture);
             }
         }
         

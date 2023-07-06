@@ -678,4 +678,10 @@
   <data name="XAML_Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="MVVM_UseOfficialModlinksUrlScheme_Header" xml:space="preserve">
+    <value>Use official modlinks url command</value>
+  </data>
+  <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
+    <value>Scarab will now use official modlinks</value>
+  </data>
 </root>

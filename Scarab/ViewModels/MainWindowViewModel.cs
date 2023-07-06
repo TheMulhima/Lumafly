@@ -286,6 +286,7 @@ namespace Scarab.ViewModels
                     UrlSchemeCommands.reset                       => $"Reset Scarab's persistent settings",
                     UrlSchemeCommands.forceUpdateAll              => $"Reinstall all mods which could help fix issues that happened because mods are not downloaded correctly.",
                     UrlSchemeCommands.customModLinks              => $"Load a custom mod list from: {urlSchemeHandler.Data}",
+                    UrlSchemeCommands.useOfficialModLinks         => $"Load mod list from official ModLinks",
                     UrlSchemeCommands.baseLink                    => $"Load Modlinks and APILinks from: {urlSchemeHandler.Data}",
                     UrlSchemeCommands.removeAllModsGlobalSettings => $"Reset all mods' global settings",
                     UrlSchemeCommands.removeGlobalSettings        => $"Remove global settings for the following mods: {GetListOfMods()}",
@@ -410,6 +411,15 @@ namespace Scarab.ViewModels
                         message: success ? string.Format(Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Success, settings.CustomModlinksUri) : Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Failure,
                         success ? Icon.Success : Icon.Warning));
                 }
+                
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.useOfficialModLinks)
+                {
+                    settings.UseCustomModlinks = false;
+
+                    Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
+                        title: Resources.MVVM_UseOfficialModlinksUrlScheme_Header, 
+                        message: Resources.MVVM_UseOfficialModlinksUrlScheme_Body));
+                }
 
                 if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
                 {
@@ -431,6 +441,8 @@ namespace Scarab.ViewModels
                             success ? Icon.Success : Icon.Warning));
                     
                 }
+                
+                settings.Save();
             }
         }
 
