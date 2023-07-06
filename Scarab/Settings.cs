@@ -12,8 +12,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Scarab.Enums;
 using Scarab.Services;
+using System.Threading;
 
 namespace Scarab
 {
@@ -22,11 +24,14 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; } = AutoRemoveUnusedDepsOptions.Never;
         public bool WarnBeforeRemovingDependents { get; set; } = true;
         public bool UseCustomModlinks { get; set; }
         public string CustomModlinksUri { get; set; } = string.Empty;
         public string BaseLink { get; set; } = ModDatabase.DEFAULT_LINKS_BASE;
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
 
         public bool RequiresWorkaroundClient { get; set; }
@@ -72,13 +77,21 @@ namespace Scarab
         
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
 
-        internal Settings(string path) => ManagedFolder = path;
+        internal Settings(string path)
+        {
+            ManagedFolder = path;
+            
+            var culture = Thread.CurrentThread.CurrentUICulture;
+            if (Enum.TryParse(culture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage))
+                PreferredLanguage = preferredLanguage;
+        }
 
         // Used by serializer.
         public Settings()
         {
             ManagedFolder = null!;
             AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
+            PreferredLanguage = null;
         }
 
         public static string GetOrCreateDirPath()

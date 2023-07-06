@@ -95,6 +95,15 @@ namespace Scarab.ViewModels
 
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
 
+            if (settings.PreferredLanguage == null)
+            {
+                settings.PreferredLanguage = 
+                    Enum.TryParse(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage) 
+                    ? preferredLanguage 
+                    : SupportedLanguages.en;
+                settings.Save();
+            }
+
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
                 settings = await ResetSettings();
 

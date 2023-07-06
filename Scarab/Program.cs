@@ -156,29 +156,29 @@ namespace Scarab
         
         private static void SetPreferredLanguage()
         {
-            SupportedLanguages preferredLanguage = SupportedLanguages.en;
             try
             {
-                var settings = Settings.Load() ?? throw new NullReferenceException();
-                if (settings.PreferredLanguage != null)
+                SupportedLanguages preferredLanguage;
+                var settings = Settings.Load();
+                if (settings is { PreferredLanguage: not null })
                 {
-                    preferredLanguage = settings.PreferredLanguage.Value;
+                    preferredLanguage = settings.PreferredLanguage.Value; // if user has set a preferred language, use that
                 }
                 else
                 {
                     var culture = Thread.CurrentThread.CurrentUICulture;
-                    // if culture is supported, set that as preferred
-                    if (Enum.TryParse(culture.TwoLetterISOLanguageName, out preferredLanguage))
-                        settings.PreferredLanguage = preferredLanguage;
+                    if (!Enum.TryParse(culture.TwoLetterISOLanguageName, out preferredLanguage)) // if culture is supported, set that as preferred
+                        preferredLanguage = SupportedLanguages.en; // default to english
                 }
+                
+                // set the culture to the preferred language
+                Thread.CurrentThread.CurrentUICulture =
+                    new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[preferredLanguage]);
             }
             catch (Exception)
             {
-                preferredLanguage = SupportedLanguages.en;
+                // ignored, worst case it loads in english, but atleast it loads
             }
-
-            Thread.CurrentThread.CurrentUICulture =
-                new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[preferredLanguage]);
         }
 
         private static void SetCultureSpecificFontOptions(AppBuilder builder, string culture, string fontFamily) {
