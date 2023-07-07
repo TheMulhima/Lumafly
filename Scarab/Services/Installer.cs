@@ -9,7 +9,11 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 using Microsoft.Toolkit.HighPerformance;
+using MsBox.Avalonia.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
@@ -170,7 +174,29 @@ namespace Scarab.Services
 
             // just in case the destination already has same folder 
             if (_fs.Directory.Exists(after))
+            {
+                // ask the user if they want to delete the existing mod
+                var destination = enabled ? "Disabled" : "Mods";
+                bool shouldQuit = false;
+                await Dispatcher.UIThread.InvokeAsync(async () =>
+                {
+                    var res = await MessageBoxUtil.GetMessageBoxStandardWindow(new()
+                    {
+                        ContentTitle = "Warning!!",
+                        ContentMessage =
+                            $"The mod '{mod.Name}' is already present in the {destination} folder. Do you want to continue? " +
+                            $"Continuing with this action will delete the existing mod in the {destination} folder.",
+                        ButtonDefinitions = ButtonEnum.YesNo,
+                        Icon = Icon.Warning,
+                    }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+                    
+                    if (res.HasFlag(ButtonResult.No)) shouldQuit = true;
+                });
+                
+                if (shouldQuit) return; // user decided to quit the operation
+                
                 _fs.Directory.Delete(after, true);
+            }
 
             // the actual toggling
             _fs.Directory.Move(prev, after);
