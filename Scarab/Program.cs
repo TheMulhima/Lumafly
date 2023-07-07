@@ -22,7 +22,7 @@ namespace Scarab
     {
         internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() 
         {
-            ["zh"] = "Microsoft YaHei, Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial, Microsoft YaHei UI, 楷体"
+            ["zh"] = "Noto Sans SC, Microsoft YaHei, Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial, Microsoft YaHei UI, 楷体"
         };
 
         private static TextWriterTraceListener _traceFile = null!;
@@ -203,7 +203,13 @@ namespace Scarab
                 .Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI();
+                .UseReactiveUI()
+                .ConfigureFonts(manager =>
+                {
+                    manager.AddFontCollection(new EmbeddedFontCollection(
+                        new Uri("fonts:Noto Sans SC", UriKind.Absolute),
+                        new Uri("avares://Scarab/Assets/Fonts", UriKind.Absolute)));
+                });
 
             foreach ((string culture, string fontFamily) in fontOverrides) {
                 SetCultureSpecificFontOptions(builder, culture, fontFamily);
