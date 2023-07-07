@@ -20,8 +20,9 @@ namespace Scarab
     [UsedImplicitly]
     internal class Program
     {
-        internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() {
-            ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial, Microsoft YaHei UI, 楷体"
+        internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() 
+        {
+            ["zh"] = "Microsoft YaHei, Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial, Microsoft YaHei UI, 楷体"
         };
 
         private static TextWriterTraceListener _traceFile = null!;
