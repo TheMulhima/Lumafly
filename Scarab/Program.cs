@@ -22,7 +22,8 @@ namespace Scarab
     {
         internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() 
         {
-            ["zh"] = "fonts:Noto Sans SC#Noto Sans SC, Microsoft Yahei, PingFang SC",
+            // the avalonia way of specifying embedded fonts
+            ["zh"] = "fonts:Noto Sans SC#Noto Sans SC",
             ["en"] = "fonts:Noto Sans#Noto Sans",
             ["es"] = "fonts:Noto Sans#Noto Sans",
             ["pt"] = "fonts:Noto Sans#Noto Sans",
