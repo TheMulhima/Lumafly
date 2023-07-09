@@ -27,7 +27,7 @@
         <PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
         <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0" />
-        <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0" />
+        <PackageReference Include="Avalonia.Skia" Version="11.0.0" />
         <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.0-preview20230704001" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
         <PackageReference Include="Markdown.Avalonia" Version="11.0.0" />
@@ -42,6 +42,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.6.37" />
+        <PackageReference Include="Svg.SourceGenerator.Skia" Version="1.0.0" />
         <PackageReference Include="System.IO.Abstractions" Version="19.2.29" />
     </ItemGroup>
 
