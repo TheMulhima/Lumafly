@@ -53,7 +53,6 @@ public static class Updater
             {
                 UIFactory = new UIFactory(null)
                 {
-                    HideSkipButton = true,
                     AdditionalReleaseNotesHeaderHTML = """
                     <style> 
                     html {background: #282828; background-color: #282828; color: #dedede;}
