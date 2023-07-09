@@ -10,14 +10,12 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using Microsoft.Toolkit.HighPerformance;
 using MsBox.Avalonia.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
-using Scarab.ViewModels;
 
 namespace Scarab.Services
 {
@@ -89,11 +87,14 @@ namespace Scarab.Services
             _hc = hc;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
-        
+            // run some tasks on installer init
             Task.Run(async () => 
             {
                 try
                 {
+                    if (!_config.CacheDownloads && _fs.Directory.Exists(_config.CacheFolder)) 
+                        _fs.Directory.Delete(_config.CacheFolder, true);
+                    
                     await CheckAPI();
                     Trace.WriteLine("Initial API check complete");
                 }
@@ -176,24 +177,7 @@ namespace Scarab.Services
             if (_fs.Directory.Exists(after))
             {
                 // ask the user if they want to delete the existing mod
-                var destination = enabled ? "Disabled" : "Mods";
-                bool shouldQuit = false;
-                await Dispatcher.UIThread.InvokeAsync(async () =>
-                {
-                    var res = await MessageBoxUtil.GetMessageBoxStandardWindow(new()
-                    {
-                        ContentTitle = "Warning!!",
-                        ContentMessage =
-                            $"The mod '{mod.Name}' is already present in the {destination} folder. Do you want to continue? " +
-                            $"Continuing with this action will delete the existing mod in the {destination} folder.",
-                        ButtonDefinitions = ButtonEnum.YesNo,
-                        Icon = Icon.Warning,
-                    }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
-                    
-                    if (res.HasFlag(ButtonResult.No)) shouldQuit = true;
-                });
-                
-                if (shouldQuit) return; // user decided to quit the operation
+                if (await ShouldStopToggle(mod, enabled)) return;
                 
                 _fs.Directory.Delete(after, true);
             }
@@ -209,6 +193,27 @@ namespace Scarab.Services
 
 
             await _installed.RecordInstalledState(mod);
+        }
+
+        private static async Task<bool> ShouldStopToggle(ModItem mod, bool enabled)
+        {
+            var destination = enabled ? "Disabled" : "Mods";
+            bool shouldQuit = false;
+            await Dispatcher.UIThread.InvokeAsync(async () =>
+            {
+                var res = await MessageBoxUtil.GetMessageBoxStandardWindow(new()
+                {
+                    ContentTitle = "Warning!!",
+                    ContentMessage =
+                        $"The mod '{mod.Name}' is already present in the {destination} folder. Do you want to continue? " +
+                        $"Continuing with this action will delete the existing mod in the {destination} folder.",
+                    ButtonDefinitions = ButtonEnum.YesNo,
+                    Icon = Icon.Warning,
+                }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+
+                if (res.HasFlag(ButtonResult.No)) shouldQuit = true;
+            });
+            return shouldQuit;
         }
 
         public async Task InstallVanilla()
@@ -414,12 +419,27 @@ namespace Scarab.Services
                 await _Install(dep, _ => { }, enable || dep.State is NotInstalledState);
             }
 
-            var (data, filename) = await DownloadFile(mod.Link, setProgress);
+            var cachedModData = await TryGetCachedMod(mod);
+
+            string filename;
+            ArraySegment<byte> data;
+
+            if (cachedModData is null)
+            {
+                (data, filename) = await DownloadFile(mod.Link, setProgress);
+            }
+            else
+            {
+                (data, filename) = cachedModData.Value;
+            }
 
             if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
 
             await PlaceMod(mod, enable, filename, data);
+            
+            if (cachedModData is null)
+                await CacheMod(mod, filename, data);
             
             mod.State = mod.State switch {
                 ExistsModState ins => new InstalledState(
@@ -435,6 +455,63 @@ namespace Scarab.Services
             };
 
             await _installed.RecordInstalledState(mod);
+        }
+
+        private async Task CacheMod(ModItem mod, string filename, ArraySegment<byte> data)
+        {
+            try
+            {
+                if (!_config.CacheDownloads) return;
+                
+                if (!_fs.Directory.Exists(_config.CacheFolder))
+                    _fs.Directory.CreateDirectory(_config.CacheFolder);
+
+                if (_fs.Directory.Exists(Path.Combine(_config.CacheFolder, mod.Name)))
+                    _fs.Directory.Delete(Path.Combine(_config.CacheFolder, mod.Name), true);
+
+                _fs.Directory.CreateDirectory(Path.Combine(_config.CacheFolder, mod.Name));
+
+                await _fs.File.WriteAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"), filename);
+                await _fs.File.WriteAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename), data.Array!);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+            }
+        }
+        
+        /// <summary>
+        /// Get a cached mod, returns the data and file name if it is valid
+        /// </summary>
+        private async Task<(ArraySegment<byte> data, string filename)?> TryGetCachedMod(ModItem mod)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(mod.Sha256)) return null;
+                
+                if (!_fs.Directory.Exists(_config.CacheFolder)) return null;
+
+                if (!_fs.Directory.Exists(Path.Combine(_config.CacheFolder, mod.Name))) return null;
+
+                var filename = await _fs.File.ReadAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"));
+                var data = await _fs.File.ReadAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename));
+
+                try
+                {
+                    ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
+                }
+                catch
+                {
+                    return null;
+                }
+
+                return (data, filename);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                return null;
+            }
         }
 
         public async Task PlaceMod(ModItem mod, bool enable, string filename, ArraySegment<byte> data)

@@ -684,4 +684,10 @@
   <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
     <value>Scarab will now use official modlinks</value>
   </data>
+  <data name="XAML_CacheDownloads" xml:space="preserve">
+    <value>Cache Downloads</value>
+  </data>
+  <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
+    <value>(Uses extra {0} of storage)</value>
+  </data>
 </root>

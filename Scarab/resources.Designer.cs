@@ -1014,6 +1014,24 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache Downloads.
+        /// </summary>
+        internal static string XAML_CacheDownloads {
+            get {
+                return ResourceManager.GetString("XAML_CacheDownloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Uses extra {0} of storage).
+        /// </summary>
+        internal static string XAML_CacheDownloads_Explanation {
+            get {
+                return ResourceManager.GetString("XAML_CacheDownloads_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Path.
         /// </summary>
         internal static string XAML_ChangPath {

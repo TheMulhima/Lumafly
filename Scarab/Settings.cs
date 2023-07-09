@@ -33,6 +33,27 @@ namespace Scarab
         
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
+        public bool CacheDownloads { get; set; } = true;
+        public string CacheSpaceTaken
+        {
+            get
+            {
+                long GetDirSize(DirectoryInfo d)
+                {
+                    var fis = d.GetFiles();
+                    var size = fis.Sum(fi => fi.Length);
+                    var dis = d.GetDirectories();
+                    size += dis.Sum(GetDirSize);
+                    return size;  
+                }
+
+                if (!Directory.Exists(CacheFolder)) return "0 B";
+                
+                var size = GetDirSize(new DirectoryInfo(CacheFolder));
+                return $"{size / 1024 / 1024} MB";
+
+            }
+        }
 
         public bool RequiresWorkaroundClient { get; set; }
 
@@ -76,6 +97,7 @@ namespace Scarab
         );
         
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
+        public string CacheFolder => Path.Combine(ConfigFolderPath, "HKInstallerCache");
 
         internal Settings(string path)
         {
@@ -92,6 +114,7 @@ namespace Scarab
             ManagedFolder = null!;
             AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
             PreferredLanguage = null;
+            CacheDownloads = true;
         }
 
         public static string GetOrCreateDirPath()

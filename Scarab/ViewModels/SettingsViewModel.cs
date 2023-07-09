@@ -22,6 +22,7 @@ namespace Scarab.ViewModels
         private readonly ISettings _settings;
         private readonly IModSource _mods;
         private bool useCustomModlinksOriginalValue;
+        private bool cacheDownloadsOriginalValue;
         private string pathOriginalValue;
         
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
@@ -37,6 +38,7 @@ namespace Scarab.ViewModels
             useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
             pathOriginalValue = _settings.ManagedFolder;
             _customModlinksUri = _settings.CustomModlinksUri;
+            cacheDownloadsOriginalValue = _settings.CacheDownloads;
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 SaveCustomModlinksUri;
             
@@ -105,6 +107,20 @@ namespace Scarab.ViewModels
             }
         }
         
+        public bool CacheDownloads
+        {
+            get => _settings.CacheDownloads;
+            set
+            {
+                _settings.CacheDownloads = value;
+                _settings.Save();
+                RaisePropertyChanged(nameof(CacheDownloads));
+                RaisePropertyChanged(nameof(AskForReload));
+            }
+        }
+
+        public string CacheSpaceTaken => string.Format(Resources.XAML_CacheDownloads_Explanation, _settings.CacheSpaceTaken);
+        
         public string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
 
         private string _customModlinksUri;
@@ -127,6 +143,7 @@ namespace Scarab.ViewModels
 
         public bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
                                      useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
+                                     cacheDownloadsOriginalValue != _settings.CacheDownloads ||
                                      pathOriginalValue != _settings.ManagedFolder;
 
         public string[] YesNo => new[] { "Yes", "No" };
