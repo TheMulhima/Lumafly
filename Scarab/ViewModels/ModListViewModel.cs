@@ -430,11 +430,13 @@ namespace Scarab.ViewModels
                     if (string.IsNullOrEmpty(Search)) 
                         return SelectedItems;
                     
+                    string RemoveSpace(string s) => s.Replace(" ", string.Empty);
+                    
                     if (IsExactSearch)
                         return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
                     else 
-                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
-                                                         x.Description.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                        return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
+                                                        RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
