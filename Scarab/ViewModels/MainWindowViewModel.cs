@@ -286,12 +286,14 @@ namespace Scarab.ViewModels
                     UrlSchemeCommands.reset                       => $"Reset Scarab's persistent settings",
                     UrlSchemeCommands.forceUpdateAll              => $"Reinstall all mods which could help fix issues that happened because mods are not downloaded correctly.",
                     UrlSchemeCommands.customModLinks              => $"Load a custom mod list from: {urlSchemeHandler.Data}",
-                    UrlSchemeCommands.useOfficialModLinks         => $"Load mod list from official ModLinks",
                     UrlSchemeCommands.baseLink                    => $"Load Modlinks and APILinks from: {urlSchemeHandler.Data}",
                     UrlSchemeCommands.removeAllModsGlobalSettings => $"Reset all mods' global settings",
                     UrlSchemeCommands.removeGlobalSettings        => $"Remove global settings for the following mods: {GetListOfMods()}",
-                    _ => ""
+                    _ => string.Empty
                 };
+                
+                if (prompt == string.Empty) return;
+                
                 bool accepted = await LoadingPage.ShowUrlSchemePrompt(prompt);
 
                 if (!accepted) urlSchemeHandler.SetCommand(UrlSchemeCommands.none);

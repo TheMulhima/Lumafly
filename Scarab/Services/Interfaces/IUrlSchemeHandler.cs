@@ -13,6 +13,7 @@ public interface IUrlSchemeHandler
     public void SetCommand(UrlSchemeCommands arg);
     public Task ShowConfirmation(MessageBoxStandardParams param);
     public Task ShowConfirmation(string title, string message, Icon icon = Icon.Success);
+    public void FinishHandlingUrlScheme();
     public Dictionary<string, string?> ParseDownloadCommand(string data);
     
     public bool Handled {get; }

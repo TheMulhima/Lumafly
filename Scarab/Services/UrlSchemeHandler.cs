@@ -44,6 +44,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.removeAllModsGlobalSettings, null},
             {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
             {UrlSchemeCommands.useOfficialModLinks, null},
+            {UrlSchemeCommands.launch, s => Data = s},
         };
     }
 
@@ -227,6 +228,9 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         await MessageBoxUtil.GetMessageBoxStandardWindow(param).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
     }
     
+    /// <summary>
+    /// To be called when finished handling the url scheme when you want to show a confirmation box
+    /// </summary>
     public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)
     {
         await ShowConfirmation(new MessageBoxStandardParams()
@@ -237,5 +241,13 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             MinWidth = 450,
             MinHeight = 150,
         });
+    }
+    
+    /// <summary>
+    /// To be called when finished handling the url scheme when you don't want to show a confirmation box
+    /// </summary>
+    public void FinishHandlingUrlScheme()
+    {
+        Handled = true;
     }
 }

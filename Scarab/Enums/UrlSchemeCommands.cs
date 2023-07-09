@@ -11,4 +11,5 @@ public enum UrlSchemeCommands
     baseLink,
     removeAllModsGlobalSettings,
     removeGlobalSettings,
+    launch,
 }
