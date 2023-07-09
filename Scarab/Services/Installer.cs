@@ -434,11 +434,11 @@ namespace Scarab.Services
 
             if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
-
-            await PlaceMod(mod, enable, filename, data);
             
             if (cachedModData is null)
                 await CacheMod(mod, filename, data);
+            
+            await PlaceMod(mod, enable, filename, data);
             
             mod.State = mod.State switch {
                 ExistsModState ins => new InstalledState(
