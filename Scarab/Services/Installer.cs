@@ -186,8 +186,7 @@ namespace Scarab.Services
             _fs.Directory.Move(prev, after);
 
             // just in case there is left overs
-            if (_fs.Directory.Exists(prev))
-                _fs.Directory.Delete(prev, true);
+            FileUtil.DeleteDirectory(prev);
 
             mod.State = state with { Enabled = !state.Enabled };
 
@@ -462,15 +461,14 @@ namespace Scarab.Services
             try
             {
                 if (!_config.CacheDownloads) return;
-                
-                if (!_fs.Directory.Exists(_config.CacheFolder))
-                    _fs.Directory.CreateDirectory(_config.CacheFolder);
 
-                if (_fs.Directory.Exists(Path.Combine(_config.CacheFolder, mod.Name)))
-                    _fs.Directory.Delete(Path.Combine(_config.CacheFolder, mod.Name), true);
+                FileUtil.CreateDirectory(_config.CacheFolder);
+
+                FileUtil.DeleteDirectory(Path.Combine(_config.CacheFolder, mod.Name));
 
                 _fs.Directory.CreateDirectory(Path.Combine(_config.CacheFolder, mod.Name));
 
+                // we save the file name to preserve the dll name if raw dll is given
                 await _fs.File.WriteAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"), filename);
                 await _fs.File.WriteAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename), data.Array!);
             }
@@ -492,6 +490,7 @@ namespace Scarab.Services
                 if (!_fs.Directory.Exists(_config.CacheFolder)) return null;
 
                 if (!_fs.Directory.Exists(Path.Combine(_config.CacheFolder, mod.Name))) return null;
+                if (!_fs.File.Exists(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"))) return null;
 
                 var filename = await _fs.File.ReadAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"));
                 var data = await _fs.File.ReadAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename));

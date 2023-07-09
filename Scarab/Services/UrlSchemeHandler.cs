@@ -194,8 +194,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             var _desktopLocations = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.Create),
                 "applications");
-            if (!Directory.Exists(_desktopLocations)) 
-                Directory.CreateDirectory(_desktopLocations);
+            
+            FileUtil.CreateDirectory(_desktopLocations);
 
             var desktopFile = Path.Combine(_desktopLocations, "scarab.desktop");
             

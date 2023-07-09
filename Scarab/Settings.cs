@@ -38,20 +38,9 @@ namespace Scarab
         {
             get
             {
-                long GetDirSize(DirectoryInfo d)
-                {
-                    var fis = d.GetFiles();
-                    var size = fis.Sum(fi => fi.Length);
-                    var dis = d.GetDirectories();
-                    size += dis.Sum(GetDirSize);
-                    return size;  
-                }
-
                 if (!Directory.Exists(CacheFolder)) return "0 B";
-                
-                var size = GetDirSize(new DirectoryInfo(CacheFolder));
+                var size = FileUtil.GetAllFilesInDirectory(CacheFolder).Sum(x => x.Length);
                 return $"{size / 1024 / 1024} MB";
-
             }
         }
 

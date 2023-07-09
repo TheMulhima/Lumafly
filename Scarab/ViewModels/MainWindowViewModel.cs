@@ -324,15 +324,12 @@ namespace Scarab.ViewModels
                 Exception? exception = null; 
                 try
                 {
-                    var di = new DirectoryInfo(Settings.GetOrCreateDirPath());
-
-                    foreach (var file in di.GetFiles())
+                    foreach (var file in FileUtil.GetAllFilesInDirectory(Settings.GetOrCreateDirPath())
+                                 .Where(file => !file.Name.EndsWith(Program.LoggingFileExtension)))
                     {
-                        // save all log files
-                        if (file.Name.EndsWith(Program.LoggingFileExtension)) continue;
-                        file.Delete(); 
+                        file.Delete();
                     }
-                    
+
                     success = true;
                 }
                 catch (Exception e)
