@@ -25,6 +25,7 @@ namespace Scarab.Models
         public string Name { get; set; } = null!;
 
         public string Repository { get; set; } = null!;
+        public string Issues { get; set; } = null!;
 
         [XmlElement]
         public Link? Link

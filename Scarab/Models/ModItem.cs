@@ -25,6 +25,7 @@ namespace Scarab.Models
             string name,
             string description,
             string repository,
+            string issues,
             string[] tags,
             string[] integrations,
             string[] authors,
@@ -40,6 +41,7 @@ namespace Scarab.Models
             Name = name;
             Description = description.Trim();
             Repository = repository;
+            Issues = issues;
             Tags = tags;
             Integrations = integrations;
             Authors = authors;
@@ -86,10 +88,11 @@ namespace Scarab.Models
         public string   Name             { get; }
         public string   Description      { get; }
         public string   Repository       { get; }
+        public string   Issues           { get; }
         
-        public string[] Tags { get; }
-        public string[] Integrations { get; }
-        public string[] Authors { get; }
+        public string[] Tags             { get; }
+        public string[] Integrations     { get; }
+        public string[] Authors          { get; }
         public ModRecentChangeInfo RecentChangeInfo { get; set; }
 
         public string   ShortenedRepository   { get; }
@@ -258,11 +261,10 @@ namespace Scarab.Models
 
         public void ReportBug()
         {
-            if (Repository.Contains("github.com"))
-            {
-                var shareLink = $"{Repository}/issues/new/choose";
-                Process.Start(new ProcessStartInfo(shareLink) { UseShellExecute = true });
-            }
+            if (!string.IsNullOrEmpty(Issues))
+                Process.Start(new ProcessStartInfo(Issues) { UseShellExecute = true });
+            else if (Repository.Contains("github.com"))
+                Process.Start(new ProcessStartInfo($"{Repository}/issues/new/choose") { UseShellExecute = true });
         }
         
         public static ModItem Empty(
@@ -274,6 +276,7 @@ namespace Scarab.Models
             string? name = null,
             string? description = null,
             string? repository = null,
+            string? issues = null,
             string[]? tags = null,
             string[]? integrations = null,
             string[]? authors = null,
@@ -289,6 +292,7 @@ namespace Scarab.Models
                 name ?? string.Empty,
                 description ?? string.Empty,
                 repository ?? string.Empty,
+                issues ?? string.Empty,
                 tags ?? Array.Empty<string>(),
                 integrations ?? Array.Empty<string>(),
                 authors ?? Array.Empty<string>(),
