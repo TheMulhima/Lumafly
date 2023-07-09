@@ -3,3 +3,5 @@ Scarab/*
 Scarab.Tests/*
 out/*
 *.user
+**/bin/**
+**/obj/**
