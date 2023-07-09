@@ -7,7 +7,6 @@
 
 ## Changes in v2.3.0.0
 
-- Changes
   - Add option to cache downloads (making uninstalling and reinstalling quicker).
   - Add Spanish translations (thanks to Adrin and Helen).
   - Add Russian translations (thanks to Страг).
@@ -23,11 +22,10 @@
 - Credits
   - [TheMulhima](https://github.com/TheMulhima) - Most of the changes.
   - [Adrin](https://twitter.com/Adrin63_?t=lbzYGgt-3Zybjb_S2xqt2A&s=09) and [Helen](https://ko-fi.com/helensb) - Spanish translations
-- [Страг](https://discordapp.com/users/274945280775028736) - Russain transaltions
+  - [Страг](https://discordapp.com/users/274945280775028736) - Russain transaltions
 
 ## Changes in v2.2.0.0
 
-- Changes
   - Add confirmation prompt for url scheme commands.
   - Add additional info that can be changed without needing update.
   - Correct SHA256 checking when downloading from modlinks.
