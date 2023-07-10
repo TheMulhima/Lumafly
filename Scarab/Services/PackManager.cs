@@ -11,6 +11,7 @@ using System.Text.Json;
 using Avalonia.Controls;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using Scarab.Util;
 
 namespace Scarab.Services;
@@ -101,7 +102,8 @@ public class PackManager : IPackManager
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
         // move all the mods to a temp folder so we can revert if the pack enabling fails
-        _fs.Directory.Move(_settings.ModsFolder, Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"));
+        FileUtil.CopyDirectory(_settings.ModsFolder, Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"));
+        FileUtil.DeleteDirectory(_settings.ModsFolder);
         var tempDbMods = _mods.Mods.ToDictionary(x => x.Key, x => x.Value);
         var tempDbNotInModlinksMods = _mods.NotInModlinksMods.ToDictionary(x => x.Key, x => x.Value);
         
@@ -160,17 +162,22 @@ public class PackManager : IPackManager
                 if (fullDependencyList.Contains(modName)) continue;
                 
                 // since it isn't a listed pack mod or a dependency, uninstall it
-                if (_fs.Directory.Exists(Path.Combine(_settings.ModsFolder, modName)))
-                    _fs.Directory.Delete(Path.Combine(_settings.ModsFolder, modName), true);
-                if (_fs.Directory.Exists(Path.Combine(_settings.DisabledFolder, modName)))
-                    _fs.Directory.Delete(Path.Combine(_settings.DisabledFolder, modName), true);
+                FileUtil.DeleteDirectory(Path.Combine(_settings.ModsFolder, modName));
+                FileUtil.DeleteDirectory(Path.Combine(_settings.DisabledFolder, modName));
             }
             
             // cache result so it is easier to load next time
             await SavePack(pack.Name, pack.Description);
             
+            _fs.File.Delete(Path.Combine(_settings.ModsFolder, packInfoFileName));
+            
             // delete temp folder
             _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), true);
+
+            await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
+            {
+                ContentMessage = "Pack enabled successfully!",
+            }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
         }
         catch (Exception e)
@@ -189,11 +196,10 @@ public class PackManager : IPackManager
     public async Task SavePack(string name, string description)
     {
         var packFolder = Path.Combine(_settings.ManagedFolder, name);
+
+        FileUtil.DeleteDirectory(packFolder);
         
-        if (_fs.Directory.Exists(packFolder)) 
-            _fs.Directory.Delete(packFolder, true);
-        
-        CopyDirectory(_settings.ModsFolder, packFolder);
+        FileUtil.CopyDirectory(_settings.ModsFolder, packFolder);
 
         var packInfo = Path.Combine(packFolder, packInfoFileName);
         
@@ -233,10 +239,8 @@ public class PackManager : IPackManager
         {
             _packList.Remove(pack);
         }
-        if (_fs.Directory.Exists(Path.Combine(_settings.ManagedFolder, packName)))
-        {
-            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, packName), true);
-        }
+
+        FileUtil.DeleteDirectory(Path.Combine(_settings.ManagedFolder, packName));
     }
     
         /// <summary>
@@ -258,42 +262,6 @@ public class PackManager : IPackManager
             }
         }
     }
-    
-    /// <summary>
-    /// Helper function to copy a directory.
-    /// From: https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
-    /// </summary>
-    private static void CopyDirectory(string sourceDir, string destinationDir)
-    {
-        // Get information about the source directory
-        var dir = new DirectoryInfo(sourceDir);
-
-        // Check if the source directory exists
-        if (!dir.Exists)
-            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
-
-        // Cache directories before we start copying
-        DirectoryInfo[] dirs = dir.GetDirectories();
-
-        // Create the destination directory
-        Directory.CreateDirectory(destinationDir);
-
-        // Get the files in the source directory and copy to the destination directory
-        foreach (FileInfo file in dir.GetFiles())
-        {
-            string targetFilePath = Path.Combine(destinationDir, file.Name);
-            file.CopyTo(targetFilePath);
-        }
-
-        // copy subdirectories by recursively call this method
-
-        foreach (DirectoryInfo subDir in dirs)
-        {
-            string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-            CopyDirectory(subDir.FullName, newDestinationDir);
-        }
-        
-    }
 
     private async Task EnsureGameClosed()
     {
@@ -310,7 +278,7 @@ public class PackManager : IPackManager
                 ButtonDefinitions = ButtonEnum.YesNo,
                 MinHeight = 200,
                 SizeToContent = SizeToContent.WidthAndHeight,
-            }).Show();
+            }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
             if (res == ButtonResult.Yes)
                 proc.Kill();
