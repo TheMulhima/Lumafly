@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Scarab.Interfaces;
 using Scarab.Models;
+using Scarab.Util;
 
 namespace Scarab.Services
 {
@@ -107,6 +108,10 @@ namespace Scarab.Services
                 
                 db.NotInModlinksMods.Remove(name);
             }
+            
+            // just in case
+            FileUtil.CreateDirectory(config.ModsFolder);
+            FileUtil.CreateDirectory(config.DisabledFolder);
             
             var currentList = Directory.EnumerateDirectories(config.ModsFolder)
                 .Concat(Directory.EnumerateDirectories(config.DisabledFolder));
