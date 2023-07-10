@@ -13,14 +13,14 @@
 	<Grid
 		Margin="20 10"
 		ColumnDefinitions="Auto * Auto"
-		RowDefinitions="Auto Auto Auto Auto Auto *">
+		RowDefinitions="Auto Auto Auto Auto Auto Auto Auto *">
 		
 		<TextBlock
 			Grid.Column="0"
 			Grid.Row="0"
 			Margin="0 15"
-			Text="{ext:Localize XAML_AutoRemoveDeps}"
-			VerticalAlignment="Center"/>
+			VerticalAlignment="Center"
+			Text="{ext:Localize XAML_GamePath}"/>
 		<TextBlock
 			Grid.Column="0"
 			Grid.Row="1"
@@ -29,38 +29,46 @@
 			VerticalAlignment="Center"/>
 		<TextBlock
 			Grid.Column="0"
-			Grid.Row="4"
-			Margin="0 15"
-			VerticalAlignment="Center"
-			Text="{ext:Localize XAML_GamePath}"/>
-		<TextBlock
-			Grid.Column="0"
 			Grid.Row="2"
 			Margin="0 15"
 			Text="{ext:Localize XAML_UseCustomModlinks}"
 			VerticalAlignment="Center"/>
-		
-		
-		<ComboBox
-			Grid.Column="1"
-			Grid.Row="0"
-			Margin="10 0 5 0"
-			HorizontalAlignment="Left"
+		<!-- 3 reserved for custom modlinks text box -->
+		<StackPanel
+			Grid.Column="0"
+			Grid.Row="4"
 			VerticalAlignment="Center"
-			ItemsSource="{Binding AutoRemoveDepsOptions}"
-			SelectedItem="{Binding AutoRemoveDepSelection}"/>
-		<ComboBox
-			Grid.Column="1"
-			Grid.Row="1"
-			Margin="10 0 5 0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Center"
-			ItemsSource="{Binding YesNo}"
-			SelectedItem="{Binding WarnBeforeRemovingDependents}"/>
+			Orientation="Horizontal"
+			Margin="0 15">
+			<TextBlock 
+				Text="{ext:Localize XAML_CacheDownloads}" 
+				VerticalAlignment="Center"/>
+			<PathIcon
+				Data="{StaticResource info_regular}"
+				Width="12"
+				Height="12"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Margin="7 0 5 0"
+				ToolTip.Tip="{Binding CacheSpaceTaken}" ToolTip.ShowDelay="0"/>
+		</StackPanel>
+		
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="5"
+			Margin="0 15"
+			Text="{ext:Localize XAML_AutoRemoveDeps}"
+			VerticalAlignment="Center"/>
+		<TextBlock
+			Grid.Column="0"
+			Grid.Row="6"
+			Margin="0 15"
+			Text="{ext:Localize XAML_Language}"
+			VerticalAlignment="Center"/>
 		
 		<TextBox
 			Grid.Column="1"
-			Grid.Row="4"
+			Grid.Row="0"
 			Text="{Binding CurrentPath}"
 			AcceptsReturn="False"
 			IsReadOnly="True"
@@ -68,39 +76,9 @@
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Center"/>
 		
-		<ComboBox
-			Grid.Column="1"
-			Grid.Row="2"
-			ItemsSource="{Binding YesNo}"
-			SelectedItem="{Binding UseCustomModlinks}"
-			MaxHeight="40"
-			Margin="10 0 5 0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Center"/>
-		<TextBox
-			Grid.Column="0"
-			Grid.ColumnSpan="2"
-			Grid.Row="3"
-			Margin="0 0 5 15"
-			IsVisible="{Binding UsingCustomModlinks}"
-			HorizontalAlignment="Stretch"
-			Watermark="{ext:Localize XAML_CustomModlinksWatermark}"
-			UseFloatingWatermark="True"
-			Text="{Binding CustomModlinksUri}"
-			AcceptsReturn="False"/>
-		<PathIcon
-			Grid.Column="2"
-			Grid.Row="3"
-			Data="{StaticResource info_regular}"
-			FontSize="15"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Center"
-			Margin="5 0 5 10"
-			IsVisible="{Binding UsingCustomModlinks}"
-			ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}" ToolTip.ShowDelay="0"/>
 		<Button
 			Grid.Column="2"
-			Grid.Row="4"
+			Grid.Row="0"
 			Padding="20 5"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Center"
@@ -109,18 +87,93 @@
 			Command="{Binding ChangePath}"
 			Content="{ext:Localize XAML_ChangPath}"/>
 		
+		<ToggleSwitch
+			Grid.Column="1"
+			Grid.Row="1"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding WarnBeforeRemovingDependents}"/>
+		
+		<ToggleSwitch
+			Grid.Column="1"
+			Grid.Row="2"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding UseCustomModlinks}"
+		/>
+		<TextBox
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			Grid.Row="3"
+			Margin="0 0 5 15"
+			IsVisible="{Binding UseCustomModlinks}"
+			HorizontalAlignment="Stretch"
+			Watermark="{ext:Localize XAML_CustomModlinksWatermark}"
+			UseFloatingWatermark="True"
+			Text="{Binding CustomModlinksUri}"
+			AcceptsReturn="False"/>
+		
+		<ToggleSwitch
+			Grid.Column="1"
+			Grid.Row="4"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding CacheDownloads}"
+		/>
+		
+		<PathIcon
+			Grid.Column="2"
+			Grid.Row="3"
+			Data="{StaticResource info_regular}"
+			FontSize="15"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Margin="5 0 5 10"
+			IsVisible="{Binding UseCustomModlinks}"
+			ToolTip.Tip="{ext:Localize XAML_CustomModlinksExplanation}" ToolTip.ShowDelay="0"/>
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="5"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			MinWidth="75"
+			ItemsSource="{Binding AutoRemoveDepsOptions}"
+			SelectedItem="{Binding AutoRemoveDepSelection}"/>
+		
+		<ComboBox
+			Grid.Column="1"
+			Grid.Row="6"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			MinWidth="75"
+			ItemsSource="{Binding LanguageOptions}"
+			SelectedItem="{Binding LanguageSelection}"/>
+		
 		<Button
 			Grid.Column="2"
-			Grid.Row="5"
+			Grid.Row="7"
 			Padding="20 5"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Bottom"
 			HorizontalContentAlignment="Center"
 			Command="{Binding ReloadApp}"
 			Content="{ext:Localize XAML_ReloadScarab}"/>
+		
 		<TextBlock
 				Grid.Column="1"
-				Grid.Row="5"
+				Grid.Row="7"
 				IsVisible="{Binding AskForReload}"
 				FontSize="10"
 				VerticalAlignment="Bottom"

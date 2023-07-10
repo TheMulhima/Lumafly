@@ -9,11 +9,13 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
+using MessageBox.Avalonia.Enums;
 using Microsoft.Toolkit.HighPerformance;
+using MsBox.Avalonia.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
-using Scarab.ViewModels;
 
 namespace Scarab.Services
 {
@@ -85,11 +87,14 @@ namespace Scarab.Services
             _hc = hc;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
-        
+            // run some tasks on installer init
             Task.Run(async () => 
             {
                 try
                 {
+                    if (!_config.CacheDownloads && _fs.Directory.Exists(_config.CacheFolder)) 
+                        _fs.Directory.Delete(_config.CacheFolder, true);
+                    
                     await CheckAPI();
                     Trace.WriteLine("Initial API check complete");
                 }
@@ -170,19 +175,44 @@ namespace Scarab.Services
 
             // just in case the destination already has same folder 
             if (_fs.Directory.Exists(after))
+            {
+                // ask the user if they want to delete the existing mod
+                if (await ShouldStopToggle(mod, enabled)) return;
+                
                 _fs.Directory.Delete(after, true);
+            }
 
             // the actual toggling
             _fs.Directory.Move(prev, after);
 
             // just in case there is left overs
-            if (_fs.Directory.Exists(prev))
-                _fs.Directory.Delete(prev, true);
+            FileUtil.DeleteDirectory(prev);
 
             mod.State = state with { Enabled = !state.Enabled };
 
 
             await _installed.RecordInstalledState(mod);
+        }
+
+        private static async Task<bool> ShouldStopToggle(ModItem mod, bool enabled)
+        {
+            var destination = enabled ? "Disabled" : "Mods";
+            bool shouldQuit = false;
+            await Dispatcher.UIThread.InvokeAsync(async () =>
+            {
+                var res = await MessageBoxUtil.GetMessageBoxStandardWindow(new()
+                {
+                    ContentTitle = "Warning!!",
+                    ContentMessage =
+                        $"The mod '{mod.Name}' is already present in the {destination} folder. Do you want to continue? " +
+                        $"Continuing with this action will delete the existing mod in the {destination} folder.",
+                    ButtonDefinitions = ButtonEnum.YesNo,
+                    Icon = Icon.Warning,
+                }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+
+                if (res.HasFlag(ButtonResult.No)) shouldQuit = true;
+            });
+            return shouldQuit;
         }
 
         public async Task InstallVanilla()
@@ -388,11 +418,26 @@ namespace Scarab.Services
                 await _Install(dep, _ => { }, enable || dep.State is NotInstalledState);
             }
 
-            var (data, filename) = await DownloadFile(mod.Link, setProgress);
+            var cachedModData = await TryGetCachedMod(mod);
+
+            string filename;
+            ArraySegment<byte> data;
+
+            if (cachedModData is null)
+            {
+                (data, filename) = await DownloadFile(mod.Link, setProgress);
+            }
+            else
+            {
+                (data, filename) = cachedModData.Value;
+            }
 
             if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
-
+            
+            if (cachedModData is null)
+                await CacheMod(mod, filename, data);
+            
             await PlaceMod(mod, enable, filename, data);
             
             mod.State = mod.State switch {
@@ -409,6 +454,63 @@ namespace Scarab.Services
             };
 
             await _installed.RecordInstalledState(mod);
+        }
+
+        private async Task CacheMod(ModItem mod, string filename, ArraySegment<byte> data)
+        {
+            try
+            {
+                if (!_config.CacheDownloads) return;
+
+                FileUtil.CreateDirectory(_config.CacheFolder);
+
+                FileUtil.DeleteDirectory(Path.Combine(_config.CacheFolder, mod.Name));
+
+                _fs.Directory.CreateDirectory(Path.Combine(_config.CacheFolder, mod.Name));
+
+                // we save the file name to preserve the dll name if raw dll is given
+                await _fs.File.WriteAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"), filename);
+                await _fs.File.WriteAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename), data.Array!);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+            }
+        }
+        
+        /// <summary>
+        /// Get a cached mod, returns the data and file name if it is valid
+        /// </summary>
+        private async Task<(ArraySegment<byte> data, string filename)?> TryGetCachedMod(ModItem mod)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(mod.Sha256)) return null;
+                
+                if (!_fs.Directory.Exists(_config.CacheFolder)) return null;
+
+                if (!_fs.Directory.Exists(Path.Combine(_config.CacheFolder, mod.Name))) return null;
+                if (!_fs.File.Exists(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"))) return null;
+
+                var filename = await _fs.File.ReadAllTextAsync(Path.Combine(_config.CacheFolder, mod.Name, "filename.txt"));
+                var data = await _fs.File.ReadAllBytesAsync(Path.Combine(_config.CacheFolder, mod.Name, filename));
+
+                try
+                {
+                    ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
+                }
+                catch
+                {
+                    return null;
+                }
+
+                return (data, filename);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(e.ToString());
+                return null;
+            }
         }
 
         public async Task PlaceMod(ModItem mod, bool enable, string filename, ArraySegment<byte> data)

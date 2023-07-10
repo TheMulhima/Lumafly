@@ -1,16 +1,33 @@
 # Changelogs
 
+- [v2.3.0.0](#changes-in-v2300)
 - [v2.2.0.0](#changes-in-v2200)
 - [v2.1.0.0](#changes-in-v2100)
 - [v2.0.0.0](#changes-in-v2000)
 
+## Changes in v2.3.0.0
+
+  - Add option to cache downloads (making uninstalling and reinstalling quicker).
+  - Add Spanish translations (thanks to Adrin and Helen).
+  - Add Russian translations (thanks to Страг).
+  - Add ability to change preffered language that Scarab uses.
+  - Add option to skip update.
+  - Use noto sans font - for uniformity bewteen OS and fixes issue with Chinese fonts.
+  - New url scheme commands: useOfficialModlinks and launch (usage scarab://launch/vanilla or scarab://launch/modded)
+  - Fully localize settings page.
+  - Fix issue with big log file causing Scarab to not open.
+  - Fix issue with showing prompts on resetting mod
+  - If toggling will delete a folder, ask for confirmation before doing so
+
+- Credits
+  - [TheMulhima](https://github.com/TheMulhima) - Most of the changes.
+  - [Adrin](https://twitter.com/Adrin63_?t=lbzYGgt-3Zybjb_S2xqt2A&s=09) and [Helen](https://ko-fi.com/helensb) - Spanish translations
+  - [Страг](https://discordapp.com/users/274945280775028736) - Russain transaltions
+
 ## Changes in v2.2.0.0
 
-- Additional Features
   - Add confirmation prompt for url scheme commands.
   - Add additional info that can be changed without needing update.
-
-- Bug Fixes
   - Correct SHA256 checking when downloading from modlinks.
   - Fix handling of download url scheme when custom links provided.
   - Fix crash that happens on auto uninstall dependencies confimation window.

@@ -1,39 +1,30 @@
 using System.Threading;
-
 using Avalonia.Controls;
 using Avalonia.Media;
-
 using MessageBox.Avalonia;
-using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Base;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace Scarab.Util;
 
 internal static class MessageBoxUtil {
     internal static readonly string fontFamilyString;
 
-    public static IMsBoxWindow<string> GetMessageBoxCustomWindow(MessageBoxCustomParams @params) {
+    public static IMsBox<string> GetMessageBoxCustomWindow(MessageBoxCustomParams @params) {
         @params.FontFamily = fontFamilyString;
-        return MessageBoxManager.GetMessageBoxCustomWindow(@params);
+        return MessageBoxManager.GetMessageBoxCustom(@params);
     }
 
-    public static IMsBoxWindow<string> GetMessageBoxCustomWindow(MessageBoxCustomParamsWithImage @params) {
+    public static IMsBox<ButtonResult> GetMessageBoxStandardWindow(MessageBoxStandardParams @params) {
         @params.FontFamily = fontFamilyString;
-        return MessageBoxManager.GetMessageBoxCustomWindow(@params);
+        return MessageBoxManager.GetMessageBoxStandard(@params);
     }
 
-    public static IMsBoxWindow<ButtonResult> GetMessageBoxStandardWindow(MessageBoxStandardParams @params) {
-        @params.FontFamily = fontFamilyString;
-        return MessageBoxManager.GetMessageBoxStandardWindow(@params);
-    }
-
-    public static IMsBoxWindow<ButtonResult> GetMessageBoxHyperlinkWindow(MessageBoxHyperlinkParams @params) {
-        @params.FontFamily = fontFamilyString;
-        return MessageBoxManager.GetMessageBoxHyperlinkWindow(@params);
-    }
-
-    public static IMsBoxWindow<ButtonResult> GetMessageBoxStandardWindow(string title, string text, ButtonEnum @enum = ButtonEnum.Ok, Icon icon = Icon.None, WindowStartupLocation windowStartupLocation = WindowStartupLocation.CenterScreen) =>
+    public static IMsBox<ButtonResult> GetMessageBoxStandardWindow(string title, string text, ButtonEnum @enum = ButtonEnum.Ok, Icon icon = Icon.None, WindowStartupLocation windowStartupLocation = WindowStartupLocation.CenterScreen) =>
         GetMessageBoxStandardWindow(new MessageBoxStandardParams {
             ContentTitle = title,
             ContentMessage = text,
@@ -41,11 +32,6 @@ internal static class MessageBoxUtil {
             Icon = icon,
             WindowStartupLocation = windowStartupLocation
         });
-
-    public static IMsBoxWindow<MessageWindowResultDTO> GetMessageBoxInputWindow(MessageBoxInputParams @params) {
-        @params.FontFamily = fontFamilyString;
-        return MessageBoxManager.GetMessageBoxInputWindow(@params);
-    }
 
     static MessageBoxUtil() =>
         fontFamilyString = Program.fontOverrides.TryGetValue(

@@ -252,6 +252,9 @@
   <data name="XAML_Off" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Consulter</value>
+  </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Mettre à jour</value>
   </data>
@@ -671,5 +674,8 @@
   </data>
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
     <value>Aucun baselink n'a été fourni. Veuillez réessayer</value>
+  </data>
+  <data name="XAML_Language" xml:space="preserve">
+    <value>Langue</value>
   </data>
 </root>

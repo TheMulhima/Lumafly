@@ -5,7 +5,6 @@ using Scarab.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -13,8 +12,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Scarab.Enums;
 using Scarab.Services;
+using System.Threading;
 
 namespace Scarab
 {
@@ -23,11 +24,25 @@ namespace Scarab
     {
         public string ManagedFolder { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public AutoRemoveUnusedDepsOptions AutoRemoveUnusedDeps { get; set; } = AutoRemoveUnusedDepsOptions.Never;
         public bool WarnBeforeRemovingDependents { get; set; } = true;
         public bool UseCustomModlinks { get; set; }
         public string CustomModlinksUri { get; set; } = string.Empty;
         public string BaseLink { get; set; } = ModDatabase.DEFAULT_LINKS_BASE;
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public SupportedLanguages? PreferredLanguage { get; set; }
+        public bool CacheDownloads { get; set; } = true;
+        public string CacheSpaceTaken
+        {
+            get
+            {
+                if (!Directory.Exists(CacheFolder)) return "0 B";
+                var size = FileUtil.GetAllFilesInDirectory(CacheFolder).Sum(x => x.Length);
+                return $"{size / 1024 / 1024} MB";
+            }
+        }
 
         public bool RequiresWorkaroundClient { get; set; }
 
@@ -71,14 +86,24 @@ namespace Scarab
         );
         
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
+        public string CacheFolder => Path.Combine(ConfigFolderPath, "HKInstallerCache");
 
-        internal Settings(string path) => ManagedFolder = path;
+        internal Settings(string path)
+        {
+            ManagedFolder = path;
+            
+            var culture = Thread.CurrentThread.CurrentUICulture;
+            if (Enum.TryParse(culture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage))
+                PreferredLanguage = preferredLanguage;
+        }
 
         // Used by serializer.
         public Settings()
         {
             ManagedFolder = null!;
             AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
+            PreferredLanguage = null;
+            CacheDownloads = true;
         }
 
         public static string GetOrCreateDirPath()

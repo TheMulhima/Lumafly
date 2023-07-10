@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Threading;
 using JetBrains.Annotations;
-using MessageBox.Avalonia.BaseWindows.Base;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,13 +13,16 @@ using Scarab.Util;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using Scarab.Enums;
 using FileSystem = System.IO.Abstractions.FileSystem;
@@ -62,8 +64,14 @@ namespace Scarab.ViewModels
 
         [Notify]
         private bool _loading = true;
+        
+        public event Action? OnSelectTab;
 
-        private async Task Impl()
+        /// <summary>
+        /// The main function that loads the data the app needs and sets up all the services
+        /// </summary>
+        /// <param name="initialTab">The index of the tab that is shown after load is finished</param>
+        private async Task Impl(int initialTab)
         {
             LoadingPage = new LoadingViewModel();
             
@@ -86,6 +94,15 @@ namespace Scarab.ViewModels
             HandleResetAllGlobalSettingsUrlScheme(urlSchemeHandler);
 
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
+
+            if (settings.PreferredLanguage == null)
+            {
+                settings.PreferredLanguage = 
+                    Enum.TryParse(Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage) 
+                    ? preferredLanguage 
+                    : SupportedLanguages.en;
+                settings.Save();
+            }
 
             if (!PathUtil.ValidateExisting(settings.ManagedFolder))
                 settings = await ResetSettings();
@@ -136,7 +153,7 @@ namespace Scarab.ViewModels
                             Resources.MVVM_InvalidCustomModlinks_Header,
                             string.Format(Resources.MVVM_InvalidCustomModlinks_Body, settings.CustomModlinksUri),
                             icon: Icon.Error
-                        ).Show();
+                        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     }
                 }
 
@@ -182,7 +199,7 @@ namespace Scarab.ViewModels
                         title: Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title,
                         text: string.Format(Resources.MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text, failedOp),
                         icon: Icon.Error
-                    ).Show();
+                    ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     throw;
                 }
 
@@ -193,7 +210,7 @@ namespace Scarab.ViewModels
                           $"{Resources.MVVM_LaunchOfflineMode}",
                     icon: Icon.Warning,
                     @enum: ButtonEnum.YesNo
-                ).Show() == ButtonResult.Yes;
+                ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow()) == ButtonResult.Yes;
 
                 if (!offlineMode) throw;
 
@@ -251,7 +268,8 @@ namespace Scarab.ViewModels
                 new(sp.GetRequiredService<PackManagerViewModel>(), Resources.XAML_Packs, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
-            SelectedTabIndex = 0;
+            SelectedTabIndex = initialTab;
+            OnSelectTab?.Invoke();
             Trace.WriteLine("Selected Tab 0");
         }
 
@@ -274,8 +292,11 @@ namespace Scarab.ViewModels
                     UrlSchemeCommands.baseLink                    => $"Load Modlinks and APILinks from: {urlSchemeHandler.Data}",
                     UrlSchemeCommands.removeAllModsGlobalSettings => $"Reset all mods' global settings",
                     UrlSchemeCommands.removeGlobalSettings        => $"Remove global settings for the following mods: {GetListOfMods()}",
-                    _ => ""
+                    _ => string.Empty
                 };
+                
+                if (prompt == string.Empty) return;
+                
                 bool accepted = await LoadingPage.ShowUrlSchemePrompt(prompt);
 
                 if (!accepted) urlSchemeHandler.SetCommand(UrlSchemeCommands.none);
@@ -308,15 +329,12 @@ namespace Scarab.ViewModels
                 Exception? exception = null; 
                 try
                 {
-                    var di = new DirectoryInfo(Settings.GetOrCreateDirPath());
-
-                    foreach (var file in di.GetFiles())
+                    foreach (var file in FileUtil.GetAllFilesInDirectory(Settings.GetOrCreateDirPath())
+                                 .Where(file => !file.Name.EndsWith(Program.LoggingFileExtension)))
                     {
-                        // save all log files
-                        if (file.Name.EndsWith(Program.LoggingFileExtension)) continue;
-                        file.Delete(); 
+                        file.Delete();
                     }
-                    
+
                     success = true;
                 }
                 catch (Exception e)
@@ -395,6 +413,15 @@ namespace Scarab.ViewModels
                         message: success ? string.Format(Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Success, settings.CustomModlinksUri) : Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Failure,
                         success ? Icon.Success : Icon.Warning));
                 }
+                
+                if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.useOfficialModLinks)
+                {
+                    settings.UseCustomModlinks = false;
+
+                    Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
+                        title: Resources.MVVM_UseOfficialModlinksUrlScheme_Header, 
+                        message: Resources.MVVM_UseOfficialModlinksUrlScheme_Body));
+                }
 
                 if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
                 {
@@ -416,6 +443,8 @@ namespace Scarab.ViewModels
                             success ? Icon.Success : Icon.Warning));
                     
                 }
+                
+                settings.Save();
             }
         }
 
@@ -470,7 +499,7 @@ namespace Scarab.ViewModels
                             text: $"Scarab cannot run without being able to access {InstalledMods.ConfigPath}.\n" +
                                   $"Please close any other apps that could be using that" + additionalInfo,
                             icon: Icon.Error
-                        ).Show();
+                        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     }
                 }
             }
@@ -493,7 +522,7 @@ namespace Scarab.ViewModels
                     // ensure that the message doesn't get cut off 
                     MinWidth = 550
                 }
-            ).Show();
+            ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
             return Settings.Create(await GetSettingsPath());
         }
@@ -502,7 +531,7 @@ namespace Scarab.ViewModels
         {
             if (!Settings.TryAutoDetect(out ValidPath? path))
             {
-                IMsBoxWindow<ButtonResult> info = MessageBoxUtil.GetMessageBoxStandardWindow
+                var info = MessageBoxUtil.GetMessageBoxStandardWindow
                 (
                     new MessageBoxStandardParams
                     {
@@ -512,14 +541,14 @@ namespace Scarab.ViewModels
                     }
                 );
 
-                await info.Show();
+                await info.ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                 
                 return await PathUtil.SelectPath();
             }
 
             Trace.WriteLine($"Settings doesn't exist. Creating it at detected path {path}.");
 
-            IMsBoxWindow<ButtonResult> window = MessageBoxUtil.GetMessageBoxStandardWindow
+            var window = MessageBoxUtil.GetMessageBoxStandardWindow
             (
                 new MessageBoxStandardParams
                 {
@@ -529,7 +558,7 @@ namespace Scarab.ViewModels
                 }
             );
 
-            ButtonResult res = await window.Show();
+            ButtonResult res = await window.ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
             return res == ButtonResult.Yes
                 ? Path.Combine(path.Root, path.Suffix)
@@ -539,18 +568,19 @@ namespace Scarab.ViewModels
         public MainWindowViewModel()
         {
             Instance = this;
+            _loadingPage = new LoadingViewModel();
             LoadApp();
             Trace.WriteLine("Loaded app");
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 (_, _) => Program.CloseTraceFile();
         }
 
-        public void LoadApp() => Dispatcher.UIThread.InvokeAsync(async () =>
+        public void LoadApp(int initialTab = 0) => Dispatcher.UIThread.InvokeAsync(async () =>
         {
             Loading = true;
             try
             {
-                await Impl();
+                await Impl(initialTab);
             }
             catch (Exception e)
             {

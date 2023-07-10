@@ -87,7 +87,7 @@
                         <Button
                             CommandParameter="https://www.youtube.com/watch?v=z35cFvU0McQ">
                             <StackPanel>
-                                <Svg Path="../../Assets/youtube.svg"/>
+                                <Image Source="../../Assets/youtube.png"/>
                                 <TextBlock Text="{ext:Localize XAML_InfoLinkTutorial}"/>
                             </StackPanel>
                         </Button>

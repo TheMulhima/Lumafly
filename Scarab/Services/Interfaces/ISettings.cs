@@ -10,8 +10,12 @@ namespace Scarab.Interfaces
         bool UseCustomModlinks { get; set; }
         string CustomModlinksUri { get; set; }
         string BaseLink { get; set; }
+        SupportedLanguages? PreferredLanguage { get; set; }
+        bool CacheDownloads { get; set; }
+        string CacheSpaceTaken { get; }
 
         string ManagedFolder { get; set; }
+        string CacheFolder { get; }
 
         bool RequiresWorkaroundClient { get; set; }
         

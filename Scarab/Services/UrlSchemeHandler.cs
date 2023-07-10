@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using MessageBox.Avalonia.DTO;
 using Avalonia.Threading;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -42,6 +43,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.baseLink, s => Data = s},
             {UrlSchemeCommands.removeAllModsGlobalSettings, null},
             {UrlSchemeCommands.removeGlobalSettings, s => Data = s},
+            {UrlSchemeCommands.useOfficialModLinks, null},
+            {UrlSchemeCommands.launch, s => Data = s},
         };
     }
 
@@ -192,8 +195,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             var _desktopLocations = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData, Environment.SpecialFolderOption.Create),
                 "applications");
-            if (!Directory.Exists(_desktopLocations)) 
-                Directory.CreateDirectory(_desktopLocations);
+            
+            FileUtil.CreateDirectory(_desktopLocations);
 
             var desktopFile = Path.Combine(_desktopLocations, "scarab.desktop");
             
@@ -222,9 +225,12 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         if (Handled) return;
         
         Handled = true;
-        await MessageBoxUtil.GetMessageBoxStandardWindow(param).Show();
+        await MessageBoxUtil.GetMessageBoxStandardWindow(param).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
     }
     
+    /// <summary>
+    /// To be called when finished handling the url scheme when you want to show a confirmation box
+    /// </summary>
     public async Task ShowConfirmation(string title, string message, Icon icon = Icon.Success)
     {
         await ShowConfirmation(new MessageBoxStandardParams()
@@ -235,5 +241,13 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             MinWidth = 450,
             MinHeight = 150,
         });
+    }
+    
+    /// <summary>
+    /// To be called when finished handling the url scheme when you don't want to show a confirmation box
+    /// </summary>
+    public void FinishHandlingUrlScheme()
+    {
+        Handled = true;
     }
 }

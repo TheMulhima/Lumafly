@@ -252,6 +252,9 @@
   <data name="XAML_Off" xml:space="preserve">
     <value>Off</value>
   </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Update</value>
   </data>
@@ -634,7 +637,7 @@
     <value>Scarab has successfully downloaded {0} from command</value>
   </data>
   <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\nHowever, Scarab has was unable to download {0} from command. Please check if the command is correct</value>
+    <value>However, Scarab was unable to download {0} from command. Please check if the command is correct</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
     <value>Remove mod global setting</value>
@@ -646,7 +649,7 @@
     <value>Scarab has removed global settings for {0} from command</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>However\nScarab has was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed</value>
+    <value>However, Scarab was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed</value>
   </data>
   <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
     <value>Force update all from command</value>
@@ -672,7 +675,22 @@
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
     <value>No baselink were provided. Please try again</value>
   </data>
-  <data name="XAML_SharingCode" xml:space="preserve">
+  <data name="XAML_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="MVVM_UseOfficialModlinksUrlScheme_Header" xml:space="preserve">
+    <value>Use official modlinks url command</value>
+  </data>
+  <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
+    <value>Scarab will now use official modlinks</value>
+  </data>
+  <data name="XAML_CacheDownloads" xml:space="preserve">
+    <value>Cache Downloads</value>
+  </data>
+  <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
+    <value>(Uses extra {0} of storage)</value>
+  </data>
+    <data name="XAML_SharingCode" xml:space="preserve">
     <value>Sharing Code:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">

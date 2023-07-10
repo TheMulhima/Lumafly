@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@ using Avalonia.Media;
 using Avalonia.Media.Fonts;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
+using Scarab.Enums;
 using Scarab.Util;
 
 namespace Scarab
@@ -18,8 +20,15 @@ namespace Scarab
     [UsedImplicitly]
     internal class Program
     {
-        internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() {
-            ["zh"] = "Source Han Sans SC, Source Han Sans ZH, Noto Sans CJK SC, Noto Sans SC, Microsoft YaHei, Pingfang SC, 苹方-简, 黑体-简, 黑体, Arial"
+        internal static readonly IReadOnlyDictionary<string, string> fontOverrides = new Dictionary<string, string>() 
+        {
+            // the avalonia way of specifying embedded fonts
+            ["zh"] = "fonts:Noto Sans SC#Noto Sans SC",
+            ["en"] = "fonts:Noto Sans#Noto Sans",
+            ["es"] = "fonts:Noto Sans#Noto Sans",
+            ["pt"] = "fonts:Noto Sans#Noto Sans",
+            ["fr"] = "fonts:Noto Sans#Noto Sans",
+            ["ru"] = "fonts:Noto Sans#Noto Sans",
         };
 
         private static TextWriterTraceListener _traceFile = null!;
@@ -32,14 +41,19 @@ namespace Scarab
         // yet and stuff might break.
         public static void Main(string[] args)
         {
-            //Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            
+            Console.WriteLine("Starting Scarab...");
             SetupLogging();
             
+            Console.WriteLine("Finding preferred language...");
+            SetPreferredLanguage();
+            
+            Console.WriteLine("Logging sucessfully setup...");
             UrlSchemeHandler.Setup();
-
+            
             PosixSignalRegistration.Create(PosixSignal.SIGTERM, Handler);
             PosixSignalRegistration.Create(PosixSignal.SIGINT, Handler);
+            
+            Console.WriteLine("Starting Avalonia Setup...");
             
             try
             {
@@ -60,19 +74,31 @@ namespace Scarab
                 Settings.GetOrCreateDirPath(),
                 LoggingFile
             );
-
-            // if the log file is too big, archive it
-            if (File.Exists(logFile))
+            
+            try
             {
-                if (new FileInfo(logFile).Length > 5 * 1024 * 1024) // if size > 5 MB
+                // if the log file is too big, archive it
+                if (File.Exists(logFile) && new FileInfo(logFile).Length > 5 * 1024 * 1024) // if size > 5 MB
                 {
                     var newFile = Path.Combine(Settings.GetOrCreateDirPath(),
                         $"{LoggingFileName} ({DateTime.Now:dd/MM/yyyy, HH-mm-ss}){LoggingFileExtension}");
-                    
+
                     if (File.Exists(newFile)) File.Delete(newFile);
-                    
+
                     // save the old log file
                     File.Move(logFile, newFile);
+                }
+            }
+            catch (Exception)
+            {
+                // if it fails, just delete old file
+                try
+                {
+                    if (File.Exists(logFile)) File.Delete(logFile);
+                }
+                catch (Exception)
+                {
+                    // if it fails again, just give up
                 }
             }
 
@@ -134,6 +160,33 @@ namespace Scarab
 
             Trace.Flush();
         }
+        
+        private static void SetPreferredLanguage()
+        {
+            try
+            {
+                SupportedLanguages preferredLanguage;
+                var settings = Settings.Load();
+                if (settings is { PreferredLanguage: not null })
+                {
+                    preferredLanguage = settings.PreferredLanguage.Value; // if user has set a preferred language, use that
+                }
+                else
+                {
+                    var culture = Thread.CurrentThread.CurrentUICulture;
+                    if (!Enum.TryParse(culture.TwoLetterISOLanguageName, out preferredLanguage)) // if culture is supported, set that as preferred
+                        preferredLanguage = SupportedLanguages.en; // default to english
+                }
+                
+                // set the culture to the preferred language
+                Thread.CurrentThread.CurrentUICulture =
+                    new CultureInfo(SupportedLanguagesInfo.SupportedLangToCulture[preferredLanguage]);
+            }
+            catch (Exception)
+            {
+                // ignored, worst case it loads in english, but atleast it loads
+            }
+        }
 
         private static void SetCultureSpecificFontOptions(AppBuilder builder, string culture, string fontFamily) {
             if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == culture) {
@@ -156,7 +209,16 @@ namespace Scarab
                 .Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI();
+                .UseReactiveUI()
+                .ConfigureFonts(manager =>
+                {
+                    manager.AddFontCollection(new EmbeddedFontCollection(
+                        new Uri("fonts:Noto Sans SC", UriKind.Absolute),
+                        new Uri("avares://Scarab/Assets/Fonts/NotoSansSC", UriKind.Absolute)));
+                    manager.AddFontCollection(new EmbeddedFontCollection(
+                        new Uri("fonts:Noto Sans", UriKind.Absolute),
+                        new Uri("avares://Scarab/Assets/Fonts/NotoSans", UriKind.Absolute)));
+                });
 
             foreach ((string culture, string fontFamily) in fontOverrides) {
                 SetCultureSpecificFontOptions(builder, culture, fontFamily);

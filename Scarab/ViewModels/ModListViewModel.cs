@@ -14,6 +14,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -21,7 +22,6 @@ using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
 using Scarab.Util;
-using Icon = MessageBox.Avalonia.Enums.Icon;
 
 namespace Scarab.ViewModels
 {
@@ -275,7 +275,7 @@ namespace Scarab.ViewModels
                         else
                         {
                             // re-install the mod if it was not installed (in case of bad link)
-                            await OnInstall(correspondingMod);
+                            await InternalModDownload(correspondingMod, correspondingMod.OnInstall);
                             failedDownloads.Add(modName);
                             continue;
                         }
@@ -430,11 +430,13 @@ namespace Scarab.ViewModels
                     if (string.IsNullOrEmpty(Search)) 
                         return SelectedItems;
                     
+                    string RemoveSpace(string s) => s.Replace(" ", string.Empty);
+                    
                     if (IsExactSearch)
                         return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
                     else 
-                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
-                                                         x.Description.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                        return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
+                                                        RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
                 }
                 else
                 {
@@ -703,6 +705,11 @@ namespace Scarab.ViewModels
             await UpdateUnupdated();
         }
 
+        /// <summary>
+        /// Enables or disables a mod and handles errors. Does other checks like warning about dependents and ensuring
+        /// its dependencies are installed
+        /// </summary>
+        /// <param name="itemObj">The mod to enable/disable</param>
         public async Task OnEnable(object itemObj)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to enable an object which isn't a mod");
@@ -786,6 +793,11 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(ApiButtonText));
         }
 
+        /// <summary>
+        /// Installs/Uninstalls or Updates a mod, Also shows progress bar for it, and handles any errors 
+        /// </summary>
+        /// <param name="item">The mod to download</param>
+        /// <param name="downloader">The task that downloads the mod, will be from the ModItem class</param>
         public async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
         {
             static bool IsHollowKnight(Process p) => (
@@ -801,7 +813,7 @@ namespace Scarab.ViewModels
                     ButtonDefinitions = ButtonEnum.YesNo,
                     MinHeight = 200,
                     SizeToContent = SizeToContent.WidthAndHeight,
-                }).Show();
+                }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
                 if (res == ButtonResult.Yes)
                     proc.Kill();
@@ -901,12 +913,22 @@ namespace Scarab.ViewModels
             _items.SortBy(Comparer);
         }
 
+        /// <summary>
+        /// Updates a mod
+        /// </summary>
+        /// <param name="itemObj">The mod to update</param>
         public async Task OnUpdate(object itemObj)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to update an object which isn't a mod");
             await InternalModDownload(item, item.OnUpdate);
         }
 
+        /// <summary>
+        /// Installs or Uninstalls a mod based on its current state. If its uninstalled, warn if it has dependents and
+        /// remove its dependencies if the settings ask for it
+        /// </summary>
+        /// <param name="itemObj"></param>
+        /// <exception cref="Exception"></exception>
         public async Task OnInstall(object itemObj)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to install an object which isn't a mod");
@@ -1061,8 +1083,8 @@ namespace Scarab.ViewModels
 
             if (item.State is InstalledState or NotInModLinksState { ModlinksMod: true })
             {
-                await OnInstall(item); // uninstall it
-                await OnInstall(item); // reinstall it
+                await InternalModDownload(item, item.OnInstall); // uninstall it
+                await InternalModDownload(item, item.OnInstall); // reinstall it
             }
             var file = _settingsFinder.GetSettingsFileLocation(item);
 

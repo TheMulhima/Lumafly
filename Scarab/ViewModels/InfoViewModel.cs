@@ -5,7 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Threading;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
+using Scarab.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Services;
@@ -18,6 +21,7 @@ public partial class InfoViewModel : ViewModelBase
     private readonly IInstaller _installer;
     private readonly IModSource _modSource;
     private readonly ISettings _settings;
+    private readonly IUrlSchemeHandler _urlSchemeHandler;
     private readonly HttpClient _hc;
     
     [Notify]
@@ -27,28 +31,35 @@ public partial class InfoViewModel : ViewModelBase
     [Notify]
     private bool _additionalInfoVisible;
     
-    public InfoViewModel(IInstaller installer, IModSource modSource ,ISettings settings, HttpClient hc)
+    public InfoViewModel(IInstaller installer, IModSource modSource ,ISettings settings, HttpClient hc, IUrlSchemeHandler urlSchemeHandler)
     {
         Trace.WriteLine("Initializing InfoViewModel");
         _installer = installer;
         _modSource = modSource;
         _settings = settings;
         _hc = hc;
+        _urlSchemeHandler = urlSchemeHandler;
         Task.Run(FetchAdditionalInfo);
+        Dispatcher.UIThread.Invoke(() => HandleLaunchUrlScheme(_urlSchemeHandler));
     }
     public void OpenLink(object link) => Process.Start(new ProcessStartInfo((string)link) { UseShellExecute = true });
 
     private const string hollow_knight = "hollow_knight";
     private const string HollowKnight = "Hollow Knight";
 
-    public async void LaunchGame(object _isVanilla)
+    public async Task LaunchGame(object _isVanilla) => await _LaunchGame(bool.Parse((string) _isVanilla));
+    
+    
+    /// <summary>
+    /// Launches the game
+    /// </summary>
+    /// <param name="isVanilla">Set to true for vanilla game, set to false for modded game and set to null for no change to current api state</param>
+    private async Task _LaunchGame(bool? isVanilla)
     {
         Trace.WriteLine("Launching game");
         IsLaunchingGame = true;
         try
         {
-            var vanilla = bool.Parse((string)_isVanilla);
-            
             // remove any existing hk instance
             static bool IsHollowKnight(Process p) => (
                 p.ProcessName.StartsWith(hollow_knight)
@@ -60,10 +71,13 @@ public partial class InfoViewModel : ViewModelBase
 
             await _installer.CheckAPI();
 
-            if (!(_modSource.ApiInstall is NotInstalledState or InstalledState {Enabled: false} && vanilla
-                  || _modSource.ApiInstall is InstalledState {Enabled: true} && !vanilla))
+            if (isVanilla != null)
             {
-                await ModListViewModel.ToggleApiCommand(_modSource, _installer);
+                if (!(_modSource.ApiInstall is NotInstalledState or InstalledState { Enabled: false } && isVanilla.Value
+                      || _modSource.ApiInstall is InstalledState { Enabled: true } && !isVanilla.Value))
+                {
+                    await ModListViewModel.ToggleApiCommand(_modSource, _installer);
+                }
             }
 
             var exeDetails = GetExecutableDetails();
@@ -144,6 +158,25 @@ public partial class InfoViewModel : ViewModelBase
         catch (Exception)
         {
             // ignored not important
+        }
+    }
+    
+    private async Task HandleLaunchUrlScheme(IUrlSchemeHandler urlSchemeHandler)
+    {
+        if (urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.launch })
+        {
+            if (urlSchemeHandler.Data is "")
+                await _LaunchGame(null);
+            else if (urlSchemeHandler.Data.ToLower() is "vanilla" or "false")
+                await _LaunchGame(true);
+            else if (urlSchemeHandler.Data.ToLower() is "modded" or "true")
+                await _LaunchGame(false);
+            else
+                await _urlSchemeHandler.ShowConfirmation("Launch Game", 
+                    "Launch game command is invalid. Please specify the launch as vanilla or modded or leave blank for regular launch", 
+                    Icon.Warning);
+
+            _urlSchemeHandler.FinishHandlingUrlScheme();
         }
     }
 }

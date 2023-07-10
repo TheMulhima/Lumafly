@@ -52,6 +52,7 @@ namespace Scarab.Services
                     shasum: mod.Links.SHA256,
                     description: mod.Description,
                     repository: mod.Repository,
+                    issues: mod.Issues,
                     dependencies: mod.Dependencies,
                     
                     tags: mod.Tags,

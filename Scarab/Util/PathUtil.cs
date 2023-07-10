@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
-using Scarab.Extensions;
+using MsBox.Avalonia.Dto;
 using Scarab.Models;
-using Scarab.ViewModels;
 
 namespace Scarab.Util
 {
@@ -47,7 +39,7 @@ namespace Scarab.Util
                 if (result.Count == 0)
                 {
                     await MessageBoxUtil
-                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).Show();
+                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelect).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     if (fail) return null!;
                     continue;
                 }
@@ -60,7 +52,7 @@ namespace Scarab.Util
                         ContentMessage = Resources.PU_InvalidPath,
                         MinHeight = 160,
                         ButtonDefinitions = FailedActionButtons
-                    }).Show();
+                    }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
                     if (res == Resources.XAML_AskForHelp) AskForHelp();
                     if (res == Resources.XAML_ReportError) ReportError();
@@ -96,7 +88,7 @@ namespace Scarab.Util
                 if (result is null or { Length: 0 })
                 {
                     await MessageBoxUtil
-                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).Show();
+                        .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                 }
                 else if (ValidateWithSuffix(result[0]) is not var (managed, suffix))
                 {
@@ -107,7 +99,7 @@ namespace Scarab.Util
                         ContentMessage = Resources.PU_InvalidApp,
                         MinHeight = 200,
                         ButtonDefinitions = FailedActionButtons
-                    }).Show();
+                    }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
                     if (res == Resources.XAML_AskForHelp) AskForHelp();
                     if (res == Resources.XAML_ReportError) ReportError();
@@ -144,7 +136,7 @@ namespace Scarab.Util
                 
                 if (result.Count == 0)
                 {
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     if (fail) return null!;
                     continue;
                 }
@@ -152,7 +144,7 @@ namespace Scarab.Util
                 string? root = Path.GetDirectoryName(result[0].Path.LocalPath);
                 if (root is null)
                 {
-                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).Show();
+                    await MessageBoxUtil.GetMessageBoxStandardWindow(Resources.PU_InvalidExeHeader, Resources.PU_NoSelect).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     if (fail) return null!;
                     continue;
                 }
@@ -165,7 +157,7 @@ namespace Scarab.Util
                         ContentMessage = Resources.PU_InvalidExeHeader,
                         MinHeight = 160,
                         ButtonDefinitions = FailedActionButtons
-                    }).Show();
+                    }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
 
                     if (res == Resources.XAML_AskForHelp) AskForHelp();
                     if (res == Resources.XAML_ReportError) ReportError();

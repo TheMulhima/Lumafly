@@ -7,7 +7,9 @@ public enum UrlSchemeCommands
     reset,
     forceUpdateAll,
     customModLinks,
+    useOfficialModLinks,
     baseLink,
     removeAllModsGlobalSettings,
     removeGlobalSettings,
+    launch,
 }
