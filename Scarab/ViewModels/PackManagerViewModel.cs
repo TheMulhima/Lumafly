@@ -38,7 +38,8 @@ public class PackManagerViewModel : ViewModelBase
     public void LoadPack(object packObj)
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot delete an object that is not a pack");
-        //TODO: implement
+        _packManager.LoadPack(pack.Name);
+        MainWindowViewModel.Instance?.LoadApp(2);
     }
     
     public void CreateNewPack()

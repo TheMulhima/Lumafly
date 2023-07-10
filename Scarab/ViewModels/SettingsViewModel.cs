@@ -152,7 +152,7 @@ namespace Scarab.ViewModels
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
             _settings.Save();
-            MainWindowViewModel.Instance?.LoadApp(2);
+            MainWindowViewModel.Instance?.LoadApp(3);
         }
 
         public async Task ChangePathAsync()
