@@ -7,11 +7,7 @@
 [![contributors](https://img.shields.io/github/contributors/TheMulhima/Scarab)](https://github.com/TheMulhima/Scarab/graphs/contributors)  
 [![discord](https://img.shields.io/discord/879125729936298015?label=discord)](https://discord.gg/VDsg3HmWuB)
 
-This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com).
-
-This specific version of Scarab, Scarab+ is a fork of the "normal" Scarab. It is an updated version of Scarab that exists because there were some
-major features missing from Scarab that we wanted to add.
-See [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) for the full list of them.
+This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, and Russain.
 
 ## Usage
 
@@ -36,6 +32,8 @@ See [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md) f
 - Share links that run commands in scarab see [commands](#commands) for more info.
 - Open a mod's global settings file to edit its settings.
 
+If you want to see what features changed between versions please see the [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md).
+
 ## Features Explanation
 
 Here are a list of explanations of features that require more information.
@@ -52,12 +50,18 @@ The main shareable commands that anyone can use.
 
 - [Custom Modlinks](https://themulhima.github.io/Scarab/commands/customModLinks) - Open Scarab and load its mod list from a custom modlinks.
 
+- [Launch Game](https://themulhima.github.io/Scarab/redirect?link=scarab://launch) - Open Scarab and launch Hollow Knight.
+  - [Launch Vanilla](https://themulhima.github.io/Scarab/redirect?link=scarab://launch/vanilla) - Open Scarab and launch un modded Hollow Knight.
+  - [Launch Modded](https://themulhima.github.io/Scarab/redirect?link=scarab://launch/modded) - Open Scarab and launch modded Hollow Knight.
+
 #### Support Commands
 
 Commands that can be used to help fix problems with Scarab or Hollow Knight Mods
 
 - [Reset](https://themulhima.github.io/Scarab/commands/reset) - Opens Scarab and reset its persistent settings. Equivalent to downloading and opening Scarab for the first time.
 - [Force Update All](https://themulhima.github.io/Scarab/commands/forceUpdateAll) - Opens Scarab and reinstalls all mods. Could help fix issues that happened because mods are not downloaded correctly.
+- [Remove All Mods Global Settings](https://themulhima.github.io/Scarab/redirect?link=removeAllModsGlobalSettings) - Opens Scarab and removes all global settings of mods from saves folder.
+- [Use Official Modlinks](https://themulhima.github.io/Scarab/redirect?link=scarab://useOfficialModLinks) - Opens Scarab and loads its mod from offcial modlinks.
 
 #### Other Commands
 
