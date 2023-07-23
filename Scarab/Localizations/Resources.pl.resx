@@ -517,8 +517,7 @@
     <value>Normalnie Scarab ładuje listę modów z oficjalnego modlinks. Jeżeli chcesz załadować swój własny, wpisz tu jego URL - można wpisać link https lub pliki (w formacie file://{filepath}).\nPuste lub niewłaściwe linki załadują oficjalny modlinks</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Enter link to custom modlinks. Needs a reload to take effect
-Wpisz link do niestandardowego modlinks. Wymagane ponowne załadowanie aby uzyskać efekt</value>
+    <value>Wpisz link do niestandardowego modlinks. Wymagane ponowne załadowanie aby uzyskać efekt</value>
   </data>
   <data name="XAML_ReloadScarab" xml:space="preserve">
     <value>Załaduj Scarab ponownie</value>
