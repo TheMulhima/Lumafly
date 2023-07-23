@@ -121,136 +121,136 @@
     <value>, </value>
   </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
-    <value>Uninstall</value>
+    <value>Odinstaluj</value>
   </data>
   <data name="MI_InstallText_NotInstalled" xml:space="preserve">
-    <value>Install</value>
+    <value>Zainstaluj</value>
   </data>
   <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
-    <value>Disable API</value>
+    <value>Wyłącz API</value>
   </data>
   <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
-    <value>Enable API</value>
+    <value>Włącz API</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>Toggle API</value>
+    <value>Przełącz API</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Re-open the installer to use your new path.</value>
+    <value>Otwórz instalator ponownie aby użyć nowej ścieżki.</value>
   </data>
   <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Path Changed!</value>
+    <value>Ścieżka zmieniona!</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>The download hash for {0} ({1}) didn't match the given signature ({2}). It is either corrupt or the entry is incorrect.</value>
+    <value>Hasz pobierania dla {0} ({1}) nie zgadza się z otrzymanym podpisem ({2}). Jest uszkodzony lub pozycja jest niewłaściwa. </value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>Hash mismatch!</value>
+    <value>Hasz się nie zgadza!</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>Unable to download {0}! The site may be down or you may lack network connectivity.</value>
+    <value>Nie udało się pobrać {0}! Strona internetowa może tymczasowo nie działać lub mógł wystąpić problem z twoim połączeniem.</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>Network Error</value>
+    <value>Błąd Sieci</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>Hollow Knight is open! This may lead to issues when installing mods. Close Hollow Knight?</value>
+    <value>Hollow Knight jest otwarty! To może spowodować problemy podczas instalowania modów. Zamknąć Hollow Knight?</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
-    <value>Warning!</value>
+    <value>Ostrzeżenie!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>failed with HTTP error {0}</value>
+    <value>błąd HTTP {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Unable to get list of mods from modlinks, the operation {0}</value>
+    <value>Nie udało się załadować listy modów z modlinks, operacja {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
-    <value>Error!</value>
+    <value>Błąd!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>timed out. Please check your internet connection and try again</value>
+    <value>przekroczono limit czasu. Sprawdź swoje połączenie z internetem i spróbuj ponownie</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>Get the latest release</value>
+    <value>Pobierz najnowszą wersję</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>Continue anyways.</value>
+    <value>Kontynuuj mimo to</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Out of date!</value>
+    <value>Nieaktualny!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Scarab has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features.</value>
+    <value>Dostępna jest nowa aktualizacja Scaraba. Pobierz najnowszą wersję (v{0}) z nowymi funkcjami i naprawionymi błędami.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Scarab failed to download update automatically. Scarab will now open the link to get the latest version</value>
+    <value>Nie udało się pobrać aktualizacji automatycznie. Scarab teraz otworzy link do pobrania najnowszej wersji</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Ostrzeżenie</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>The saved Hollow Knight path is invalid, please re-select a valid path.</value>
+    <value>Zapisana ścieżka Hollow Knight jest niepoprawna, wybierz poprawną ścieżkę.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>Informacje</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>Unable to detect your Hollow Knight installation. Please select it.</value>
+    <value>Nie udało się wykryć twojej instalacji Hollow Knight. Prosimy o wskazanie jej.</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>Detected path!</value>
+    <value>Wykryto ścieżkę!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>Detected Hollow Knight install at {0}. Is this correct?</value>
+    <value>Wykryto instalację Hollow Knight w {0}. Czy ta ścieżka jest poprawna?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>Change Path</value>
+    <value>Zmień ścieżkę</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>Dependencies:</value>
+    <value>Zależności:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>Wesprzyj</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>All</value>
+    <value>Wszystkie</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Włączone</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
-    <value>Installed</value>
+    <value>Zainstalowane</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>Out of date</value>
+    <value>Przestarzałe</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>Open Mods Folder</value>
+    <value>Otwórz folder modów</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repository and Readme:</value>
+    <value>Repozytorium i README:</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>Mod Search</value>
+    <value>Wyszukaj Mody</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>Update API</value>
+    <value>Zaktualizuj API</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>Version:</value>
+    <value>Wersja:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integrations:</value>
+    <value>Integracje:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Tags:</value>
+    <value>Tagi:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>On</value>
+    <value>Włączony</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Wyłączony</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
     <value>Ask</value>
