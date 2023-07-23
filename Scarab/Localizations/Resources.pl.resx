@@ -217,7 +217,7 @@
     <value>Wszystkie</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>Włączone</value>
+    <value>Aktywne</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
     <value>Zainstalowane</value>
@@ -247,178 +247,178 @@
     <value>Tagi:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>Włączony</value>
+    <value>Aktywny</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Wyłączony</value>
+    <value>Nieaktywny</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>Ask</value>
+    <value>Zapytaj</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
-    <value>Update</value>
+    <value>Aktualizacja</value>
   </data>
   <data name="PU_NoSelect" xml:space="preserve">
-    <value>No path was selected!</value>
+    <value>Nie wybrano ścieżki!</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>No application was selected!</value>
+    <value>Nie wybrano aplikacji!</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight path!</value>
+    <value>Niewłaściwa ścieżka Hollow Knight!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight app!</value>
+    <value>Niewłaściwa aplikacja Hollow Knight!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
+    <value>Niewłaściwy .exe Hollow Knight! Wybierz plik .exe Hollow Knight lub skrót do niego</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>Select the folder containing hollow_knight_Data or Hollow Knight_Data.</value>
+    <value>Wybierz folder zawierający hollow_knight_Data lub Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>Missing Managed folder or Assembly-CSharp!</value>
+    <value>Brakuje folderu Managed lub Assembly-CSharp!</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>Select your Hollow Knight folder.</value>
+    <value>Wybierz swój folder Hollow Knight.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
-    <value>Path</value>
+    <value>Ścieżka</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>Select your Hollow Knight app.</value>
+    <value>Wybierz swoją aplikację Hollow Knight.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>Select your Hollow Knight executable or its shortcut.</value>
+    <value>Wybierz swój plik wykonywalny Hollow Knight (.exe) lub jego skrót.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>Update All</value>
+    <value>Zaktualizuj Wszystkie</value>
   </data>
   <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Uninstall</value>
+    <value>Odinstaluj</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>Bulk Actions</value>
+    <value>Akcje Masowe</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>Disable All</value>
+    <value>Deaktywuj Wszystkie</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>Enable All</value>
+    <value>Aktywuj Wszystkie</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>Uninstall All</value>
+    <value>Odinstaluj Wszystkie</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Authors:</value>
+    <value>Autorzy:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Search Options</value>
+    <value>Opcje Wyszukiwania</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>Search Type</value>
+    <value>Typ Wyszukiwania</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>Select Tags</value>
+    <value>Wybierz Tagi</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Exact Search</value>
+    <value>Wyszukiwanie Precyzyjne</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>Normal Search</value>
+    <value>Wyszukiwanie Zwykłe</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Search by Dependency</value>
+    <value>Wyszukaj według zależności</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>Select Mod</value>
+    <value>Wybierz Mod</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>No mods to display</value>
+    <value>Brak modów do wyświetlenia</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>Open Saves Folder</value>
+    <value>Otwórz Folder Zapisów</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Manually Install</value>
+    <value>Zainstaluj Ręcznie</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>Select the mod dll or zip</value>
+    <value>Wybierz .dll lub .zip moda</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>New Mods</value>
+    <value>Nowe Mody</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Updated Mods</value>
+    <value>Zaktualizowane Mody</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>Last Week</value>
+    <value>Ostatni Tydzień</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Last Month</value>
+    <value>Ostatni Miesiąc</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>Whats New</value>
+    <value>Co Nowego</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Copy Error</value>
+    <value>Błąd Kopiowania</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Click to show full error</value>
+    <value>Kliknij aby wyświetlić pełny błąd</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edit mod's settings file</value>
+    <value>Edytuj plik z ustawieniami moda</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Loading the newest mods that are on modlinks...</value>
+    <value>Ładowanie najnowszych modów z modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Scarab was unable to load the newest mods from modlinks.</value>
+    <value>Scarab nie był w stanie załadować najnowszych modów z modlinks.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
+    <value>Mogło to być wywołane przez słabe połączenie internetowe lub jego brak. Sprawdź to i spróbuj ponownie.</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>Warning! This mod is required for other mods to function!</value>
+    <value>Uwaga! Ten mod jest wymagany, aby inne mody mogły funkcjonować!</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
+    <value>{0} jest konieczny aby {1} mógł działać poprawnie. Czy nadal chcesz kontynuować?</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>Warning! Are you sure you want to do this?</value>
+    <value>Uwaga! Czy na pewno chcesz to zrobić?</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Scarab was unable to access the file in the mods folder</value>
+    <value>Scarab nie był w stanie uzyskać dostępu do pliku w folderze z modami</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>Please make sure that the mods folder is not in a write protected location</value>
+    <value>Upewnij się że folder z modami nie jest w lokalizacji chronionej przed zapisem</value>
   </data>
   <data name="MVVM_SystemIOException_ScarabCantAccessFile" xml:space="preserve">
-    <value>Scarab cannot access the file:</value>
+    <value>Scarab nie może uzyskać dostępu do pliku:</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>Please make sure to close all other apps that could be using the mods folder</value>
+    <value>Upewnij się że zamknąłeś/aś wszystkie pozostałe aplikacje które mogłyby używać folderu z modami</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>Please close the following processes as they are locking important files:</value>
+    <value>Proszę o zamknięcie następujących procesów, gdyż blokują one ważne pliki:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
     <value>Boss</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>Gameplay</value>
+    <value>Rozgrywka</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>Utility</value>
+    <value>Użytkowe</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>Cosmetic</value>
+    <value>Ozdobne</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Biblioteki</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>Rozszerzenie</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
     <value>Fetching mods from modlinks...</value>
