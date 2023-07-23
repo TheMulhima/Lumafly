@@ -421,136 +421,137 @@
     <value>Rozszerzenie</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Fetching mods from modlinks...</value>
+    <value>Pobieranie listy modów z modlinks...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Waiting for response from github...</value>
+    <value>Czekanie na odpowiedź z Githuba...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>Nadal czekanie...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Trying from fallback source...</value>
+    <value>Próbowanie awaryjnego źródła...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Waiting for response from jsdelivr...</value>
+    <value>Czekanie na odpowiedź z jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>Try running scarab as an administrator, it may fix the issue</value>
+    <value>Spróbuj uruchomić Scarab jako administrator, to może naprawić problem</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>An exception occured while {0} {1}</value>
+    <value>Wystąpił wyjątek podczas {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>Ask for help</value>
+    <value>Poproś o pomoc</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Report Error</value>
+    <value>Zgłoś błądr</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>Install</value>
+    <value>Zainstaluj</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
+    <value>{0} jest wymagany, aby {1} mógł działać poprawnie. Zainstalować?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>The mod has dependencies that are not installed!</value>
+    <value>Mod zawiera zależności które nie są zainstalowane!</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>Select manually</value>
+    <value>Wybierz ręcznie</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Note: they may be used by any mods you have installed manually</value>
+    <value>Nota: mogą być używane przez wszystkie mody zainstalowane ręcznie</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>None</value>
+    <value>Żadne</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
+    <value>Odinstalowanie tego moda pozostawi zależności które nie są już używane</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>Auto remove dependencies?</value>
+    <value>Usunąć zależności automatycznie?</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>Przypnij</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Pin a mod so it isn't automatically replaced by Scarab</value>
+    <value>Przypnij mod, aby nie był on automatycznie zamieniony przez Scaraba</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Odepnij</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Unable to get modlinks</value>
+    <value>Nie udało się pobrać modlinks</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>Do you want to launch scarab in offline mode?</value>
+    <value>Czy chcesz uruchomić Scarab w trybie offline?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>Select Authors</value>
+    <value>Wybierz Autorów</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Warn before removing a dependent mod</value>
+    <value>Ostrzeż mnie przed usunięciem zależnego moda</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Opcje</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
-    <value>Mods</value>
+    <value>Mody</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>Automatically Remove Unused Dependencies</value>
+    <value>Automatycznie usuwaj nieużywane zależności</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>Otwórz Folder</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>Game Path</value>
+    <value>Ścieżka Gry</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Use Custom Modlinks</value>
+    <value>Użyj niestandardowego modlinks</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normally Scarab loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
+    <value>Normalnie Scarab ładuje listę modów z oficjalnego modlinks. Jeżeli chcesz załadować swój własny, wpisz tu jego URL - można wpisać link https lub pliki (w formacie file://{filepath}).\nPuste lub niewłaściwe linki załadują oficjalny modlinks</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
+    <value>Enter link to custom modlinks. Needs a reload to take effect
+Wpisz link do niestandardowego modlinks. Wymagane ponowne załadowanie aby uzyskać efekt</value>
   </data>
   <data name="XAML_ReloadScarab" xml:space="preserve">
-    <value>Reload Scarab</value>
+    <value>Załaduj Scarab ponownie</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>(Reload for changes to take effect)</value>
+    <value>(Załaduj ponownie aby wprowadzić zmiany)</value>
   </data>
   <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Invalid Custom Modlinks</value>
+    <value>Niewłaściwy Niestandardowy Modlinks</value>
   </data>
   <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Scarab was unable to load modlinks from {0}. Scarab will load official modlinks instead.</value>
+    <value>Scarab nie był w stanie załadować modlinks z {0}. Scarab zamiast tego załaduje oficjalny modlinks.</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>Informacje</value>
   </data>
   <data name="XAML_InfoHeader" xml:space="preserve">
     <value>Scarab+</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Scarab+ is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
+    <value>Scarab+ to instalator dla Hollow Knight w wersji 1.5. Nie będzie on działać dla starszych wersji Hollow Knight</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>Relevant Links</value>
+    <value>Stosowne Linki</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
-    <value>Website\n</value>
+    <value>Strona internetowa\n</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
     <value>Github\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Readme\n</value>
+    <value>Przeczytaj mnie\n</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord\n</value>
@@ -559,135 +560,135 @@
     <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>An Alternate Installer</value>
+    <value>Alternatywny Instalator</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Create Mods\n</value>
+    <value>Twórz Mody\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Modding\nTutorial</value>
+    <value>Jak\nModować</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>Launch Vanilla Game</value>
+    <value>Uruchom Grę Podstawową</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>Launch Modded Game</value>
+    <value>Uruchom Grę z Modami</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>Please wait launching game...</value>
+    <value>Proszę czekać, uruchamianie gry...</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>Record as custom version</value>
+    <value>Zapamiętaj jako wersję niestandardową</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab</value>
+    <value>Zapamiętaj wersję tego moda jako niepochodzącą z modlinks. Nie wpływa w żaden sposób na moda, jedynie na sposób w jaki Scarab go traktuje. Przypięty mod z wersją niestandardową nigdy nie zostanie zastąpiony przez Scarab</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
+    <value>Zresetuj Moda: przymusowo re-instaluje moda i usuwa jego ustawienia</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Get the shareable download link of this mod.</value>
+    <value>Zdobądź udostępnialny link do pobrania tego moda</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>Open folder where this mod is installed</value>
+    <value>Otwórz folder w którym ten mod jest zainstalowany</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>Report a bug or an issue with this mod</value>
+    <value>Zgłoś problem z tym modem</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>This mod was manually installed and is not from official modlinks</value>
+    <value>Ten mod został zainstalowany ręcznie i nie pochodzi z oficjalnego modlinks</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>Version not from modlinks</value>
+    <value>Wersja spoza modlinks</value>
   </data>
   <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Invalid URL Scheme Command</value>
+    <value>Niewłaściwe polecenie schematu adresu URL</value>
   </data>
   <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} is an invalid command.\nScarab only accepts command prefixed by scarab://</value>
+    <value>{0} to niepoprawne polecenie.\nScarab akceptuje tylko polecenia poprzedzone przez scarab://</value>
   </data>
   <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} is an invalid command.\nIt was not found in scarab's accepted command list</value>
+    <value>{0} to niepoprawne polecenie.\nNie zostało ono znalezione w liście poleceń akceptowanych przez Scaraba</value>
   </data>
   <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Reset installer from command</value>
+    <value>Zresetuj instalator z polecenia</value>
   </data>
   <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>The installer has been reset.</value>
+    <value>Instalator został zresetowany</value>
   </data>
   <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>The installer could not be reset. Please try again.\n{0}</value>
+    <value>Instalator nie mógł zostać zresetowany. Spróbuj ponownie.\n{0}</value>
   </data>
   <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Reset all mod global settings installer from command</value>
+    <value>Zresetuj wszystkie globalne ustawienia modów instalatora z polecenia</value>
   </data>
   <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>All mods global settings have been reset.</value>
+    <value>Globalne ustawienia wszystkich modów zostały zresetowane.</value>
   </data>
   <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>All mods global settings could not be reset. Please try again.\n{0}</value>
+    <value>Nie udało się zresetować globalnych ustawień wszystkich modów. Spróbuj ponownie.\n{0}</value>
   </data>
   <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Download mod from command</value>
+    <value>Pobierz mod z polecenia</value>
   </data>
   <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Invalid download mod command</value>
+    <value>Niepoprawne polecenie pobrania moda</value>
   </data>
   <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Scarab has successfully downloaded {0} from command</value>
+    <value>Scarab z powodzeniem pobrał {0} z polecenia</value>
   </data>
   <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>However, Scarab was unable to download {0} from command. Please check if the command is correct</value>
+    <value>Scarab nie był jednak w stanie pobrać {0} z polecenia. Upewnij się że polecenie jest poprawne</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Remove mod global setting</value>
+    <value>Usuń globalne ustawienia moda</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Invalid remove mod global command</value>
+    <value>Niepoprawne polecenie usunięcia globalnych ustawień moda</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Scarab has removed global settings for {0} from command</value>
+    <value>Scarab usunął globalne ustawienia dla {0} z polecenia</value>
   </data>
   <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>However, Scarab was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed</value>
+    <value>Scarab nie był jednak w stanie znaleźć globalnych ustawień dla {0}. Upewnij się że nazwa moda jest poprawna a mod jest zainstalowany</value>
   </data>
   <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Force update all from command</value>
+    <value>Wymuś aktualizację wszystkiego z polecenia</value>
   </data>
   <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Scarab has successfully run force updated all command</value>
+    <value>Scarab z powodzeniem wymusił aktualizację wszystkiego z polecenia</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Load custom modlinks from command</value>
+    <value>Załaduj niestandardowy modlinks z polecenia</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Got the custom modlinks \"{0}\" from command.</value>
+    <value>Załadowano niestandardowy modlinks \"{0}\" z polecenia.</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>No modlinks were provided. Please try again</value>
+    <value>Nie podano modlinks. Spróbuj ponownie</value>
   </data>
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Load new baselink from command</value>
+    <value>Załaduj nowy baselink z polecenia</value>
   </data>
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Got the new base link '{0}' from command.</value>
+    <value>Załadowano nowy baselink '{0}' z polecenia.</value>
   </data>
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>No baselink were provided. Please try again</value>
+    <value>Nie podano baselink. Spróbuj ponownie</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Język</value>
   </data>
   <data name="MVVM_UseOfficialModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Use official modlinks url command</value>
+    <value>Użyj oficjalnej komendy url modlinks</value>
   </data>
   <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
-    <value>Scarab will now use official modlinks</value>
+    <value>Scarab używa teraz oficjalnego modlinks</value>
   </data>
   <data name="XAML_CacheDownloads" xml:space="preserve">
-    <value>Cache Downloads</value>
+    <value>Pliki do pobrania z pamięci podręcznej</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>(Uses extra {0} of storage)</value>
+    <value>(Używa dodatkowych {0} pamięci)</value>
   </data>
 </root>
