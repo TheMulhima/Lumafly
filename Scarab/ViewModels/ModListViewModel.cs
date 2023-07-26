@@ -79,6 +79,7 @@ namespace Scarab.ViewModels
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
 
+        // Not sure if this is still used by anything now, I'll leave it here just in case - Acu1000
         public static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
         {
             {"Boss", Resources.ModLinks_Tags_Boss},
@@ -88,6 +89,22 @@ namespace Scarab.ViewModels
             {"Library", Resources.ModLinks_Tags_Library},
             {"Expansion", Resources.ModLinks_Tags_Expansion},
         };
+
+        // It seems like the above dictionary always returned the english localization,
+        // but calling it right when the UI is created seems to fix it - Acu1000
+        public string GetTagLocalizedName(string tag)
+        {
+            Dictionary<string, string> TagNameToLocalized = new Dictionary<string, string>
+            {
+                {"Boss", Resources.ModLinks_Tags_Boss},
+                {"Gameplay", Resources.ModLinks_Tags_Gameplay},
+                {"Utility", Resources.ModLinks_Tags_Utility},
+                {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
+                {"Library", Resources.ModLinks_Tags_Library},
+                {"Expansion", Resources.ModLinks_Tags_Expansion},
+            };
+            return TagNameToLocalized.TryGetValue(tag, out var localizedTag) ? localizedTag : tag;
+        }
 
         public ModListViewModel(
             ISettings settings, 
@@ -138,7 +155,7 @@ namespace Scarab.ViewModels
             TagList = new SortableObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
                 new SelectableItem<string>(
                     x,
-                    ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
+                    GetTagLocalizedName(x),
                     false)));
 
             AuthorList = new SortableObservableCollection<SelectableItem<string>>(authorsInModlinks.Select(x => 
