@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -322,7 +322,7 @@
     <value>Wybierz Tagi</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Wyszukiwanie Precyzyjne</value>
+    <value>Wyszukiwanie Dokładne</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
     <value>Wyszukiwanie Zwykłe</value>
@@ -418,7 +418,7 @@
     <value>Biblioteki</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Rozszerzenie</value>
+    <value>Ekspansja</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
     <value>Pobieranie listy modów z modlinks...</value>
@@ -448,7 +448,7 @@
     <value>Poproś o pomoc</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Zgłoś błądr</value>
+    <value>Zgłoś błąd</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
     <value>Zainstaluj</value>
@@ -463,7 +463,7 @@
     <value>Wybierz ręcznie</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Nota: mogą być używane przez wszystkie mody zainstalowane ręcznie</value>
+    <value>Uwaga: mogą być używane przez wszystkie mody zainstalowane ręcznie</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
     <value>Żadne</value>
@@ -484,7 +484,7 @@
     <value>Odepnij</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Nie udało się pobrać modlinks</value>
+    <value>Nie udało się pobrać listy modów z modlinks</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
     <value>Czy chcesz uruchomić Scarab w trybie offline?</value>
@@ -493,7 +493,7 @@
     <value>Wybierz Autorów</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Ostrzeż mnie przed usunięciem zależnego moda</value>
+    <value>Ostrzeż mnie przed usunięciem zależnych modów</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
     <value>Opcje</value>
@@ -511,13 +511,13 @@
     <value>Ścieżka Gry</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Użyj niestandardowego modlinks</value>
+    <value>Użyj niestandardowej listy modów</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normalnie Scarab ładuje listę modów z oficjalnego modlinks. Jeżeli chcesz załadować swój własny, wpisz tu jego URL - można wpisać link https lub pliki (w formacie file://{filepath}).\nPuste lub niewłaściwe linki załadują oficjalny modlinks</value>
+    <value>Normalnie Scarab ładuje listę modów z oficjalnej listy modów (modlinks). Jeżeli chcesz załadować swoją własną, wpisz tu jej URL - można wpisać link https lub pliki (w formacie file://{filepath}).\nPuste lub niewłaściwe linki załadują oficjalny modlinks.</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Wpisz link do niestandardowego modlinks. Wymagane ponowne załadowanie aby uzyskać efekt</value>
+    <value>Wpisz link do niestandardowej listy modów. Wymagane ponowne załadowanie aby uzyskać efekt</value>
   </data>
   <data name="XAML_ReloadScarab" xml:space="preserve">
     <value>Załaduj Scarab ponownie</value>
@@ -526,10 +526,10 @@
     <value>(Załaduj ponownie aby wprowadzić zmiany)</value>
   </data>
   <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Niewłaściwy Niestandardowy Modlinks</value>
+    <value>Niewłaściwa niestandardowa lista modów</value>
   </data>
   <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Scarab nie był w stanie załadować modlinks z {0}. Scarab zamiast tego załaduje oficjalny modlinks.</value>
+    <value>Scarab nie był w stanie załadować listy modów z {0}. Scarab zamiast tego załaduje domyślną listę (modlinks).</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>Informacje</value>
@@ -544,7 +544,7 @@
     <value>Stosowne Linki</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
-    <value>Strona internetowa\n</value>
+    <value>Strona\nInternetowa</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
     <value>Github\n</value>
@@ -562,10 +562,10 @@
     <value>Alternatywny Instalator</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Twórz Mody\n</value>
+    <value>Twórz\nMody</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Jak\nModować</value>
+    <value>Jak\nModować?</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
     <value>Uruchom Grę Podstawową</value>
@@ -595,7 +595,7 @@
     <value>Zgłoś problem z tym modem</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>Ten mod został zainstalowany ręcznie i nie pochodzi z oficjalnego modlinks</value>
+    <value>Ten mod został zainstalowany ręcznie i nie pochodzi z modlinks</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Wersja spoza modlinks</value>
@@ -658,13 +658,13 @@
     <value>Scarab z powodzeniem wymusił aktualizację wszystkiego z polecenia</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Załaduj niestandardowy modlinks z polecenia</value>
+    <value>Załaduj niestandardową listę modów z polecenia</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Załadowano niestandardowy modlinks \"{0}\" z polecenia.</value>
+    <value>Załadowano niestandardową listę modów \"{0}\" z polecenia.</value>
   </data>
   <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nie podano modlinks. Spróbuj ponownie</value>
+    <value>Nie podano listy modów. Spróbuj ponownie</value>
   </data>
   <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
     <value>Załaduj nowy baselink z polecenia</value>
@@ -682,7 +682,7 @@
     <value>Użyj oficjalnej komendy url modlinks</value>
   </data>
   <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
-    <value>Scarab używa teraz oficjalnego modlinks</value>
+    <value>Scarab używa teraz domyślnej listy modów (modlinks)</value>
   </data>
   <data name="XAML_CacheDownloads" xml:space="preserve">
     <value>Pliki do pobrania z pamięci podręcznej</value>
