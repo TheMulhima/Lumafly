@@ -7,7 +7,7 @@
 [![contributors](https://img.shields.io/github/contributors/TheMulhima/Scarab)](https://github.com/TheMulhima/Scarab/graphs/contributors)  
 [![discord](https://img.shields.io/discord/879125729936298015?label=discord)](https://discord.gg/VDsg3HmWuB)
 
-This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, and Russain.
+This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, and Russian.
 
 ## Usage
 
@@ -108,7 +108,7 @@ If you want to contribute to Scarab, feel free to. You can see what features are
 - [luiz_eldorado](https://github.com/luizeldorado) - Portuguese translations
 - [Dastan](https://github.com/Dastan21) - French translations
 - [Adrin](https://twitter.com/Adrin63_?t=lbzYGgt-3Zybjb_S2xqt2A&s=09) and [Helen](https://ko-fi.com/helensb) - Spanish translations
-- [Страг](https://discordapp.com/users/274945280775028736) - Russain transaltions
+- [Страг](https://discordapp.com/users/274945280775028736) - Russian transaltions
 
 ### Art
 
