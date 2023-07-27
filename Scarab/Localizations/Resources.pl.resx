@@ -463,7 +463,7 @@
     <value>Wybierz ręcznie</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Uwaga: mogą być używane przez wszystkie mody zainstalowane ręcznie</value>
+    <value>Uwaga: mogą być używane przez mody zainstalowane ręcznie</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
     <value>Żadne</value>
@@ -550,7 +550,7 @@
     <value>Github\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Przeczytaj mnie\n</value>
+    <value>Przeczytaj\nmnie</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord\n</value>
