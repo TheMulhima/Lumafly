@@ -14,4 +14,6 @@ public interface IPackManager
    Task SavePack(string name, string description);
 
    void RemovePack(string packName);
+
+   void SharePackManually(string packName);
 }
