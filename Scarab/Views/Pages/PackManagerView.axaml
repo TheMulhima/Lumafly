@@ -24,7 +24,7 @@
                         ColumnDefinitions="* Auto">
                         <Expander Margin="0 0 20 0">
                         <Expander.Header>
-                            <Grid ColumnDefinitions="* Auto Auto Auto">
+                            <Grid ColumnDefinitions="* Auto Auto Auto Auto">
                                 <TextBlock
                                     Grid.Column="0"
                                     Text="{Binding Name}" 
@@ -78,6 +78,15 @@
                                     CommandParameter="{Binding .}"
                                     ToolTip.Tip="{ext:Localize XAML_DeletePack}" ToolTip.ShowDelay="0">
                                     <PathIcon Data="{StaticResource delete_regular}"/>
+                                </Button>
+                                <Button
+                                    Grid.Column="4"
+                                    VerticalAlignment="Stretch"
+                                    Margin="10 1 0 1"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.ManuallySharePack}"
+                                    CommandParameter="{Binding .}"
+                                    ToolTip.Tip="Share Pack Manually" ToolTip.ShowDelay="0">
+                                    <PathIcon Data="{StaticResource share_android_regular}"/>
                                 </Button>
                             </Grid>
                         </Expander.Header>
