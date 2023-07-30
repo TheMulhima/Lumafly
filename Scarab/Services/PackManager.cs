@@ -13,6 +13,7 @@ using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
 using MsBox.Avalonia.Enums;
 using Scarab.Util;
+using System.IO.Compression;
 
 namespace Scarab.Services;
 
@@ -282,6 +283,41 @@ public class PackManager : IPackManager
 
             if (res == ButtonResult.Yes)
                 proc.Kill();
+        }
+    }
+
+    /// <summary>
+    /// Create a .zip file containing the pack in location specified by user (wip)
+    /// </summary>
+    /// <param name="packName"></param>
+    public async void SharePackManually(string packName) // TODO: test this
+    {
+        await EnsureGameClosed();
+
+        var pack = _packList.FirstOrDefault(x => x.Name == packName);
+        if (pack == null)
+        {
+            await DisplayErrors.DisplayGenericError("Could not share profile: profile not found!");
+            return;
+        }
+
+        var packFolder = Path.Combine(_settings.ManagedFolder, packName);
+
+        var output_file = Path.Combine(_settings.ManagedFolder, "a_test_share.zip");  // TODO: ask user to choose the path
+
+        CreateZip(packFolder, output_file);
+    }
+
+    /// <summary>
+    /// Create a .zip file
+    /// </summary>
+    /// <param name="file_path">Path to the directory to be zipped</param>
+    /// <param name="output_file">Path to the new .zip file</param>
+    private void CreateZip(string file_path, string output_file)
+    {
+        using (var archive = ZipFile.Open(output_file, ZipArchiveMode.Create))
+        {
+            archive.CreateEntryFromFile(file_path, Path.GetFileName(file_path));
         }
     }
 }
