@@ -14,6 +14,7 @@ using MessageBox.Avalonia.Enums;
 using MsBox.Avalonia.Enums;
 using Scarab.Util;
 using System.IO.Compression;
+using Avalonia.Platform.Storage;
 
 namespace Scarab.Services;
 
@@ -303,9 +304,39 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        var output_file = Path.Combine(_settings.ManagedFolder, packName+".zip");  // TODO: ask user to choose the path
+        var window = new Window(); // Not sure if this is a good idea, might want to get the window some other way
 
-        CreateZip(packFolder, output_file);
+        List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>();
+        fileTypeChoices.Append(new FilePickerFileType("zip"));  // TODO: make this actually work
+
+        var options = new FilePickerSaveOptions();
+        options.Title = "TestTitle";
+        //options.SuggestedStartLocation = _settings.ManagedFolder;  // TODO: make this work too
+        options.ShowOverwritePrompt = true;
+        options.DefaultExtension = "zip";
+        options.SuggestedFileName = packName;
+        options.FileTypeChoices = fileTypeChoices;                                
+
+        Task<IStorageFile?> t = window.StorageProvider.SaveFilePickerAsync(options);
+
+        IStorageFile? storage_file = await t;
+        if(storage_file == null)
+        {
+            // USER DIDNT SELECT A FILE
+            return;
+        }
+        string? output_file = storage_file.TryGetLocalPath();
+        if(output_file == null)
+        {
+            // OUTPUT FILE IS NULL FOR SOME REASON
+            return;
+        }
+
+        if (output_file.EndsWith(".zip"))
+        {
+            CreateZip(packFolder, output_file);
+        }
+        
     }
 
     /// <summary>
