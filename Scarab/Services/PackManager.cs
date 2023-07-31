@@ -311,7 +311,7 @@ public class PackManager : IPackManager
         }
 
         var options = new FilePickerSaveOptions();
-        options.Title = "TestTitle";
+        options.Title = "Select save location";
         options.ShowOverwritePrompt = true;
         options.DefaultExtension = "zip";
         options.SuggestedFileName = packName;
@@ -322,6 +322,7 @@ public class PackManager : IPackManager
         List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
         options.FileTypeChoices = fileTypeChoices;
 
+        // This seems to sometimes crash on multiple attemps for some reason
         IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
 
         if (storage_file == null) return; // User didn't select a file
