@@ -288,10 +288,10 @@ public class PackManager : IPackManager
     }
 
     /// <summary>
-    /// Create a .zip file containing the pack in location specified by user (wip)
+    /// Create a .zip file containing the pack in location specified by user
     /// </summary>
     /// <param name="packName"></param>
-    public async void SharePackManually(string packName)
+    public async void SavePackToZip(string packName)
     {
         await EnsureGameClosed();
 
@@ -304,56 +304,49 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        var window = new Window(); // Not sure if this is a good idea, might want to get the window some other way
-
-        List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>();
-        fileTypeChoices.Append(new FilePickerFileType("zip"));  // TODO: make this actually work
+        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow());
+        if (window == null) 
+        {
+            window = new Window();          // Let me know if this is a bad idea
+        }
 
         var options = new FilePickerSaveOptions();
         options.Title = "TestTitle";
-        //options.SuggestedStartLocation = _settings.ManagedFolder;  // TODO: make this work too
         options.ShowOverwritePrompt = true;
         options.DefaultExtension = "zip";
         options.SuggestedFileName = packName;
-        options.FileTypeChoices = fileTypeChoices;                                
 
-        Task<IStorageFile?> t = window.StorageProvider.SaveFilePickerAsync(options);
+        // Only let user save it as a .zip
+        var fileType = new FilePickerFileType("ZIP Archive");
+        fileType.Patterns = new List<string>() { "*.zip" };
+        List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
+        options.FileTypeChoices = fileTypeChoices;
 
-        IStorageFile? storage_file = await t;
-        if(storage_file == null)
-        {
-            // USER DIDNT SELECT A FILE
-            return;
-        }
-        string? output_file = storage_file.TryGetLocalPath();
-        if(output_file == null)
-        {
-            // OUTPUT FILE IS NULL FOR SOME REASON
-            return;
-        }
+        IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
 
-        if (output_file.EndsWith(".zip"))
-        {
-            CreateZip(packFolder, output_file);
-        }
-        
+        if (storage_file == null) return; // User didn't select a file
+
+        string? outputFilePath = storage_file.TryGetLocalPath();
+        if(outputFilePath == null) return; // Couldn't get local path for some reason
+
+        bool success = CreateZip(packFolder, outputFilePath);
     }
 
     /// <summary>
     /// Create a .zip file from a directory. Returns if the creation was successful
     /// </summary>
-    /// <param name="source_path">Path to the directory to be zipped</param>
-    /// <param name="output_file">Path to the new .zip file</param>
-    private bool CreateZip(string source_path, string output_file)
+    /// <param name="sourcePath">Path to the directory to be zipped</param>
+    /// <param name="outputFilePath">Path to the new .zip file</param>
+    private bool CreateZip(string sourcePath, string outputFilePath)
     {
         try
         {
-            if (!Directory.Exists(source_path))
+            if (!Directory.Exists(sourcePath))
             {
                 throw new DirectoryNotFoundException("Couldn't find the source directory");
             }
 
-            ZipFile.CreateFromDirectory(source_path, output_file);
+            ZipFile.CreateFromDirectory(sourcePath, outputFilePath);
             return true;
         }
         catch
