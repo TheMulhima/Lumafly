@@ -304,14 +304,11 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow());
-        if (window == null) 
-        {
-            window = new Window();          // Let me know if this is a bad idea
-        }
+        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow()); // Necessary for save file picker
+        if (window == null) return;
 
         var options = new FilePickerSaveOptions();
-        options.Title = "TestTitle";
+        options.Title = "Select save location";
         options.ShowOverwritePrompt = true;
         options.DefaultExtension = "zip";
         options.SuggestedFileName = packName;
@@ -322,12 +319,13 @@ public class PackManager : IPackManager
         List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
         options.FileTypeChoices = fileTypeChoices;
 
+        // This crashes on multiple repeated attempts due to avalonia issue
         IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
 
         if (storage_file == null) return; // User didn't select a file
 
         string? outputFilePath = storage_file.TryGetLocalPath();
-        if(outputFilePath == null) return; // Couldn't get local path for some reason
+        if (outputFilePath == null) return; // Couldn't get local path for some reason
 
         bool success = CreateZip(packFolder, outputFilePath);
     }
