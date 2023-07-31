@@ -15,5 +15,5 @@ public interface IPackManager
 
    void RemovePack(string packName);
 
-   void SharePackManually(string packName);
+   void SavePackToZip(string packName);
 }

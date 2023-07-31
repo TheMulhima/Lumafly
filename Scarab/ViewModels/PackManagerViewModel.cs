@@ -41,13 +41,6 @@ public class PackManagerViewModel : ViewModelBase
         _packManager.LoadPack(pack.Name);
         MainWindowViewModel.Instance?.LoadApp(2);
     }
-
-    public void ManuallySharePack(object packObj)
-    {
-        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot share an object that is not a pack");
-        _packManager.SharePackManually(pack.Name);
-       
-    }
     
     public void CreateNewPack()
     {
@@ -64,5 +57,11 @@ public class PackManagerViewModel : ViewModelBase
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot copy an object that is not a pack");
         
         TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow())?.Clipboard?.SetTextAsync(pack.SharingCode);
+    }
+
+    public void SavePackToZip(object packObj)
+    {
+        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot share an object that is not a pack");
+        _packManager.SavePackToZip(pack.Name);
     }
 }

@@ -83,7 +83,7 @@
                                     Grid.Column="4"
                                     VerticalAlignment="Stretch"
                                     Margin="10 1 0 1"
-                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.ManuallySharePack}"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.SavePackToZip}"
                                     CommandParameter="{Binding .}"
                                     ToolTip.Tip="Share Pack Manually" ToolTip.ShowDelay="0">
                                     <PathIcon Data="{StaticResource share_android_regular}"/>
