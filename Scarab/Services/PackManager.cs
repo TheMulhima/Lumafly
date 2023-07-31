@@ -322,13 +322,13 @@ public class PackManager : IPackManager
         List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
         options.FileTypeChoices = fileTypeChoices;
 
-        // This seems to sometimes crash on multiple attemps for some reason
+        // This seems to crash the window on multiple attemps for some reason
         IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
 
         if (storage_file == null) return; // User didn't select a file
 
         string? outputFilePath = storage_file.TryGetLocalPath();
-        if(outputFilePath == null) return; // Couldn't get local path for some reason
+        if (outputFilePath == null) return; // Couldn't get local path for some reason
 
         bool success = CreateZip(packFolder, outputFilePath);
     }
