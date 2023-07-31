@@ -290,7 +290,7 @@ public class PackManager : IPackManager
     /// Create a .zip file containing the pack in location specified by user (wip)
     /// </summary>
     /// <param name="packName"></param>
-    public async void SharePackManually(string packName) // TODO: test this
+    public async void SharePackManually(string packName)
     {
         await EnsureGameClosed();
 
@@ -303,21 +303,31 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        var output_file = Path.Combine(_settings.ManagedFolder, "a_test_share.zip");  // TODO: ask user to choose the path
+        var output_file = Path.Combine(_settings.ManagedFolder, packName+".zip");  // TODO: ask user to choose the path
 
         CreateZip(packFolder, output_file);
     }
 
     /// <summary>
-    /// Create a .zip file
+    /// Create a .zip file from a directory. Returns if the creation was successful
     /// </summary>
-    /// <param name="file_path">Path to the directory to be zipped</param>
+    /// <param name="source_path">Path to the directory to be zipped</param>
     /// <param name="output_file">Path to the new .zip file</param>
-    private void CreateZip(string file_path, string output_file)
+    private bool CreateZip(string source_path, string output_file)
     {
-        using (var archive = ZipFile.Open(output_file, ZipArchiveMode.Create))
+        try
         {
-            archive.CreateEntryFromFile(file_path, Path.GetFileName(file_path));
+            if (!Directory.Exists(source_path))
+            {
+                throw new DirectoryNotFoundException("Couldn't find the source directory");
+            }
+
+            ZipFile.CreateFromDirectory(source_path, output_file);
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 }
