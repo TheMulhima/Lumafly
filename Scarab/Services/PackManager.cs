@@ -323,7 +323,14 @@ public class PackManager : IPackManager
         options.FileTypeChoices = fileTypeChoices;
 
         // This seems to crash the window on multiple attemps for some reason
-        IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
+        //Task<IStorageFile?> t = window.StorageProvider.SaveFilePickerAsync(options);
+        //IStorageFile? storage_file = await t;
+        IStorageFile? storage_file = await Task.Run(async delegate
+        {
+            await Task.Delay(500);
+            var s = await window.StorageProvider.SaveFilePickerAsync(options);
+            return s;
+        });
 
         if (storage_file == null) return; // User didn't select a file
 
