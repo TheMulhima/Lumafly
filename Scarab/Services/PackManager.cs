@@ -304,11 +304,8 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow());
-        if (window == null) 
-        {
-            window = new Window();          // Let me know if this is a bad idea
-        }
+        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow()); // Necessary for save file picker
+        if (window == null) return;
 
         var options = new FilePickerSaveOptions();
         options.Title = "Select save location";
@@ -322,15 +319,8 @@ public class PackManager : IPackManager
         List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
         options.FileTypeChoices = fileTypeChoices;
 
-        // This seems to crash the window on multiple attemps for some reason
-        //Task<IStorageFile?> t = window.StorageProvider.SaveFilePickerAsync(options);
-        //IStorageFile? storage_file = await t;
-        IStorageFile? storage_file = await Task.Run(async delegate
-        {
-            await Task.Delay(500);
-            var s = await window.StorageProvider.SaveFilePickerAsync(options);
-            return s;
-        });
+        // This crashes on multiple repeated attempts due to avalonia issue
+        IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
 
         if (storage_file == null) return; // User didn't select a file
 
