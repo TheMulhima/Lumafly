@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -225,6 +226,43 @@ public static class DisplayErrors
         }
 
         return additionalText;
+    }
+
+    /// <summary>
+    /// Ask the user if they want to run the program as administrator. If yes then start new instance as admin and shutdown current instance.
+    /// </summary>
+    /// <param name="message">The message stating why a restart is required</param>
+    public static async Task AskForAdminReload(string message)
+    {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return; // windows only
+        if (AvaloniaUtils.IsAdministrator())
+            return; // already admin
+        
+        var res = await MessageBoxUtil.GetMessageBoxStandardWindow
+        (
+            title: "Requesting running as administrator",
+            text: message + " Do you want to reload as administrator and try again?",
+            icon: Icon.Info,
+            @enum: ButtonEnum.YesNo
+        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        await Task.Delay(500); // without this stuff breaks
+
+        if (res == ButtonResult.Yes)
+        {
+            var exeName = Process.GetCurrentProcess().MainModule?.FileName;
+            if (exeName != null)
+            {
+                Process.Start(new ProcessStartInfo(exeName)
+                {
+                    Verb = "runas", // the way to run as admin
+                    UseShellExecute = true
+                });
+                
+                ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.Shutdown();
+                await Task.Delay(500); // give it 0.5 seconds to restart so no extra actions happen and cause errors
+            }
+        }
     }
 }
 

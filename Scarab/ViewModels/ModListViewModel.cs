@@ -488,6 +488,14 @@ namespace Scarab.ViewModels
                     await DisplayErrors.HandleIOExceptionWhenDownloading(io, $"{Resources.MVVM_Install} API");
                     return false;
                 }
+                catch (UnauthorizedAccessException ua)
+                {
+                    await DisplayErrors.AskForAdminReload($"Scarab failed to {Resources.MVVM_Install} API");
+                    
+                    // if not restarted then handle as normal exception
+                    await DisplayErrors.DisplayGenericError(Resources.MVVM_Install, "API", ua);
+                    return false;
+                }
                 catch (Exception e)
                 {
                     await DisplayErrors.DisplayGenericError(Resources.MVVM_Install, "API", e);
@@ -767,6 +775,13 @@ namespace Scarab.ViewModels
             {
                 await DisplayErrors.HandleIOExceptionWhenDownloading(io, "toggle", item);
             }
+            catch (UnauthorizedAccessException ua)
+            {
+                await DisplayErrors.AskForAdminReload($"Scarab failed to toggle {item}");
+                    
+                // if not restarted then handle as normal exception
+                await DisplayErrors.DisplayGenericError("toggling", ua);
+            }
             catch (Exception e)
             {
                 await DisplayErrors.DisplayGenericError("toggling", item.Name, e);
@@ -857,6 +872,13 @@ namespace Scarab.ViewModels
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
                 await DisplayErrors.HandleIOExceptionWhenDownloading(io, "installing or uninstalling", item);
+            }
+            catch (UnauthorizedAccessException ua)
+            {
+                await DisplayErrors.AskForAdminReload($"Scarab failed to download {item.Name}");
+                    
+                // if not restarted then handle as normal exception
+                await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, ua);
             }
             catch (Exception e)
             {
