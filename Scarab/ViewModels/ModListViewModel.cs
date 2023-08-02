@@ -206,11 +206,12 @@ namespace Scarab.ViewModels
                     bool isCustomInstall = url != null;
                     bool isModlinksMod = true;
                     string? originalUrl = null;
+                    string? originalSha = null;
 
                     var correspondingMod = _items.FirstOrDefault(x => x.Name == modName);
                     
                     // delete the corresponding mod if a custom link is provided
-                    if (isCustomInstall && correspondingMod != null)
+                    if (isCustomInstall && correspondingMod != null && correspondingMod.State is ExistsModState)
                         await InternalModDownload(correspondingMod, correspondingMod.OnInstall);
 
                     // re get the corresponding mod because the mod might have been manually installed and hence when uninstalled removed from list
@@ -237,9 +238,11 @@ namespace Scarab.ViewModels
                     {
                         isModlinksMod = true;
                         originalUrl = correspondingMod.Link;
+                        originalSha = correspondingMod.Sha256;
                         if (isCustomInstall)
                         {
                             correspondingMod.Link = url ?? correspondingMod.Link; // replace with custom link if it exists
+                            correspondingMod.Sha256 = ""; // remove the sha so it can skip hash check
                             
                             // change the state from NotInModLinksState to NotInModlinks so it can skip hash check
                             correspondingMod.State = new NotInModLinksState(ModlinksMod: true);
@@ -264,6 +267,7 @@ namespace Scarab.ViewModels
                     if (isCustomInstall)
                     {
                         correspondingMod.Link = originalUrl ?? "";
+                        correspondingMod.Sha256 = originalSha ?? "";
                         if (correspondingMod.State is ExistsModState state)
                         {
                             correspondingMod.State = new NotInModLinksState(

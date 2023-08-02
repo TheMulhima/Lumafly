@@ -404,13 +404,9 @@ namespace Scarab.Services
                     continue;
                 }
                 
-                if (dep.State is NotInModLinksState notInModLinksState)
+                if (dep.State is NotInModLinksState)
                 {
-                    // if pinned dont touch it
-                    if (notInModLinksState.Pinned)
-                        continue;
-
-                    await _Uninstall(dep);
+                    continue; // if its in not in modlinks state, its user's job to update
                 }
 
                 // Enable the dependencies' dependencies if we're enabling this mod
@@ -435,7 +431,7 @@ namespace Scarab.Services
             if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
             
-            if (cachedModData is null)
+            if (cachedModData is null && !string.IsNullOrEmpty(mod.Sha256))
                 await CacheMod(mod, filename, data);
             
             await PlaceMod(mod, enable, filename, data);
