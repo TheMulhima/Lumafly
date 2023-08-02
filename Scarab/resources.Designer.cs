@@ -1176,7 +1176,7 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate sharing code.
+        ///   Looks up a localized string similar to Generate a 8 digit sharing code. This can be given to someone else and they can use this pack.
         /// </summary>
         internal static string XAML_GenerateSharingCode {
             get {
@@ -1748,6 +1748,24 @@ namespace Scarab {
         internal static string XAML_Share {
             get {
                 return ResourceManager.GetString("XAML_Share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this pack.
+        /// </summary>
+        internal static string XAML_SharePack {
+            get {
+                return ResourceManager.GetString("XAML_SharePack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this pack as a zip file. You will need to send this zip file yourself..
+        /// </summary>
+        internal static string XAML_SharePackManually {
+            get {
+                return ResourceManager.GetString("XAML_SharePackManually", resourceCulture);
             }
         }
         

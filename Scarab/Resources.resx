@@ -694,7 +694,7 @@
     <value>Sharing Code:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>Generate sharing code</value>
+    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
     <value>Edit pack</value>
@@ -719,5 +719,11 @@
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
     <value>Mods In Pack:</value>
+  </data>
+  <data name="XAML_SharePack" xml:space="preserve">
+    <value>Share this pack</value>
+  </data>
+  <data name="XAML_SharePackManually" xml:space="preserve">
+    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
   </data>
 </root>
