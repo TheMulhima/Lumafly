@@ -2,6 +2,9 @@
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Security.Principal;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -9,7 +12,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data.Converters;
 using Avalonia.LogicalTree;
 using Avalonia.Styling;
-using Avalonia.Utilities;
 using Scarab.Enums;
 
 namespace Scarab.Util;
@@ -67,6 +69,18 @@ public static class AvaloniaUtils
   
     public static Window GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                                             ?? throw new InvalidOperationException();
+
+
+    /// <summary>
+    /// Checks if the current process is running as administrator.
+    /// </summary>
+    [SupportedOSPlatform(nameof(OSPlatform.Windows))]
+    public static bool IsAdministrator()
+    {
+        WindowsIdentity identity = WindowsIdentity.GetCurrent();
+        WindowsPrincipal principal = new WindowsPrincipal(identity);
+        return principal.IsInRole(WindowsBuiltInRole.Administrator);
+    }
 }
 
 /// <summary>

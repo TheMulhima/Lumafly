@@ -529,7 +529,8 @@ namespace Scarab.ViewModels
 
         private static async Task<string> GetSettingsPath()
         {
-            if (!Settings.TryAutoDetect(out ValidPath? path))
+            var path = await Settings.TryAutoDetect();
+            if (path is null)
             {
                 var info = MessageBoxUtil.GetMessageBoxStandardWindow
                 (

@@ -16,6 +16,7 @@ using System.Text.Json.Serialization;
 using Scarab.Enums;
 using Scarab.Services;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Scarab
 {
@@ -116,13 +117,14 @@ namespace Scarab
             return dirPath;
         }
 
-        internal static bool TryAutoDetect([MaybeNullWhen(false)] out ValidPath path)
+        internal static async Task<ValidPath?> TryAutoDetect()
         {
+            ValidPath? path = null;
             path = STATIC_PATHS.Select(PathUtil.ValidateWithSuffix).FirstOrDefault(x => x is not null);
 
             // If that's valid, use it.
             if (path is not null)
-                return true;
+                return path;
 
             // Otherwise, we go through the user profile suffixes.
             string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -132,7 +134,16 @@ namespace Scarab
                    .Select(PathUtil.ValidateWithSuffix)
                    .FirstOrDefault(x => x is not null);
 
-            return path is not null || TryDetectFromRegistry(out path);
+            if (path is not null)
+                return path;
+
+            if (TryDetectFromRegistry(out path))
+                return path;
+            
+            // since it cant detect from registry assume its because it can't access the registry
+            await DisplayErrors.AskForAdminReload("Path was not automatically found from registry.");
+
+            return path; // if couldn't find path it would be null
         }
 
         private static bool TryDetectFromRegistry([MaybeNullWhen(false)] out ValidPath path)

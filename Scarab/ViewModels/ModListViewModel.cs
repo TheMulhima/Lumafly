@@ -79,15 +79,20 @@ namespace Scarab.ViewModels
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
 
-        public static readonly Dictionary<string, string> ExpectedTagList = new Dictionary<string, string>
+        public string GetTagLocalizedName(string tag)
         {
-            {"Boss", Resources.ModLinks_Tags_Boss},
-            {"Gameplay", Resources.ModLinks_Tags_Gameplay},
-            {"Utility", Resources.ModLinks_Tags_Utility},
-            {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
-            {"Library", Resources.ModLinks_Tags_Library},
-            {"Expansion", Resources.ModLinks_Tags_Expansion},
-        };
+            // Currently it fetches translated names for all tags every time, might want to optimize this later
+            Dictionary<string, string> TagNameToLocalized = new Dictionary<string, string>
+            {
+                {"Boss", Resources.ModLinks_Tags_Boss},
+                {"Gameplay", Resources.ModLinks_Tags_Gameplay},
+                {"Utility", Resources.ModLinks_Tags_Utility},
+                {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
+                {"Library", Resources.ModLinks_Tags_Library},
+                {"Expansion", Resources.ModLinks_Tags_Expansion},
+            };
+            return TagNameToLocalized.TryGetValue(tag, out var localizedTag) ? localizedTag : tag;
+        }
 
         public ModListViewModel(
             ISettings settings, 
@@ -138,7 +143,7 @@ namespace Scarab.ViewModels
             TagList = new SortableObservableCollection<SelectableItem<string>>(tagsInModlinks.Select(x => 
                 new SelectableItem<string>(
                     x,
-                    ExpectedTagList.TryGetValue(x, out var localizedTag) ? localizedTag : x,
+                    GetTagLocalizedName(x),
                     false)));
 
             AuthorList = new SortableObservableCollection<SelectableItem<string>>(authorsInModlinks.Select(x => 
@@ -483,6 +488,14 @@ namespace Scarab.ViewModels
                     await DisplayErrors.HandleIOExceptionWhenDownloading(io, $"{Resources.MVVM_Install} API");
                     return false;
                 }
+                catch (UnauthorizedAccessException ua)
+                {
+                    await DisplayErrors.AskForAdminReload($"Scarab failed to {Resources.MVVM_Install} API");
+                    
+                    // if not restarted then handle as normal exception
+                    await DisplayErrors.DisplayGenericError(Resources.MVVM_Install, "API", ua);
+                    return false;
+                }
                 catch (Exception e)
                 {
                     await DisplayErrors.DisplayGenericError(Resources.MVVM_Install, "API", e);
@@ -762,6 +775,13 @@ namespace Scarab.ViewModels
             {
                 await DisplayErrors.HandleIOExceptionWhenDownloading(io, "toggle", item);
             }
+            catch (UnauthorizedAccessException ua)
+            {
+                await DisplayErrors.AskForAdminReload($"Scarab failed to toggle {item}");
+                    
+                // if not restarted then handle as normal exception
+                await DisplayErrors.DisplayGenericError("toggling", ua);
+            }
             catch (Exception e)
             {
                 await DisplayErrors.DisplayGenericError("toggling", item.Name, e);
@@ -852,6 +872,13 @@ namespace Scarab.ViewModels
             {
                 Trace.WriteLine($"Failed to install mod {item.Name}. State = {item.State}, Link = {item.Link}");
                 await DisplayErrors.HandleIOExceptionWhenDownloading(io, "installing or uninstalling", item);
+            }
+            catch (UnauthorizedAccessException ua)
+            {
+                await DisplayErrors.AskForAdminReload($"Scarab failed to download {item.Name}");
+                    
+                // if not restarted then handle as normal exception
+                await DisplayErrors.DisplayGenericError("installing or uninstalling", item.Name, ua);
             }
             catch (Exception e)
             {
