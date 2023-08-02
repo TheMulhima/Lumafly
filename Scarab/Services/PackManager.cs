@@ -304,30 +304,31 @@ public class PackManager : IPackManager
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
-        TopLevel? window = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow()); // Necessary for save file picker
-        if (window == null) return;
+        TopLevel? topLevel = TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow()); // Necessary for save file picker
+        if (topLevel == null) return;
 
-        var options = new FilePickerSaveOptions();
-        options.Title = "Select save location";
-        options.ShowOverwritePrompt = true;
-        options.DefaultExtension = "zip";
-        options.SuggestedFileName = packName;
-
-        // Only let user save it as a .zip
-        var fileType = new FilePickerFileType("ZIP Archive");
-        fileType.Patterns = new List<string>() { "*.zip" };
-        List<FilePickerFileType> fileTypeChoices = new List<FilePickerFileType>() { fileType };
-        options.FileTypeChoices = fileTypeChoices;
+        var options = new FilePickerSaveOptions
+        {
+            Title = "Select save location",
+            ShowOverwritePrompt = true,
+            DefaultExtension = "zip",
+            SuggestedFileName = packName,
+            FileTypeChoices = new List<FilePickerFileType>()
+            {
+                new ("ZIP Archive")
+                {
+                    Patterns = new List<string>() { "*.zip" }
+                }
+            }
+        };
 
         // This crashes on multiple repeated attempts due to avalonia issue
-        IStorageFile? storage_file = await window.StorageProvider.SaveFilePickerAsync(options);
+        IStorageFile? storage_file = await topLevel.StorageProvider.SaveFilePickerAsync(options);
 
-        if (storage_file == null) return; // User didn't select a file
-
-        string? outputFilePath = storage_file.TryGetLocalPath();
+        string? outputFilePath = storage_file?.TryGetLocalPath();
         if (outputFilePath == null) return; // Couldn't get local path for some reason
 
-        bool success = CreateZip(packFolder, outputFilePath);
+        CreateZip(packFolder, outputFilePath);
     }
 
     /// <summary>
