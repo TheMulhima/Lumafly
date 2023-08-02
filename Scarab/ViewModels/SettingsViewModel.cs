@@ -13,6 +13,7 @@ using HarfBuzzSharp;
 using ReactiveUI;
 using Scarab.Enums;
 using Scarab.Interfaces;
+using Scarab.Services;
 using Scarab.Util;
 
 namespace Scarab.ViewModels
@@ -168,6 +169,19 @@ namespace Scarab.ViewModels
             await _mods.Reset();
             
             RaisePropertyChanged(nameof(AskForReload));
+        }
+
+        public async Task CheckForUpdates()
+        {
+            await Updater.CheckUpToDate(true);
+        }
+        public void OpenLogsFolder()
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Settings.GetOrCreateDirPath(),
+                UseShellExecute = true,
+            });
         }
     }
 }

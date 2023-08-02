@@ -1142,6 +1142,9 @@ namespace Scarab.ViewModels
                 : _settings.DisabledFolder;
 
             string mod_folder = Path.Combine(base_folder, item.Name);
+            
+            if (!Directory.Exists(mod_folder))
+                return;
 
             Process.Start(new ProcessStartInfo
             {

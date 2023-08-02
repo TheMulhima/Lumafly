@@ -24,31 +24,13 @@ namespace Scarab.Services;
 
 public static class Updater
 {
-    /// <summary>
-    /// Runs the code to check for update. If its windows it uses NetSparkle, otherwise it does it manually
-    /// </summary>
-    public static async Task CheckUpToDate()
-    {
-        Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
-
-        Debug.WriteLine($"Current version of installer is {current_version}");
-
-         // if (MainWindowViewModel._Debug) return;
-
-        if (OperatingSystem.IsWindows())
-            HandleWindowsUpdate();
-        else
-            await HandleManualUpdate(current_version);
-    }
-
-    /// <summary>
-    /// Automatically download updated from github and replace the current exe using NetSparkleUpdater
-    /// </summary>
-    private static void HandleWindowsUpdate()
-    {
-        try
+    private static SparkleUpdater? _sparkleUpdater;
+    private static SparkleUpdater SparkleUpdater  {
+        get
         {
-            var _sparkle = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
+            if (_sparkleUpdater is not null) return _sparkleUpdater;
+            
+            _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
                 new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
             {
                 UIFactory = new UIFactory(null)
@@ -79,9 +61,42 @@ public static class Updater
                 CheckServerFileName = false,
                 RelaunchAfterUpdate = true,
             };
+            
+            _sparkleUpdater.DownloadHadError += OnDownloadError;
 
-            _sparkle.DownloadHadError += OnDownloadError;
-            _sparkle.StartLoop(true, true);
+            return _sparkleUpdater;
+        }
+    }
+    
+    /// <summary>
+    /// Runs the code to check for update. If its windows it uses NetSparkle, otherwise it does it manually
+    /// </summary>
+    public static async Task CheckUpToDate(bool forced = false)
+    {
+        Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
+
+        Debug.WriteLine($"Current version of installer is {current_version}");
+
+         // if (MainWindowViewModel._Debug) return;
+
+        if (OperatingSystem.IsWindows())
+            HandleWindowsUpdate(forced);
+        else
+            await HandleManualUpdate(current_version);
+    }
+
+    /// <summary>
+    /// Automatically download updated from github and replace the current exe using NetSparkleUpdater
+    /// </summary>
+    private static void HandleWindowsUpdate(bool forced)
+    {
+        try
+        {
+            if (forced)
+                SparkleUpdater.CheckForUpdatesAtUserRequest(ignoreSkippedVersions: true);
+            else
+                SparkleUpdater.StartLoop(doInitialCheck: true, forceInitialCheck: true);
+
         }
         catch (Exception e)
         {
