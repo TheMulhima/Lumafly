@@ -1038,7 +1038,7 @@ namespace Scarab.ViewModels
                                 ModlinksMod: true,
                                 Enabled: true,
                                 Pinned:installedState.Pinned),
-                            NotInstalledState => new NotInModLinksState(ModlinksMod: false),
+                            NotInstalledState => new NotInModLinksState(ModlinksMod: true),
                             _ => throw new UnreachableException(),
                         };
 
