@@ -132,7 +132,10 @@ namespace Scarab.ViewModels
             ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
             Trace.WriteLine("Reactive commands created");
 
-            HashSet<string> tagsInModlinks = new();
+            HashSet<string> tagsInModlinks = new()
+            {
+                "Untagged"
+            };
             HashSet<string> authorsInModlinks = new();
             foreach (var mod in _items)
             {
@@ -617,8 +620,10 @@ namespace Scarab.ViewModels
             {
                 SelectedItems = SelectedItems
                     .Where(x => x.HasTags &&
-                                x.Tags.Any(tagsDefined => selectedTags
-                                    .Any(tagsSelected => tagsSelected == tagsDefined)));
+                                x.Tags.Any(tagsDefined => selectedTags.Any(tagsSelected => tagsSelected == tagsDefined))
+                                || 
+                                !x.HasTags &&
+                                selectedTags.Contains("Untagged"));
             }
             if (selectedAuthors.Count > 0)
             {
