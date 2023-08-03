@@ -11,7 +11,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
-using MessageBox.Avalonia.Models;
+using MsBox.Avalonia.Models;
 using MsBox.Avalonia.Dto;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;

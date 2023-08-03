@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using Microsoft.Toolkit.HighPerformance;
 using MsBox.Avalonia.Enums;
 using Scarab.Interfaces;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 using MsBox.Avalonia.Enums;
 using Scarab.Enums;
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Enums;
 using MsBox.Avalonia.Enums;
 using Scarab.Extensions;
 using Scarab.Models;

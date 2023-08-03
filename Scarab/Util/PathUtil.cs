@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
-using MessageBox.Avalonia.Models;
+using MsBox.Avalonia.Models;
 using MsBox.Avalonia.Dto;
 using Scarab.Models;
 
