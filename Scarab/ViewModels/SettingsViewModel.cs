@@ -22,17 +22,19 @@ namespace Scarab.ViewModels
     {
         private readonly ISettings _settings;
         private readonly IModSource _mods;
+        private readonly IAppUpdater _updater;
         private bool useCustomModlinksOriginalValue;
         private bool cacheDownloadsOriginalValue;
         private string pathOriginalValue;
         
         public ReactiveCommand<Unit, Unit> ChangePath { get; }
 
-        public SettingsViewModel(ISettings settings, IModSource mods)
+        public SettingsViewModel(ISettings settings, IModSource mods, IAppUpdater updater)
         {
             Trace.WriteLine("Initializing SettingsViewModel");
             _settings = settings;
             _mods = mods;
+            _updater = updater;
             
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
 
@@ -173,7 +175,7 @@ namespace Scarab.ViewModels
 
         public async Task CheckForUpdates()
         {
-            await Updater.CheckUpToDate(true);
+            await _updater.CheckUpToDate(forced: true);
         }
         public void OpenLogsFolder()
         {

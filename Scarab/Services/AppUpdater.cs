@@ -11,7 +11,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
-using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Models;
 using MsBox.Avalonia.Dto;
 using NetSparkleUpdater;
@@ -19,59 +18,55 @@ using NetSparkleUpdater.Enums;
 using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater.UI.Avalonia;
 using Scarab.Util;
+using Scarab.Interfaces;
 
 namespace Scarab.Services;
 
-public static class Updater
+public class AppUpdater : IAppUpdater
 {
-    private static SparkleUpdater? _sparkleUpdater;
-    private static SparkleUpdater SparkleUpdater  {
-        get
-        {
-            if (_sparkleUpdater is not null) return _sparkleUpdater;
-            
-            _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
-                new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
-            {
-                UIFactory = new UIFactory(null)
-                {
-                    AdditionalReleaseNotesHeaderHTML = """
-                    <style> 
-                    html {background: #282828; background-color: #282828; color: #dedede;}
-                    </style>
-                    """,
-                    ReleaseNotesHTMLTemplate = """
-                    <div style="border-color: #000000; border-width: 3px ">
-                        <div style="font-size: 20px; padding: 5px; padding-top: 4px; padding-bottom: 0;">
-                            {0} ({1})
-                        </div>
-                        <div style="padding: 5px; font-size: 16px;">
-                            {2}
-                        </div>
-                    </div>
-                    """,
-                },
-                ShowsUIOnMainThread = true, // required for avalonia
-                ClearOldInstallers = RemoveOldAUs,
-                TmpDownloadFilePath = Settings.GetOrCreateDirPath(), // download to appdata folder which we have full perms in
-                // run installer with exe name and path so scarab is replaced correctly
-                CustomInstallerArguments = Environment.GetCommandLineArgs()[0], // send the full exe path to the installer so it can replace it correctly
-                SecurityProtocolType = SecurityProtocolType.Tls12, // required by github
-                // GitHub doesn't support CheckServerFileName, if server is checked, it returns a UUID without any file extension which is not windows friendly
-                CheckServerFileName = false,
-                RelaunchAfterUpdate = true,
-            };
-            
-            _sparkleUpdater.DownloadHadError += OnDownloadError;
+    private readonly SparkleUpdater _sparkleUpdater;
 
-            return _sparkleUpdater;
-        }
+    public AppUpdater()
+    {
+        _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
+            new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
+        {
+            UIFactory = new UIFactory(null)
+            {
+                AdditionalReleaseNotesHeaderHTML = """
+                <style> 
+                html {background: #282828; background-color: #282828; color: #dedede;}
+                </style>
+                """,
+                ReleaseNotesHTMLTemplate = """
+                <div style="border-color: #000000; border-width: 3px ">
+                    <div style="font-size: 20px; padding: 5px; padding-top: 4px; padding-bottom: 0;">
+                        {0} ({1})
+                    </div>
+                    <div style="padding: 5px; font-size: 16px;">
+                        {2}
+                    </div>
+                </div>
+                """,
+            },
+            ShowsUIOnMainThread = true, // required for avalonia
+            ClearOldInstallers = RemoveOldAUs,
+            TmpDownloadFilePath = Settings.GetOrCreateDirPath(), // download to appdata folder which we have full perms in
+            // run installer with exe name and path so scarab is replaced correctly
+            CustomInstallerArguments = Environment.GetCommandLineArgs()[0], // send the full exe path to the installer so it can replace it correctly
+            SecurityProtocolType = SecurityProtocolType.Tls12, // required by github
+            // GitHub doesn't support CheckServerFileName, if server is checked, it returns a UUID without any file extension which is not windows friendly
+            CheckServerFileName = false,
+            RelaunchAfterUpdate = true,
+        };
+        
+        _sparkleUpdater.DownloadHadError += OnDownloadError;
     }
     
     /// <summary>
     /// Runs the code to check for update. If its windows it uses NetSparkle, otherwise it does it manually
     /// </summary>
-    public static async Task CheckUpToDate(bool forced = false)
+    public async Task CheckUpToDate(bool forced = false)
     {
         Version? current_version = Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -88,14 +83,14 @@ public static class Updater
     /// <summary>
     /// Automatically download updated from github and replace the current exe using NetSparkleUpdater
     /// </summary>
-    private static void HandleWindowsUpdate(bool forced)
+    private void HandleWindowsUpdate(bool forced)
     {
         try
         {
             if (forced)
-                SparkleUpdater.CheckForUpdatesAtUserRequest(ignoreSkippedVersions: true);
+                _sparkleUpdater.CheckForUpdatesAtUserRequest(ignoreSkippedVersions: true);
             else
-                SparkleUpdater.StartLoop(doInitialCheck: true, forceInitialCheck: true);
+                _sparkleUpdater.StartLoop(doInitialCheck: true, forceInitialCheck: true);
 
         }
         catch (Exception e)
@@ -108,7 +103,7 @@ public static class Updater
     /// <summary>
     /// Show a popup when the update fails or cancelled, Will open the update link on the browser and close the app
     /// </summary>
-    private static void OnDownloadError(AppCastItem? item, string path, Exception exception)
+    private void OnDownloadError(AppCastItem? item, string path, Exception exception)
     {
         Dispatcher.UIThread.InvokeAsync(async () =>
         {
@@ -127,7 +122,7 @@ public static class Updater
     /// <summary>
     /// Removes old AutoUpdaters from settings path
     /// </summary>
-    private static void RemoveOldAUs()
+    private void RemoveOldAUs()
     {
         try
         {
@@ -145,7 +140,7 @@ public static class Updater
     /// It was done like that so the update links and such can change without forcing app update
     /// </summary>
     /// <returns></returns>
-    private static async Task<(string latestReleaseInfo, string updateLink, string changelog)?> GetUpdateLinks()
+    private async Task<(string latestReleaseInfo, string updateLink, string changelog)?> GetUpdateLinks()
     {
         try
         {
@@ -185,7 +180,7 @@ public static class Updater
     /// <summary>
     /// Manually check latest release tag from github and prompt download if version is higher on github
     /// </summary>
-    private static async Task HandleManualUpdate(Version? current_version)
+    private async Task HandleManualUpdate(Version? current_version)
     {
         try
         {

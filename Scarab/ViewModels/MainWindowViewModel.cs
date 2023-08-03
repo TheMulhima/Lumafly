@@ -82,8 +82,10 @@ namespace Scarab.ViewModels
             await HandleURLSchemeCommand(urlSchemeHandler);
 
             Trace.WriteLine("Checking if up to date...");
+
+            var appUpdater = new AppUpdater();
             
-            await Updater.CheckUpToDate();
+            await appUpdater.CheckUpToDate();
             
             var sc = new ServiceCollection();
             var fs = new FileSystem();
@@ -232,6 +234,7 @@ namespace Scarab.ViewModels
             sc
               .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
+              .AddSingleton<IAppUpdater>(_ => appUpdater)
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
               .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
