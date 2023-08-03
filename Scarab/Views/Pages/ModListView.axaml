@@ -195,16 +195,12 @@
           BorderThickness="0"
           Margin="6 6"
           Text="{Binding Search}" />
-
-      <ComboBox
+      
+      <AutoCompleteBox
           Grid.Column="0"
-          Name="SearchByDependency"
           IsVisible="{Binding !IsNormalSearch}"
-          PlaceholderText="{ext:Localize XAML_Select_Mod}"
-          PlaceholderForeground="Gray"
           BorderThickness="0"
           Margin="6 6"
-          IsTextSearchEnabled = "True"
           SelectedItem="{Binding DependencySearchItem}"
           ItemsSource="{Binding ModNames}" />
 
