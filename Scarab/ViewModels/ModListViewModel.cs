@@ -14,7 +14,6 @@ using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Scarab.Enums;
@@ -682,7 +681,7 @@ namespace Scarab.ViewModels
                     continue;
 
                 if (!HasPinnedDependents(mod))
-                    await OnEnable(mod);
+                    await OnEnable(mod, false);
             }
 
             RaisePropertyChanged(nameof(CanDisableAll));
@@ -732,7 +731,8 @@ namespace Scarab.ViewModels
         /// its dependencies are installed
         /// </summary>
         /// <param name="itemObj">The mod to enable/disable</param>
-        public async Task OnEnable(object itemObj)
+        /// <param name="ignoreDependencies">Whether the dependency removal warning should be displayed (only applies when disabling)</param>
+        public async Task OnEnable(object itemObj, bool checkForDependencies = true)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to enable an object which isn't a mod");
             try
@@ -745,7 +745,7 @@ namespace Scarab.ViewModels
                 {
                     var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
                     
-                    if (_settings.WarnBeforeRemovingDependents && dependents.Count > 0)
+                    if (_settings.WarnBeforeRemovingDependents && dependents.Count > 0 && checkForDependencies)
                     {
                         bool shouldContinue = await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents);
                         if (!shouldContinue)
