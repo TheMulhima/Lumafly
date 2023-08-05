@@ -78,21 +78,6 @@ namespace Scarab.ViewModels
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
 
-        public string GetTagLocalizedName(string tag)
-        {
-            // Currently it fetches translated names for all tags every time, might want to optimize this later
-            Dictionary<string, string> TagNameToLocalized = new Dictionary<string, string>
-            {
-                {"Boss", Resources.ModLinks_Tags_Boss},
-                {"Gameplay", Resources.ModLinks_Tags_Gameplay},
-                {"Utility", Resources.ModLinks_Tags_Utility},
-                {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
-                {"Library", Resources.ModLinks_Tags_Library},
-                {"Expansion", Resources.ModLinks_Tags_Expansion},
-            };
-            return TagNameToLocalized.TryGetValue(tag, out var localizedTag) ? localizedTag : tag;
-        }
-
         public ModListViewModel(
             ISettings settings, 
             IModDatabase db, 
@@ -1200,5 +1185,20 @@ namespace Scarab.ViewModels
         
         public static int AlphabeticalSelectableItem(SelectableItem<string> item1, SelectableItem<string> item2) => 
             string.Compare(item1.Item, item2.Item, StringComparison.Ordinal);
+
+        public string GetTagLocalizedName(string tag)
+        {
+            switch (tag)
+            {
+                case "Boss": return Resources.ModLinks_Tags_Boss;
+                case "Gameplay": return Resources.ModLinks_Tags_Gameplay;
+                case "Utility": return Resources.ModLinks_Tags_Utility;
+                case "Cosmetic": return Resources.ModLinks_Tags_Cosmetic;
+                case "Library": return Resources.ModLinks_Tags_Library;
+                case "Expansion": return Resources.ModLinks_Tags_Expansion;
+                default: return tag;
+            }
+        }
+
     }
 }
