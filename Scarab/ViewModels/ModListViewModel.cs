@@ -594,7 +594,12 @@ namespace Scarab.ViewModels
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item)
                 .ToList();
-            
+
+            var excludedTags = TagList
+                .Where(x => x.IsExcluded)
+                .Select(x => x.Item)
+                .ToList();
+
             var selectedAuthors = AuthorList
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item)
@@ -608,6 +613,15 @@ namespace Scarab.ViewModels
                                 || 
                                 !x.HasTags &&
                                 selectedTags.Contains("Untagged"));
+            }
+            if (excludedTags.Count > 0)
+            {
+                SelectedItems = SelectedItems
+                    .Where(x => !(x.HasTags &&
+                                x.Tags.Any(tagsDefined => excludedTags.Any(tagsExcluded => tagsExcluded == tagsDefined))
+                                ||
+                                !x.HasTags &&
+                                excludedTags.Contains("Untagged")));
             }
             if (selectedAuthors.Count > 0)
             {

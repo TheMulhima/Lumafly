@@ -1,0 +1,63 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:customControls="using:Scarab.Views.Controls">
+    <Design.PreviewWith>
+        <customControls:ExcludableCheckBox />
+    </Design.PreviewWith>
+
+    <Style Selector="customControls|ExcludableCheckBox">
+        <!-- Set Defaults -->
+        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="Margin" Value="0"/>
+        
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid 
+                    ColumnDefinitions="*, Auto, Auto"
+                    HorizontalAlignment="Stretch"
+                    Margin="{TemplateBinding Margin}">
+                    <Button 
+                        Name="SelectableButton"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Left"
+                        Command="{TemplateBinding InternalOnPress}">
+                        <Button.Styles>
+                            <!--Pointer over cant be set in code behind apparently-->
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="{DynamicResource DefaultButtonColor}" />
+                            </Style>
+                            <Style Selector="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </Button.Styles>
+                        <TextBlock 
+                            Text="{TemplateBinding Header}" 
+                            Padding="0 3" 
+                            MinWidth="{TemplateBinding MinWidth}"/>
+                    </Button>
+                    <PathIcon
+                        Grid.Column="1"
+                        Height="20" Width="20"
+                        Margin="0 0 5 0"
+                        Data="{StaticResource checkmark_regular}"
+                        IsVisible="{TemplateBinding IsSelected}"/>
+                    <PathIcon
+                        Grid.Column="1"
+                        Height="20" Width="20"
+                        Margin="0 0 5 0"
+                        Data="{StaticResource dismiss_circle_regular}"
+                        IsVisible="{TemplateBinding IsExcluded}"/>
+                  <Button
+                    Name="ExcludeButton"
+                    Grid.Column="2"
+                    Height="20" Width="20"
+                    Command="{TemplateBinding InternalOnExcludePress}">
+
+                  </Button>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

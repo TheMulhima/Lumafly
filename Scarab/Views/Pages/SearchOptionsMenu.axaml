@@ -54,9 +54,10 @@
             <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <customControls:MenuCheckBox
+                        <customControls:ExcludableCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
+                            IsExcluded="{Binding IsExcluded}"
                             OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
                             Header="{Binding DisplayName}"/>
                     </DataTemplate>

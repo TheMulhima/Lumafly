@@ -10,6 +10,7 @@
         <SimpleTheme/>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
         <StyleInclude Source="avares://Scarab/Views/Controls/MenuCheckBox.axaml"/>
+        <StyleInclude Source="avares://Scarab/Views/Controls/ExcludableCheckBox.axaml"/>
         <StyleInclude Source="avares://Scarab/Views/Controls/TextButtonFlyout.axaml"/>
     </Application.Styles>
     
