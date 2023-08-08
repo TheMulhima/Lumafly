@@ -53,6 +53,7 @@
                     Name="ExcludeButton"
                     Grid.Column="2"
                     Height="20" Width="20"
+                    Margin="5 0 0 0"
                     Command="{TemplateBinding InternalOnExcludePress}">
 
                   </Button>
