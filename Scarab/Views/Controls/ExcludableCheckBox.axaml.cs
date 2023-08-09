@@ -36,7 +36,7 @@ public class ExcludableCheckBox : TemplatedControl
         InternalOnExcludePress = ReactiveCommand.Create(() =>
         {
             IsExcluded = !IsExcluded;
-            OnExclude?.Execute(null);
+            OnSelect?.Execute(null);
             SetButtonColors();
         });
         
@@ -47,7 +47,7 @@ public class ExcludableCheckBox : TemplatedControl
     private void SetButtonColors()
     {
         SelectableButton = SelectableButton ?? throw new Exception("Menu Checkbox doesnt have button");
-        SelectableButton.Background = IsSelected ? SelectedColor : Brushes.Transparent;
+        SelectableButton.Background = IsExcluded ? ExcludedColor : IsSelected ? SelectedColor : Brushes.Transparent;
         
         // it needs to be done like this because :pointerover doesnt accept bindings and
         // so the only option is to change the :pointerover setters directly
@@ -162,7 +162,18 @@ public class ExcludableCheckBox : TemplatedControl
         set => SetValue(SelectedColorProperty, value);
     }
     #endregion
-    
+
+    #region ExcludedColor
+    public static readonly StyledProperty<IBrush?> ExcludedColorProperty = AvaloniaProperty.Register<ExcludableCheckBox, IBrush?>(
+        "ExcludedColor", Application.Current!.Resources["HighlightRed"] as IBrush);
+
+    public IBrush? ExcludedColor
+    {
+        get => GetValue(ExcludedColorProperty);
+        set => SetValue(ExcludedColorProperty, value);
+    }
+    #endregion
+
     #region HoverColor
     public static readonly StyledProperty<IBrush?> HoverColorProperty = AvaloniaProperty.Register<ExcludableCheckBox, IBrush?>(
         "HoverColor", Application.Current.Resources["DefaultButtonColor"] as IBrush);
