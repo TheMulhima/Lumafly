@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using Avalonia.Threading;
 using MsBox.Avalonia.Enums;
 using Microsoft.Toolkit.HighPerformance;
-using MsBox.Avalonia.Enums;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;

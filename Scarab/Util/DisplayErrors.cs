@@ -9,7 +9,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia.Enums;
 using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.Services;
