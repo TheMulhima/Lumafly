@@ -62,5 +62,8 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
+        <Compile Update="Views\Controls\ExcludableCheckBox.axaml.cs">
+          <DependentUpon>ExcludableCheckBox.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

@@ -100,7 +100,7 @@ If you want to contribute to Scarab, feel free to. You can see what features are
 ### Programming
 
 - [56](https://github.com/fifty-six): Original creator of Scarab
-- [JacksonFaller](https://github.com/JacksonFaller), and [Italy](https://github.com/jngo102) - Help create new features
+- [JacksonFaller](https://github.com/JacksonFaller), [Italy](https://github.com/jngo102), and [Acu1000](https://github.com/Acu1000) - Helped create new features
 
 ### Translations
 
