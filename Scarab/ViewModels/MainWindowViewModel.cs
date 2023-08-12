@@ -22,6 +22,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using Scarab.Enums;
 using FileSystem = System.IO.Abstractions.FileSystem;
