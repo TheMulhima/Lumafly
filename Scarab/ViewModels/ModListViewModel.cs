@@ -411,7 +411,7 @@ namespace Scarab.ViewModels
         public bool IsDependencyAndIntegrationSearch => SearchType == SearchType.DependencyAndIntegration;
         public bool IsIntegrationSearch => SearchType == SearchType.Integration;
 
-        private string? _searchComboBox = SearchType.Normal.ToString();
+        private string? _searchComboBox = Resources.XAML_Normal_Search;
 
         public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
 
@@ -778,14 +778,20 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(SelectedItems));
             await UpdateUnupdated();
         }
-
+        
+        /// <summary>
+        /// Wrapper for <see cref="OnEnable(object, bool)"/> because Avalonia only supports one object parameter for commands
+        /// </summary>
+        /// <param name="itemObj"></param>
+        public async Task OnEnable(object itemObj) => await OnEnable(itemObj, checkForDependencies: true);
+        
         /// <summary>
         /// Enables or disables a mod and handles errors. Does other checks like warning about dependents and ensuring
         /// its dependencies are installed
         /// </summary>
         /// <param name="itemObj">The mod to enable/disable</param>
-        /// <param name="ignoreDependencies">Whether the dependency removal warning should be displayed (only applies when disabling)</param>
-        public async Task OnEnable(object itemObj, bool checkForDependencies = true)
+        /// <param name="checkForDependencies">Whether the dependency removal warning should be displayed (only applies when disabling)</param>
+        public async Task OnEnable(object itemObj, bool checkForDependencies)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to enable an object which isn't a mod");
             try
