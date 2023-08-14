@@ -6,6 +6,8 @@
              xmlns:ext="clr-namespace:Scarab.Extensions"
              xmlns:views="clr-namespace:Scarab.Views"
              xmlns:pages="clr-namespace:Scarab.Views.Pages"
+             xmlns:utils="clr-namespace:Scarab.Util"
+             xmlns:enums="clr-namespace:Scarab.Enums"
              xmlns:customControls="clr-namespace:Scarab.Views.Controls"
              xmlns:viewModels="clr-namespace:Scarab.ViewModels"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="150"
@@ -23,25 +25,23 @@
                 <Setter Property="OnHoverColor" Value="{DynamicResource HighlightBlue}"/>
             </Style>
         </StackPanel.Styles>
+
         
-        <customControls:TextButtonFlyout
-            HorizontalOffset="12"
-            Header="{ext:Localize XAML_Search_Type}">
-            <StackPanel>
-                <RadioButton 
-                    Margin="2 2 2 5"
-                    IsChecked="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}" 
-                    GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
-                    ToolTip.Tip="Search by the mod name" ToolTip.ShowDelay="0"/>
-                <RadioButton 
-                    Margin="2 5 2 2"
-                    IsChecked="{Binding !$parent[pages:ModListView].DataContext.IsNormalSearch}" 
-                    GroupName="SearchMode" 
-                    Content="{ext:Localize XAML_Search_Dependents}" 
-                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod" ToolTip.ShowDelay="0"/>
-            </StackPanel>
-        </customControls:TextButtonFlyout>
-        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+            <TextBlock
+                Margin="8 0 0 0"
+                Text="{ext:Localize XAML_Search_Type}" VerticalAlignment="Center"
+                />
+            <ComboBox
+                Margin="5 5 2 2"
+                Width="75"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding $parent[pages:ModListView].DataContext.SearchComboBoxOptions}"
+                SelectedItem="{Binding $parent[pages:ModListView].DataContext.SearchComboBox}"/>    
+        </StackPanel>
+
+
         <customControls:MenuCheckBox
             Margin="2 1"
             Header="{ext:Localize XAML_Exact_Search}"
@@ -59,7 +59,7 @@
                             IsSelected="{Binding IsSelected}" 
                             IsExcluded="{Binding IsExcluded}"
                             OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
-                            Header="{Binding DisplayName}"/>
+                            Header="{ReflectionBinding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
@@ -73,9 +73,9 @@
                     <DataTemplate>
                         <customControls:MenuCheckBox
                             Margin="2 1"
-                            IsSelected="{Binding IsSelected}" 
+                            IsSelected="{ReflectionBinding IsSelected}" 
                             OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
-                            Header="{Binding DisplayName}"/>
+                            Header="{ReflectionBinding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

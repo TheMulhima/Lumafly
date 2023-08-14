@@ -186,11 +186,12 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto" MinWidth="75"/>
       </Grid.ColumnDefinitions>
+        
       <TextBox
           Grid.Column="0"
           x:Name="Search"
           Name="Search"
-          IsVisible="{Binding IsNormalSearch}"
+          IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}"
           Watermark="{ext:Localize XAML_SearchMark}"
           BorderThickness="0"
           Margin="6 6"
@@ -198,7 +199,15 @@
       
       <AutoCompleteBox
           Grid.Column="0"
-          IsVisible="{Binding !IsNormalSearch}"
+          IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsDependencyAndIntegrationSearch}"
+          BorderThickness="0"
+          Margin="6 6"
+          SelectedItem="{Binding DependencySearchItem}"
+          ItemsSource="{Binding ModNames}" />
+      
+      <AutoCompleteBox
+          Grid.Column="0"
+          IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsIntegrationSearch}"
           BorderThickness="0"
           Margin="6 6"
           SelectedItem="{Binding DependencySearchItem}"

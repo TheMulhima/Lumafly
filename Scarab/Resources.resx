@@ -328,7 +328,7 @@
     <value>Normal Search</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Search by Dependency</value>
+    <value>Search by Dependencies and Integrations</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
     <value>Select Mod</value>
@@ -689,5 +689,8 @@
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
     <value>(Uses extra {0} of storage)</value>
+  </data>
+  <data name="XAML_Search_Integrations" xml:space="preserve">
+    <value>Search by Integrations</value>
   </data>
 </root>

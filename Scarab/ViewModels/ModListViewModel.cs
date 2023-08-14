@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reactive;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -59,7 +60,7 @@ namespace Scarab.ViewModels
         public bool _isExactSearch;
 
         [Notify]
-        public bool _isNormalSearch = true;
+        public SearchType _searchType = SearchType.Normal;
         
         [Notify]
         public string _dependencySearchItem;
@@ -405,7 +406,44 @@ namespace Scarab.ViewModels
 
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
         public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
+        
+        public bool IsNormalSearch => SearchType == SearchType.Normal;
+        public bool IsDependencyAndIntegrationSearch => SearchType == SearchType.DependencyAndIntegration;
+        public bool IsIntegrationSearch => SearchType == SearchType.Integration;
 
+        private string? _searchComboBox = SearchType.Normal.ToString();
+
+        public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
+
+        public string GetSearchTypeLocalized(string s)
+        {
+            if (s == SearchType.Normal.ToString()) return Resources.XAML_Normal_Search;
+            else if (s == SearchType.DependencyAndIntegration.ToString()) return Resources.XAML_Search_Dependents;
+            else if (s == SearchType.Integration.ToString()) return Resources.XAML_Search_Integrations;
+            else throw new InvalidOperationException();
+        }
+
+        public SearchType GetSearchTypeFromLocalized(string s)
+        {
+            if (s == Resources.XAML_Normal_Search) return SearchType.Normal;
+            else if (s == Resources.XAML_Search_Dependents) return SearchType.DependencyAndIntegration;
+            else if (s == Resources.XAML_Search_Integrations) return SearchType.Integration;
+            else throw new InvalidOperationException();
+        }
+
+        public string? SearchComboBox
+        {
+            get => _searchComboBox;
+            set
+            {
+                if (value is null) return;
+
+                _searchComboBox = value;
+                SearchType = GetSearchTypeFromLocalized(value);
+                RaisePropertyChanged(nameof(SearchComboBox));
+            }
+        }
+        
         public IEnumerable<ModItem> FilteredItems
         {
             get
@@ -421,29 +459,45 @@ namespace Scarab.ViewModels
                             x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged_NewMods));
                 }
                 
-                if (IsNormalSearch)
+                switch (SearchType)
                 {
-                    if (string.IsNullOrEmpty(Search)) 
+                    case SearchType.Normal:
+                    {
+                        if (string.IsNullOrEmpty(Search)) 
+                            return SelectedItems;
+                        
+                        string RemoveSpace(string s) => s.Replace(" ", string.Empty);
+                        
+                        if (IsExactSearch)
+                            return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                        else 
+                            return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
+                                                            RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
+                    }
+                    case SearchType.DependencyAndIntegration:
+                    {
+                        if (string.IsNullOrEmpty(DependencySearchItem))
+                            return SelectedItems;
+                        
+                        // this isnt user input so we can do normal comparison
+                        var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
+                        
+                        return SelectedItems
+                            .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
+                    }
+                    case SearchType.Integration:
+                    {
+                        if (string.IsNullOrEmpty(DependencySearchItem))
+                            return SelectedItems;
+                        
+                        // this isnt user input so we can do normal comparison
+                        var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
+                        
+                        return SelectedItems
+                            .Intersect(_reverseDependencySearch.GetAllIntegratedMods(mod));
+                    }
+                    default:
                         return SelectedItems;
-                    
-                    string RemoveSpace(string s) => s.Replace(" ", string.Empty);
-                    
-                    if (IsExactSearch)
-                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
-                    else 
-                        return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
-                                                        RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(DependencySearchItem))
-                        return SelectedItems;
-                    
-                    // this isnt user input so we can do normal comparison
-                    var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
-                    
-                    return SelectedItems
-                        .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
                 }
             }
         }

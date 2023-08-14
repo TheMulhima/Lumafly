@@ -41,6 +41,23 @@ public class ReverseDependencySearch : IReverseDependencySearch
         return dependants;
     }
     
+    public IEnumerable<ModItem> GetAllIntegratedMods(ModItem item)
+    {
+        var dependants = new List<ModItem>();
+        
+        foreach (var mod in _items.Values)
+        {
+            if (mod.HasIntegrations)
+            {
+                if (mod.Integrations.Contains(item.Name))
+                {
+                    dependants.Add(mod);
+                }
+            }
+        }
+        return dependants;
+    }
+    
     public IEnumerable<ModItem> GetAllEnabledDependents(ModItem item)
     {
         // check all enabled mods if they have a dependency on this mod
