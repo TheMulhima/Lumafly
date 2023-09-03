@@ -73,6 +73,9 @@ namespace Scarab.ViewModels
 
         [Notify]
         public ModFilterState _modFilterState = ModFilterState.All;
+        
+        [Notify]
+        public string authorSearch = "";
         public IEnumerable<string> ModNames { get; }
         public SortableObservableCollection<SelectableItem<string>> TagList { get; }
         public SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
@@ -314,7 +317,6 @@ namespace Scarab.ViewModels
             }
                 
         }
-        
         private async Task HandleRemoveGlobalSettingScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeGlobalSettings })
@@ -387,6 +389,18 @@ namespace Scarab.ViewModels
         {
             Search = "";
             DependencySearchItem = "";
+            AuthorSearch = "";
+            foreach (var tag in TagList)
+            {
+                tag.IsSelected = false;
+                tag.IsExcluded = false;
+            }
+            foreach (var author in AuthorList)
+            {
+                author.IsSelected = false;
+            }
+            
+            SelectMods();
         }
         
         public bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
@@ -406,7 +420,11 @@ namespace Scarab.ViewModels
                                           !_settings.UseCustomModlinks;
 
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
-        public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
+        public bool ClearSearchVisible => 
+            !string.IsNullOrEmpty(Search) ||
+            !string.IsNullOrEmpty(DependencySearchItem) ||
+            TagList.Any(x => x.IsSelected || x.IsExcluded) ||
+            AuthorList.Any(x => x.IsSelected);
         
         public bool IsNormalSearch => SearchType == SearchType.Normal;
         public bool IsDependencyAndIntegrationSearch => SearchType == SearchType.DependencyAndIntegration;
@@ -419,6 +437,9 @@ namespace Scarab.ViewModels
         private string? _searchComboBox = Resources.XAML_Normal_Search;
 
         public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
+        
+        public IEnumerable<SelectableItem<string>> FilteredAuthorList => AuthorList
+            .Where(a => string.IsNullOrEmpty(AuthorSearch) || a.Item.Contains(AuthorSearch, StringComparison.OrdinalIgnoreCase));
 
         public string GetSearchTypeLocalized(string s)
         {
@@ -689,6 +710,7 @@ namespace Scarab.ViewModels
             }
 
             RaisePropertyChanged(nameof(FilteredItems));
+            RaisePropertyChanged(nameof(ClearSearchVisible));
         }
 
         public async Task UpdateUnupdated()

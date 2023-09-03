@@ -66,17 +66,28 @@
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Select_Authors}">
-            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.AuthorList}">
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate>
-                        <customControls:MenuCheckBox
-                            Margin="2 1"
-                            IsSelected="{ReflectionBinding IsSelected}" 
-                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
-                            Header="{ReflectionBinding DisplayName}"/>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+            <ScrollViewer Height="300">
+                <StackPanel>
+                    <TextBox
+                        Watermark="Search Author"
+                        BorderThickness="0"
+                        Margin="3 2"
+                        Text="{Binding AuthorSearch}"/>
+                    
+                    <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.FilteredAuthorList}">
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <customControls:MenuCheckBox
+                                    Margin="2 1"
+                                    MaxWidth="175"
+                                    IsSelected="{ReflectionBinding IsSelected}" 
+                                    OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
+                                    Header="{ReflectionBinding DisplayName}"/>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </StackPanel>
+            </ScrollViewer>
         </customControls:TextButtonFlyout>
     </StackPanel>
 </views:View>
