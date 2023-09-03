@@ -17,8 +17,6 @@ namespace Scarab.Views.Controls;
 public class ExcludableCheckBox : TemplatedControl
 {
     private Button? SelectableButton;
-
-    private bool _initialized = false;
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -30,30 +28,33 @@ public class ExcludableCheckBox : TemplatedControl
         {
             IsSelected = !IsSelected;
             OnSelect?.Execute(null);
-            SetButtonColors();
         });
 
         InternalOnExcludePress = ReactiveCommand.Create(() =>
         {
             IsExcluded = !IsExcluded;
             OnSelect?.Execute(null);
-            SetButtonColors();
         });
         
-        SetButtonColors();
-        _initialized = true;
+        SetControlBackground();
     }
 
-    private void SetButtonColors()
+    private void SetControlBackground()
     {
-        SelectableButton = SelectableButton ?? throw new Exception("Menu Checkbox doesnt have button");
-        SelectableButton.Background = IsExcluded ? ExcludedColor : IsSelected ? SelectedColor : Brushes.Transparent;
-        
-        // it needs to be done like this because :pointerover doesnt accept bindings and
-        // so the only option is to change the :pointerover setters directly
-        SelectableButton.SetStyleSetterByName("Button:pointerover", BackgroundProperty, IsSelected ? SelectedColor : HoverColor);
+        ControlBackground = IsSelected ? SelectedColor : IsExcluded ? ExcludedColor : Brushes.Transparent;
     }
 
+    #region ControlBackground
+    public static readonly StyledProperty<IBrush?> ControlBackgroundProperty = AvaloniaProperty.Register<ExcludableCheckBox, IBrush?>(
+        "ControlBackground");
+
+    public IBrush? ControlBackground
+    {
+        get => GetValue(ControlBackgroundProperty);
+        set => SetValue(ControlBackgroundProperty, value);
+    }
+    #endregion
+    
     #region IsSelected
     private bool _isSelected;
     
@@ -67,8 +68,8 @@ public class ExcludableCheckBox : TemplatedControl
         {
             SetAndRaise(IsSelectedProperty, ref _isSelected, value);
             if (value) IsExcluded = false;
-            if (_initialized)
-                SetButtonColors();
+            SetControlBackground();
+
         }
     }
     #endregion
@@ -86,8 +87,7 @@ public class ExcludableCheckBox : TemplatedControl
         {
             SetAndRaise(IsExcludedProperty, ref _isExcluded, value);
             if (value) IsSelected = false;
-            if (_initialized)
-                SetButtonColors();
+            SetControlBackground();
         }
     }
 

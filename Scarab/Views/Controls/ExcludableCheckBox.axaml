@@ -22,14 +22,12 @@
                         Grid.ColumnSpan="2"
                         BorderThickness="0"
                         HorizontalContentAlignment="Left"
-                        Command="{TemplateBinding InternalOnPress}">
+                        Command="{TemplateBinding InternalOnPress}"
+                        Classes="StandardHover"
+                        Background="{TemplateBinding ControlBackground}">
                         <Button.Styles>
-                            <!--Pointer over cant be set in code behind apparently-->
-                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                            <Style Selector="Button.StandardHover:pointerover /template/ ContentPresenter">
                                 <Setter Property="Background" Value="{DynamicResource DefaultButtonColor}" />
-                            </Style>
-                            <Style Selector="Button">
-                                <Setter Property="Background" Value="Transparent"/>
                             </Style>
                         </Button.Styles>
                         <TextBlock 

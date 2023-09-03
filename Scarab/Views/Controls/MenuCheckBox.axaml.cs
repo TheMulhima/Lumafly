@@ -17,8 +17,6 @@ namespace Scarab.Views.Controls;
 public class MenuCheckBox : TemplatedControl
 {
     private Button? SelectableButton;
-
-    private bool _initialized = false;
     
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -30,21 +28,14 @@ public class MenuCheckBox : TemplatedControl
         {
             IsSelected = !IsSelected;
             OnSelect?.Execute(null);
-            SetButtonColors();
         });
         
-        SetButtonColors();
-        _initialized = true;
+        SetControlBackground();
     }
 
-    private void SetButtonColors()
+    private void SetControlBackground()
     {
-        SelectableButton = SelectableButton ?? throw new Exception("Menu Checkbox doesnt have button");
-        SelectableButton.Background = IsSelected ? SelectedColor : Brushes.Transparent;
-        
-        // it needs to be done like this because :pointerover doesnt accept bindings and
-        // so the only option is to change the :pointerover setters directly
-        SelectableButton.SetStyleSetterByName("Button:pointerover", BackgroundProperty, IsSelected ? SelectedColor : HoverColor);
+        ControlBackground = IsSelected ? SelectedColor : Brushes.Transparent;
     }
 
     #region IsSelected
@@ -59,9 +50,19 @@ public class MenuCheckBox : TemplatedControl
         set
         {
             SetAndRaise(IsSelectedProperty, ref _isSelected, value);
-            if (_initialized)
-                SetButtonColors();
+            SetControlBackground();
         }
+    }
+    #endregion
+    
+    #region ControlBackground
+    public static readonly StyledProperty<IBrush?> ControlBackgroundProperty = AvaloniaProperty.Register<ExcludableCheckBox, IBrush?>(
+        "ControlBackground");
+
+    public IBrush? ControlBackground
+    {
+        get => GetValue(ControlBackgroundProperty);
+        set => SetValue(ControlBackgroundProperty, value);
     }
     #endregion
     
