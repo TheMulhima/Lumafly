@@ -64,8 +64,6 @@ namespace Scarab.ViewModels
 
         [Notify]
         private bool _loading = true;
-        
-        public event Action? OnSelectTab;
 
         /// <summary>
         /// The main function that loads the data the app needs and sets up all the services
@@ -269,7 +267,6 @@ namespace Scarab.ViewModels
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = initialTab;
-            OnSelectTab?.Invoke();
             Trace.WriteLine("Selected Tab 0");
         }
 

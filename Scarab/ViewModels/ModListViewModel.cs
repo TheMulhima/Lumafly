@@ -65,8 +65,9 @@ namespace Scarab.ViewModels
         [Notify]
         public string _dependencySearchItem;
 
-        [Notify]
-        public HowRecentModChanged _howRecentModChanged_NewMods = HowRecentModChanged.Week, _howRecentModChanged_UpdatedMods = HowRecentModChanged.Week;
+        [Notify] 
+        public HowRecentModChanged _howRecentModChanged = HowRecentModChanged.Week;
+        
         [Notify]
         public bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
@@ -410,6 +411,10 @@ namespace Scarab.ViewModels
         public bool IsNormalSearch => SearchType == SearchType.Normal;
         public bool IsDependencyAndIntegrationSearch => SearchType == SearchType.DependencyAndIntegration;
         public bool IsIntegrationSearch => SearchType == SearchType.Integration;
+        
+        public Dock ModFilterDocking => !IsInWhatsNew ? Dock.Bottom : Dock.Top;
+        
+        public string NumberOfResults => $"{FilteredItems.Count()} / {_items.Count}";
 
         private string? _searchComboBox = Resources.XAML_Normal_Search;
 
@@ -453,10 +458,10 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Where(x =>
                             WhatsNew_UpdatedMods &&
-                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged_UpdatedMods)
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged)
                             ||
                             WhatsNew_NewMods &&
-                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged_NewMods));
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged));
                 }
                 
                 switch (SearchType)
@@ -504,8 +509,6 @@ namespace Scarab.ViewModels
 
         private void OnWhatsNew_UpdatedModsChanged() => FixupModList();
         private void OnWhatsNew_NewModsChanged() => FixupModList();
-        private void OnHowRecentModChanged_NewModsChanged() => FixupModList();
-        private void OnHowRecentModChanged_UpdatedModsChanged() => FixupModList();
 
         public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (

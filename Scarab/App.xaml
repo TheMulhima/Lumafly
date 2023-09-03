@@ -7,7 +7,12 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <SimpleTheme/>
+        <FluentTheme DensityStyle="Compact">
+            <FluentTheme.Palettes>
+                <ColorPaletteResources x:Key="Light" Accent="Teal" RegionColor="White"/>
+                <ColorPaletteResources x:Key="Dark" Accent="Teal" RegionColor="Black"  />
+            </FluentTheme.Palettes>
+        </FluentTheme>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
         <StyleInclude Source="avares://Scarab/Views/Controls/MenuCheckBox.axaml"/>
         <StyleInclude Source="avares://Scarab/Views/Controls/ExcludableCheckBox.axaml"/>
@@ -17,10 +22,11 @@
     <Application.RequestedThemeVariant>Dark</Application.RequestedThemeVariant>
     
     <Application.Resources>
-        <SolidColorBrush x:Key="HighlightBlue">#23404C</SolidColorBrush>
+        <SolidColorBrush x:Key="HighlightBlue">Teal</SolidColorBrush>
         <SolidColorBrush x:Key="HighlightRed">#4D2323</SolidColorBrush>
         <SolidColorBrush x:Key="DefaultButtonColor">#505050</SolidColorBrush>
         <SolidColorBrush x:Key="TextColor">#dedede</SolidColorBrush>
+        <SolidColorBrush x:Key="DisabledColor">#7e7e7e</SolidColorBrush>
         
         <StreamGeometry x:Key="checkmark_regular">M4.03033009,13.4696699 C3.73743687,13.1767767 3.26256313,13.1767767 2.96966991,13.4696699 C2.6767767,13.7625631 2.6767767,14.2374369 2.96966991,14.5303301 L9.96966991,21.5303301 C10.2625631,21.8232233 10.7374369,21.8232233 11.0303301,21.5303301 L25.0303301,7.53033009 C25.3232233,7.23743687 25.3232233,6.76256313 25.0303301,6.46966991 C24.7374369,6.1767767 24.2625631,6.1767767 23.9696699,6.46966991 L10.5,19.9393398 L4.03033009,13.4696699 Z</StreamGeometry>
         <StreamGeometry x:Key="chevron_down_regular">M8.36612 16.1161C7.87796 16.6043 7.87796 17.3957 8.36612 17.8839L23.1161 32.6339C23.6043 33.122 24.3957 33.122 24.8839 32.6339L39.6339 17.8839C40.122 17.3957 40.122 16.6043 39.6339 16.1161C39.1457 15.628 38.3543 15.628 37.8661 16.1161L24 29.9822L10.1339 16.1161C9.64573 15.628 8.85427 15.628 8.36612 16.1161Z</StreamGeometry>
