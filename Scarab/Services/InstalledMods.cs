@@ -266,5 +266,14 @@ namespace Scarab.Services
                 _semaphore.Release();
             }
         }
+
+        public InstalledMods DeepCopy() => new ()
+        {
+            _ApiState = _ApiState,
+            ApiInstall = ApiInstall with { },
+            Mods = Mods.ToDictionary(x => x.Key, x => x.Value),
+            NotInModlinksMods = NotInModlinksMods.ToDictionary(x => x.Key, x => x.Value),
+            HasVanilla = HasVanilla
+        };
     }
 }

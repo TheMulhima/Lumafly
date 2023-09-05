@@ -15,13 +15,14 @@ using MsBox.Avalonia.Enums;
 using Scarab.Util;
 using System.IO.Compression;
 using Avalonia.Platform.Storage;
+using Scarab.ViewModels;
+using Scarab.Views.Windows;
 
 namespace Scarab.Services;
 
 public class PackManager : IPackManager
 {
     private readonly ISettings _settings;
-    private readonly IModDatabase _db;
     private readonly IInstaller _installer;
     private readonly IFileSystem _fs;
     private readonly IModSource _mods;
@@ -42,13 +43,11 @@ public class PackManager : IPackManager
     public PackManager(ISettings settings, IInstaller installer, IModDatabase db, IFileSystem fs, IModSource mods)
     {
         _installer = installer;
-        _db = db;
         _fs = fs;
         _mods = mods;
         _settings = settings;
         
-        _items = _db.Items.Where(x => x.State is not NotInModLinksState { ModlinksMod: false })
-            .ToDictionary(x => x.Name, x => x);
+        _items = db.Items.ToDictionary(x => x.Name, x => x);
 
         _packList = new SortableObservableCollection<Pack>(FindAvailablePacks());
         _packList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));
@@ -169,7 +168,7 @@ public class PackManager : IPackManager
             }
             
             // cache result so it is easier to load next time
-            await SavePack(pack.Name, pack.Description);
+            await SavePack(pack.Name, pack.Description, pack.Authors);
             
             _fs.File.Delete(Path.Combine(_settings.ModsFolder, packInfoFileName));
             
@@ -195,7 +194,7 @@ public class PackManager : IPackManager
     /// <summary>
     /// Saves the current Mods folder as a pack. Replaces the pack if it already exists.
     /// </summary>
-    public async Task SavePack(string name, string description)
+    public async Task SavePack(string name, string description, string authors)
     {
         var packFolder = Path.Combine(_settings.ManagedFolder, name);
 
@@ -205,7 +204,7 @@ public class PackManager : IPackManager
 
         var packInfo = Path.Combine(packFolder, packInfoFileName);
         
-        var packDetails = new Pack(name, description, new InstalledMods()
+        var packDetails = new Pack(name, description, authors, new InstalledMods()
         {
             Mods = _mods.Mods,
             NotInModlinksMods = _mods.NotInModlinksMods
@@ -220,13 +219,41 @@ public class PackManager : IPackManager
             WriteIndented = true
         });
         
-        var packInList = _packList.FirstOrDefault(x => x.Name == name);
-        if (packInList != null)
+        var packInList = PackList.FirstOrDefault(x => x.Name == name);
+        if (packInList != null) // if the pack already exists, replace it
             packInList.InstalledMods = packDetails.InstalledMods;
-        else
-            _packList.Add(packDetails);
+        else // otherwise add it to the list
+            PackList.Add(packDetails); 
         
-        _packList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));
+        PackList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));
+    }
+    
+    /// <summary>
+    /// Saves the current instance of <paramref name="pack"/> to disk
+    /// </summary>
+    public async Task SaveEditedPack(string oldPackName, Pack pack)
+    {
+        // if the name changed, move the folder to reflect the change
+        if (oldPackName != pack.Name)
+        {
+            Directory.Move(Path.Combine(_settings.ManagedFolder, oldPackName), Path.Combine(_settings.ManagedFolder, pack.Name));
+        }
+
+        // write the new pack info to disk
+        var packFolder = Path.Combine(_settings.ManagedFolder, pack.Name);
+
+        var packInfo = Path.Combine(packFolder, packInfoFileName);
+        
+        await using Stream fs = _fs.File.Exists(packInfo)
+            ? _fs.FileStream.New(packInfo, FileMode.Truncate)
+            : _fs.File.Create(packInfo);
+
+        await JsonSerializer.SerializeAsync(fs, pack, new JsonSerializerOptions() 
+        { 
+            WriteIndented = true
+        });
+        
+        PackList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));
     }
 
     /// <summary>
@@ -245,7 +272,7 @@ public class PackManager : IPackManager
         FileUtil.DeleteDirectory(Path.Combine(_settings.ManagedFolder, packName));
     }
     
-        /// <summary>
+    /// <summary>
     /// Adds a mods full dependency tree to the dependency list.
     /// </summary>
     private void AddDependency(ISet<string> fullDependencyList, string depName)
@@ -329,6 +356,31 @@ public class PackManager : IPackManager
         if (outputFilePath == null) return; // Couldn't get local path for some reason
 
         CreateZip(packFolder, outputFilePath);
+    }
+
+    public static Window? CurrentPackWindow;
+    
+    /// <summary>
+    /// Opens a window to edit pack details
+    /// </summary>
+    /// <param name="pack">The pack to edit</param>
+    public async Task EditPack(Pack pack)
+    {
+        string oldPackName = pack.Name;
+        Pack copiedPack = pack.DeepCopy();
+
+        CurrentPackWindow = new EditPackWindow
+        {
+            DataContext = new EditPackWindowViewModel(copiedPack, _items.Values)
+        };
+        
+        var shouldSave = await CurrentPackWindow.ShowDialog<bool>(AvaloniaUtils.GetMainWindow());
+
+        if (shouldSave)
+        {
+            pack.Copy(copiedPack);
+            await SaveEditedPack(oldPackName, copiedPack);
+        }
     }
 
     /// <summary>

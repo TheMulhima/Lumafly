@@ -29,7 +29,7 @@ public class MenuCheckBox : TemplatedControl
         InternalOnPress = ReactiveCommand.Create(() =>
         {
             IsSelected = !IsSelected;
-            OnSelect?.Execute(null);
+            OnSelect?.Execute(OnSelectParameter);
             SetButtonColors();
         });
         
@@ -85,6 +85,17 @@ public class MenuCheckBox : TemplatedControl
     public ICommand? OnSelect
     {
         get => GetValue(OnSelectProperty);
+        set => SetValue(OnSelectProperty, value);
+    }
+    #endregion
+
+    #region OnSelectParameter
+    public static readonly StyledProperty<object?> OnSelectParameterProperty = AvaloniaProperty.Register<MenuCheckBox, object?>(
+        "OnSelectParameter");
+
+    public object? OnSelectParameter
+    {
+        get => GetValue(OnSelectParameterProperty);
         set => SetValue(OnSelectProperty, value);
     }
     #endregion

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia.Controls;
+using ReactiveUI;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
+using Scarab.Views.Windows;
 
 namespace Scarab.ViewModels;
 
@@ -10,11 +15,15 @@ public class PackManagerViewModel : ViewModelBase
 {
     private readonly IPackManager _packManager;
     
+    public ReactiveCommand<Pack, Unit> LoadPack { get; }
+    
     public SortableObservableCollection<Pack> Packs => _packManager.PackList;
 
     public PackManagerViewModel(IPackManager packManager)
     {
         _packManager = packManager;
+        
+        LoadPack = ReactiveCommand.CreateFromTask<Pack>(LoadPackAsync);
     }
 
     public void GenerateSharingCode(object packObj)
@@ -26,7 +35,7 @@ public class PackManagerViewModel : ViewModelBase
     public void EditPack(object packObj)
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot edit an object that is not a pack");
-        //TODO: implement
+        _packManager.EditPack(pack);
     }
     
     public void DeletePack(object packObj)
@@ -35,16 +44,15 @@ public class PackManagerViewModel : ViewModelBase
         _packManager.RemovePack(pack.Name);
     }
     
-    public void LoadPack(object packObj)
+    public async Task LoadPackAsync(Pack pack)
     {
-        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot delete an object that is not a pack");
-        _packManager.LoadPack(pack.Name);
+        await _packManager.LoadPack(pack.Name);
         MainWindowViewModel.Instance?.LoadApp(2);
     }
     
     public void CreateNewPack()
     {
-        _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack Description");
+        _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack Description", "");
     }
     
     public void ImportPack()

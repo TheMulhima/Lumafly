@@ -11,9 +11,10 @@ public interface IPackManager
    
    Task LoadPack(string packName);
 
-   Task SavePack(string name, string description);
+   Task SavePack(string name, string description, string authors);
 
    void RemovePack(string packName);
 
    void SavePackToZip(string packName);
+   Task EditPack(Pack pack);
 }
