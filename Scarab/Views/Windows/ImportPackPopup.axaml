@@ -3,15 +3,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Scarab.ViewModels"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="125"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="135"
         x:Class="Scarab.Views.Windows.ImportPackPopup"
         x:DataType="viewModels:ImportPackPopupViewModel"
         x:CompileBindings="True"
-        Height="125" Width="300"
+        Height="135" Width="300"
         CanResize="False"
         SystemDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         Title="Import Pack Options">
+    <Border
+        BorderThickness="1"
+        BorderBrush="{DynamicResource TextColor}">
     <Grid
         ColumnDefinitions="* *"
         RowDefinitions="Auto *">
@@ -52,6 +55,6 @@
             Click="Confirm"
             />
         </StackPanel>
-        
     </Grid>
+    </Border>
 </Window>

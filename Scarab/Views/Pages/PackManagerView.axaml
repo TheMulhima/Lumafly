@@ -22,7 +22,7 @@
                     <Grid
                         Margin="0 0 0 10"
                         ColumnDefinitions="* Auto">
-                        <Expander Margin="0 0 20 0">
+                        <Expander Margin="0 0 20 0" HorizontalAlignment="Stretch">
                         <Expander.Header>
                             <Grid ColumnDefinitions="* Auto Auto Auto Auto">
                                 <TextBlock
@@ -44,7 +44,7 @@
                                         Text="{Binding SharingCode}"/>
                                     <Button
                                         VerticalAlignment="Stretch"
-                                        Margin="0 1 15 1"
+                                        Margin="5 1 15 1"
                                         BorderThickness="0"
                                         Background="Transparent"
                                         Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CopySharingCode}"
@@ -106,12 +106,10 @@
                                 </Button>
                             </Grid>
                         </Expander.Header>
-                        <Border
-                            BorderThickness="1 0 0 0" 
-                            BorderBrush="#505050">
                         <Grid
                             Margin="5 0 0 0"
-                            ColumnDefinitions="* 2*" RowDefinitions="* *">
+                            Height="220"
+                            ColumnDefinitions="* 2*" RowDefinitions="Auto *">
                             <TextBlock
                                 Grid.Row="0" Grid.Column="0"
                                 Text="{ext:Localize XAML_Description}"
@@ -124,14 +122,14 @@
                                 FontWeight="Bold"
                                 Margin="0 0 5 5"/>
                             
-                            <ScrollViewer
-                                Grid.Row="1" Grid.Column="0"
-                                MaxHeight="200">
-                                <TextBlock
-                                    Text="{Binding Description}" 
-                                    TextWrapping="Wrap"
-                                    Margin="0 0 10 0"/>
-                            </ScrollViewer>
+                            <TextBox
+                                BorderThickness="0"
+                                Grid.Row="1" Grid.Column="0" 
+                                Text="{Binding Description}"
+                                IsReadOnly="True"
+                                MaxHeight="200"
+                                Background="Transparent"
+                                Margin="0 0 5 0"/>
                             
                             <TextBox
                                 BorderThickness="0"
@@ -139,9 +137,9 @@
                                  Text="{Binding ModList}"
                                  IsReadOnly="True"
                                  MaxHeight="200"
+                                 Background="Transparent"
                                  Margin="0 0 5 0"/>
                         </Grid>
-                        </Border>
                     </Expander>
                     <Button
                         Grid.Column="1"
@@ -163,11 +161,15 @@
             <Button 
                 Grid.Column="0"
                 Margin="10 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
                 Content="{ext:Localize XAML_CreateNewPack}"
                 Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CreateNewPack}"/>
             <Button
                 Grid.Column="1"
                 Margin="10 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
                 Content="{ext:Localize XAML_ImportPack}"
                 Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.ImportPack}"/>
         </Grid>
