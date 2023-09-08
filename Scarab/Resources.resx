@@ -725,6 +725,7 @@
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
     <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
+  </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
     <value>Search by Integrations</value>
   </data>

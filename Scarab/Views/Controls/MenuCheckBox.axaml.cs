@@ -28,7 +28,7 @@ public class MenuCheckBox : TemplatedControl
         {
             IsSelected = !IsSelected;
             OnSelect?.Execute(OnSelectParameter);
-            SetButtonColors();
+            SetControlBackground();
         });
         
         SetControlBackground();
