@@ -24,18 +24,40 @@
                         ColumnDefinitions="* Auto">
                         <Expander Margin="0 0 20 0">
                         <Expander.Header>
-                            <Grid ColumnDefinitions="* Auto Auto Auto">
+                            <Grid ColumnDefinitions="* Auto Auto Auto Auto">
                                 <TextBlock
                                     Grid.Column="0"
                                     Text="{Binding Name}" 
                                     VerticalAlignment="Center"
                                     Margin="10 0 0 0"/>
-                                <Button
+                                <StackPanel 
                                     Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    IsVisible="{Binding HasSharingCode}">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 5 0"
+                                        Text="{ext:Localize XAML_SharingCode}" />
+                                    <TextBox 
+                                        VerticalAlignment="Center"
+                                        IsReadOnly="True"
+                                        Text="{Binding SharingCode}"/>
+                                    <Button
+                                        VerticalAlignment="Stretch"
+                                        Margin="0 1 15 1"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CopySharingCode}"
+                                        CommandParameter="{Binding .}">
+                                        <PathIcon
+                                            Opacity="0.5"
+                                            Data="{StaticResource copy_regular}"/>
+                                    </Button>
+                                </StackPanel>
+                                <Button
+                                    Grid.Column="2"
                                     VerticalAlignment="Stretch"
                                     Margin="0 1 10 1"
-                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.EditPack}"
-                                    CommandParameter="{Binding .}"
                                     ToolTip.Tip="{ext:Localize XAML_SharePack}" ToolTip.ShowDelay="0">
                                     <PathIcon Data="{StaticResource share_android_regular}"/>
                                     <Button.Flyout>
@@ -43,33 +65,14 @@
                                             ShowMode="TransientWithDismissOnPointerMoveAway"
                                             Placement="RightEdgeAlignedTop">
                                             <StackPanel>
-                                            <Button 
-                                                IsVisible="{Binding !HasSharingCode}"
+                                            <Button
+                                                IsEnabled="{ReflectionBinding !$parent[pages:PackManagerView].DataContext.LoadingSharingCode}"
                                                 VerticalAlignment="Stretch"
                                                 Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.GenerateSharingCode}"
                                                 CommandParameter="{Binding .}"
                                                 ToolTip.Tip="{ext:Localize XAML_GenerateSharingCode}" ToolTip.ShowDelay="0">
                                                 <TextBlock>Generate Sharing Code</TextBlock>
                                             </Button>
-                                            <StackPanel 
-                                                Orientation="Horizontal"
-                                                IsVisible="{Binding HasSharingCode}">
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    Margin="0 0 5 0"
-                                                    Text="{ext:Localize XAML_SharingCode}" />
-                                                <TextBox 
-                                                    VerticalAlignment="Center"
-                                                    IsReadOnly="True"
-                                                    Text="{Binding SharingCode}"/>
-                                                <Button
-                                                    VerticalAlignment="Stretch"
-                                                    Margin="0 1 0 1"
-                                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CopySharingCode}"
-                                                    CommandParameter="{Binding .}">
-                                                    <PathIcon Data="{StaticResource copy_regular}"/>
-                                                </Button>
-                                            </StackPanel>
                                             <Button 
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch"
@@ -84,7 +87,7 @@
                                     </Button.Flyout>
                                 </Button>
                                 <Button
-                                    Grid.Column="2"
+                                    Grid.Column="3"
                                     VerticalAlignment="Stretch"
                                     Margin="0 1 10 1"
                                     Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.EditPack}"
@@ -93,7 +96,7 @@
                                     <PathIcon Data="{StaticResource edit_regular}"/>
                                 </Button>
                                 <Button
-                                    Grid.Column="3"
+                                    Grid.Column="4"
                                     VerticalAlignment="Stretch"
                                     Margin="0 1 0 1"
                                     Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.DeletePack}"

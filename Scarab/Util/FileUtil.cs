@@ -45,7 +45,7 @@ public static class FileUtil
     /// Helper function to copy a directory.
     /// From: https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
     /// </summary>
-    public static void CopyDirectory(string sourceDir, string destinationDir)
+    public static void CopyDirectory(string sourceDir, string destinationDir, string? excludeDir = null)
     {
         // Get information about the source directory
         var dir = new DirectoryInfo(sourceDir);
@@ -71,6 +71,9 @@ public static class FileUtil
 
         foreach (DirectoryInfo subDir in dirs)
         {
+            if (subDir.Name == excludeDir)
+                continue;
+            
             string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
             CopyDirectory(subDir.FullName, newDestinationDir);
         }

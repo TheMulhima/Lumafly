@@ -44,6 +44,22 @@ public record Pack(string Name, string Description, string Authors, InstalledMod
         Name = pack.Name;
         Description = pack.Description;
         Authors = pack.Authors;
+        SharingCode = pack.SharingCode;
         InstalledMods = pack.InstalledMods;
+    }
+    
+    public bool IsSame(Pack pack)
+    {
+        return
+            Name == pack.Name &&
+            Description == pack.Description &&
+            Authors == pack.Authors &&
+            (
+                InstalledMods.Mods.All(x =>
+                    pack.InstalledMods.Mods.ContainsKey(x.Key) && pack.InstalledMods.Mods[x.Key] == x.Value)
+                &&
+                InstalledMods.NotInModlinksMods.All(x =>
+                    pack.InstalledMods.NotInModlinksMods.ContainsKey(x.Key) && pack.InstalledMods.NotInModlinksMods[x.Key] == x.Value)
+            );
     }
 }

@@ -13,6 +13,7 @@ using Avalonia.Data.Converters;
 using Avalonia.LogicalTree;
 using Avalonia.Styling;
 using Scarab.Enums;
+using Scarab.Views.Windows;
 
 namespace Scarab.Util;
 
@@ -67,7 +68,7 @@ public static class AvaloniaUtils
     }
   
   
-    public static Window GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+    public static MainWindow GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as MainWindow
                                             ?? throw new InvalidOperationException();
 
 

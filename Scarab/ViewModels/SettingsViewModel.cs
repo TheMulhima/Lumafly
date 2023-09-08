@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
 using HarfBuzzSharp;
 using ReactiveUI;
 using Scarab.Enums;
@@ -151,8 +152,8 @@ namespace Scarab.ViewModels
         public void ReloadApp()
         {
             _settings.CustomModlinksUri = CustomModlinksUri;
-            _settings.Save();
-            MainWindowViewModel.Instance?.LoadApp(3);
+            _settings.Save(); 
+            Dispatcher.UIThread.InvokeAsync(async () => await MainWindowViewModel.Instance!.LoadApp(3));
         }
 
         public async Task ChangePathAsync()

@@ -15,6 +15,7 @@ using MsBox.Avalonia.Enums;
 using Scarab.Util;
 using System.IO.Compression;
 using Avalonia.Platform.Storage;
+using HPackage.Net;
 using Scarab.ViewModels;
 using Scarab.Views.Windows;
 
@@ -26,6 +27,7 @@ public class PackManager : IPackManager
     private readonly IInstaller _installer;
     private readonly IFileSystem _fs;
     private readonly IModSource _mods;
+    private readonly IOnlineTextStorage _onlineTextStorage;
     /// <summary>
     /// Private collection to allow constant lookup times of ModItems from name.
     /// </summary>
@@ -40,12 +42,13 @@ public class PackManager : IPackManager
 
     private const string packInfoFileName = "packMods.json";
 
-    public PackManager(ISettings settings, IInstaller installer, IModDatabase db, IFileSystem fs, IModSource mods)
+    public PackManager(ISettings settings, IInstaller installer, IModDatabase db, IFileSystem fs, IModSource mods, IOnlineTextStorage onlineTextStorage)
     {
         _installer = installer;
         _fs = fs;
         _mods = mods;
         _settings = settings;
+        _onlineTextStorage = onlineTextStorage;
         
         _items = db.Items.ToDictionary(x => x.Name, x => x);
 
@@ -89,7 +92,7 @@ public class PackManager : IPackManager
     /// Loads a pack as the main mod list.
     /// </summary>
     /// <param name="packName">The profile to set as current.</param>
-    public async Task LoadPack(string packName)
+    public async Task<bool> LoadPack(string packName)
     {
         await EnsureGameClosed();
         
@@ -97,7 +100,7 @@ public class PackManager : IPackManager
         if (pack == null)
         {
             await DisplayErrors.DisplayGenericError("Could not set current profile: profile not found!");
-            return;
+            return false;
         }
 
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
@@ -175,11 +178,7 @@ public class PackManager : IPackManager
             // delete temp folder
             _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), true);
 
-            await MessageBoxUtil.GetMessageBoxStandardWindow(new MessageBoxStandardParams()
-            {
-                ContentMessage = "Pack enabled successfully!",
-            }).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
-
+            return true;
         }
         catch (Exception e)
         {
@@ -188,6 +187,8 @@ public class PackManager : IPackManager
             await _mods.SetMods(tempDbMods, tempDbNotInModlinksMods);
             
             await DisplayErrors.DisplayGenericError("An error occured when activating pack. Scarab will revert to old mods", e);
+
+            return false;
         }
     }
 
@@ -200,14 +201,14 @@ public class PackManager : IPackManager
 
         FileUtil.DeleteDirectory(packFolder);
         
-        FileUtil.CopyDirectory(_settings.ModsFolder, packFolder);
+        FileUtil.CopyDirectory(_settings.ModsFolder, packFolder, excludeDir: "Disabled");
 
         var packInfo = Path.Combine(packFolder, packInfoFileName);
         
         var packDetails = new Pack(name, description, authors, new InstalledMods()
         {
-            Mods = _mods.Mods,
-            NotInModlinksMods = _mods.NotInModlinksMods
+            Mods = _mods.Mods.Where(x => x.Value.Enabled).ToDictionary(x => x.Key, x => x.Value),
+            NotInModlinksMods = _mods.NotInModlinksMods.Where(x => x.Value.Enabled).ToDictionary(x => x.Key, x => x.Value),
         });
         
         await using Stream fs = _fs.File.Exists(packInfo)
@@ -231,10 +232,10 @@ public class PackManager : IPackManager
     /// <summary>
     /// Saves the current instance of <paramref name="pack"/> to disk
     /// </summary>
-    public async Task SaveEditedPack(string oldPackName, Pack pack)
+    public async Task SaveEditedPack(Pack pack, string? oldPackName = null)
     {
         // if the name changed, move the folder to reflect the change
-        if (oldPackName != pack.Name)
+        if (oldPackName != null && oldPackName != pack.Name)
         {
             Directory.Move(Path.Combine(_settings.ManagedFolder, oldPackName), Path.Combine(_settings.ManagedFolder, pack.Name));
         }
@@ -242,6 +243,8 @@ public class PackManager : IPackManager
         // write the new pack info to disk
         var packFolder = Path.Combine(_settings.ManagedFolder, pack.Name);
 
+        FileUtil.CreateDirectory(packFolder);
+        
         var packInfo = Path.Combine(packFolder, packInfoFileName);
         
         await using Stream fs = _fs.File.Exists(packInfo)
@@ -379,7 +382,9 @@ public class PackManager : IPackManager
         if (shouldSave)
         {
             pack.Copy(copiedPack);
-            await SaveEditedPack(oldPackName, copiedPack);
+            if (!string.IsNullOrEmpty(pack.SharingCode) && pack.IsSame(copiedPack)) 
+                pack.SharingCode = null;
+            await SaveEditedPack(copiedPack, oldPackName);
         }
     }
 
@@ -404,5 +409,82 @@ public class PackManager : IPackManager
         {
             return false;
         }
+    }
+
+    public async Task UploadPack(string packName)
+    {
+        var pack = _packList.FirstOrDefault(x => x.Name == packName);
+        if (pack == null) return;
+
+        try
+        {
+            var code = await _onlineTextStorage.Upload(packName, ConvertToHPackage(pack));
+            pack.SharingCode = code.Replace("https://pastebin.com/", "");
+            await SaveEditedPack(pack);
+        }
+        catch (Exception e)
+        {
+            await DisplayErrors.DisplayGenericError("Failed to upload pack", e);
+        }
+    }
+    
+    public async Task<Pack?> ImportPack(string code)
+    {
+        try
+        {
+            var packJson = await _onlineTextStorage.Download(code);
+            
+            var pack = ConvertFromHPackage(packJson);
+            pack.SharingCode = code; //since we have it lets save it
+
+            PackList.Add(pack);
+            await SaveEditedPack(pack);
+            
+            return pack;
+        }
+        catch (Exception e)
+        {
+            await DisplayErrors.DisplayGenericError("Failed to import pack", e);
+            return null;
+        }
+    }
+
+    private string ConvertToHPackage(Pack pack)
+    {
+        var packageDef = new HollowKnightPackageDef()
+        {
+            Name = pack.Name,
+            Description = pack.Description,
+            Authors = new List<string> { pack.Authors },
+            Dependencies = new References()
+            {
+                AnythingMap = pack.InstalledMods.Mods.ToDictionary(
+                    x => x.Key, 
+                    x => new ReferenceVersion() 
+                    { 
+                        String = JsonSerializer.Serialize(x.Value) 
+                    })
+            }
+        };
+
+        return packageDef.ToJson();
+    }
+    
+    private Pack ConvertFromHPackage(string json)
+    {
+        var packageDef = HollowKnightPackageDef.FromJson(json);
+
+        var pack = new Pack(
+            packageDef.Name,
+            packageDef.Description,
+            string.Join(',', packageDef.Authors),
+            new InstalledMods()
+            {
+                Mods = packageDef.Dependencies!.Value.AnythingMap.ToDictionary(
+                    x => x.Key,
+                    x => JsonSerializer.Deserialize<InstalledState>(x.Value.String)!)
+            });
+        
+        return pack;
     }
 }

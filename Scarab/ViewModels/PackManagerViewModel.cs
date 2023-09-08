@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reactive;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Controls;
-using ReactiveUI;
+using Avalonia.Threading;
+using PropertyChanged.SourceGenerator;
 using Scarab.Interfaces;
 using Scarab.Models;
 using Scarab.Util;
@@ -11,25 +11,42 @@ using Scarab.Views.Windows;
 
 namespace Scarab.ViewModels;
 
-public class PackManagerViewModel : ViewModelBase
+public partial class PackManagerViewModel : ViewModelBase
 {
     private readonly IPackManager _packManager;
+
+    [Notify] private bool _loadingSharingCode;
     
-    public ReactiveCommand<Pack, Unit> LoadPack { get; }
+    public event Action? OnPackLoaded;
     
     public SortableObservableCollection<Pack> Packs => _packManager.PackList;
 
     public PackManagerViewModel(IPackManager packManager)
     {
         _packManager = packManager;
-        
-        LoadPack = ReactiveCommand.CreateFromTask<Pack>(LoadPackAsync);
     }
 
-    public void GenerateSharingCode(object packObj)
+    public async Task GenerateSharingCode(object packObj)
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot share an object that is not a pack");
-        //TODO: implement
+        try
+        {
+            LoadingSharingCode = true;
+            await _packManager.UploadPack(pack.Name);
+            if (pack.SharingCode != null) RaisePropertyChanged(pack.SharingCode);
+        }
+        catch (HttpRequestException e)
+        {
+            await DisplayErrors.DisplayNetworkError(pack.Name, e);
+        }
+        catch (Exception e)
+        {
+            await DisplayErrors.DisplayGenericError("Failed to generate sharing code", e);
+        }
+        finally
+        {
+            LoadingSharingCode = false;
+        }
     }
     
     public void EditPack(object packObj)
@@ -44,20 +61,53 @@ public class PackManagerViewModel : ViewModelBase
         _packManager.RemovePack(pack.Name);
     }
     
-    public async Task LoadPackAsync(Pack pack)
+    public async Task LoadPack(object packObj)
     {
-        await _packManager.LoadPack(pack.Name);
-        MainWindowViewModel.Instance?.LoadApp(2);
+        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
+
+        bool success = false;
+        
+        await Dispatcher.UIThread.InvokeAsync(
+            async () => await MainWindowViewModel.Instance!.LoadApp(2,
+            new LoadingTaskDetails(
+                async () =>
+                {
+                    try
+                    {
+                        success = await _packManager.LoadPack(pack.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        await DisplayErrors.DisplayGenericError("Failed to load pack", e);
+                    }
+                },
+                "Loading Pack")));
+
+        if (success) 
+            OnPackLoaded?.Invoke();
     }
     
     public void CreateNewPack()
     {
-        _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack Description", "");
+        _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack", "");
     }
     
-    public void ImportPack()
+    public async Task ImportPack()
     {
-        //TODO: implement
+        var importPackPopup = new ImportPackPopup()
+        {
+            DataContext = new ImportPackPopupViewModel()
+        };
+
+        var code = await importPackPopup.ShowDialog<string>(AvaloniaUtils.GetMainWindow());
+
+        if (string.IsNullOrEmpty(code))
+            return;
+        
+        Pack? importedPack = await _packManager.ImportPack(code);
+        
+        if (importedPack != null) 
+            await LoadPack(importedPack);
     }
     
     public void CopySharingCode(object packObj)
