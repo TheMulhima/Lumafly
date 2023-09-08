@@ -268,7 +268,7 @@ namespace Scarab.Services
             bool was_vanilla = true;
             if (await CheckAPI())
             {
-                if (((InstalledState)_installed.ApiInstall).Version.Major > manifest.Version)
+                if (((InstalledState)_installed.ApiInstall).Version.Major >= manifest.Version)
                     return;
 
                 was_vanilla = false;
