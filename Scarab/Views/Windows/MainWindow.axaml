@@ -76,7 +76,6 @@
                       HorizontalAlignment="Center"
                       Name="TabStrip"
                       SelectedIndex="{Binding SelectedTabIndex}"
-                      SelectionChanged="TabSelected"
                       ItemsSource="{CompiledBinding Tabs}">
 	            <TabStrip.Styles>
 		            <Style Selector="TabStripItem">
@@ -84,16 +83,10 @@
 			            <Setter Property="Padding" Value="6"/>
 			            <Setter Property="VerticalContentAlignment" Value="Center"/>
 		            </Style>
-		            <Style Selector="TabStripItem:nth-child(1) > StackPanel > Rectangle">
-			            <Setter Property="Fill" Value="{StaticResource HighlightBlue}"/>
-		            </Style>
 	            </TabStrip.Styles>
 	            <TabStrip.ItemTemplate>
 		            <DataTemplate>
-			            <StackPanel>
-				            <Rectangle Name="Indicator" Stretch="Fill" Height="4" />
-				            <Label Content="{ReflectionBinding DisplayName}"/>
-			            </StackPanel>
+			            <Label Content="{ReflectionBinding DisplayName}"/>
 		            </DataTemplate>
 	            </TabStrip.ItemTemplate>
             </TabStrip>

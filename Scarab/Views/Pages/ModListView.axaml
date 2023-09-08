@@ -21,78 +21,33 @@
             KeyDown="OnKeyDown">
   <DockPanel>
     <!-- Sidebar -->
-    <Menu DockPanel.Dock="Left" HorizontalAlignment="Left">
-      <Menu.ItemsPanel>
-        <ItemsPanelTemplate>
-          <DockPanel VerticalAlignment="Stretch" Dock="Top" />
-        </ItemsPanelTemplate>
-      </Menu.ItemsPanel>
+    <Menu 
+        DockPanel.Dock="Left" 
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom" 
+        MinHeight="400"
+        Margin="2 0 0 4">
+        <Menu.ItemsPanel>
+            <ItemsPanelTemplate>
+                <DockPanel VerticalAlignment="Stretch" Dock="Bottom" />
+            </ItemsPanelTemplate>
+        </Menu.ItemsPanel>
 
-      <Menu.Styles>
-        <Style Selector="MenuItem:separator">
-          <Setter Property="Template">
-            <ControlTemplate>
-              <Separator Background="#a9a9a9" Margin="0,1,0,1" Height="1" />
-            </ControlTemplate>
-          </Setter>
-        </Style>
+        <Menu.Styles>
+            <Style Selector="MenuItem:separator">
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Separator Background="#a9a9a9" Margin="0,1,0,1" Height="1" />
+                    </ControlTemplate>
+                </Setter>
+            </Style>
 
-        <Style Selector="MenuItem">
-          <Setter Property="Padding" Value="6 8" />
-        </Style>
-      </Menu.Styles>
-
-      <!-- The PointerPressed un highlights all the filter buttons except the one that's pressed
-                    the name prefix "ModFilter_" helps find all buttons in code behind. The All button is 
-                    highlighted by default on app open-->
-      <MenuItem
-          Name="ModFilter_All"
-          IsVisible="{Binding IsInOnlineMode}"
-          Header="{ext:Localize XAML_ModsFilter_All}"
-          Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static enums:ModFilterState.All}"
-          DockPanel.Dock="Top"/>
-
-      <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}" />
-
-      <MenuItem
-          Name="ModFilter_Installed"
-          Header="{ext:Localize XAML_ModsFilter_Installed}"
-          Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static enums:ModFilterState.Installed}"
-          DockPanel.Dock="Top"/>
-
-      <MenuItem Header="-" DockPanel.Dock="Top" />
-
-      <MenuItem
-          Name="ModFilter_Enabled"
-          Header="{ext:Localize XAML_ModsFilter_Enabled}"
-          Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static enums:ModFilterState.Enabled}"
-          DockPanel.Dock="Top"/>
-
-      <MenuItem Header="-" DockPanel.Dock="Top" />
-
-      <MenuItem
-          Name="ModFilter_OutOfDate"
-          IsVisible="{Binding IsInOnlineMode}"
-          Header="{ext:Localize XAML_ModsFilter_OutOfDate}"
-          Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static enums:ModFilterState.OutOfDate}"
-          DockPanel.Dock="Top"/>
-
-      <MenuItem Header="-" DockPanel.Dock="Top" IsVisible="{Binding IsInOnlineMode}"/>
-
-      <MenuItem
-          Name="ModFilter_WhatsNew"
-          IsVisible="{Binding ShouldShowWhatsNew}"
-          Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
-          Command="{Binding SelectModsWithFilter}"
-          CommandParameter="{x:Static enums:ModFilterState.WhatsNew}"
-          DockPanel.Dock="Top"/>
-
+            <Style Selector="MenuItem">
+                <Setter Property="Padding" Value="6 8" />
+            </Style>
+        </Menu.Styles>
       <!-- the name prefix "Flyout_" helps find all buttons in code behind. To set properties-->
-
+      
       <MenuItem
           Command="{Binding ManuallyInstallMod}"
           Header="{ext:Localize XAML_Manual_Install}"
@@ -177,128 +132,191 @@
         Minimum="0"
         Maximum="100"
         Value="{Binding Progress}" />
-
-    <Grid
-        IsVisible="{Binding !IsInWhatsNew}"
+    
+    <Border
+        BorderBrush="#a9a9a9"
+        BorderThickness="0 0 0 1"
         DockPanel.Dock="Top">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" MinWidth="400"/>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="Auto" MinWidth="75"/>
-      </Grid.ColumnDefinitions>
-      <TextBox
-          Grid.Column="0"
-          x:Name="Search"
-          Name="Search"
-          IsVisible="{Binding IsNormalSearch}"
-          Watermark="{ext:Localize XAML_SearchMark}"
-          BorderThickness="0"
-          Margin="6 6"
-          Text="{Binding Search}" />
+        <DockPanel>
+            <Menu 
+                DockPanel.Dock="{Binding ModFilterDocking}" 
+                HorizontalAlignment="Stretch">
+                
+                <Menu.Styles>
+                    <Style Selector="MenuItem">
+                        <Setter Property="Padding" Value="6 8" />
+                    </Style>
+                </Menu.Styles>
 
-      <ComboBox
-          Grid.Column="0"
-          Name="SearchByDependency"
-          IsVisible="{Binding !IsNormalSearch}"
-          PlaceholderText="{ext:Localize XAML_Select_Mod}"
-          PlaceholderForeground="Gray"
-          BorderThickness="0"
-          Margin="6 6"
-          IsTextSearchEnabled = "True"
-          SelectedItem="{Binding DependencySearchItem}"
-          ItemsSource="{Binding ModNames}" />
+                <!-- The PointerPressed un highlights all the filter buttons except the one that's pressed
+                    the name prefix "ModFilter_" helps find all buttons in code behind. The All button is 
+                    highlighted by default on app open-->
+                <MenuItem
+                    IsEnabled="False"
+                    Header="Filter Mods:  " />
 
-      <Button
-          Grid.Column="1"
-          Background="Transparent"
-          HorizontalAlignment="Right"
-          BorderThickness="0"
-          IsVisible="{Binding ClearSearchVisible}"
-          Command="{Binding ClearSearch}"
-          Margin="0 0 0 0">
-          <PathIcon
-              Data="{StaticResource presence_offline_regular}"
-              Width="15" Height="15"/>
-      </Button>
+                <MenuItem
+                    Name="ModFilter_All"
+                    IsVisible="{Binding IsInOnlineMode}"
+                    Header="{ext:Localize XAML_ModsFilter_All}"
+                    Command="{Binding SelectModsWithFilter}"
+                    CommandParameter="{x:Static enums:ModFilterState.All}" />
 
-      <customControls:TextButtonFlyout
-          FlyoutPlacement="BottomEdgeAlignedRight"
-          FlyoutShowMode="Transient"
-          Padding="6 0 0 0"
-          Header="{ext:Localize XAML_Search_Options}"
-          Background="{DynamicResource DefaultButtonColor}"
-          OnHoverColor="{DynamicResource DefaultButtonColor}"
-          Grid.Column="2">
+                <MenuItem
+                    Name="ModFilter_Installed"
+                    Header="{ext:Localize XAML_ModsFilter_Installed}"
+                    Command="{Binding SelectModsWithFilter}"
+                    CommandParameter="{x:Static enums:ModFilterState.Installed}" />
 
-        <pages:SearchOptionsMenu/>
+                <MenuItem
+                    Name="ModFilter_Enabled"
+                    Header="{ext:Localize XAML_ModsFilter_Enabled}"
+                    Command="{Binding SelectModsWithFilter}"
+                    CommandParameter="{x:Static enums:ModFilterState.Enabled}" />
 
-      </customControls:TextButtonFlyout>
-    </Grid>
+                <MenuItem
+                    Name="ModFilter_OutOfDate"
+                    IsVisible="{Binding IsInOnlineMode}"
+                    Header="{ext:Localize XAML_ModsFilter_OutOfDate}"
+                    Command="{Binding SelectModsWithFilter}"
+                    CommandParameter="{x:Static enums:ModFilterState.OutOfDate}" />
 
-    <Separator
-        IsVisible="{Binding !IsInWhatsNew}"
+                <MenuItem
+                    Name="ModFilter_WhatsNew"
+                    IsVisible="{Binding ShouldShowWhatsNew}"
+                    Header="{ext:Localize XAML_ModsFilter_WhatsNew}"
+                    Command="{Binding SelectModsWithFilter}"
+                    CommandParameter="{x:Static enums:ModFilterState.WhatsNew}" />
+            </Menu>
+            <StackPanel>
+                <Border
+                    BorderBrush="#a9a9a9"
+                    BorderThickness="0 1 0 0">
+                    <Grid
+                        ColumnDefinitions="Auto Auto Auto"
+                        RowDefinitions="Auto Auto"
+                        IsVisible="{Binding IsInWhatsNew}">
+                        <Grid.Styles>
+                            <Style Selector="CheckBox, RadioButton">
+                                <Setter Property="Margin" Value="10 0 0 0"/>
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource DisabledColor}"/>
+                                <Setter Property="Margin" Value="6 0 0 0"/>
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </Grid.Styles>
+                        <Grid.Resources>
+                            <utils:HowRecentEnumToBoolConvertor x:Key="HowRecentEnumConvertor" />
+                        </Grid.Resources>
+                        <TextBlock
+                            Grid.Column="0" Grid.Row="0"
+                            Text="How Recent:"/>
+                        <RadioButton
+                            Grid.Column="1" Grid.Row="0"
+                            IsChecked="{Binding HowRecentModChanged, 
+                            Converter={StaticResource HowRecentEnumConvertor},
+                            ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
+                            GroupName="Recent"
+                            Content="{ext:Localize XAML_LastWeek}" />
+                        <RadioButton
+                            Grid.Column="2" Grid.Row="0"
+                            IsChecked="{Binding HowRecentModChanged, 
+                            Converter={StaticResource HowRecentEnumConvertor},
+                            ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
+                            GroupName="Recent"
+                            Content="{ext:Localize XAML_LastMonth}" />
+                        <TextBlock
+                            Grid.Column="0" Grid.Row="1"
+                            Text="Recent Type:"/>
+                        <CheckBox
+                            Grid.Column="1" Grid.Row="1"
+                            IsChecked="{Binding WhatsNew_NewMods}"
+                            Content="{ext:Localize XAML_NewMods}" />
+                        <CheckBox
+                            Grid.Column="2" Grid.Row="1"
+                            IsChecked="{Binding WhatsNew_UpdatedMods}"
+                            Content="{ext:Localize XAML_UpdatedMods}" />
+                    </Grid>
+                </Border>
+                <Grid
+                    IsVisible="{Binding !IsInWhatsNew}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="400" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" MinWidth="75" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox
+                        Grid.Column="0"
+                        x:Name="Search"
+                        Name="Search"
+                        IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}"
+                        Watermark="{ext:Localize XAML_SearchMark}"
+                        BorderThickness="0"
+                        Margin="6 6"
+                        Text="{Binding Search}" />
+
+                    <AutoCompleteBox
+                        Grid.Column="0"
+                        IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsDependencyAndIntegrationSearch}"
+                        BorderThickness="0"
+                        Margin="6 6"
+                        SelectedItem="{Binding DependencySearchItem}"
+                        ItemsSource="{Binding ModNames}" />
+
+                    <AutoCompleteBox
+                        Grid.Column="0"
+                        IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsIntegrationSearch}"
+                        BorderThickness="0"
+                        Margin="6 6"
+                        SelectedItem="{Binding DependencySearchItem}"
+                        ItemsSource="{Binding ModNames}" />
+
+                    <Button
+                        Grid.Column="1"
+                        Background="Transparent"
+                        HorizontalAlignment="Right"
+                        BorderThickness="0"
+                        IsVisible="{Binding ClearSearchVisible}"
+                        Command="{Binding ClearSearch}"
+                        Margin="0 0 0 0">
+                        <PathIcon
+                            Data="{StaticResource presence_offline_regular}"
+                            Width="15" Height="15" />
+                    </Button>
+
+                    <customControls:TextButtonFlyout
+                        FlyoutPlacement="BottomEdgeAlignedRight"
+                        FlyoutShowMode="Transient"
+                        Padding="6 0 0 0"
+                        Margin="0 0 5 0"
+                        Header="{ext:Localize XAML_Search_Options}"
+                        Background="{DynamicResource DefaultButtonColor}"
+                        OnHoverColor="{DynamicResource DefaultButtonColor}"
+                        Grid.Column="2">
+
+                        <pages:SearchOptionsMenu />
+                        
+                    </customControls:TextButtonFlyout>
+                </Grid>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+    
+    <TextBlock
         DockPanel.Dock="Top"
-        Height="1"
-        Width="100000000000000"
-        Margin="0 0 0 0"
-        Background="#a9a9a9" />
+        Margin="0 -25 10 0"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Right"
+        Text="{Binding NumberOfResults}"
+        Foreground="{DynamicResource DisabledColor}"/>
 
     <ScrollViewer>
       <StackPanel>
-        <Grid
-            ColumnDefinitions="Auto * Auto Auto"
-            RowDefinitions="Auto Auto Auto"
-            IsVisible="{Binding IsInWhatsNew}">
-          <Grid.Styles>
-            <Style Selector="CheckBox, RadioButton">
-              <Setter Property="Margin" Value="10"/>
-              <Setter Property="HorizontalAlignment" Value="Left"/>
-            </Style>
-          </Grid.Styles>
-            <Grid.Resources>
-                <utils:HowRecentEnumToBoolConvertor x:Key="HowRecentEnumConvertor"/>
-            </Grid.Resources>
-          <CheckBox
-              Grid.Column="0" Grid.Row="0"
-              IsChecked="{Binding WhatsNew_NewMods}"
-              Content="{ext:Localize XAML_NewMods}"/>
-          <RadioButton
-              IsVisible="{Binding WhatsNew_NewMods}"
-              Grid.Column="2" Grid.Row="0"
-              IsChecked="{Binding HowRecentModChanged_NewMods, 
-              Converter={StaticResource HowRecentEnumConvertor},
-              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
-              GroupName="NewMods"
-              Content="{ext:Localize XAML_LastWeek}"/>
-          <RadioButton
-              IsVisible="{Binding WhatsNew_NewMods}"
-              Grid.Column="3" Grid.Row="0"
-              IsChecked="{Binding HowRecentModChanged_NewMods, 
-              Converter={StaticResource HowRecentEnumConvertor},
-              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
-              GroupName="NewMods"
-              Content="{ext:Localize XAML_LastMonth}"/>
-          <CheckBox
-              Grid.Column="0" Grid.Row="2"
-              IsChecked="{Binding WhatsNew_UpdatedMods}"
-              Content="{ext:Localize XAML_UpdatedMods}"/>
-          <RadioButton
-              IsVisible="{Binding WhatsNew_UpdatedMods}"
-              Grid.Column="2" Grid.Row="2"
-              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
-              Converter={StaticResource HowRecentEnumConvertor},
-              ConverterParameter={x:Static enums:HowRecentModChanged.Week}}"
-              GroupName="UpdatedMods"
-              Content="{ext:Localize XAML_LastWeek}"/>
-          <RadioButton
-              IsVisible="{Binding WhatsNew_UpdatedMods}"
-              Grid.Column="3" Grid.Row="2"
-              IsChecked="{Binding HowRecentModChanged_UpdatedMods, 
-              Converter={StaticResource HowRecentEnumConvertor},
-              ConverterParameter={x:Static enums:HowRecentModChanged.Month}}"
-              GroupName="UpdatedMods"
-              Content="{ext:Localize XAML_LastMonth}"/>
-        </Grid>
         <Grid IsVisible="{Binding !LoadedWhatsNew}"
               ColumnDefinitions="Auto *"
               RowDefinitions="3*, *">
@@ -337,7 +355,8 @@
             IsVisible="{Binding NoFilteredItems}"
             Text="{ext:Localize XAML_No_Items}"
             Margin="15"
-            Foreground="Gray"/>
+            Foreground="{DynamicResource DisabledColor}"/>
+        
         <ItemsRepeater ItemsSource="{Binding FilteredItems}" ElementPrepared="PrepareElement" VerticalCacheLength="20">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate DataType="models:ModItem">
@@ -363,7 +382,7 @@
                   <ColumnDefinition Width="3*" MaxWidth="620" />
                 </Grid.ColumnDefinitions>
 
-                <Expander Grid.Column="0" Grid.ColumnSpan="2">
+                <Expander Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
                   <Expander.Header>
                     <Grid>
                       <Grid.ColumnDefinitions>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reactive;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -12,8 +13,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
@@ -60,39 +60,28 @@ namespace Scarab.ViewModels
         public bool _isExactSearch;
 
         [Notify]
-        public bool _isNormalSearch = true;
+        public SearchType _searchType = SearchType.Normal;
         
         [Notify]
         public string _dependencySearchItem;
 
-        [Notify]
-        public HowRecentModChanged _howRecentModChanged_NewMods = HowRecentModChanged.Week, _howRecentModChanged_UpdatedMods = HowRecentModChanged.Week;
+        [Notify] 
+        public HowRecentModChanged _howRecentModChanged = HowRecentModChanged.Week;
+        
         [Notify]
         public bool _whatsNew_UpdatedMods, _whatsNew_NewMods = true;
 
         [Notify]
         public ModFilterState _modFilterState = ModFilterState.All;
+        
+        [Notify]
+        public string authorSearch = "";
         public IEnumerable<string> ModNames { get; }
         public SortableObservableCollection<SelectableItem<string>> TagList { get; }
         public SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
         public ReactiveCommand<Unit, Unit> ToggleApi { get; }
         public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
         public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
-
-        public string GetTagLocalizedName(string tag)
-        {
-            // Currently it fetches translated names for all tags every time, might want to optimize this later
-            Dictionary<string, string> TagNameToLocalized = new Dictionary<string, string>
-            {
-                {"Boss", Resources.ModLinks_Tags_Boss},
-                {"Gameplay", Resources.ModLinks_Tags_Gameplay},
-                {"Utility", Resources.ModLinks_Tags_Utility},
-                {"Cosmetic", Resources.ModLinks_Tags_Cosmetic},
-                {"Library", Resources.ModLinks_Tags_Library},
-                {"Expansion", Resources.ModLinks_Tags_Expansion},
-            };
-            return TagNameToLocalized.TryGetValue(tag, out var localizedTag) ? localizedTag : tag;
-        }
 
         public ModListViewModel(
             ISettings settings, 
@@ -132,7 +121,10 @@ namespace Scarab.ViewModels
             ManuallyInstallMod = ReactiveCommand.CreateFromTask(ManuallyInstallModAsync);
             Trace.WriteLine("Reactive commands created");
 
-            HashSet<string> tagsInModlinks = new();
+            HashSet<string> tagsInModlinks = new()
+            {
+                "Untagged"
+            };
             HashSet<string> authorsInModlinks = new();
             foreach (var mod in _items)
             {
@@ -206,11 +198,12 @@ namespace Scarab.ViewModels
                     bool isCustomInstall = url != null;
                     bool isModlinksMod = true;
                     string? originalUrl = null;
+                    string? originalSha = null;
 
                     var correspondingMod = _items.FirstOrDefault(x => x.Name == modName);
                     
                     // delete the corresponding mod if a custom link is provided
-                    if (isCustomInstall && correspondingMod != null)
+                    if (isCustomInstall && correspondingMod != null && correspondingMod.State is ExistsModState)
                         await InternalModDownload(correspondingMod, correspondingMod.OnInstall);
 
                     // re get the corresponding mod because the mod might have been manually installed and hence when uninstalled removed from list
@@ -237,9 +230,11 @@ namespace Scarab.ViewModels
                     {
                         isModlinksMod = true;
                         originalUrl = correspondingMod.Link;
+                        originalSha = correspondingMod.Sha256;
                         if (isCustomInstall)
                         {
                             correspondingMod.Link = url ?? correspondingMod.Link; // replace with custom link if it exists
+                            correspondingMod.Sha256 = ""; // remove the sha so it can skip hash check
                             
                             // change the state from NotInModLinksState to NotInModlinks so it can skip hash check
                             correspondingMod.State = new NotInModLinksState(ModlinksMod: true);
@@ -264,6 +259,7 @@ namespace Scarab.ViewModels
                     if (isCustomInstall)
                     {
                         correspondingMod.Link = originalUrl ?? "";
+                        correspondingMod.Sha256 = originalSha ?? "";
                         if (correspondingMod.State is ExistsModState state)
                         {
                             correspondingMod.State = new NotInModLinksState(
@@ -321,7 +317,6 @@ namespace Scarab.ViewModels
             }
                 
         }
-        
         private async Task HandleRemoveGlobalSettingScheme()
         {
             if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.removeGlobalSettings })
@@ -394,6 +389,18 @@ namespace Scarab.ViewModels
         {
             Search = "";
             DependencySearchItem = "";
+            AuthorSearch = "";
+            foreach (var tag in TagList)
+            {
+                tag.IsSelected = false;
+                tag.IsExcluded = false;
+            }
+            foreach (var author in AuthorList)
+            {
+                author.IsSelected = false;
+            }
+            
+            SelectMods();
         }
         
         public bool NoFilteredItems => !FilteredItems.Any() && !IsInWhatsNew;
@@ -413,8 +420,56 @@ namespace Scarab.ViewModels
                                           !_settings.UseCustomModlinks;
 
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
-        public bool ClearSearchVisible => !string.IsNullOrEmpty(Search) || !string.IsNullOrEmpty(DependencySearchItem);
+        public bool ClearSearchVisible => 
+            !string.IsNullOrEmpty(Search) ||
+            !string.IsNullOrEmpty(DependencySearchItem) ||
+            TagList.Any(x => x.IsSelected || x.IsExcluded) ||
+            AuthorList.Any(x => x.IsSelected);
+        
+        public bool IsNormalSearch => SearchType == SearchType.Normal;
+        public bool IsDependencyAndIntegrationSearch => SearchType == SearchType.DependencyAndIntegration;
+        public bool IsIntegrationSearch => SearchType == SearchType.Integration;
+        
+        public Dock ModFilterDocking => !IsInWhatsNew ? Dock.Bottom : Dock.Top;
+        
+        public string NumberOfResults => $"{FilteredItems.Count()} / {_items.Count}";
 
+        private string? _searchComboBox = Resources.XAML_Normal_Search;
+
+        public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
+        
+        public IEnumerable<SelectableItem<string>> FilteredAuthorList => AuthorList
+            .Where(a => string.IsNullOrEmpty(AuthorSearch) || a.Item.Contains(AuthorSearch, StringComparison.OrdinalIgnoreCase));
+
+        public string GetSearchTypeLocalized(string s)
+        {
+            if (s == SearchType.Normal.ToString()) return Resources.XAML_Normal_Search;
+            else if (s == SearchType.DependencyAndIntegration.ToString()) return Resources.XAML_Search_Dependents;
+            else if (s == SearchType.Integration.ToString()) return Resources.XAML_Search_Integrations;
+            else throw new InvalidOperationException();
+        }
+
+        public SearchType GetSearchTypeFromLocalized(string s)
+        {
+            if (s == Resources.XAML_Normal_Search) return SearchType.Normal;
+            else if (s == Resources.XAML_Search_Dependents) return SearchType.DependencyAndIntegration;
+            else if (s == Resources.XAML_Search_Integrations) return SearchType.Integration;
+            else throw new InvalidOperationException();
+        }
+
+        public string? SearchComboBox
+        {
+            get => _searchComboBox;
+            set
+            {
+                if (value is null) return;
+
+                _searchComboBox = value;
+                SearchType = GetSearchTypeFromLocalized(value);
+                RaisePropertyChanged(nameof(SearchComboBox));
+            }
+        }
+        
         public IEnumerable<ModItem> FilteredItems
         {
             get
@@ -424,43 +479,57 @@ namespace Scarab.ViewModels
                     return SelectedItems
                         .Where(x =>
                             WhatsNew_UpdatedMods &&
-                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged_UpdatedMods)
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.Updated, HowRecentModChanged)
                             ||
                             WhatsNew_NewMods &&
-                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged_NewMods));
+                            x.RecentChangeInfo.ShouldBeShown(ModChangeState.New, HowRecentModChanged));
                 }
                 
-                if (IsNormalSearch)
+                switch (SearchType)
                 {
-                    if (string.IsNullOrEmpty(Search)) 
+                    case SearchType.Normal:
+                    {
+                        if (string.IsNullOrEmpty(Search)) 
+                            return SelectedItems;
+                        
+                        string RemoveSpace(string s) => s.Replace(" ", string.Empty);
+                        
+                        if (IsExactSearch)
+                            return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
+                        else 
+                            return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
+                                                            RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
+                    }
+                    case SearchType.DependencyAndIntegration:
+                    {
+                        if (string.IsNullOrEmpty(DependencySearchItem))
+                            return SelectedItems;
+                        
+                        // this isnt user input so we can do normal comparison
+                        var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
+                        
+                        return SelectedItems
+                            .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
+                    }
+                    case SearchType.Integration:
+                    {
+                        if (string.IsNullOrEmpty(DependencySearchItem))
+                            return SelectedItems;
+                        
+                        // this isnt user input so we can do normal comparison
+                        var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
+                        
+                        return SelectedItems
+                            .Intersect(_reverseDependencySearch.GetAllIntegratedMods(mod));
+                    }
+                    default:
                         return SelectedItems;
-                    
-                    string RemoveSpace(string s) => s.Replace(" ", string.Empty);
-                    
-                    if (IsExactSearch)
-                        return SelectedItems.Where(x => x.Name.Contains(Search, StringComparison.OrdinalIgnoreCase));
-                    else 
-                        return SelectedItems.Where(x => RemoveSpace(x.Name).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase) ||
-                                                        RemoveSpace(x.Description).Contains(RemoveSpace(Search), StringComparison.OrdinalIgnoreCase));
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(DependencySearchItem))
-                        return SelectedItems;
-                    
-                    // this isnt user input so we can do normal comparison
-                    var mod = _items.First(x => x.Name == DependencySearchItem && x.State is not NotInModLinksState { ModlinksMod:false } );
-                    
-                    return SelectedItems
-                        .Intersect(_reverseDependencySearch.GetAllDependentAndIntegratedMods(mod));
                 }
             }
         }
 
         private void OnWhatsNew_UpdatedModsChanged() => FixupModList();
         private void OnWhatsNew_NewModsChanged() => FixupModList();
-        private void OnHowRecentModChanged_NewModsChanged() => FixupModList();
-        private void OnHowRecentModChanged_UpdatedModsChanged() => FixupModList();
 
         public string ApiButtonText => _mods.ApiInstall is InstalledState { Enabled: var enabled } 
             ? (
@@ -603,7 +672,12 @@ namespace Scarab.ViewModels
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item)
                 .ToList();
-            
+
+            var excludedTags = TagList
+                .Where(x => x.IsExcluded)
+                .Select(x => x.Item)
+                .ToList();
+
             var selectedAuthors = AuthorList
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item)
@@ -613,8 +687,19 @@ namespace Scarab.ViewModels
             {
                 SelectedItems = SelectedItems
                     .Where(x => x.HasTags &&
-                                x.Tags.Any(tagsDefined => selectedTags
-                                    .Any(tagsSelected => tagsSelected == tagsDefined)));
+                                x.Tags.Any(tagsDefined => selectedTags.Any(tagsSelected => tagsSelected == tagsDefined))
+                                || 
+                                !x.HasTags &&
+                                selectedTags.Contains("Untagged"));
+            }
+            if (excludedTags.Count > 0)
+            {
+                SelectedItems = SelectedItems
+                    .Where(x => !(x.HasTags &&
+                                x.Tags.Any(tagsDefined => excludedTags.Any(tagsExcluded => tagsExcluded == tagsDefined))
+                                ||
+                                !x.HasTags &&
+                                excludedTags.Contains("Untagged")));
             }
             if (selectedAuthors.Count > 0)
             {
@@ -625,6 +710,7 @@ namespace Scarab.ViewModels
             }
 
             RaisePropertyChanged(nameof(FilteredItems));
+            RaisePropertyChanged(nameof(ClearSearchVisible));
         }
 
         public async Task UpdateUnupdated()
@@ -673,7 +759,7 @@ namespace Scarab.ViewModels
                     continue;
 
                 if (!HasPinnedDependents(mod))
-                    await OnEnable(mod);
+                    await OnEnable(mod, false);
             }
 
             RaisePropertyChanged(nameof(CanDisableAll));
@@ -717,13 +803,20 @@ namespace Scarab.ViewModels
             RaisePropertyChanged(nameof(SelectedItems));
             await UpdateUnupdated();
         }
-
+        
+        /// <summary>
+        /// Wrapper for <see cref="OnEnable(object, bool)"/> because Avalonia only supports one object parameter for commands
+        /// </summary>
+        /// <param name="itemObj"></param>
+        public async Task OnEnable(object itemObj) => await OnEnable(itemObj, checkForDependencies: true);
+        
         /// <summary>
         /// Enables or disables a mod and handles errors. Does other checks like warning about dependents and ensuring
         /// its dependencies are installed
         /// </summary>
         /// <param name="itemObj">The mod to enable/disable</param>
-        public async Task OnEnable(object itemObj)
+        /// <param name="checkForDependencies">Whether the dependency removal warning should be displayed (only applies when disabling)</param>
+        public async Task OnEnable(object itemObj, bool checkForDependencies)
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to enable an object which isn't a mod");
             try
@@ -736,7 +829,7 @@ namespace Scarab.ViewModels
                 {
                     var dependents = _reverseDependencySearch.GetAllEnabledDependents(item).ToList();
                     
-                    if (_settings.WarnBeforeRemovingDependents && dependents.Count > 0)
+                    if (_settings.WarnBeforeRemovingDependents && dependents.Count > 0 && checkForDependencies)
                     {
                         bool shouldContinue = await DisplayErrors.DisplayHasDependentsWarning(item.Name, dependents);
                         if (!shouldContinue)
@@ -1037,7 +1130,7 @@ namespace Scarab.ViewModels
                                 ModlinksMod: true,
                                 Enabled: true,
                                 Pinned:installedState.Pinned),
-                            NotInstalledState => new NotInModLinksState(ModlinksMod: false),
+                            NotInstalledState => new NotInModLinksState(ModlinksMod: true),
                             _ => throw new UnreachableException(),
                         };
 
@@ -1137,6 +1230,9 @@ namespace Scarab.ViewModels
                 : _settings.DisabledFolder;
 
             string mod_folder = Path.Combine(base_folder, item.Name);
+            
+            if (!Directory.Exists(mod_folder))
+                return;
 
             Process.Start(new ProcessStartInfo
             {
@@ -1187,5 +1283,20 @@ namespace Scarab.ViewModels
         
         public static int AlphabeticalSelectableItem(SelectableItem<string> item1, SelectableItem<string> item2) => 
             string.Compare(item1.Item, item2.Item, StringComparison.Ordinal);
+
+        public string GetTagLocalizedName(string tag)
+        {
+            switch (tag)
+            {
+                case "Boss": return Resources.ModLinks_Tags_Boss;
+                case "Gameplay": return Resources.ModLinks_Tags_Gameplay;
+                case "Utility": return Resources.ModLinks_Tags_Utility;
+                case "Cosmetic": return Resources.ModLinks_Tags_Cosmetic;
+                case "Library": return Resources.ModLinks_Tags_Library;
+                case "Expansion": return Resources.ModLinks_Tags_Expansion;
+                default: return tag;
+            }
+        }
+
     }
 }

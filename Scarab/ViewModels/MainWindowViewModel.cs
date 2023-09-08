@@ -3,8 +3,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Threading;
 using JetBrains.Annotations;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Scarab.Interfaces;
 using Scarab.Models;
@@ -64,8 +64,6 @@ namespace Scarab.ViewModels
 
         [Notify]
         private bool _loading = true;
-        
-        public event Action? OnSelectTab;
 
         /// <summary>
         /// The main function that loads the data the app needs and sets up all the services
@@ -91,8 +89,10 @@ namespace Scarab.ViewModels
             await HandleURLSchemeCommand(urlSchemeHandler);
 
             Trace.WriteLine("Checking if up to date...");
+
+            var appUpdater = new AppUpdater();
             
-            await Updater.CheckUpToDate();
+            await appUpdater.CheckUpToDate();
             
             var sc = new ServiceCollection();
             var fs = new FileSystem();
@@ -241,6 +241,7 @@ namespace Scarab.ViewModels
             sc
               .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
+              .AddSingleton<IAppUpdater>(_ => appUpdater)
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
               .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
@@ -279,7 +280,6 @@ namespace Scarab.ViewModels
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = initialTab;
-            OnSelectTab?.Invoke();
             Trace.WriteLine("Selected Tab 0");
         }
 

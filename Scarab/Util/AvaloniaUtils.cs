@@ -22,31 +22,6 @@ namespace Scarab.Util;
 /// </summary>
 public static class AvaloniaUtils
 {
-    /// <summary>
-    /// it needs to be done like this because :pointerover doesnt accept bindings and
-    /// so the only option is to change the :pointerover setters directly
-    /// </summary>
-    public static void SetStyleSetterByName(this ContentControl content, string styleSelectorName, AvaloniaProperty propertyToSet, object? newSetterValue)
-    {
-        if (content.Styles.FirstOrDefault(x => (x as Style)?.ToString().Contains(styleSelectorName) ?? false) is not Style style)
-            throw new Exception("Could not find pointer over style");
-    
-        int index = style.Setters.IndexOf(style.Setters.First(x => x is Setter setter && setter.Property == propertyToSet));
-        style.Setters[index] = new Setter(propertyToSet, newSetterValue!);
-    }
-    
-    public static readonly IValueConverter HowRecentToBoolConvertor =
-        new FuncValueConverter<HowRecentModChanged, bool>((howRecent) => howRecent == 0);
-
-    
-    public static T? GetFirstChild<T>(this Control? control) where T : Control
-    {
-        if (control == null) return null;
-        if (!control.GetLogicalChildren().Any()) return null;
-        
-        return control.GetLogicalChildren().OfType<T>().First();
-    }
-
     static AvaloniaUtils()
     {
         MenuItemPopup = null!;
@@ -66,7 +41,6 @@ public static class AvaloniaUtils
         var popup_object = MenuItemPopup.GetValue(menuItem);
         return popup_object as Popup ?? throw new Exception("MenuItem popup not found");
     }
-  
   
     public static MainWindow GetMainWindow() => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as MainWindow
                                             ?? throw new InvalidOperationException();

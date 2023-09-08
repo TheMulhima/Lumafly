@@ -1671,11 +1671,20 @@ namespace Scarab {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search by Dependency.
+        ///   Looks up a localized string similar to Search by Dependencies and Integrations.
         /// </summary>
         internal static string XAML_Search_Dependents {
             get {
                 return ResourceManager.GetString("XAML_Search_Dependents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by Integrations.
+        /// </summary>
+        internal static string XAML_Search_Integrations {
+            get {
+                return ResourceManager.GetString("XAML_Search_Integrations", resourceCulture);
             }
         }
         

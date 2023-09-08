@@ -5,12 +5,13 @@
             xmlns:views="clr-namespace:Scarab.Views"
             xmlns:viewModels="clr-namespace:Scarab.ViewModels"
             xmlns:ext="clr-namespace:Scarab.Extensions"
-            d:DesignHeight="300"
+            d:DesignHeight="800"
             d:DesignWidth="600"
             x:DataType="viewModels:SettingsViewModel"
             x:CompileBindings="True"
             x:Class="Scarab.Views.Pages.SettingsView">
 	<Grid
+		ShowGridLines="False"
 		Margin="20 10"
 		ColumnDefinitions="Auto * Auto"
 		RowDefinitions="Auto Auto Auto Auto Auto Auto Auto *">
@@ -161,25 +162,57 @@
 			ItemsSource="{Binding LanguageOptions}"
 			SelectedItem="{Binding LanguageSelection}"/>
 		
-		<Button
-			Grid.Column="2"
+		<Grid
+			Grid.Column="0" Grid.ColumnSpan="3"
 			Grid.Row="7"
-			Padding="20 5"
 			HorizontalAlignment="Right"
-			VerticalAlignment="Bottom"
-			HorizontalContentAlignment="Center"
-			Command="{Binding ReloadApp}"
-			Content="{ext:Localize XAML_ReloadScarab}"/>
-		
-		<TextBlock
-				Grid.Column="1"
-				Grid.Row="7"
-				IsVisible="{Binding AskForReload}"
-				FontSize="10"
-				VerticalAlignment="Bottom"
+			ColumnDefinitions="Auto Auto Auto">
+			
+			<Button
+				Grid.Column="0"
+				Padding="20 5"
+				Margin="8 0"
 				HorizontalAlignment="Right"
-				Foreground="Orange"
-				Margin="0 0 0 8"
-				Text="{ext:Localize XAML_ReloadPrompt}"/>
+				VerticalAlignment="Bottom"
+				HorizontalContentAlignment="Center"
+				Command="{Binding CheckForUpdates}"
+				Content="Check For Updates"/>
+			
+			<Button
+				Grid.Column="1"
+				Padding="20 5"
+				Margin="8 0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				HorizontalContentAlignment="Center"
+				Command="{Binding OpenLogsFolder}"
+				Content="Open Logs Folder"/>
+			
+			<StackPanel
+				Grid.Column="2"
+				VerticalAlignment="Bottom">
+				
+				<TextBlock
+					IsVisible="{Binding AskForReload}"
+					FontSize="10"
+					MaxWidth="100"
+					TextWrapping="Wrap"
+					TextAlignment="Center"
+					VerticalAlignment="Bottom"
+					HorizontalAlignment="Center"
+					Foreground="Orange"
+					Margin="8 10"
+					Text="{ext:Localize XAML_ReloadPrompt}"/>
+				
+				<Button
+					Padding="20 5"
+					Margin="8 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					HorizontalContentAlignment="Center"
+					Command="{Binding ReloadApp}"
+					Content="{ext:Localize XAML_ReloadScarab}"/>
+			</StackPanel>
+		</Grid>
 	</Grid>
 </views:View>

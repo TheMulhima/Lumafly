@@ -48,9 +48,6 @@ public class TextButtonFlyout : TemplatedControl
         Background ??= Brushes.Transparent;
         OnHoverColor ??= Background;
         
-        // it needs to be done like this because :pointerover doesnt accept bindings and
-        // so the only option is to change the :pointerover setters directly
-        Button.SetStyleSetterByName("Button:pointerover", BackgroundProperty, OnHoverColor);
         SetIcon();
     }
 

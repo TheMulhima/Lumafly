@@ -19,31 +19,29 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Padding" Value="0 6"/>
-                <Setter Property="Margin" Value="3"/>
+                <Setter Property="Margin" Value="0 3"/>
                 <Setter Property="OnHoverColor" Value="{DynamicResource HighlightBlue}"/>
             </Style>
         </StackPanel.Styles>
+
         
-        <customControls:TextButtonFlyout
-            HorizontalOffset="12"
-            Header="{ext:Localize XAML_Search_Type}">
-            <StackPanel>
-                <RadioButton 
-                    Margin="2 2 2 5"
-                    IsChecked="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}" 
-                    GroupName="SearchMode" Content="{ext:Localize XAML_Normal_Search}" 
-                    ToolTip.Tip="Search by the mod name" ToolTip.ShowDelay="0"/>
-                <RadioButton 
-                    Margin="2 5 2 2"
-                    IsChecked="{Binding !$parent[pages:ModListView].DataContext.IsNormalSearch}" 
-                    GroupName="SearchMode" 
-                    Content="{ext:Localize XAML_Search_Dependents}" 
-                    ToolTip.Tip="Use this mode to search for all mods that integrate with or depend on a mod" ToolTip.ShowDelay="0"/>
-            </StackPanel>
-        </customControls:TextButtonFlyout>
-        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+            <TextBlock
+                Margin="3 0 0 0"
+                Text="{ext:Localize XAML_Search_Type}" VerticalAlignment="Center"
+                />
+            <ComboBox
+                Margin="5 5 2 2"
+                Width="75"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding $parent[pages:ModListView].DataContext.SearchComboBoxOptions}"
+                SelectedItem="{Binding $parent[pages:ModListView].DataContext.SearchComboBox}"/>    
+        </StackPanel>
+
+
         <customControls:MenuCheckBox
-            Margin="2 1"
+            Margin="-2 1"
             Header="{ext:Localize XAML_Exact_Search}"
             IsSelected="{ReflectionBinding $parent[pages:ModListView].DataContext.IsExactSearch}"/>
         
@@ -54,11 +52,12 @@
             <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
-                        <customControls:MenuCheckBox
+                        <customControls:ExcludableCheckBox
                             Margin="2 1"
                             IsSelected="{Binding IsSelected}" 
+                            IsExcluded="{Binding IsExcluded}"
                             OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
-                            Header="{Binding DisplayName}"/>
+                            Header="{ReflectionBinding DisplayName}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
@@ -67,17 +66,28 @@
         <customControls:TextButtonFlyout
             HorizontalOffset="12"
             Header="{ext:Localize XAML_Select_Authors}">
-            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.AuthorList}">
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate>
-                        <customControls:MenuCheckBox
-                            Margin="2 1"
-                            IsSelected="{Binding IsSelected}" 
-                            OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
-                            Header="{Binding DisplayName}"/>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+            <ScrollViewer Height="300">
+                <StackPanel>
+                    <TextBox
+                        Watermark="Search Author"
+                        BorderThickness="0"
+                        Margin="3 2"
+                        Text="{Binding AuthorSearch}"/>
+                    
+                    <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.FilteredAuthorList}">
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <customControls:MenuCheckBox
+                                    Margin="2 1"
+                                    MaxWidth="175"
+                                    IsSelected="{ReflectionBinding IsSelected}" 
+                                    OnSelect="{ReflectionBinding $parent[pages:ModListView].DataContext.SelectMods}"
+                                    Header="{ReflectionBinding DisplayName}"/>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </StackPanel>
+            </ScrollViewer>
         </customControls:TextButtonFlyout>
     </StackPanel>
 </views:View>
