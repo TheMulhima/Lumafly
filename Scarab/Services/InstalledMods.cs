@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Scarab.Interfaces;
 using Scarab.Models;
+using Scarab.Util;
 
 namespace Scarab.Services
 {
@@ -21,8 +22,8 @@ namespace Scarab.Services
         
         internal static readonly string ConfigPath = Path.Combine(Settings.GetOrCreateDirPath(), FILE_NAME);
 
-        public Dictionary<string, InstalledState> Mods { get; init; } = new();
-        public Dictionary<string, NotInModLinksState> NotInModlinksMods { get; init; } = new();
+        public Dictionary<string, InstalledState> Mods { get; set; } = new();
+        public Dictionary<string, NotInModLinksState> NotInModlinksMods { get; set; } = new();
         
         private static readonly SemaphoreSlim _semaphore = new (1);
         
@@ -39,20 +40,19 @@ namespace Scarab.Services
         public InstalledState? _ApiState { get; private set; }
 
         private readonly IFileSystem _fs;
+        internal static bool ModExists(ISettings config, string name, out bool enabled)
+        {
+            enabled = false;
+                
+            if (Directory.Exists(Path.Combine(config.ModsFolder, name)))
+                return enabled = true;
 
+            return Directory.Exists(Path.Combine(config.DisabledFolder, name));
+        }
+        
         public static async Task<InstalledMods> Load(IFileSystem fs, ISettings config, ModLinks ml)
         {
             InstalledMods db;
-
-            bool ModExists(string name, out bool enabled)
-            {
-                enabled = false;
-                
-                if (Directory.Exists(Path.Combine(config.ModsFolder, name)))
-                    return enabled = true;
-
-                return Directory.Exists(Path.Combine(config.DisabledFolder, name));
-            }
 
             try
             {
@@ -65,7 +65,7 @@ namespace Scarab.Services
 
                 foreach (string name in ml.Manifests.Select(x => x.Name))
                 {
-                    if (!ModExists(name, out bool enabled)) 
+                    if (!ModExists(config, name, out bool enabled)) 
                         continue;
                     
                     // Pretend it's out of date because we aren't sure of the version.
@@ -73,13 +73,10 @@ namespace Scarab.Services
                 }
             }
 
-            if (db.ApiInstall is not InstalledState) 
-                return db;
-
             // Validate that mods are installed in case of manual user intervention
             foreach (string name in db.Mods.Select(x => x.Key))
             {
-                if (ModExists(name, out var enabled))
+                if (ModExists(config, name, out var enabled))
                 {
                     if (db.Mods[name].Enabled != enabled)
                     {
@@ -94,9 +91,10 @@ namespace Scarab.Services
                 db.Mods.Remove(name);
             }
             
+            // Validate that mods are installed in case of manual user intervention
             foreach (string name in db.NotInModlinksMods.Select(x => x.Key))
             {
-                if (ModExists(name, out var enabled))
+                if (ModExists(config, name, out var enabled))
                 {
                     if (db.NotInModlinksMods[name].Enabled != enabled)
                     {
@@ -111,14 +109,36 @@ namespace Scarab.Services
                 db.NotInModlinksMods.Remove(name);
             }
             
+            // just in case
+            FileUtil.CreateDirectory(config.ModsFolder);
+            FileUtil.CreateDirectory(config.DisabledFolder);
+            
+            var currentList = Directory.EnumerateDirectories(config.ModsFolder)
+                .Concat(Directory.EnumerateDirectories(config.DisabledFolder));
+
+            // add not in modlinks mods
+            foreach (var modNamePath in currentList)
+            {
+                var modName = Path.GetFileName(modNamePath);
+                if (modName == "Disabled") continue; // skip disabled Folder
+                
+                if (db.Mods.ContainsKey(modName)) continue; // skip if already registered
+                if (db.NotInModlinksMods.ContainsKey(modName)) continue; // skip if already registered
+                
+                var correspondingMod = ml.Manifests.FirstOrDefault(mod => mod.Name == modName);
+                
+                db.NotInModlinksMods[modName] = new NotInModLinksState(
+                    ModlinksMod: correspondingMod != null,
+                    Enabled: new DirectoryInfo(modNamePath).Parent?.Name == "Mods");
+            }
+            
             /*
              * If the user deleted their assembly, we can deal with it at least.
              * 
              * This isn't ideal, but at least we won't crash and the user will be
              * (relatively) okay, and as a budget remedy we'll just put the API in
              */
-            // ReSharper disable once InvertIf
-            if (
+            if (db.ApiInstall is InstalledState && 
                 !fs.File.Exists(Path.Combine(config.ManagedFolder, Installer.Modded)) &&
                 !fs.File.Exists(Path.Combine(config.ManagedFolder, Installer.Current))
             ) 
@@ -141,6 +161,21 @@ namespace Scarab.Services
             Mods.Clear();
             NotInModlinksMods.Clear();
             _ApiState = null;
+
+            await SaveToDiskAsync();
+        }
+        
+        /// <summary>
+        /// Sets the installed mods lists to a new list and saves it to disk
+        /// </summary>
+        /// <param name="mods">The modlinks mods that are installed</param>
+        /// <param name="notInModlinksMods">The not in modlinks mods that are installed</param>
+        public async Task SetMods(
+            Dictionary<string, InstalledState> mods, 
+            Dictionary<string, NotInModLinksState> notInModlinksMods)
+        {
+            Mods = mods;
+            NotInModlinksMods = notInModlinksMods;
 
             await SaveToDiskAsync();
         }
@@ -231,5 +266,14 @@ namespace Scarab.Services
                 _semaphore.Release();
             }
         }
+
+        public InstalledMods DeepCopy() => new ()
+        {
+            _ApiState = _ApiState,
+            ApiInstall = ApiInstall with { },
+            Mods = Mods.ToDictionary(x => x.Key, x => x.Value),
+            NotInModlinksMods = NotInModlinksMods.ToDictionary(x => x.Key, x => x.Value),
+            HasVanilla = HasVanilla
+        };
     }
 }

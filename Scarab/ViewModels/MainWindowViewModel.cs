@@ -69,9 +69,18 @@ namespace Scarab.ViewModels
         /// The main function that loads the data the app needs and sets up all the services
         /// </summary>
         /// <param name="initialTab">The index of the tab that is shown after load is finished</param>
-        private async Task Impl(int initialTab)
+        /// <param name="loadingTaskDetails">If a task needs to be done that needs a reload, its details are provided here</param>
+        private async Task Impl(int initialTab, LoadingTaskDetails? loadingTaskDetails)
         {
-            LoadingPage = new LoadingViewModel();
+            if (loadingTaskDetails is not null)
+            {
+                LoadingPage = new LoadingViewModel(loadingTaskDetails.Value.LoadingMessage);
+                await loadingTaskDetails.Value.Task.Invoke();
+            }
+            else
+            {
+                LoadingPage = new LoadingViewModel();
+            }
             
             Trace.WriteLine($"Opening Scarab Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             
@@ -236,11 +245,13 @@ namespace Scarab.ViewModels
               .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
               .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
+              .AddSingleton<IOnlineTextStorage, PastebinTextStorage>()
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
               .AddSingleton<IModDatabase, ModDatabase>(sp 
                   => new ModDatabase(sp.GetRequiredService<IModSource>(),sp.GetRequiredService<IGlobalSettingsFinder>(), content, settings))
               .AddSingleton<IInstaller, Installer>()
+              .AddSingleton<IPackManager, PackManager>()
               .AddSingleton<ModListViewModel>(sp =>
                   new ModListViewModel(sp.GetRequiredService<ISettings>(),
                       sp.GetRequiredService<IModDatabase>(),
@@ -250,7 +261,8 @@ namespace Scarab.ViewModels
                       sp.GetRequiredService<IUrlSchemeHandler>(),
                       scarabMode))
               .AddSingleton<SettingsViewModel>()
-              .AddSingleton<InfoViewModel>();
+              .AddSingleton<InfoViewModel>()
+              .AddSingleton<PackManagerViewModel>();
             
             Trace.WriteLine("Building service provider");
             ServiceProvider sp = sc.BuildServiceProvider(new ServiceProviderOptions
@@ -264,6 +276,7 @@ namespace Scarab.ViewModels
             {
                 new(sp.GetRequiredService<InfoViewModel>(), Resources.XAML_Info, false),
                 new(sp.GetRequiredService<ModListViewModel>(), Resources.XAML_Mods, false),
+                new(sp.GetRequiredService<PackManagerViewModel>(), Resources.XAML_Packs, false),
                 new(sp.GetRequiredService<SettingsViewModel>(), Resources.XAML_Settings, false),
             };
             SelectedTabIndex = initialTab;
@@ -567,18 +580,18 @@ namespace Scarab.ViewModels
         {
             Instance = this;
             _loadingPage = new LoadingViewModel();
-            LoadApp();
+            Dispatcher.UIThread.InvokeAsync(async () => await LoadApp());
             Trace.WriteLine("Loaded app");
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 (_, _) => Program.CloseTraceFile();
         }
 
-        public void LoadApp(int initialTab = 0) => Dispatcher.UIThread.InvokeAsync(async () =>
+        public async Task LoadApp(int initialTab = 0, LoadingTaskDetails? loadingTaskDetails = null)
         {
             Loading = true;
             try
             {
-                await Impl(initialTab);
+                await Impl(initialTab, loadingTaskDetails);
             }
             catch (Exception e)
             {
@@ -587,14 +600,14 @@ namespace Scarab.ViewModels
 
                 if (Debugger.IsAttached)
                     Debugger.Break();
-                
+
                 Environment.Exit(-1);
-                
+
                 throw;
             }
 
             Loading = false;
             if (isFirstLoad) isFirstLoad = false;
-        });
+        }
     }
 }

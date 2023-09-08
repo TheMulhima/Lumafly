@@ -6,9 +6,16 @@ namespace Scarab.ViewModels;
 
 public partial class LoadingViewModel : ViewModelBase
 {
-    public LoadingViewModel()
+    public LoadingViewModel(string? loadingText = null)
     {
-        Task.Run(UpdateLoadingText);
+        if (loadingText != null)
+        {
+            LoadingText = loadingText;
+        }
+        else
+        {
+            Task.Run(UpdateLoadingText);
+        }
     }
 
     private static readonly string[] LoadingMessages = new[]

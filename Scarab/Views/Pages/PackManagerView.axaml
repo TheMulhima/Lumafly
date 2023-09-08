@@ -1,0 +1,177 @@
+﻿<views:View x:TypeArguments="viewModels:PackManagerViewModel"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:models="clr-namespace:Scarab.Models"
+            xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+            xmlns:views="clr-namespace:Scarab.Views"
+            xmlns:pages="clr-namespace:Scarab.Views.Pages"
+            xmlns:ext="clr-namespace:Scarab.Extensions"
+            mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
+            x:Class="Scarab.Views.Pages.PackManagerView"
+            x:DataType="viewModels:PackManagerViewModel"
+            x:CompileBindings="True">
+    <Grid 
+        Margin="8 12 12 0"
+        RowDefinitions="*, Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <ItemsRepeater ItemsSource="{Binding Packs}">
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="models:Pack">
+                    <Grid
+                        Margin="0 0 0 10"
+                        ColumnDefinitions="* Auto">
+                        <Expander Margin="0 0 20 0" HorizontalAlignment="Stretch">
+                        <Expander.Header>
+                            <Grid ColumnDefinitions="* Auto Auto Auto Auto">
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="{Binding Name}" 
+                                    VerticalAlignment="Center"
+                                    Margin="10 0 0 0"/>
+                                <StackPanel 
+                                    Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    IsVisible="{Binding HasSharingCode}">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Margin="0 0 5 0"
+                                        Text="{ext:Localize XAML_SharingCode}" />
+                                    <TextBox 
+                                        VerticalAlignment="Center"
+                                        IsReadOnly="True"
+                                        Text="{Binding SharingCode}"/>
+                                    <Button
+                                        VerticalAlignment="Stretch"
+                                        Margin="5 1 15 1"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CopySharingCode}"
+                                        CommandParameter="{Binding .}">
+                                        <PathIcon
+                                            Opacity="0.5"
+                                            Data="{StaticResource copy_regular}"/>
+                                    </Button>
+                                </StackPanel>
+                                <Button
+                                    Grid.Column="2"
+                                    VerticalAlignment="Stretch"
+                                    Margin="0 1 10 1"
+                                    ToolTip.Tip="{ext:Localize XAML_SharePack}" ToolTip.ShowDelay="0">
+                                    <PathIcon Data="{StaticResource share_android_regular}"/>
+                                    <Button.Flyout>
+                                        <Flyout
+                                            ShowMode="TransientWithDismissOnPointerMoveAway"
+                                            Placement="RightEdgeAlignedTop">
+                                            <StackPanel>
+                                            <Button
+                                                IsEnabled="{ReflectionBinding !$parent[pages:PackManagerView].DataContext.LoadingSharingCode}"
+                                                VerticalAlignment="Stretch"
+                                                Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.GenerateSharingCode}"
+                                                CommandParameter="{Binding .}"
+                                                ToolTip.Tip="{ext:Localize XAML_GenerateSharingCode}" ToolTip.ShowDelay="0">
+                                                <TextBlock>Generate Sharing Code</TextBlock>
+                                            </Button>
+                                            <Button 
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="0 5 0 0"
+                                                Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.SavePackToZip}"
+                                                CommandParameter="{Binding .}"
+                                                ToolTip.Tip="{ext:Localize XAML_SharePackManually}" ToolTip.ShowDelay="0">
+                                                <TextBlock>Share Manually</TextBlock>
+                                            </Button>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                                <Button
+                                    Grid.Column="3"
+                                    VerticalAlignment="Stretch"
+                                    Margin="0 1 10 1"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.EditPack}"
+                                    CommandParameter="{Binding .}"
+                                    ToolTip.Tip="{ext:Localize XAML_EditPack}" ToolTip.ShowDelay="0">
+                                    <PathIcon Data="{StaticResource edit_regular}"/>
+                                </Button>
+                                <Button
+                                    Grid.Column="4"
+                                    VerticalAlignment="Stretch"
+                                    Margin="0 1 0 1"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.DeletePack}"
+                                    CommandParameter="{Binding .}"
+                                    ToolTip.Tip="{ext:Localize XAML_DeletePack}" ToolTip.ShowDelay="0">
+                                    <PathIcon Data="{StaticResource delete_regular}"/>
+                                </Button>
+                            </Grid>
+                        </Expander.Header>
+                        <Grid
+                            Margin="5 0 0 0"
+                            Height="220"
+                            ColumnDefinitions="* 2*" RowDefinitions="Auto *">
+                            <TextBlock
+                                Grid.Row="0" Grid.Column="0"
+                                Text="{ext:Localize XAML_Description}"
+                                FontWeight="Bold"
+                                Margin="0 0 10 5"/>
+                            
+                            <TextBlock
+                                Grid.Row="0" Grid.Column="1"
+                                Text="{ext:Localize XAML_ModsInPack}"
+                                FontWeight="Bold"
+                                Margin="0 0 5 5"/>
+                            
+                            <TextBox
+                                BorderThickness="0"
+                                Grid.Row="1" Grid.Column="0" 
+                                Text="{Binding Description}"
+                                IsReadOnly="True"
+                                MaxHeight="200"
+                                Background="Transparent"
+                                Margin="0 0 5 0"/>
+                            
+                            <TextBox
+                                BorderThickness="0"
+                                 Grid.Row="1" Grid.Column="1" 
+                                 Text="{Binding ModList}"
+                                 IsReadOnly="True"
+                                 MaxHeight="200"
+                                 Background="Transparent"
+                                 Margin="0 0 5 0"/>
+                        </Grid>
+                    </Expander>
+                    <Button
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Margin="0 3 5 0"
+                        Padding="5 6"
+                        Content="{ext:Localize XAML_LoadPack}"
+                        Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.LoadPack}"
+                        CommandParameter="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+        </ScrollViewer>
+        <Grid 
+            Margin="0 10"
+            ColumnDefinitions="*, *"
+            Grid.Row="1">
+            <Button 
+                Grid.Column="0"
+                Margin="10 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Content="{ext:Localize XAML_CreateNewPack}"
+                Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.CreateNewPack}"/>
+            <Button
+                Grid.Column="1"
+                Margin="10 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Content="{ext:Localize XAML_ImportPack}"
+                Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.ImportPack}"/>
+        </Grid>
+    </Grid>
+</views:View>

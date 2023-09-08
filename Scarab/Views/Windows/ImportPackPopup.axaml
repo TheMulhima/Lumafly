@@ -1,0 +1,60 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Scarab.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="135"
+        x:Class="Scarab.Views.Windows.ImportPackPopup"
+        x:DataType="viewModels:ImportPackPopupViewModel"
+        x:CompileBindings="True"
+        Height="135" Width="300"
+        CanResize="False"
+        SystemDecorations="BorderOnly"
+        WindowStartupLocation="CenterOwner"
+        Title="Import Pack Options">
+    <Border
+        BorderThickness="1"
+        BorderBrush="{DynamicResource TextColor}">
+    <Grid
+        ColumnDefinitions="* *"
+        RowDefinitions="Auto *">
+        <TextBlock 
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="20 20 10 0"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+            Text="Enter Sharing Code:"
+            />
+        <TextBox
+            Margin="0 20 10 0"
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="100"
+            Name="SharingCode"
+            Text="{Binding SharingCode}"
+            />
+        <StackPanel 
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+        <Button
+            Margin="10 20"
+            Padding="10"
+            Content="Cancel"
+            Click="Cancel"
+            />
+        <Button
+            Margin="10 20"
+            Padding="10"
+            Content="Confirm"
+            IsEnabled="{Binding ValidSharingCode}"
+            Click="Confirm"
+            />
+        </StackPanel>
+    </Grid>
+    </Border>
+</Window>

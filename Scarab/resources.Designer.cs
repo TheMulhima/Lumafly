@@ -1059,6 +1059,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new pack.
+        /// </summary>
+        internal static string XAML_CreateNewPack {
+            get {
+                return ResourceManager.GetString("XAML_CreateNewPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Normally Scarab loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks.
         /// </summary>
         internal static string XAML_CustomModlinksExplanation {
@@ -1077,11 +1086,29 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete pack.
+        /// </summary>
+        internal static string XAML_DeletePack {
+            get {
+                return ResourceManager.GetString("XAML_DeletePack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dependencies:.
         /// </summary>
         internal static string XAML_Dependencies {
             get {
                 return ResourceManager.GetString("XAML_Dependencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        internal static string XAML_Description {
+            get {
+                return ResourceManager.GetString("XAML_Description", resourceCulture);
             }
         }
         
@@ -1100,6 +1127,15 @@ namespace Scarab {
         internal static string XAML_Donate {
             get {
                 return ResourceManager.GetString("XAML_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit pack.
+        /// </summary>
+        internal static string XAML_EditPack {
+            get {
+                return ResourceManager.GetString("XAML_EditPack", resourceCulture);
             }
         }
         
@@ -1136,6 +1172,24 @@ namespace Scarab {
         internal static string XAML_GamePath {
             get {
                 return ResourceManager.GetString("XAML_GamePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate a 8 digit sharing code. This can be given to someone else and they can use this pack.
+        /// </summary>
+        internal static string XAML_GenerateSharingCode {
+            get {
+                return ResourceManager.GetString("XAML_GenerateSharingCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import pack.
+        /// </summary>
+        internal static string XAML_ImportPack {
+            get {
+                return ResourceManager.GetString("XAML_ImportPack", resourceCulture);
             }
         }
         
@@ -1302,6 +1356,15 @@ namespace Scarab {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load Pack.
+        /// </summary>
+        internal static string XAML_LoadPack {
+            get {
+                return ResourceManager.GetString("XAML_LoadPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manually Install.
         /// </summary>
         internal static string XAML_Manual_Install {
@@ -1379,6 +1442,15 @@ namespace Scarab {
         internal static string XAML_ModsFilter_WhatsNew {
             get {
                 return ResourceManager.GetString("XAML_ModsFilter_WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mods In Pack:.
+        /// </summary>
+        internal static string XAML_ModsInPack {
+            get {
+                return ResourceManager.GetString("XAML_ModsInPack", resourceCulture);
             }
         }
         
@@ -1487,6 +1559,15 @@ namespace Scarab {
         internal static string XAML_OpenModsOrSaves {
             get {
                 return ResourceManager.GetString("XAML_OpenModsOrSaves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packs.
+        /// </summary>
+        internal static string XAML_Packs {
+            get {
+                return ResourceManager.GetString("XAML_Packs", resourceCulture);
             }
         }
         
@@ -1676,6 +1757,33 @@ namespace Scarab {
         internal static string XAML_Share {
             get {
                 return ResourceManager.GetString("XAML_Share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this pack.
+        /// </summary>
+        internal static string XAML_SharePack {
+            get {
+                return ResourceManager.GetString("XAML_SharePack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this pack as a zip file. You will need to send this zip file yourself..
+        /// </summary>
+        internal static string XAML_SharePackManually {
+            get {
+                return ResourceManager.GetString("XAML_SharePackManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing Code:.
+        /// </summary>
+        internal static string XAML_SharingCode {
+            get {
+                return ResourceManager.GetString("XAML_SharingCode", resourceCulture);
             }
         }
         

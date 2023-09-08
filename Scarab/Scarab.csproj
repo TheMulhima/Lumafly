@@ -30,6 +30,7 @@
         <PackageReference Include="Avalonia.Skia" Version="11.0.4" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.4" />
         <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.1" />
+        <PackageReference Include="HPackage.Net" Version="1.0.1" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
         <PackageReference Include="Markdown.Avalonia" Version="11.0.1" />
         <PackageReference Include="MessageBox.Avalonia" Version="3.1.4" />
