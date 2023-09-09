@@ -19,102 +19,128 @@
             x:CompileBindings="True"
             Name="UserControl"
             KeyDown="OnKeyDown">
-  <DockPanel>
-    <!-- Sidebar -->
-    <Menu 
-        DockPanel.Dock="Left" 
-        HorizontalAlignment="Left"
-        VerticalAlignment="Bottom" 
-        MinHeight="400"
-        Margin="2 0 0 4">
-        <Menu.ItemsPanel>
-            <ItemsPanelTemplate>
-                <DockPanel VerticalAlignment="Stretch" Dock="Bottom" />
-            </ItemsPanelTemplate>
-        </Menu.ItemsPanel>
-
-        <Menu.Styles>
-            <Style Selector="MenuItem:separator">
-                <Setter Property="Template">
-                    <ControlTemplate>
-                        <Separator Background="#a9a9a9" Margin="0,1,0,1" Height="1" />
-                    </ControlTemplate>
-                </Setter>
-            </Style>
-
-            <Style Selector="MenuItem">
-                <Setter Property="Padding" Value="6 8" />
-            </Style>
-        </Menu.Styles>
-      <!-- the name prefix "Flyout_" helps find all buttons in code behind. To set properties-->
-      
-      <MenuItem
-          Command="{Binding ManuallyInstallMod}"
-          Header="{ext:Localize XAML_Manual_Install}"
-          DockPanel.Dock="Bottom"
-          VerticalAlignment="Bottom" />
-      <MenuItem
-          Name="Flyout_Settings"
-          Header="{ext:Localize XAML_OpenModsOrSaves}"
-          DockPanel.Dock="Bottom"
-          VerticalAlignment="Bottom">
-          <MenuItem
-              Command="{Binding OpenModsDirectory}"
-              Header="{ext:Localize XAML_OpenMods}"
-              DockPanel.Dock="Bottom"
-              VerticalAlignment="Bottom" />
-          <MenuItem
-              Command="{Binding OpenSavesDirectory}"
-              Header="{ext:Localize XAML_SavesFolder}"
-              DockPanel.Dock="Bottom"
-              VerticalAlignment="Bottom" />
-      </MenuItem>
-      <MenuItem
-          Command="{Binding ToggleApi}"
-          Header="{Binding ApiButtonText}"
-          DockPanel.Dock="Bottom"
-          VerticalAlignment="Bottom" />
-      <MenuItem
-          Command="{Binding UpdateApi}"
-          Header="{ext:Localize XAML_UpdateAPI}"
-          IsEnabled="{Binding ApiOutOfDate}"
-          DockPanel.Dock="Bottom"
-          VerticalAlignment="Bottom" />
-      <MenuItem
-          Header="{ext:Localize XAML_Open_Bulk_Action}"
-          Name="Flyout_BulkActions"
-          DockPanel.Dock="Bottom">
-        <MenuItem
-            Command="{Binding UpdateUnupdated}"
-            Header="{ext:Localize XAML_ModsFilter_OutOfDate_Update}"
-            IsEnabled="{Binding CanUpdateAll}" />
-        <MenuItem
-            Header="{ext:Localize XAML_Enable_All_Installed}"
-            Command="{Binding EnableAllInstalled}"
-            IsEnabled="{Binding CanEnableAll}" />
-        <MenuItem
-            Header="{ext:Localize XAML_Disable_All_Installed}"
-            Command="{Binding DisableAllInstalled}"
-            IsEnabled="{Binding CanDisableAll}" />
-        <MenuItem
-            Header="{ext:Localize XAML_Uninstall_All}"
-            Command="{Binding UninstallAll}"
-            IsEnabled="{Binding CanUninstallAll}" />
-      </MenuItem>
-      <MenuItem
-          Command="{Binding Donate}"
-          Header="{ext:Localize XAML_Donate}"
-          DockPanel.Dock="Bottom"
-          VerticalAlignment="Bottom" />
-    </Menu>
-
-    <Separator
-        DockPanel.Dock="Left"
-        Background="#a9a9a9"
-        Margin="0 0 0 0"
-        Height="1000000000000"
-        Width="1" />
-
+    <SplitView
+        DisplayMode="CompactOverlay"
+        OpenPaneLength="200"
+        CompactPaneLength="35"
+        IsPaneOpen="{Binding PaneOpen}"
+        PanePlacement="Left">
+        <!-- Sidebar -->
+        <SplitView.Pane>
+            <Border
+                BorderBrush="#a9a9a9"
+                BorderThickness="0 1 0 0">
+                <Grid
+                RowDefinitions="* Auto">
+                <Grid.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="ToolTip.ShowDelay" Value="0" />
+                        <Setter Property="Margin" Value=" 0 5 0 0" />
+                    </Style>
+                    <Style Selector="PathIcon">
+                        <Setter Property="Height" Value="20" />
+                        <Setter Property="Width" Value="20" />
+                        <Setter Property="Margin" Value="2 0 20 0" />
+                    </Style>
+                    <Style Selector="StackPanel">
+                        <Setter Property="Orientation" Value="Horizontal" />
+                    </Style>
+                </Grid.Styles>
+                
+                <Button 
+                    Grid.Row="0"
+                    Command="{Binding OpenPane}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right">
+                    <PathIcon
+                        Margin="10 0 10 0 "
+                        Data="{Binding PanelOpenIcon}" />
+                </Button>
+                
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="2 0 0 4"
+                    HorizontalAlignment="Stretch"
+                    Orientation="Vertical"
+                    VerticalAlignment="Bottom">
+                    <Button
+                        Command="{Binding UninstallAll}"
+                        IsEnabled="{Binding CanUninstallAll}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Uninstall_All}">
+                            <PathIcon Data="{StaticResource delete_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_Uninstall_All}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding DisableAllInstalled}"
+                        IsEnabled="{Binding CanDisableAll}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Disable_All_Installed}">
+                            <PathIcon Data="{StaticResource toggle_right_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_Disable_All_Installed}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding EnableAllInstalled}"
+                        IsEnabled="{Binding CanEnableAll}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Enable_All_Installed}">
+                            <PathIcon Data="{StaticResource toggle_right_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_Enable_All_Installed}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding UpdateUnupdated}"
+                        IsEnabled="{Binding CanUpdateAll}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_ModsFilter_OutOfDate_Update}">
+                            <PathIcon Data="{StaticResource arrow_sync_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_ModsFilter_OutOfDate_Update}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding UpdateApi}"
+                        IsEnabled="{Binding ApiOutOfDate}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_UpdateAPI}">
+                            <PathIcon Data="{StaticResource history_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_UpdateAPI}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding ToggleApi}">
+                        <StackPanel ToolTip.Tip="{Binding ApiButtonText}">
+                            <PathIcon Data="{StaticResource toggle_right_regular}" />
+                            <TextBlock Text="{Binding ApiButtonText}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding OpenSavesDirectory}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_SavesFolder}">
+                            <PathIcon Data="{StaticResource folder_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_SavesFolder}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding OpenModsDirectory}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_OpenMods}">
+                            <PathIcon Data="{StaticResource folder_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_OpenMods}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Command="{Binding ManuallyInstallMod}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Manual_Install}">
+                            <PathIcon Data="{StaticResource arrow_download_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_Manual_Install}" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            </Border>
+        </SplitView.Pane>
+    <DockPanel>
+    
     <ProgressBar
         DockPanel.Dock="Bottom"
 
@@ -589,4 +615,5 @@
       </StackPanel>
     </ScrollViewer>
   </DockPanel>
+  </SplitView>
 </views:View>

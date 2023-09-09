@@ -186,5 +186,8 @@ namespace Scarab.ViewModels
                 UseShellExecute = true,
             });
         }
+        
+        public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
+
     }
 }

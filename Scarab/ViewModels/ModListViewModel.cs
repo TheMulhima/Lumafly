@@ -5,12 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reactive;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MsBox.Avalonia.Dto;
@@ -76,6 +75,9 @@ namespace Scarab.ViewModels
         
         [Notify]
         public string authorSearch = "";
+        
+        [Notify]
+        private bool _paneOpen;
         public IEnumerable<string> ModNames { get; }
         public SortableObservableCollection<SelectableItem<string>> TagList { get; }
         public SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
@@ -438,6 +440,9 @@ namespace Scarab.ViewModels
 
         public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
         
+        public Geometry? PanelOpenIcon => PaneOpen ? Application.Current?.Resources["chevron_left_regular"] as Geometry : Application.Current?.Resources["chevron_right_regular"] as Geometry;
+        public void OpenPane() => PaneOpen = !PaneOpen;
+        
         public IEnumerable<SelectableItem<string>> FilteredAuthorList => AuthorList
             .Where(a => string.IsNullOrEmpty(AuthorSearch) || a.Item.Contains(AuthorSearch, StringComparison.OrdinalIgnoreCase));
 
@@ -642,9 +647,6 @@ namespace Scarab.ViewModels
                 Trace.TraceError($"Failed to open saves directory. {e}");
             }
         }
-
-        public void Donate() => Process.Start(new ProcessStartInfo("https://ko-fi.com/mulhima") { UseShellExecute = true });
-
 
         public event Action? OnSelectModsWithFilter;
         

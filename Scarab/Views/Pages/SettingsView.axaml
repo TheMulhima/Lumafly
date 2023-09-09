@@ -166,10 +166,21 @@
 			Grid.Column="0" Grid.ColumnSpan="3"
 			Grid.Row="7"
 			HorizontalAlignment="Right"
-			ColumnDefinitions="Auto Auto Auto">
+			ColumnDefinitions="Auto Auto Auto Auto">
+			
 			
 			<Button
 				Grid.Column="0"
+				Padding="20 5"
+				Margin="8 0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				HorizontalContentAlignment="Center"
+				Command="{Binding Donate}"
+				Content="{ext:Localize XAML_Donate}"/>			
+			
+			<Button
+				Grid.Column="1"
 				Padding="20 5"
 				Margin="8 0"
 				HorizontalAlignment="Right"
@@ -179,7 +190,7 @@
 				Content="Check For Updates"/>
 			
 			<Button
-				Grid.Column="1"
+				Grid.Column="2"
 				Padding="20 5"
 				Margin="8 0"
 				HorizontalAlignment="Right"
@@ -189,7 +200,7 @@
 				Content="Open Logs Folder"/>
 			
 			<StackPanel
-				Grid.Column="2"
+				Grid.Column="3"
 				VerticalAlignment="Bottom">
 				
 				<TextBlock
