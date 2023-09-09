@@ -149,8 +149,10 @@ public class PackManager : IPackManager
                 }
             }
 
-            var currentList = _fs.Directory.EnumerateDirectories(_settings.ModsFolder)
-                .Concat(_fs.Directory.EnumerateDirectories(_settings.DisabledFolder));
+            var currentList = _fs.Directory.EnumerateDirectories(_settings.ModsFolder).ToList();
+            
+            if (_fs.Directory.Exists(_settings.DisabledFolder))
+                currentList.AddRange(_fs.Directory.EnumerateDirectories(_settings.DisabledFolder));
 
             // uninstall mods that arent in pack
             foreach (var modNamePath in currentList)
