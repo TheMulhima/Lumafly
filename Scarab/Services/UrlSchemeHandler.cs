@@ -12,10 +12,8 @@ using Microsoft.Win32;
 using MsBox.Avalonia.Dto;
 using Avalonia.Threading;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia.Enums;
 using Scarab.Enums;
 using Scarab.Interfaces;
-using Scarab.Models;
 
 namespace Scarab.Util;
 

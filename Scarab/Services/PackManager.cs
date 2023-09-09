@@ -11,7 +11,6 @@ using System.Text.Json;
 using Avalonia.Controls;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia.Enums;
 using Scarab.Util;
 using System.IO.Compression;
 using Avalonia.Platform.Storage;
