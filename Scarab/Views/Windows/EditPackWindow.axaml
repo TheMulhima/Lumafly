@@ -12,6 +12,8 @@
         x:DataType="viewModels:EditPackWindowViewModel"
         x:CompileBindings="True"
         SystemDecorations="BorderOnly"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
         Title="Edit Pack">
     <TabControl>
         <TabItem Header="Edit Details" VerticalContentAlignment="Center">
@@ -196,8 +198,8 @@
                                             <customControls:TextButtonFlyout
                                                 Header="{Binding Name}">
                                                 <StackPanel>
-                                                    <Button Classes="DisableButton"/>
-                                                    <Button Classes="FixedVersion"/>
+                                                    <Button Classes="DisableButton" Click="DismissOnClick"/>
+                                                    <Button Classes="FixedVersion" Click="DismissOnClick"/>
                                                 </StackPanel>
                                             </customControls:TextButtonFlyout>
                                         </Border>
@@ -209,12 +211,12 @@
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="models:ModItem">
 
-                                        <Border BorderBrush="Gray">
+                                        <Border BorderBrush="Khaki">
                                             <customControls:TextButtonFlyout
                                                 Header="{Binding Name}">
                                                 <StackPanel>
-                                                    <Button Classes="EnableButton"/>
-                                                    <Button Classes="FixedVersion"/>
+                                                    <Button Classes="EnableButton" Click="DismissOnClick"/>
+                                                    <Button Classes="FixedVersion" Click="DismissOnClick"/>
                                                 </StackPanel>
                                             </customControls:TextButtonFlyout>
 
@@ -229,8 +231,8 @@
                                             <customControls:TextButtonFlyout
                                                 Header="{Binding Name}">
                                                 <StackPanel>
-                                                    <Button Classes="DisableButton"/>
-                                                    <Button Classes="ModlinksVersion"/>
+                                                    <Button Classes="DisableButton" Click="DismissOnClick"/>
+                                                    <Button Classes="ModlinksVersion" Click="DismissOnClick"/>
                                                 </StackPanel>
                                             </customControls:TextButtonFlyout>
 
@@ -245,8 +247,8 @@
                                             <customControls:TextButtonFlyout
                                                 Header="{Binding Name}">
                                                 <StackPanel>
-                                                    <Button Classes="EnableButton"/>
-                                                    <Button Classes="ModlinksVersion"/>
+                                                    <Button Classes="EnableButton" Click="DismissOnClick"/>
+                                                    <Button Classes="ModlinksVersion" Click="DismissOnClick"/>
                                                 </StackPanel>
                                             </customControls:TextButtonFlyout>
                                         </Border>
