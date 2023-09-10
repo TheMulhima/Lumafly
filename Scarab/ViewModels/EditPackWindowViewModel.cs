@@ -58,7 +58,7 @@ public partial class EditPackWindowViewModel : ViewModelBase
             {
                 var fixedVersion = mod.Item.State is NotInModLinksState;
                 var modlinksMod = mod.Item.State is not NotInModLinksState { ModlinksMod: false };
-                var enabled = mod.Item.State is ExistsModState { Enabled: true };
+                var enabled = mod.Item.State is ExistsModState { Enabled: true } or NotInstalledState;
 
                 if (!fixedVersion)
                     _pack.InstalledMods.Mods.Add(mod.Item.Name,
