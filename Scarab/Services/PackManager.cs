@@ -114,7 +114,7 @@ public class PackManager : IPackManager
         try
         {
             // move the mods from the profile to the mods folder
-            _fs.Directory.Move(packFolder, _settings.ModsFolder);
+            FileUtil.CopyDirectory(packFolder, _settings.ModsFolder);
             await _mods.SetMods(pack.InstalledMods.Mods, pack.InstalledMods.NotInModlinksMods);
 
             var requestedModList = _mods.Mods.Select(x => x.Key)
@@ -412,6 +412,9 @@ public class PackManager : IPackManager
         }
     }
 
+    /// <summary>
+    /// Uploads pack to an online text storage like pastebin
+    /// </summary>
     public async Task UploadPack(string packName)
     {
         var pack = _packList.FirstOrDefault(x => x.Name == packName);
@@ -420,7 +423,7 @@ public class PackManager : IPackManager
         try
         {
             var code = await _onlineTextStorage.Upload(packName, ConvertToHPackage(pack));
-            pack.SharingCode = code.Replace("https://pastebin.com/", "");
+            pack.SharingCode = code;
             await SaveEditedPack(pack);
         }
         catch (Exception e)
@@ -429,6 +432,11 @@ public class PackManager : IPackManager
         }
     }
     
+    /// <summary>
+    /// Imports a pack 
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
     public async Task<Pack?> ImportPack(string code)
     {
         try
@@ -450,6 +458,10 @@ public class PackManager : IPackManager
         }
     }
 
+    /// <summary>
+    /// Converts a pack to a valid hpackage format
+    /// </summary>
+    /// <returns>The hpackage json as string</returns>
     private string ConvertToHPackage(Pack pack)
     {
         var packageDef = new HollowKnightPackageDef()
@@ -471,6 +483,9 @@ public class PackManager : IPackManager
         return packageDef.ToJson();
     }
     
+    /// <summary>
+    /// Converts a hpackage json string to a Pack
+    /// </summary>
     private Pack ConvertFromHPackage(string json)
     {
         var packageDef = HollowKnightPackageDef.FromJson(json);

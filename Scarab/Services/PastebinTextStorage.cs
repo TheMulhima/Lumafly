@@ -31,7 +31,8 @@ public class PastebinTextStorage : IOnlineTextStorage
         };
         var resp = await _hc.PostAsync("https://pastebin.com/api/api_post.php", form);
         resp.EnsureSuccessStatusCode();
-        return await resp.Content.ReadAsStringAsync();
+        var pasteLink = await resp.Content.ReadAsStringAsync();
+        return pasteLink.Replace("https://pastebin.com/", "");
     }
 
     public async Task<string> Download(string code)
