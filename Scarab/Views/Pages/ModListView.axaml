@@ -415,8 +415,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />  <!-- enable (always visible, no need to reserve space for it) -->
                         <ColumnDefinition MaxWidth="120" /> <!-- update -->
-                        <ColumnDefinition MaxWidth="90" /> <!-- install-->
-                        <ColumnDefinition MaxWidth="50"/>  <!-- pin -->
+                        <ColumnDefinition MaxWidth="105" /> <!-- install-->
+                        <ColumnDefinition MaxWidth="40"/>   <!-- pin -->
                       </Grid.ColumnDefinitions>
                       <TextBlock Grid.Column="0"
                           TextWrapping="Wrap"
@@ -473,7 +473,7 @@
                               Padding="3"
                               Margin="0 -3 0 0"
                               CommandParameter="{Binding .}"
-                              MinWidth="75"
+                              MinWidth="80"
                               IsEnabled="{Binding !InstallingButtonAccessible}"
                               Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OnInstall}"
                               VerticalAlignment="Top"
