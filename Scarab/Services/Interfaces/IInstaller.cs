@@ -8,7 +8,7 @@ namespace Scarab.Interfaces
     {
         public Task Toggle(ModItem mod);
 
-        public Task Install(ModItem mod, Action<ModProgressArgs> setProgress, bool enable);
+        public Task Install(ModItem mod, Action<ModProgressArgs> setProgress, bool enable, bool clearDlls = false);
 
         public Task PlaceMod(ModItem mod, bool enable, string filename, ArraySegment<byte> data);
 

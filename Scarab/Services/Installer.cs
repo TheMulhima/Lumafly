@@ -341,8 +341,9 @@ namespace Scarab.Services
         /// <param name="mod">Mod to install</param>
         /// <param name="setProgress">Action called to indicate progress asynchronously</param>
         /// <param name="enable">Whether the mod is enabled after installation</param>
+        /// <param name="clearDlls">Whether or not to clear all dlls from folder before placing mod</param>
         /// <exception cref="HashMismatchException">Thrown if the download doesn't match the given hash</exception>
-        public async Task Install(ModItem mod, Action<ModProgressArgs> setProgress, bool enable)
+        public async Task Install(ModItem mod, Action<ModProgressArgs> setProgress, bool enable, bool clearDlls = false)
         {
             await InstallApi();
 
@@ -362,7 +363,7 @@ namespace Scarab.Services
                 // Start our progress
                 setProgress(new ModProgressArgs());
 
-                await _Install(mod, DownloadProgressed, enable);
+                await _Install(mod, DownloadProgressed, enable, clearDlls);
                 
                 setProgress(new ModProgressArgs {
                     Completed = true
@@ -391,7 +392,7 @@ namespace Scarab.Services
             }
         }
 
-        private async Task _Install(ModItem mod, Action<DownloadProgressArgs> setProgress, bool enable)
+        private async Task _Install(ModItem mod, Action<DownloadProgressArgs> setProgress, bool enable, bool clearDlls = false)
         {
             foreach (ModItem dep in mod.Dependencies.Select(x => _db.Items.First(i => i.Name == x)))
             {
@@ -432,7 +433,10 @@ namespace Scarab.Services
             
             if (cachedModData is null && !string.IsNullOrEmpty(mod.Sha256))
                 await CacheMod(mod, filename, data);
-            
+
+            if (clearDlls) 
+                ClearDllsFromFolder(mod, enable);
+
             await PlaceMod(mod, enable, filename, data);
             
             mod.State = mod.State switch {
@@ -449,6 +453,27 @@ namespace Scarab.Services
             };
 
             await _installed.RecordInstalledState(mod);
+        }
+
+        private void ClearDllsFromFolder(ModItem mod, bool enable)
+        {
+            string base_folder = enable ? _config.ModsFolder : _config.DisabledFolder;
+            string mod_folder = Path.Combine(base_folder, mod.Name);
+            
+            if (!Directory.Exists(mod_folder)) 
+                return;
+            
+            foreach (var dll_file in Directory.EnumerateFiles(mod_folder).Where(f => f.EndsWith(".dll")))
+            {
+                try
+                {
+                    File.Delete(dll_file);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
         }
 
         private async Task CacheMod(ModItem mod, string filename, ArraySegment<byte> data)

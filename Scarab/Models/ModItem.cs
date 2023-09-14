@@ -184,7 +184,7 @@ namespace Scarab.Models
                 
                 setProgress(new ModProgressArgs());
 
-                await inst.Install(this, setProgress, enabled);
+                await inst.Install(this, setProgress, enabled, true);
 
                 setProgress(new ModProgressArgs { Completed = true });
             }
