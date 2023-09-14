@@ -22,9 +22,9 @@ public partial class PackManagerView : View<PackManagerViewModel>
     {
         base.ArrangeCore(finalRect);
         
-        PackManagerViewModel.OnPackLoaded += () => _notify?.Show(
-            new Notification("Success", 
-                "Pack Loaded Successfully",
+        PackManagerViewModel.OnPackLoaded += (packName) => _notify?.Show(
+            new Notification("Pack Loaded", 
+                $"Pack {packName} has loaded Successfully",
             NotificationType.Success));
     }
 
@@ -36,7 +36,8 @@ public partial class PackManagerView : View<PackManagerViewModel>
 
         _notify = new WindowNotificationManager(topLevel)
         {
-            MaxItems = 1
+            MaxItems = 1,
+            Margin = new Thickness(0, 50)
         };
     }
 

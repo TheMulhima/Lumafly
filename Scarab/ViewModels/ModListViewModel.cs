@@ -649,6 +649,7 @@ namespace Scarab.ViewModels
         }
 
         public event Action? OnSelectModsWithFilter;
+        public event Action<string, string>? OnModDownloaded;
         
         public void SelectModsWithFilter(ModFilterState modFilterState)
         {
@@ -1043,6 +1044,8 @@ namespace Scarab.ViewModels
         {
             var item = itemObj as ModItem ?? throw new Exception("Tried to update an object which isn't a mod");
             await InternalModDownload(item, item.OnUpdate);
+            
+            OnModDownloaded?.Invoke("Update", item.Name);
         }
 
         /// <summary>
@@ -1069,6 +1072,10 @@ namespace Scarab.ViewModels
                     {
                         await ResetPinned(item);
                         await RemoveUnusedDependencies(item);
+                    }
+                    else
+                    {
+                        OnModDownloaded?.Invoke("Install", item.Name);
                     }
                 });
         }

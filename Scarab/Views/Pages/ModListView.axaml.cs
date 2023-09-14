@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -13,10 +14,8 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ColorTextBlock.Avalonia;
-using JetBrains.Annotations;
 using Scarab.Util;
 using Scarab.Enums;
-using Scarab.Extensions;
 using Scarab.Models;
 using Scarab.ViewModels;
 
@@ -26,6 +25,7 @@ namespace Scarab.Views.Pages
     {
         private readonly List<MenuItem> _flyoutMenus;
         private List<MenuItem> _modFilterItems;
+        private WindowNotificationManager? _notify;
 
         private ModListViewModel ModListViewModel => (((StyledElement)this).DataContext as ModListViewModel)!;
 
@@ -52,6 +52,25 @@ namespace Scarab.Views.Pages
             SetUpFlyoutPopup();
 
             ModListViewModel.OnSelectModsWithFilter += ModFilterSelected;
+            
+            ModListViewModel.OnModDownloaded += (action, modName) => _notify?.Show(
+                new Notification($"Mod {action}ed", 
+                    $"{modName} has been {action.ToLower()}ed successfully",
+                    NotificationType.Success, new TimeSpan(0,0,0,2)));
+        }
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+            
+            var topLevel = TopLevel.GetTopLevel(this);
+            
+            _notify = new WindowNotificationManager(topLevel)
+            {
+                MaxItems = 3,
+                Margin = new Thickness(0, 50),
+                Opacity = 0.65,
+            };
         }
 
         protected override void OnLoaded(RoutedEventArgs e)

@@ -17,7 +17,7 @@ public partial class PackManagerViewModel : ViewModelBase
 
     [Notify] private bool _loadingSharingCode;
     
-    public event Action? OnPackLoaded;
+    public event Action<string>? OnPackLoaded;
     
     public SortableObservableCollection<Pack> Packs => _packManager.PackList;
 
@@ -84,7 +84,7 @@ public partial class PackManagerViewModel : ViewModelBase
                 "Loading Pack")));
 
         if (success) 
-            OnPackLoaded?.Invoke();
+            OnPackLoaded?.Invoke(pack.Name);
     }
     
     public void CreateNewPack()
