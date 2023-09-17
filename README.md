@@ -1,4 +1,4 @@
-# Scarab+
+# Lumafly
 
 ![build](https://github.com/TheMulhima/Scarab/actions/workflows/build.yml/badge.svg)
 ![test](https://github.com/TheMulhima/Scarab/actions/workflows/test.yml/badge.svg)
@@ -15,9 +15,9 @@ This is a cross platform mod manager for [Hollow Knight](https://www.hollowknigh
 - Search through and download the mods you like.
 - Mods appear in the top left corner of the game title screen after installation.
 - Enable/Disable mods from affecting the game using the toggle and update outdated mods using the orange update button.
-- If you are unable to connect to the internet, Scarab can be launched in offline mode where you can toggle mods/api.
+- If you are unable to connect to the internet, Lumafly can be launched in offline mode where you can toggle mods/api.
 
-## Screenshot: What Scarab+ looks like
+## Screenshot: What Lumafly looks like
 
 ![demo](https://github.com/TheMulhima/Scarab/blob/static-resources/Readme%20Assets/ModList.png?raw=true)
 
@@ -27,9 +27,9 @@ This is a cross platform mod manager for [Hollow Knight](https://www.hollowknigh
 - Loads its modlist from the [official modlinks](https://github.com/hk-modding/modlinks) but that can be changed by providing a custom modlinks URI in the settings tab or via a [command](#commands).
 - Search through the 300+ mods available and narrow down the search by the mod's tags and authors. Also allows searching through mod descriptions and [searching by dependency](#search-by-dependency).
 - Display mods that were updated or newly released recently (within the last week/month).
-- For mods not in official modlinks, scarab provides a manually install button which can correctly install  it.
-- Pin mods by right clicking on a mod to ensure scarab never deletes it.
-- Share links that run commands in scarab see [commands](#commands) for more info.
+- For mods not in official modlinks, lumafly provides a manually install button which can correctly install  it.
+- Pin mods by right clicking on a mod to ensure lumafly never deletes it.
+- Share links that run commands in lumafly see [commands](#commands) for more info.
 - Open a mod's global settings file to edit its settings.
 
 If you want to see what features changed between versions please see the [changelog](https://github.com/TheMulhima/Scarab/blob/master/CHANGELOG.md).
@@ -40,13 +40,13 @@ Here are a list of explanations of features that require more information.
 
 ### Commands
 
-Scarab+ allows you to use shareable links to open and run commands in scarab. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to view and create the links.
+Lumafly allows you to use shareable links to open and run commands in lumafly. You can use the [commands website](https://themulhima.github.io/Scarab/commands) to view and create the links.
 
 #### General Commands
 
 The main shareable commands that anyone can use.
 
-- [Download Mod](https://themulhima.github.io/Scarab/commands/download): Share links to open Scarab and download mods using this command. Sharing a link such as [this](https://themulhima.github.io/Scarab/commands/download?mods=Satchel) will open Scarab and download the mod "Satchel".
+- [Download Mod](https://themulhima.github.io/Scarab/commands/download): Share links to open Lumafly and download mods using this command. Sharing a link such as [this](https://themulhima.github.io/Scarab/commands/download?mods=Satchel) will open Scarab and download the mod "Satchel".
 
 - [Custom Modlinks](https://themulhima.github.io/Scarab/commands/customModLinks) - Open Scarab and load its mod list from a custom modlinks.
 
@@ -65,7 +65,7 @@ Commands that can be used to help fix problems with Scarab or Hollow Knight Mods
 
 #### Other Commands
 
-- [Redirect link](https://themulhima.github.io/Scarab/redirect) You can use this link to redirect to any scarab command.
+- [Redirect link](https://themulhima.github.io/Scarab/redirect) You can use this link to redirect to any lumafly command.
 
 ### Search by Dependency
 
@@ -75,8 +75,8 @@ Scarab allows you to search for mods that are dependent or integrated with a spe
 
 There are currently 4 settings that can be changed in Scarab
 
-- Automatically remove unused dependencies (Default: No) - Do you want scarab to remove mods that are listed as dependencies of mods that are now being uninstalled.
-- Warn before removing a dependent mod (Default: Yes) - Do you want scarab to warn before disabling or uninstalling a mod that is listed as a required dependency of an installed and enabled mod which could cause it to not function correctly.
+- Automatically remove unused dependencies (Default: No) - Do you want lumafly to remove mods that are listed as dependencies of mods that are now being uninstalled.
+- Warn before removing a dependent mod (Default: Yes) - Do you want lumafly to warn before disabling or uninstalling a mod that is listed as a required dependency of an installed and enabled mod which could cause it to not function correctly.
 - Use custom modlinks (Default: No) - Do you want Scarab to load its mod list from another source other than the [official modlinks](https://github.com/hk-modding/modlinks). Enabling this will give you the prompt for the custom modlinks URI.
 - Game Path - Which install of the game do you want Scarab to modify.
 

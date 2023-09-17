@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes: 
       value: |
-        This is for requesting a new feature that is not already on Scarab.
+        This is for requesting a new feature that is not already on Lumafly.
         Note that specific mod bugs do not go here, and go to the appropriate mod's repository.
   - type: textarea
     id: repro

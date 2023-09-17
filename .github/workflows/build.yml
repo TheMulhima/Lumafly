@@ -20,14 +20,14 @@ jobs:
       run: dotnet restore -r win-x64
     - name: Build
       run: |
-        cd Scarab
+        cd Lumafly
         dotnet publish --no-restore -r win-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
     - name: Upload windows binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-Windows
-        path: Scarab/bin/Release/net7.0/win-x64/publish/
+        name: Lumafly-Windows
+        path: Lumafly/bin/Release/net7.0/win-x64/publish/
 
   build-linux:
     runs-on: ubuntu-latest
@@ -41,15 +41,15 @@ jobs:
       run: dotnet restore -r linux-x64
     - name: Build
       run: | 
-        cd Scarab
+        cd Lumafly
         dotnet publish -r linux-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
-        chmod +x Scarab/bin/Release/net7.0/linux-x64/publish/Scarab
-        zip -jr linux.zip Scarab/bin/Release/net7.0/linux-x64/publish/*
+        chmod +x Lumafly/bin/Release/net7.0/linux-x64/publish/Lumafly
+        zip -jr linux.zip Lumafly/bin/Release/net7.0/linux-x64/publish/*
     - name: Upload linux binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-Linux
+        name: Lumafly-Linux
         path: linux.zip
 
   build-macos:
@@ -66,16 +66,16 @@ jobs:
       run: dotnet restore -r osx-x64
     - name: Build
       run: |
-        cd Scarab
+        cd Lumafly
         dotnet publish --no-restore -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
         cd ..
         cd Scripts
-        python3 make_mac_app.py Scarab.app ../Scarab/bin/Release/net7.0/osx-x64/publish ../out
+        python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net7.0/osx-x64/publish ../out
         cd ..
     - name: Upload macos binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-MacOS
+        name: Lumafly-MacOS
         path: out/mac.zip
 
   # needs to run when releasing but before main release action
@@ -102,15 +102,15 @@ jobs:
       run: dotnet restore -r win-x64
     - name: Build
       run: |
-        cp ./artifacts/Scarab-Windows/Scarab.exe ./Scarab.AU/Scarab.exe
-        cd Scarab.AU
+        cp ./artifacts/Lumafly-Windows/Lumafly.exe ./Lumafly.AU/Lumafly.exe
+        cd Lumafly.AU
         dotnet publish -r win-x64 -c Release --self-contained true
         cd ..
     - name: Upload windows binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-AU
-        path: Scarab.AU/bin/Release/net7.0/win-x64/publish/
+        name: Lumafly-AU
+        path: Lumafly.AU/bin/Release/net7.0/win-x64/publish/
 
 
   release:
@@ -127,25 +127,25 @@ jobs:
 
       - name: Zip files
         run: |
-          zip -jr Scarab-Windows.zip ./artifacts/Scarab-Windows/*
+          zip -jr Lumafly-Windows.zip ./artifacts/Lumafly-Windows/*
 
-          cp ./artifacts/Scarab-Windows/Scarab.exe ./Scarab.exe
+          cp ./artifacts/Lumafly-Windows/Lumafly.exe ./Lumafly.exe
 
-          cp ./artifacts/Scarab-AU/Scarab.AU.exe ./Scarab.AU.exe
+          cp ./artifacts/Lumafly-AU/Lumafly.AU.exe ./Lumafly.AU.exe
           
-          mv ./artifacts/Scarab-Linux/linux.zip Scarab-Linux.zip
+          mv ./artifacts/Lumafly-Linux/linux.zip Lumafly-Linux.zip
           
-          mv ./artifacts/Scarab-MacOS/mac.zip Scarab-MacOS.zip
+          mv ./artifacts/Lumafly-MacOS/mac.zip Lumafly-MacOS.zip
 
       - name: Create release if a new tag is pushed
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./Scarab.exe
-            ./Scarab.AU.exe
-            ./Scarab-Windows.zip
-            ./Scarab-MacOS.zip
-            ./Scarab-Linux.zip 
+            ./Lumafly.exe
+            ./Lumafly.AU.exe
+            ./Lumafly-Windows.zip
+            ./Lumafly-MacOS.zip
+            ./Lumafly-Linux.zip 
  
   # run after release so no one downloads non existent files
   create-appcast:

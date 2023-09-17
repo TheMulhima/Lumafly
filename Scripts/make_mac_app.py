@@ -8,7 +8,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("app_dir", help="The path of the Scarab.app directory")
+parser.add_argument("app_dir", help="The path of the Lumafly.app directory")
 parser.add_argument("publish", help="The directory of the published mac executable")
 parser.add_argument("out", help="The output directory for the zip file")
 
@@ -17,7 +17,7 @@ args = parser.parse_args()
 app_dir = Path(args.app_dir)
 publish = Path(args.publish)
 out = Path(args.out)
-exe = publish / "Scarab"
+exe = publish / "Lumafly"
 
 if app_dir.suffix != ".app":
     print("Error: " + app_dir + " is not an .app folder.")
@@ -53,7 +53,7 @@ with ZipFile(out / "mac.zip", 'w', ZIP_DEFLATED) as zip_f:
         root = Path(root)
 
         for fname in files:
-            if fname == "Scarab":
+            if fname == "Lumafly":
                 write_executable(zip_f, root / fname)
                 continue
 
@@ -66,11 +66,11 @@ with ZipFile(out / "mac.zip", 'w', ZIP_DEFLATED) as zip_f:
         for publish_root, _, files in walk(publish):
             publish_root = Path(publish_root)
             for fname in files:
-                if fname == "Scarab":
+                if fname == "Lumafly":
                     continue
 
                 overrides = { 
-                        "Scarab.pdb": "run.pdb"
+                        "Lumafly.pdb": "run.pdb"
                 }
 
                 path = publish_root / fname
@@ -78,7 +78,7 @@ with ZipFile(out / "mac.zip", 'w', ZIP_DEFLATED) as zip_f:
 
                 zip_f.write(path, zip_path)
 
-        write_executable(zip_f, publish_root / "Scarab", root / "MacOS" / "run")
+        write_executable(zip_f, publish_root / "Lumafly", root / "MacOS" / "run")
 
 
 print("Created mac.zip")

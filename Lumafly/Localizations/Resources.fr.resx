@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Array_Sep" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="MI_InstallText_Installed" xml:space="preserve">
+    <value>Désinstaller</value>
+  </data>
+  <data name="MI_InstallText_NotInstalled" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
+    <value>Désactiver l'API</value>
+  </data>
+  <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
+    <value>Activer l'API</value>
+  </data>
+  <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
+    <value>Activer l'API</value>
+  </data>
+  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
+    <value>Relancer le programme pour utiliser le nouveau chemin.</value>
+  </data>
+  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
+    <value>Chemin changé !</value>
+  </data>
+  <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
+    <value>Le hachage pour {0} ({1}) ne correspond pas à la signature ({2}). Il est corrompu ou bien la valeur est incorrecte.</value>
+  </data>
+  <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
+    <value>Les hachages diffèrent !</value>
+  </data>
+  <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
+    <value>Impossible de télécharger {0} ! Le site est hors-ligne ou a des problèmes de connexion.</value>
+  </data>
+  <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
+    <value>Erreur de réseau</value>
+  </data>
+  <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
+    <value>Hollow Knight est ouvert ! Cela peut occasionner des problèmes en installant des mods. Fermer Hollow Knight ?</value>
+  </data>
+  <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
+    <value>Alerte !</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
+    <value>a échoué avec le code d'erreur HTTP {0}</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
+    <value>Impossible de récupérer la liste des mods depuis modlinks : {0}</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
+    <value>Erreur !</value>
+  </data>
+  <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
+    <value>délai dépassé. Vérifiez votre connexion internet puis réessayez.</value>
+  </data>
+  <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
+    <value>Récupérer la dernière version</value>
+  </data>
+  <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
+    <value>Continuer quand même.</value>
+  </data>
+  <data name="MWVM_OutOfDate_Title" xml:space="preserve">
+    <value>Périmé !</value>
+  </data>
+  <data name="MWVM_OutOfDate_Message" xml:space="preserve">
+    <value>Une nouvelle version de Lumafly est disponible. Merci de télécharger la nouvelle version (v{0}) pour avoir les dernières fonctionnalités et corrections de bugs.</value>
+  </data>
+  <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
+    <value>Lumafly n'a pas réussi à télécharger la nouvelle version de Lumafly automatiquement. Lumafly va donc ouvrir le lien pour obtenir la dernière version.</value>
+  </data>
+  <data name="MWVM_Warning" xml:space="preserve">
+    <value>Alerte</value>
+  </data>
+  <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
+    <value>Le chemin de sauvegardes de Hollow Knight est invalide, merci de choisir un chemin valide.</value>
+  </data>
+  <data name="MWVM_Info" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
+    <value>Impossible de trouver le dossier d'installation de Hollow Knight. Veuillez le sélectionner.</value>
+  </data>
+  <data name="MWVM_DetectedPath_Title" xml:space="preserve">
+    <value>Chemin trouvé !</value>
+  </data>
+  <data name="MWVM_DetectedPath_Message" xml:space="preserve">
+    <value>Dossier d'installation de Hollow Knight trouvé vers {0}. Est-ce correct ?</value>
+  </data>
+  <data name="XAML_ChangPath" xml:space="preserve">
+    <value>Changer le chemin</value>
+  </data>
+  <data name="XAML_Dependencies" xml:space="preserve">
+    <value>Dépendances :</value>
+  </data>
+  <data name="XAML_Donate" xml:space="preserve">
+    <value>Donation</value>
+  </data>
+  <data name="XAML_ModsFilter_All" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
+    <value>Actifs</value>
+  </data>
+  <data name="XAML_ModsFilter_Installed" xml:space="preserve">
+    <value>Installés</value>
+  </data>
+  <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
+    <value>Périmés</value>
+  </data>
+  <data name="XAML_OpenMods" xml:space="preserve">
+    <value>Ouvrir le dossier des mods</value>
+  </data>
+  <data name="XAML_Repository" xml:space="preserve">
+    <value>Dépôts et README :</value>
+  </data>
+  <data name="XAML_SearchMark" xml:space="preserve">
+    <value>Chercher des mods...</value>
+  </data>
+  <data name="XAML_UpdateAPI" xml:space="preserve">
+    <value>Mettre l'API à jour</value>
+  </data>
+  <data name="XAML_Version" xml:space="preserve">
+    <value>Version :</value>
+  </data>
+  <data name="XAML_Integrations" xml:space="preserve">
+    <value>Intégrations :</value>
+  </data>
+  <data name="XAML_Tags" xml:space="preserve">
+    <value>Tags :</value>
+  </data>
+  <data name="XAML_On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="XAML_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Consulter</value>
+  </data>
+  <data name="XAML_Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="PU_NoSelect" xml:space="preserve">
+    <value>Aucun chemin sélectionné !</value>
+  </data>
+  <data name="PU_NoSelectMac" xml:space="preserve">
+    <value>Aucune application sélectionnée !</value>
+  </data>
+  <data name="PU_InvalidPathHeader" xml:space="preserve">
+    <value>Le chemin de Hollow Knight est invalide !</value>
+  </data>
+  <data name="PU_InvalidAppHeader" xml:space="preserve">
+    <value>L'application Hollow Knight est invalide !</value>
+  </data>
+  <data name="PU_InvalidExeHeader" xml:space="preserve">
+    <value>L'exécutable Hollow Knight est invalide ! Veuillez sélectionner l'exécutable de Hollow Knight ou un raccourci.</value>
+  </data>
+  <data name="PU_InvalidPath" xml:space="preserve">
+    <value>Sélectionnez le dossier contenant hollow_knight_Data ou Hollow Knight_Data.</value>
+  </data>
+  <data name="PU_InvalidApp" xml:space="preserve">
+    <value>Dossier Managed ou Assembly-CSharp non trouvé !</value>
+  </data>
+  <data name="PU_SelectPath" xml:space="preserve">
+    <value>Sélectionner le dossier de Hollow Knight.</value>
+  </data>
+  <data name="PU_InvalidPathTitle" xml:space="preserve">
+    <value>Chemin</value>
+  </data>
+  <data name="PU_SelectApp" xml:space="preserve">
+    <value>Sélectionnez l'application Hollow Knight.</value>
+  </data>
+  <data name="PU_SelectEXE" xml:space="preserve">
+    <value>Sélectionnez l'exécutable Hollow Knight ou un raccourci.</value>
+  </data>
+  <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
+    <value>Tout mettre à jour</value>
+  </data>
+  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
+    <value>Désinstaller</value>
+  </data>
+  <data name="XAML_Open_Bulk_Action" xml:space="preserve">
+    <value>Actions multiples</value>
+  </data>
+  <data name="XAML_Disable_All_Installed" xml:space="preserve">
+    <value>Tout désactiver</value>
+  </data>
+  <data name="XAML_Enable_All_Installed" xml:space="preserve">
+    <value>Tout activer</value>
+  </data>
+  <data name="XAML_Uninstall_All" xml:space="preserve">
+    <value>Tout désinstaller</value>
+  </data>
+  <data name="XAML_Authors" xml:space="preserve">
+    <value>Auteurs</value>
+  </data>
+  <data name="XAML_Search_Options" xml:space="preserve">
+    <value>Options de recherche</value>
+  </data>
+  <data name="XAML_Search_Type" xml:space="preserve">
+    <value>Type de recherche</value>
+  </data>
+  <data name="XAML_Select_Tags" xml:space="preserve">
+    <value>Par tags</value>
+  </data>
+  <data name="XAML_Exact_Search" xml:space="preserve">
+    <value>Recherche exacte</value>
+  </data>
+  <data name="XAML_Normal_Search" xml:space="preserve">
+    <value>Recherche normale</value>
+  </data>
+  <data name="XAML_Search_Dependents" xml:space="preserve">
+    <value>Recherche par dépendances</value>
+  </data>
+  <data name="XAML_Select_Mod" xml:space="preserve">
+    <value>Sélectionner le mod</value>
+  </data>
+  <data name="XAML_No_Items" xml:space="preserve">
+    <value>Aucun mods à afficher.</value>
+  </data>
+  <data name="XAML_SavesFolder" xml:space="preserve">
+    <value>Ouvrir le dossier de sauvegardes</value>
+  </data>
+  <data name="XAML_Manual_Install" xml:space="preserve">
+    <value>Installer manuellement</value>
+  </data>
+  <data name="MLVM_Select_Mod" xml:space="preserve">
+    <value>Sélectionner le dll ou le zip du mod</value>
+  </data>
+  <data name="XAML_NewMods" xml:space="preserve">
+    <value>Nouveaux mods</value>
+  </data>
+  <data name="XAML_UpdatedMods" xml:space="preserve">
+    <value>Mods mis à jours</value>
+  </data>
+  <data name="XAML_LastWeek" xml:space="preserve">
+    <value>La dernière semaine</value>
+  </data>
+  <data name="XAML_LastMonth" xml:space="preserve">
+    <value>Le dernier mois</value>
+  </data>
+  <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
+    <value>Nouveautés</value>
+  </data>
+  <data name="XAML_CopyError" xml:space="preserve">
+    <value>Copier l'erreur</value>
+  </data>
+  <data name="XAML_ShowError" xml:space="preserve">
+    <value>Afficher l'erreur entière</value>
+  </data>
+  <data name="XAML_EditSettings" xml:space="preserve">
+    <value>Modifier le fichier des paramètres du mod</value>
+  </data>
+  <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
+    <value>Charger les nouveaux mods de modlinks...</value>
+  </data>
+  <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
+    <value>Lumafly n'a pas pu charger les nouveaux mods depuis modlinks.</value>
+  </data>
+  <data name="MVVM_DNSError" xml:space="preserve">
+    <value>Probablement causé par une mauvaise connexion internet. Vérifiez puis réessayez</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
+    <value>Alerte ! Ce mod est utilisé par d'autres mods !</value>
+  </data>
+  <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
+    <value>{0} est utilisé par {1}. Voulez-vous continuer ?</value>
+  </data>
+  <data name="MVVM_AreYouSure" xml:space="preserve">
+    <value>Alerte ! Voulez-vous vraiment continuer ?</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
+    <value>Lumafly n'a pas pu accéder au fichier dans le dossier des mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
+    <value>Veuillez vérifier que le dossier des mods n'a pas le droit d'écriture protégé.</value>
+  </data>
+  <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
+    <value>Lumafly ne peut pas accéder au fichier :</value>
+  </data>
+  <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
+    <value>Veuillez fermer toutes les applications qui pourraient utiliser le dossier des mods</value>
+  </data>
+  <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
+    <value>Veuillez fermer les processus qui bloquent des fichiers importants suivant :</value>
+  </data>
+  <data name="ModLinks_Tags_Boss" xml:space="preserve">
+    <value>Boss</value>
+  </data>
+  <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
+    <value>Gameplay</value>
+  </data>
+  <data name="ModLinks_Tags_Utility" xml:space="preserve">
+    <value>Utilitaire</value>
+  </data>
+  <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
+    <value>Cosmétique</value>
+  </data>
+  <data name="ModLinks_Tags_Library" xml:space="preserve">
+    <value>Bibliothèque</value>
+  </data>
+  <data name="ModLinks_Tags_Expansion" xml:space="preserve">
+    <value>Expansion</value>
+  </data>
+  <data name="MVVM_Loading1" xml:space="preserve">
+    <value>Chargement des mods de modlinks...</value>
+  </data>
+  <data name="MVVM_Loading2" xml:space="preserve">
+    <value>En attente d'une réponse de github...</value>
+  </data>
+  <data name="MVVM_Loading3" xml:space="preserve">
+    <value>Toujours en attente...</value>
+  </data>
+  <data name="MVVM_Loading4" xml:space="preserve">
+    <value>Essaie depuis une source de rechange...</value>
+  </data>
+  <data name="MVVM_Loading5" xml:space="preserve">
+    <value>En attente d'une réponse de jsdelivr...</value>
+  </data>
+  <data name="MVVM_RunAsAdmin" xml:space="preserve">
+    <value>Essayez de lancer Lumafly en tant qu'administrateur, cela pourrait corriger le problème</value>
+  </data>
+  <data name="MVVM_ExceptionOccur" xml:space="preserve">
+    <value>Une exception est apparue {0} {1}</value>
+  </data>
+  <data name="XAML_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="XAML_AskForHelp" xml:space="preserve">
+    <value>Demander de l'aide</value>
+  </data>
+  <data name="XAML_ReportError" xml:space="preserve">
+    <value>Rapporter une erreur</value>
+  </data>
+  <data name="MVVM_Install" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
+    <value>{0} est utilisé par {1}. Voulez-vous l'installer ?</value>
+  </data>
+  <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
+    <value>Ce mod a des dépendances qui ne sont pas installées !</value>
+  </data>
+  <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
+    <value>Sélectionner manuellement</value>
+  </data>
+  <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
+    <value>Note : ils peuvent être utilisés par des mods installés manuellement</value>
+  </data>
+  <data name="XAML_None" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="XAML_UninstallDependencies" xml:space="preserve">
+    <value>Désinstaller ce mod laissera des dépendances qui semblent ne pas être utilisées</value>
+  </data>
+  <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
+    <value>Supprimer les dépendances automatiquement ?</value>
+  </data>
+  <data name="XAML_Pin" xml:space="preserve">
+    <value>Épingler</value>
+  </data>
+  <data name="XAML_PinMod_Explanation" xml:space="preserve">
+    <value>Épingle un mod pour qu'il ne soit pas automatiquement remplacé par Lumafly</value>
+  </data>
+  <data name="XAML_Unpin" xml:space="preserve">
+    <value>Désépingler</value>
+  </data>
+  <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
+    <value>Impossible de se connecter à modlinks</value>
+  </data>
+  <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
+    <value>Voulez-vous passer Lumafly en mode hors-ligne ?</value>
+  </data>
+  <data name="XAML_Select_Authors" xml:space="preserve">
+    <value>Chercher par auteur</value>
+  </data>
+  <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
+    <value>Prévenir avant de supprimer un mod dépendant</value>
+  </data>
+  <data name="XAML_Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="XAML_Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="XAML_AutoRemoveDeps" xml:space="preserve">
+    <value>Supprimer automatiquement les dépendances inutilisées</value>
+  </data>
+  <data name="XAML_OpenModsOrSaves" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
+  </data>
+  <data name="XAML_GamePath" xml:space="preserve">
+    <value>Chemin du jeu</value>
+  </data>
+  <data name="XAML_UseCustomModlinks" xml:space="preserve">
+    <value>Utiliser un lien modlinks personnalisé</value>
+  </data>
+  <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
+    <value>Normalement Lumafly charge la liste des mods depuis le modlinks officiel. Si vous voulez charger votre propre liste, entrez ici l'URL ou le chemin de fichier (dans le format file://{filepath}).\nUn lien vide ou invalide chargera le modlinks officiel</value>
+  </data>
+  <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
+    <value>Entrez le lien du modlinks personnalisé. Rechargez pour le prendre en compte</value>
+  </data>
+  <data name="XAML_ReloadLumafly" xml:space="preserve">
+    <value>Recharger Lumafly</value>
+  </data>
+  <data name="XAML_ReloadPrompt" xml:space="preserve">
+    <value>(rechargez pour prendre en compte les changements)</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
+    <value>Lien personnalisé modlinks invalide</value>
+  </data>
+  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
+    <value>Lumafly n'a pas pu charger modlinks de {0}. Lumafly va utiliser le modlinks officiel.</value>
+  </data>
+  <data name="XAML_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="XAML_InfoHeader" xml:space="preserve">
+    <value>Lumafly</value>
+  </data>
+  <data name="XAML_InfoBody" xml:space="preserve">
+    <value>Lumafly est un installateur pour Hollow Knight version 1.5. Il ne fonctionnera pas pour les versions antécédentes de Hollow Knight.</value>
+  </data>
+  <data name="XAML_InfoLinksHeader" xml:space="preserve">
+    <value>Liens pertinents</value>
+  </data>
+  <data name="XAML_InfoLinkWebsite" xml:space="preserve">
+    <value>Site web\n</value>
+  </data>
+  <data name="XAML_InfoLinkGithub" xml:space="preserve">
+    <value>Github\n</value>
+  </data>
+  <data name="XAML_InfoLinkReadme" xml:space="preserve">
+    <value>Readme\n</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord\n</value>
+  </data>
+  <data name="XAML_InfoLinkHKMM" xml:space="preserve">
+    <value>HK Mod\nManager</value>
+  </data>
+  <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
+    <value>Installation alternative</value>
+  </data>
+  <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
+    <value>Créer un mod\n</value>
+  </data>
+  <data name="XAML_InfoLinkTutorial" xml:space="preserve">
+    <value>Tuto\nde modding</value>
+  </data>
+  <data name="XAML_LaunchVanilla" xml:space="preserve">
+    <value>Lancer le jeu vanilla</value>
+  </data>
+  <data name="XAML_LaunchModded" xml:space="preserve">
+    <value>Lancer le jeu moddé</value>
+  </data>
+  <data name="XAML_OpeningGame" xml:space="preserve">
+    <value>Jeu en cours de lancement...</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
+    <value>Enregistrer comme version personnalisée</value>
+  </data>
+  <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
+    <value>Enregistrer la version de ce mod comme ne provenant pas de modlinks. Cela n'affecte en rien le mod, mais seulement la façon dont Lumafly le gère. Une version personnalisée épinglée ne sera jamais remplacée par Lumafly.</value>
+  </data>
+  <data name="XAML_ResetMod" xml:space="preserve">
+    <value>Réinitialiser le mod : réinstalle de force le mod et supprime ses paramètres persistants.</value>
+  </data>
+  <data name="XAML_Share" xml:space="preserve">
+    <value>Obtenir un lien pour partager ce mod. Lorsque le lien est ouvert, il ouvrira Lumafly et téléchargera le mod tout seul.</value>
+  </data>
+  <data name="XAML_OpenFolder" xml:space="preserve">
+    <value>Ouvrez le dossier dans lequel ce mod est installé</value>
+  </data>
+  <data name="XAML_ReportBug" xml:space="preserve">
+    <value>Signaler un bug ou un problème avec ce mod</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
+    <value>Ce mod a été installé manuellement et ne provient pas des modlinks officiels.</value>
+  </data>
+  <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
+    <value>Version ne provenant pas de modlinks</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
+    <value>Commande de schéma d'URL invalide</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
+    <value>{0} est une commande invalide.\nLumafly n'accepte que les commandes préfixées par scarab://</value>
+  </data>
+  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
+    <value>{0} est une commande invalide.\nIl n'a pas été trouvé dans la liste des commandes acceptées par Lumafly.</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
+    <value>Réinitialisation de l'installateur à partir de la commande</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
+    <value>L'installateur a été réinitialisé.</value>
+  </data>
+  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
+    <value>L'installateur n'a pas pu être réinitialisé. Veuillez réessayer.\n{0}</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Réinitialise tous les paramètres globaux de l'installateur des mods à partir de la commande</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
+    <value>Tous les paramètres globaux des mods ont été réinitialisés.</value>
+  </data>
+  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Tous les paramètres globaux des mods n'ont pas pu être réinitialisés. Veuillez réessayer.\n{0}</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
+    <value>Télécharger le mod à partir de la commande</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
+    <value>Commande de téléchargement de mod invalide</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
+    <value>Lumafly a téléchargé avec succès {0} depuis la commande</value>
+  </data>
+  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
+    <value>\Cependant, Lumafly n'a pas pu télécharger {0} à partir de la commande. Veuillez vérifier si la commande est correcte</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
+    <value>Supprimer le paramètre global du mod</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
+    <value>Commande de suppression globale de mod invalide</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
+    <value>Lumafly a supprimé les paramètres globaux pour {0} depuis la commande</value>
+  </data>
+  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
+    <value>Cependant\nLumafly n'a pas pu trouver les paramètres globaux pour {0}. Veuillez vérifier que le nom du mod est correct et que le mod est installé.</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
+    <value>Forcer la mise à jour de tous les mods à partir de la commande</value>
+  </data>
+  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
+    <value>Lumafly a exécuté avec succès la mise à jour de tous les mods forcée.</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
+    <value>Charger des modlinks personnalisés à partir de la commande</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
+    <value>Obtention du modlinks personnalisé \"{0}\" à partir de la commande.</value>
+  </data>
+  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Aucun modlink n'a été fourni. Veuillez réessayer</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
+    <value>Charger un baselink personnalisés à partir de la commande</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
+    <value>Obtention du baselink personnalisé \"{0}\" à partir de la commande.</value>
+  </data>
+  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
+    <value>Aucun baselink n'a été fourni. Veuillez réessayer</value>
+  </data>
+  <data name="XAML_Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+</root>

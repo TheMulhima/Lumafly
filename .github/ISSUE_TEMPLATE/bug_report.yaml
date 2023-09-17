@@ -9,10 +9,10 @@ body:
         Remember to check that your bug hasn't already been reported! 
         Note that specific mod bugs do *not* go here, and go to the appropriate mod's repository.
   - type: input
-    id: scarab-version
+    id: lumafly-version
     attributes:
-      label: Scarab Version
-      description: "The version of Scarab you're using"
+      label: Lumafly Version
+      description: "The version of Lumafly you're using"
       placeholder: "v1.14.0.0"
     validations:
       required: true

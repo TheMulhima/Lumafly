@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>Lumafly</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Lumafly</string>
+	<key>CFBundleIconFile</key>
+	<string>Lumafly</string>
+	<key>CFBundleName</key>
+	<string>Lumafly</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.Scarab.URLScheme</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>scarab</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
