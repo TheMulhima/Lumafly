@@ -1,6 +1,6 @@
 function downloadScarab(latest = false, onclicked = false)
 {
-  let linkBase = "https://github.com/TheMulhima/Scarab/releases/latest/download/";
+  let linkBase = "https://github.com/TheMulhima/Lumafly/releases/latest/download/";
 
   let files = {
     "Windows" : "Scarab.exe",
@@ -9,7 +9,7 @@ function downloadScarab(latest = false, onclicked = false)
   }
 
   if (latest) {
-    linkBase = "https://nightly.link/TheMulhima/Scarab/workflows/build/master/";
+    linkBase = "https://nightly.link/TheMulhima/Lumafly/workflows/build/master/";
     files.Windows = "Scarab-Windows.zip"
   }
 
@@ -29,8 +29,8 @@ function downloadScarab(latest = false, onclicked = false)
   }
   else {
     setTimeout(function() {
-      if (confirm("The website could not automatically detect your platform, would you like to open the releases page? You can download Scarab+ from there.")) {
-        openLink("https://github.com/TheMulhima/Scarab/releases/latest", onclicked);
+      if (confirm("The website could not automatically detect your platform, would you like to open the releases page? You can download Lumafly from there.")) {
+        openLink("https://github.com/TheMulhima/Lumafly/releases/latest", onclicked);
       }
     }, 500);
   }
@@ -62,14 +62,14 @@ window.addEventListener("load",(e) => {
   if (download !== null) {
     downloadScarab(download === "latest");
 
-    document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Scarab/releases/latest\">releases page</a>";
+    document.getElementById("download-message").innerHTML = "If nothing has be downloaded, please download it from the <a href=\"https://github.com/TheMulhima/Lumafly/releases/latest\">releases page</a>";
     document.getElementById("not-needed-on-download").remove();
-    document.getElementById("header").innerHTML = "Thank you for downloading Scarab+";
+    document.getElementById("header").innerHTML = "Thank you for downloading Lumafly";
 
     if (download === 'update') {
       document.getElementById("not-needed-on-update").remove();
 
-      fetch("https://api.github.com/repos/TheMulhima/Scarab/releases/latest")
+      fetch("https://api.github.com/repos/TheMulhima/Lumafly/releases/latest")
       .then(response => response.json())
       .then(data => {
         addDataToHTML(data.body, "Release Notes: ");

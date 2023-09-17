@@ -175,14 +175,14 @@ a:active {
 /* mobile */
 @media (max-width: 750px) {
   .hkmBanner {
-    width: 150px;
+    width: 300px;
   }
 }
 
 /* desktop */
 @media (min-width: 751px) {
   .hkmBanner {
-    width: 200px;
+    width: 400px;
   }
 }
 
