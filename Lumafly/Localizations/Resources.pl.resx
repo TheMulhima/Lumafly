@@ -181,7 +181,7 @@
     <value>Nieaktualny!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Dostępna jest nowa aktualizacja Lumaflya. Pobierz najnowszą wersję (v{0}) z nowymi funkcjami i naprawionymi błędami.</value>
+    <value>Dostępna jest nowa aktualizacja Lumafly. Pobierz najnowszą wersję (v{0}) z nowymi funkcjami i naprawionymi błędami.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
     <value>Nie udało się pobrać aktualizacji automatycznie. Lumafly teraz otworzy link do pobrania najnowszej wersji</value>
@@ -478,7 +478,7 @@
     <value>Przypnij</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Przypnij mod, aby nie był on automatycznie zamieniony przez Lumaflya</value>
+    <value>Przypnij mod, aby nie był on automatycznie zamieniony przez Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
     <value>Odepnij</value>
@@ -607,7 +607,7 @@
     <value>{0} to niepoprawne polecenie.\nLumafly akceptuje tylko polecenia poprzedzone przez scarab://</value>
   </data>
   <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} to niepoprawne polecenie.\nNie zostało ono znalezione w liście poleceń akceptowanych przez Lumaflya</value>
+    <value>{0} to niepoprawne polecenie.\nNie zostało ono znalezione w liście poleceń akceptowanych przez Lumafly</value>
   </data>
   <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
     <value>Zresetuj instalator z polecenia</value>
