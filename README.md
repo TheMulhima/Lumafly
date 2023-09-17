@@ -1,6 +1,6 @@
 # Lumafly Website
 
-[![website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=32c854&up_message=online&url=https%3A%2F%2Fthemulhima.github.io%2FScarab)](https://themulhima.github.io/Lumafly)
+[![website](https://img.shields.io/website?down_color=red&down_message=offline&up_color=32c854&up_message=online&url=https%3A%2F%2Fthemulhima.github.io%2FLumafly)](https://themulhima.github.io/Lumafly)
 
 This branch exists to deploy a github page that serves Lumafly website. It serves the following purposes
 
@@ -8,8 +8,8 @@ This branch exists to deploy a github page that serves Lumafly website. It serve
 
 - Install ruby
 - Run the command `gem install github-pages`
-- Clone the git directory such that its parent folder is also called Scarab.
-- In the parent Scarab folder run `jekyll build`
+- Clone the git directory such that its parent folder is also called Lumafly.
+- In the parent Lumafly folder run `jekyll build`
 - To run the website, run the command `jekyll serve`.
 - Open the website at <http://127.0.0.1:4000/Lumafly/>
 Note: it is done like this because in the end it will be <https://themulhima.github.io/Lumafly>. So we need to replicate that
@@ -25,4 +25,4 @@ Note: it is done like this because in the end it will be <https://themulhima.git
 | Custom Modlink Command Page | <https://themulhima.github.io/Lumafly/commands/customModLinks> | Allows the creation of shareable links that will open Lumafly and load the mod list from a custom Modlinks.
 | Force Update All Command Page | <https://themulhima.github.io/Lumafly/commands/forceUpdateAll> | Allows the creation of shareable links that will open Lumafly and cause all installed mods to forcefully reinstall and update.
 | Reset Command Page | <https://themulhima.github.io/Lumafly/commands/reset> | Allows the creation of shareable links that will open Lumafly and reset its persistent settings.
-| Redirect Page | <https://themulhima.github.io/Lumafly/commands/redirect> | Allows the creation of shareable links of any Scarab Command.
+| Redirect Page | <https://themulhima.github.io/Lumafly/commands/redirect> | Allows the creation of shareable links of any Lumafly Command.
