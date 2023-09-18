@@ -24,15 +24,15 @@ xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>Lumafly Update</title>
-        <link>https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml</link>
+        <link>https://raw.githubusercontent.com/TheMulhima/Lumafly/master/appcast.xml</link>
         <language>en</language>
         <item>
             <title>Lumafly Update v{version}</title>
             <sparkle:releaseNotesLink>
-            https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v{version}.md
+            https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/Changelogs/v{version}.md
             </sparkle:releaseNotesLink>
             <pubDate>{formatted_pubdate}</pubDate>
-            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v{version}/Scarab.AU.exe"
+            <enclosure url="https://github.com/TheMulhima/Lumafly/releases/download/v{version}/Lumafly.AU.exe"
                        sparkle:version="{version}"
                        sparkle:os="windows"
                        length="12288"

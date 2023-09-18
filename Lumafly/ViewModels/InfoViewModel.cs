@@ -145,7 +145,7 @@ public partial class InfoViewModel : ViewModelBase
 
     public async Task FetchAdditionalInfo()
     {
-        const string additionalInfoLink = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AdditionalInfo.md";
+        const string additionalInfoLink = "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/AdditionalInfo.md";
         try
         {
             AdditionalInfo = await _hc.GetStringAsync(

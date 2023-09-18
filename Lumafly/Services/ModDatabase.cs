@@ -21,7 +21,7 @@ namespace Lumafly.Services
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
         
-        private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/AssemblyLinks.json";
+        private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/AssemblyLinks.json";
         
         public static string GetModlinksUri(ISettings settings) => settings.BaseLink + "/ModLinks.xml";
 

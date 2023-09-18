@@ -92,7 +92,7 @@
                             </StackPanel>
                         </Button>
                         <Button
-                            CommandParameter="https://github.com/TheMulhima/Scarab#readme">
+                            CommandParameter="https://github.com/TheMulhima/Lumafly#readme">
                             <StackPanel>
                                 <PathIcon Data="{StaticResource book_information_regular}"/>
                                 <TextBlock Text="{ext:Localize XAML_InfoLinkReadme}"/>
@@ -106,7 +106,7 @@
                             </StackPanel>
                         </Button>
                         <Button
-                            CommandParameter="https://github.com/TheMulhima/Scarab">
+                            CommandParameter="https://github.com/TheMulhima/Lumafly">
                             <StackPanel>
                                 <PathIcon Data="{StaticResource github}"/>
                                 <TextBlock Text="{ext:Localize XAML_InfoLinkGithub}"/>

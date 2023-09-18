@@ -233,7 +233,7 @@ namespace Lumafly.Util
         }
         
         public static void AskForHelp() => Process.Start(new ProcessStartInfo("https://discord.gg/VDsg3HmWuB") { UseShellExecute = true });   
-        public static void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Scarab/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
+        public static void ReportError() => Process.Start(new ProcessStartInfo("https://github.com/TheMulhima/Lumafly/issues/new?assignees=&labels=bug&template=bug_report.yaml") { UseShellExecute = true });
 
     }
 }

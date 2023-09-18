@@ -28,7 +28,7 @@ public class AppUpdater : IAppUpdater
 
     public AppUpdater()
     {
-        _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml",
+        _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Lumafly/master/appcast.xml",
             new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
         {
             UIFactory = new UIFactory(null)
@@ -111,7 +111,7 @@ public class AppUpdater : IAppUpdater
             
             await DisplayErrors.DisplayGenericError(Resources.MWVM_UpdateDownloadError_Message, exception);
 
-            var updateLink = (await links)?.updateLink ?? "https://github.com/TheMulhima/Scarab/releases/latest";
+            var updateLink = (await links)?.updateLink ?? "https://github.com/TheMulhima/Lumafly/releases/latest";
 
             Process.Start(new ProcessStartInfo(updateLink) { UseShellExecute = true });
 
@@ -145,7 +145,7 @@ public class AppUpdater : IAppUpdater
         try
         {
             const string LatestReleaseLinkJson =
-                "https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/UpdateLinks.json";
+                "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/UpdateLinks.json";
             string? latestRelease, updateLink, changelog;
             
             var hc = new HttpClient();
