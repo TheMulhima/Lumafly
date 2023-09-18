@@ -185,7 +185,7 @@ public static class DisplayErrors
         try
         {
             string file = GetFileNameFromError(e.Message, "The media is write protected.");
-            additionalText += $"{Resources.MVVM_SystemIOException_ScarabCantAccessFile} {file}\n";
+            additionalText += $"{Resources.MVVM_SystemIOException_LumaflyCantAccessFile} {file}\n";
         }
         catch (Exception)
         {

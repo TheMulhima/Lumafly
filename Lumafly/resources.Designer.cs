@@ -312,7 +312,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to However, Scarab was unable to download {0} from command. Please check if the command is correct.
+        ///   Looks up a localized string similar to However, Lumafly was unable to download {0} from command. Please check if the command is correct.
         /// </summary>
         internal static string MVVM_DownloadModUrlScheme_Body_Failure {
             get {
@@ -321,7 +321,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab has successfully downloaded {0} from command.
+        ///   Looks up a localized string similar to Lumafly has successfully downloaded {0} from command.
         /// </summary>
         internal static string MVVM_DownloadModUrlScheme_Body_Success {
             get {
@@ -357,7 +357,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab has successfully run force updated all command.
+        ///   Looks up a localized string similar to Lumafly has successfully run force updated all command.
         /// </summary>
         internal static string MVVM_ForceUpdateUrlScheme_Body_Success {
             get {
@@ -384,7 +384,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab was unable to load modlinks from {0}. Scarab will load official modlinks instead..
+        ///   Looks up a localized string similar to Lumafly was unable to load modlinks from {0}. Lumafly will load official modlinks instead..
         /// </summary>
         internal static string MVVM_InvalidCustomModlinks_Body {
             get {
@@ -402,7 +402,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is an invalid command.\nScarab only accepts command prefixed by scarab://.
+        ///   Looks up a localized string similar to {0} is an invalid command.\nLumafly only accepts command prefixed by scarab://.
         /// </summary>
         internal static string MVVM_InvalidUrlScheme_Body_InvalidCommand {
             get {
@@ -411,7 +411,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is an invalid command.\nIt was not found in scarab&apos;s accepted command list.
+        ///   Looks up a localized string similar to {0} is an invalid command.\nIt was not found in lumafly&apos;s accepted command list.
         /// </summary>
         internal static string MVVM_InvalidUrlScheme_Body_NotFound {
             get {
@@ -429,7 +429,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to launch scarab in offline mode?.
+        ///   Looks up a localized string similar to Do you want to launch lumafly in offline mode?.
         /// </summary>
         internal static string MVVM_LaunchOfflineMode {
             get {
@@ -546,7 +546,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab was unable to load the newest mods from modlinks..
+        ///   Looks up a localized string similar to Lumafly was unable to load the newest mods from modlinks..
         /// </summary>
         internal static string MVVM_NotAbleToLoadWhatsNew {
             get {
@@ -600,7 +600,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to However, Scarab was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
+        ///   Looks up a localized string similar to However, Lumafly was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
         /// </summary>
         internal static string MVVM_RemoveModGlobalSettingUrlScheme_Failure {
             get {
@@ -627,7 +627,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab has removed global settings for {0} from command.
+        ///   Looks up a localized string similar to Lumafly has removed global settings for {0} from command.
         /// </summary>
         internal static string MVVM_RemoveModGlobalSettingUrlScheme_Success {
             get {
@@ -663,7 +663,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Try running scarab as an administrator, it may fix the issue.
+        ///   Looks up a localized string similar to Try running lumafly as an administrator, it may fix the issue.
         /// </summary>
         internal static string MVVM_RunAsAdmin {
             get {
@@ -681,7 +681,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab was unable to access the file in the mods folder.
+        ///   Looks up a localized string similar to Lumafly was unable to access the file in the mods folder.
         /// </summary>
         internal static string MVVM_SystemIOException_GeneralReason {
             get {
@@ -699,20 +699,20 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lumafly cannot access the file:.
+        /// </summary>
+        internal static string MVVM_SystemIOException_LumaflyCantAccessFile {
+            get {
+                return ResourceManager.GetString("MVVM_SystemIOException_LumaflyCantAccessFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please make sure that the mods folder is not in a write protected location.
         /// </summary>
         internal static string MVVM_SystemIOException_ProtectedLocation {
             get {
                 return ResourceManager.GetString("MVVM_SystemIOException_ProtectedLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scarab cannot access the file:.
-        /// </summary>
-        internal static string MVVM_SystemIOException_ScarabCantAccessFile {
-            get {
-                return ResourceManager.GetString("MVVM_SystemIOException_ScarabCantAccessFile", resourceCulture);
             }
         }
         
@@ -726,7 +726,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab will now use official modlinks.
+        ///   Looks up a localized string similar to Lumafly will now use official modlinks.
         /// </summary>
         internal static string MVVM_UseOfficialModlinksUrlScheme_Body {
             get {
@@ -834,7 +834,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features..
+        ///   Looks up a localized string similar to Lumafly has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features..
         /// </summary>
         internal static string MWVM_OutOfDate_Message {
             get {
@@ -861,7 +861,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab failed to download update automatically. Scarab will now open the link to get the latest version.
+        ///   Looks up a localized string similar to Lumafly failed to download update automatically. Lumafly will now open the link to get the latest version.
         /// </summary>
         internal static string MWVM_UpdateDownloadError_Message {
             get {
@@ -1068,7 +1068,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normally Scarab loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks.
+        ///   Looks up a localized string similar to Normally Lumafly loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks.
         /// </summary>
         internal static string XAML_CustomModlinksExplanation {
             get {
@@ -1203,7 +1203,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab+ is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight..
+        ///   Looks up a localized string similar to Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight..
         /// </summary>
         internal static string XAML_InfoBody {
             get {
@@ -1212,7 +1212,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scarab+.
+        ///   Looks up a localized string similar to Lumafly.
         /// </summary>
         internal static string XAML_InfoHeader {
             get {
@@ -1581,7 +1581,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pin a mod so it isn&apos;t automatically replaced by Scarab.
+        ///   Looks up a localized string similar to Pin a mod so it isn&apos;t automatically replaced by Lumafly.
         /// </summary>
         internal static string XAML_PinMod_Explanation {
             get {
@@ -1599,11 +1599,20 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record this mod&apos;s version as not from modlinks. Doesn&apos;t affect the mod in any way only affects how scarab handles it. A pinned custom version mod will never be replaced by scarab.
+        ///   Looks up a localized string similar to Record this mod&apos;s version as not from modlinks. Doesn&apos;t affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly.
         /// </summary>
         internal static string XAML_RegisterNotInModlinks_Explanation {
             get {
                 return ResourceManager.GetString("XAML_RegisterNotInModlinks_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload Lumafly.
+        /// </summary>
+        internal static string XAML_ReloadLumafly {
+            get {
+                return ResourceManager.GetString("XAML_ReloadLumafly", resourceCulture);
             }
         }
         
@@ -1613,15 +1622,6 @@ namespace Lumafly {
         internal static string XAML_ReloadPrompt {
             get {
                 return ResourceManager.GetString("XAML_ReloadPrompt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reload Scarab.
-        /// </summary>
-        internal static string XAML_ReloadScarab {
-            get {
-                return ResourceManager.GetString("XAML_ReloadScarab", resourceCulture);
             }
         }
         
@@ -1689,7 +1689,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Options.
+        ///   Looks up a localized string similar to Advanced Search.
         /// </summary>
         internal static string XAML_Search_Options {
             get {

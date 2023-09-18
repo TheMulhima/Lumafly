@@ -313,7 +313,7 @@
     <value>Authors:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Search Options</value>
+    <value>Advanced Search</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
     <value>Search Type</value>

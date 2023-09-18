@@ -9,8 +9,7 @@
     <Application.Styles>
         <FluentTheme DensityStyle="Compact">
             <FluentTheme.Palettes>
-                <ColorPaletteResources x:Key="Light" Accent="Teal" RegionColor="White"/>
-                <ColorPaletteResources x:Key="Dark" Accent="Teal" RegionColor="#091023"  />
+                <ColorPaletteResources x:Key="Dark" Accent="#88B6F1" RegionColor="#101727" />
             </FluentTheme.Palettes>
         </FluentTheme>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
@@ -22,7 +21,8 @@
     <Application.RequestedThemeVariant>Dark</Application.RequestedThemeVariant>
     
     <Application.Resources>
-        <SolidColorBrush x:Key="HighlightBlue">Teal</SolidColorBrush>
+        <SolidColorBrush x:Key="HighlightBlue">#88B6F1</SolidColorBrush>
+        <SolidColorBrush x:Key="BackgroundColor">#101727</SolidColorBrush>
         <SolidColorBrush x:Key="HighlightRed">#4D2323</SolidColorBrush>
         <SolidColorBrush x:Key="DefaultButtonColor">#505050</SolidColorBrush>
         <SolidColorBrush x:Key="TextColor">#dedede</SolidColorBrush>
