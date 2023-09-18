@@ -54,8 +54,8 @@ namespace Lumafly.Views.Pages
             ModListViewModel.OnSelectModsWithFilter += ModFilterSelected;
             
             ModListViewModel.OnModDownloaded += (action, modName) => _notify?.Show(
-                new Notification($"Mod {action}ed", 
-                    $"{modName} has been {action.ToLower()}ed successfully",
+                new Notification($"Mod {action}", 
+                    $"{modName} has been {action.ToLower()} successfully",
                     NotificationType.Success, new TimeSpan(0,0,0,2)));
 
             ModListViewModel.PaneIsClosed += () => canCloseOnPointerExit = false;

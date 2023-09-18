@@ -1064,7 +1064,7 @@ namespace Lumafly.ViewModels
             var item = itemObj as ModItem ?? throw new Exception("Tried to update an object which isn't a mod");
             await InternalModDownload(item, item.OnUpdate);
             
-            OnModDownloaded?.Invoke("Update", item.Name);
+            OnModDownloaded?.Invoke("Updated", item.Name);
         }
 
         /// <summary>
@@ -1094,7 +1094,7 @@ namespace Lumafly.ViewModels
                     }
                     else
                     {
-                        OnModDownloaded?.Invoke("Install", item.Name);
+                        OnModDownloaded?.Invoke("Installed", item.Name);
                     }
                 });
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Versioning;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Win32;
@@ -181,6 +182,16 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             // for now not show any error as its not critical
             Trace.WriteLine("Unable to setup registry for windows uri scheme" + e.Message);
+        }
+        
+        try
+        {
+            WindowsStartMenu.CreateShortcutInStartMenu("Lumafly", exePath);
+        }
+        catch (Exception e)
+        {
+            // for now not show any error as its not critical
+            Trace.WriteLine("Unable to setup start menu shortcut for windows" + e.Message);
         }
     }
     
