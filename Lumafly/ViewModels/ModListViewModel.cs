@@ -554,12 +554,11 @@ namespace Lumafly.ViewModels
                     : Resources.MLVM_ApiButtonText_EnableAPI 
             )
             : Resources.MLVM_ApiButtonText_ToggleAPI;
-
-        public bool ApiOutOfDate => _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version;
-        public bool CanUpdateAll => _items.Any(x => x.State is InstalledState { Updated: false }) && !_updating;
+        public bool CanUpdateAll => (_items.Any(x => x.State is InstalledState { Updated: false }) || 
+                                     _mods.ApiInstall is InstalledState { Version: var v } && v.Major < _db.Api.Version) 
+                                    && !_updating;
         public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
-        public bool CanDisableAll => _items.Any(x => x.State is ExistsModState { Enabled: true });
-        public bool CanEnableAll => _items.Any(x => x.State is ExistsModState {Enabled: false});
+        public bool CanToggleAll => _items.Any(x => x.State is ExistsModState);
 
         public static async Task ToggleApiCommand(IModSource _mods, IInstaller _installer)
         {
@@ -631,7 +630,7 @@ namespace Lumafly.ViewModels
         {
             await ToggleApiCommand(_mods, _installer);
             RaisePropertyChanged(nameof(ApiButtonText));
-            RaisePropertyChanged(nameof(ApiOutOfDate));
+            RaisePropertyChanged(nameof(CanUpdateAll));
         }
 
         public void OpenModsDirectory()
@@ -745,6 +744,8 @@ namespace Lumafly.ViewModels
                 
                 await OnUpdate(mod);
             }
+
+            await UpdateApiAsync();
         }
 
         public async Task UninstallAll()
@@ -765,6 +766,14 @@ namespace Lumafly.ViewModels
                 });
         }
 
+        public async Task ToggleAll()
+        {
+            if (_items.Any(x => x.EnabledIsChecked))
+                await DisableAllInstalled();
+            else 
+                await EnableAllInstalled();
+        }
+
         public async Task DisableAllInstalled()
         {
             var toDisable = _items.Where(x => x.State is ExistsModState { Enabled:true, Pinned: false }).ToList();
@@ -778,8 +787,7 @@ namespace Lumafly.ViewModels
                     await OnEnable(mod, false);
             }
 
-            RaisePropertyChanged(nameof(CanDisableAll));
-            RaisePropertyChanged(nameof(CanEnableAll));
+            RaisePropertyChanged(nameof(CanToggleAll));
             await Task.Delay(100); // sometimes installed buttons lose icons idk why
             FixupModList();
         }
@@ -898,8 +906,7 @@ namespace Lumafly.ViewModels
             
             // to reset the visuals of the toggle to the correct value
             item.CallOnPropertyChanged(nameof(item.EnabledIsChecked));
-            RaisePropertyChanged(nameof(CanDisableAll));
-            RaisePropertyChanged(nameof(CanEnableAll));
+            RaisePropertyChanged(nameof(CanToggleAll));
             SelectMods();
         }
 
@@ -918,7 +925,7 @@ namespace Lumafly.ViewModels
                 await DisplayErrors.DisplayGenericError("updating", name: "the API", e);
             }
 
-            RaisePropertyChanged(nameof(ApiOutOfDate));
+            RaisePropertyChanged(nameof(CanUpdateAll));
             RaisePropertyChanged(nameof(ApiButtonText));
         }
 
@@ -1027,8 +1034,7 @@ namespace Lumafly.ViewModels
             Sort();
 
             RaisePropertyChanged(nameof(CanUninstallAll));
-            RaisePropertyChanged(nameof(CanDisableAll));
-            RaisePropertyChanged(nameof(CanEnableAll));
+            RaisePropertyChanged(nameof(CanToggleAll));
 
             SelectMods();
 

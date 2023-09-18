@@ -1806,6 +1806,24 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle All.
+        /// </summary>
+        internal static string XAML_Toggle_All {
+            get {
+                return ResourceManager.GetString("XAML_Toggle_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable all mods if any are enabled, Enable all mods if all are disabled.
+        /// </summary>
+        internal static string XAML_Toggle_All_Tooltip {
+            get {
+                return ResourceManager.GetString("XAML_Toggle_All_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall All.
         /// </summary>
         internal static string XAML_Uninstall_All {

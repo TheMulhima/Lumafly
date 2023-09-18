@@ -729,4 +729,10 @@
   <data name="XAML_Search_Integrations" xml:space="preserve">
     <value>Search by Integrations</value>
   </data>
+  <data name="XAML_Toggle_All" xml:space="preserve">
+    <value>Toggle All</value>
+  </data>
+  <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
+    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
+  </data>
 </root>

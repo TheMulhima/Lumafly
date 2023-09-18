@@ -61,25 +61,17 @@
                     <Button
                         Command="{Binding UninstallAll}"
                         IsEnabled="{Binding CanUninstallAll}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Uninstall_All}">
+                        <StackPanel>
                             <PathIcon Data="{StaticResource delete_regular}" />
                             <TextBlock Text="{ext:Localize XAML_Uninstall_All}" />
                         </StackPanel>
                     </Button>
                     <Button
-                        Command="{Binding DisableAllInstalled}"
-                        IsEnabled="{Binding CanDisableAll}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Disable_All_Installed}">
+                        Command="{Binding ToggleAll}"
+                        IsEnabled="{Binding CanToggleAll}">
+                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Toggle_All_Tooltip}" ToolTip.ShowDelay="0">
                             <PathIcon Data="{StaticResource toggle_right_regular}" />
-                            <TextBlock Text="{ext:Localize XAML_Disable_All_Installed}" />
-                        </StackPanel>
-                    </Button>
-                    <Button
-                        Command="{Binding EnableAllInstalled}"
-                        IsEnabled="{Binding CanEnableAll}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Enable_All_Installed}">
-                            <PathIcon Data="{StaticResource toggle_right_regular}" />
-                            <TextBlock Text="{ext:Localize XAML_Enable_All_Installed}" />
+                            <TextBlock Text="{ext:Localize XAML_Toggle_All}" />
                         </StackPanel>
                     </Button>
                     <Button
@@ -91,24 +83,16 @@
                         </StackPanel>
                     </Button>
                     <Button
-                        Command="{Binding UpdateApi}"
-                        IsEnabled="{Binding ApiOutOfDate}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_UpdateAPI}">
-                            <PathIcon Data="{StaticResource history_regular}" />
-                            <TextBlock Text="{ext:Localize XAML_UpdateAPI}" />
-                        </StackPanel>
-                    </Button>
-                    <Button
                         Command="{Binding ToggleApi}">
                         <StackPanel ToolTip.Tip="{Binding ApiButtonText}">
-                            <PathIcon Data="{StaticResource toggle_right_regular}" />
+                            <PathIcon Data="{StaticResource options_regular}" />
                             <TextBlock Text="{Binding ApiButtonText}" />
                         </StackPanel>
                     </Button>
                     <Button
                         Command="{Binding OpenSavesDirectory}">
                         <StackPanel ToolTip.Tip="{ext:Localize XAML_SavesFolder}">
-                            <PathIcon Data="{StaticResource folder_regular}" />
+                            <PathIcon Data="{StaticResource folder_zip_regular}" />
                             <TextBlock Text="{ext:Localize XAML_SavesFolder}" />
                         </StackPanel>
                     </Button>
