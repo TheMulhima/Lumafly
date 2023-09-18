@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -32,8 +33,15 @@ public static class FileUtil
     private static List<FileInfo> GetAllFilesInDirectory(DirectoryInfo directory, List<FileInfo>? files = null)
     {
         files ??= new List<FileInfo>();
-        
-        files.AddRange(directory.GetFiles());
+
+        try
+        {
+            files.AddRange(directory.GetFiles());
+        }
+        catch 
+        {
+            //ignored
+        }
         
         var subDirs = directory.GetDirectories();
         subDirs.ToList().ForEach(subDir => GetAllFilesInDirectory(subDir, files));

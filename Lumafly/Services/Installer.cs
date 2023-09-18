@@ -91,7 +91,7 @@ namespace Lumafly.Services
             {
                 try
                 {
-                    if (!_config.CacheDownloads && _fs.Directory.Exists(_config.CacheFolder)) 
+                    if (_config.LowStorageMode && _fs.Directory.Exists(_config.CacheFolder)) 
                         _fs.Directory.Delete(_config.CacheFolder, true);
                     
                     await CheckAPI();
@@ -480,7 +480,7 @@ namespace Lumafly.Services
         {
             try
             {
-                if (!_config.CacheDownloads) return;
+                if (_config.LowStorageMode) return;
 
                 FileUtil.CreateDirectory(_config.CacheFolder);
 

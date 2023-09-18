@@ -1014,15 +1014,6 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cache Downloads.
-        /// </summary>
-        internal static string XAML_CacheDownloads {
-            get {
-                return ResourceManager.GetString("XAML_CacheDownloads", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to (Uses extra {0} of storage).
         /// </summary>
         internal static string XAML_CacheDownloads_Explanation {
@@ -1361,6 +1352,15 @@ namespace Lumafly {
         internal static string XAML_LoadPack {
             get {
                 return ResourceManager.GetString("XAML_LoadPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low Storage Mode.
+        /// </summary>
+        internal static string XAML_Low_Storage_Mode {
+            get {
+                return ResourceManager.GetString("XAML_Low_Storage_Mode", resourceCulture);
             }
         }
         

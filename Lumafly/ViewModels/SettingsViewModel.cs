@@ -42,7 +42,7 @@ namespace Lumafly.ViewModels
             useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
             pathOriginalValue = _settings.ManagedFolder;
             _customModlinksUri = _settings.CustomModlinksUri;
-            cacheDownloadsOriginalValue = _settings.CacheDownloads;
+            cacheDownloadsOriginalValue = _settings.LowStorageMode;
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 SaveCustomModlinksUri;
             
@@ -111,19 +111,19 @@ namespace Lumafly.ViewModels
             }
         }
         
-        public bool CacheDownloads
+        public bool LowStorageMode
         {
-            get => _settings.CacheDownloads;
+            get => _settings.LowStorageMode;
             set
             {
-                _settings.CacheDownloads = value;
+                _settings.LowStorageMode = value;
                 _settings.Save();
-                RaisePropertyChanged(nameof(CacheDownloads));
+                RaisePropertyChanged(nameof(LowStorageMode));
                 RaisePropertyChanged(nameof(AskForReload));
             }
         }
 
-        public string CacheSpaceTaken => string.Format(Resources.XAML_CacheDownloads_Explanation, _settings.CacheSpaceTaken);
+        public string ExtraSpaceTaken => string.Format(Resources.XAML_CacheDownloads_Explanation, _settings.ExtraSpaceTaken);
         
         public string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
 
@@ -147,7 +147,7 @@ namespace Lumafly.ViewModels
 
         public bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
                                      useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
-                                     cacheDownloadsOriginalValue != _settings.CacheDownloads ||
+                                     cacheDownloadsOriginalValue != _settings.LowStorageMode ||
                                      pathOriginalValue != _settings.ManagedFolder;
 
         public string[] YesNo => new[] { "Yes", "No" };

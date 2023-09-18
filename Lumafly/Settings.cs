@@ -34,13 +34,26 @@ namespace Lumafly
         
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
-        public bool CacheDownloads { get; set; } = true;
-        public string CacheSpaceTaken
+        public bool LowStorageMode { get; set; } = false;
+        public string ExtraSpaceTaken
         {
             get
             {
-                if (!Directory.Exists(CacheFolder)) return "0 B";
-                var size = FileUtil.GetAllFilesInDirectory(CacheFolder).Sum(x => x.Length);
+                long size = 0;
+                if (Directory.Exists(CacheFolder))
+                {
+                    size += FileUtil.GetAllFilesInDirectory(CacheFolder).Sum(x => x.Length);
+                }
+
+                var managed = new DirectoryInfo(ManagedFolder);
+                foreach (var dir in managed.EnumerateDirectories())
+                {
+                    if (dir.GetFiles().Any(x => x.Name == PackManager.packInfoFileName))
+                    {
+                        size += FileUtil.GetAllFilesInDirectory(dir.FullName).Sum(x => x.Length);
+                    }
+                }
+                
                 return $"{size / 1024 / 1024} MB";
             }
         }
@@ -104,7 +117,7 @@ namespace Lumafly
             ManagedFolder = null!;
             AutoRemoveUnusedDeps = AutoRemoveUnusedDepsOptions.Never;
             PreferredLanguage = null;
-            CacheDownloads = true;
+            LowStorageMode = false;
         }
 
         public static string GetOrCreateDirPath()

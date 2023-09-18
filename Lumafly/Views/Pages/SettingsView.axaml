@@ -42,7 +42,7 @@
 			Orientation="Horizontal"
 			Margin="0 15">
 			<TextBlock 
-				Text="{ext:Localize XAML_CacheDownloads}" 
+				Text="{ext:Localize XAML_Low_Storage_Mode}" 
 				VerticalAlignment="Center"/>
 			<PathIcon
 				Data="{StaticResource info_regular}"
@@ -51,7 +51,7 @@
 				HorizontalAlignment="Left"
 				VerticalAlignment="Center"
 				Margin="7 0 5 0"
-				ToolTip.Tip="{Binding CacheSpaceTaken}" ToolTip.ShowDelay="0"/>
+				ToolTip.Tip="{Binding ExtraSpaceTaken}" ToolTip.ShowDelay="0"/>
 		</StackPanel>
 		
 		<TextBlock
@@ -128,7 +128,7 @@
 			VerticalAlignment="Center"
 			OnContent="{ext:Localize XAML_On}"
 			OffContent="{ext:Localize XAML_Off}"
-			IsChecked="{Binding CacheDownloads}"
+			IsChecked="{Binding LowStorageMode}"
 		/>
 		
 		<PathIcon

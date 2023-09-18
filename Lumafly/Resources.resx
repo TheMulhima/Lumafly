@@ -684,8 +684,8 @@
   <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
     <value>Lumafly will now use official modlinks</value>
   </data>
-  <data name="XAML_CacheDownloads" xml:space="preserve">
-    <value>Cache Downloads</value>
+  <data name="XAML_Low_Storage_Mode" xml:space="preserve">
+    <value>Low Storage Mode</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
     <value>(Uses extra {0} of storage)</value>

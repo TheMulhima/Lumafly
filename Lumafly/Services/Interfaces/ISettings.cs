@@ -11,8 +11,8 @@ namespace Lumafly.Interfaces
         string CustomModlinksUri { get; set; }
         string BaseLink { get; set; }
         SupportedLanguages? PreferredLanguage { get; set; }
-        bool CacheDownloads { get; set; }
-        string CacheSpaceTaken { get; }
+        bool LowStorageMode { get; set; }
+        string ExtraSpaceTaken { get; }
 
         string ManagedFolder { get; set; }
         string CacheFolder { get; }

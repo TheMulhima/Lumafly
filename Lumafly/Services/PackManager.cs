@@ -39,7 +39,7 @@ public class PackManager : IPackManager
     
     public SortableObservableCollection<Pack> PackList => _packList;
 
-    private const string packInfoFileName = "packMods.json";
+    internal const string packInfoFileName = "packMods.json";
 
     public PackManager(ISettings settings, IInstaller installer, IModDatabase db, IFileSystem fs, IModSource mods, IOnlineTextStorage onlineTextStorage)
     {
@@ -83,6 +83,35 @@ public class PackManager : IPackManager
                 Trace.TraceError($"Error reading pack info file {e}");
             }
         }
+
+        Task.Run(async () =>
+        {
+            if (!_settings.LowStorageMode) return;
+
+            var managed = new DirectoryInfo(_settings.ManagedFolder);
+
+            foreach (var dir in managed.EnumerateDirectories())
+            {
+                if (dir.Name == "Mods") continue;
+
+                try
+                {
+                    if (dir.GetFiles().Any(x => x.Name == packInfoFileName))
+                    {
+                        foreach (var subDir in dir.EnumerateDirectories())
+                        {
+                            subDir.Delete(true);
+                        }
+
+                        dir.EnumerateDirectories();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError($"Error creating pack info file {e}");
+                }
+            }
+        });
 
         return packs;
     }
@@ -201,8 +230,10 @@ public class PackManager : IPackManager
         var packFolder = Path.Combine(_settings.ManagedFolder, name);
 
         FileUtil.DeleteDirectory(packFolder);
+        FileUtil.CreateDirectory(packFolder);
         
-        FileUtil.CopyDirectory(_settings.ModsFolder, packFolder, excludeDir: "Disabled");
+        if (!_settings.LowStorageMode)
+            FileUtil.CopyDirectory(_settings.ModsFolder, packFolder, excludeDir: "Disabled");
 
         var packInfo = Path.Combine(packFolder, packInfoFileName);
         
