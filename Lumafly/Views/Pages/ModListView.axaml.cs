@@ -57,6 +57,8 @@ namespace Lumafly.Views.Pages
                 new Notification($"Mod {action}ed", 
                     $"{modName} has been {action.ToLower()}ed successfully",
                     NotificationType.Success, new TimeSpan(0,0,0,2)));
+
+            ModListViewModel.PaneIsClosed += () => canCloseOnPointerExit = false;
         }
 
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
@@ -179,6 +181,25 @@ namespace Lumafly.Views.Pages
                 await Task.Delay(100);
                 ModFilter_All.Background = Brushes.Transparent;
             });
+        }
+
+        private bool canCloseOnPointerExit = false;
+
+        private void OpenPane(object? sender, PointerEventArgs e)
+        {
+            if (!ModListViewModel.PaneOpen)
+            {
+                ModListViewModel.PaneOpen = true;
+                canCloseOnPointerExit = true;
+            }
+        }
+
+        private void ClosePane(object? sender, PointerEventArgs e)
+        {
+            if (ModListViewModel.PaneOpen && canCloseOnPointerExit)
+            {
+                ModListViewModel.PaneOpen = false;
+            }
         }
     }
 }

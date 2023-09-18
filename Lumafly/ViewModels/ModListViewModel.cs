@@ -76,7 +76,6 @@ namespace Lumafly.ViewModels
         [Notify]
         public string authorSearch = "";
         
-        [Notify]
         private bool _paneOpen;
         public IEnumerable<string> ModNames { get; }
         public SortableObservableCollection<SelectableItem<string>> TagList { get; }
@@ -440,8 +439,21 @@ namespace Lumafly.ViewModels
 
         public IEnumerable<string> SearchComboBoxOptions => Enum.GetNames<SearchType>().Select(GetSearchTypeLocalized);
         
-        public Geometry? PanelOpenIcon => PaneOpen ? Application.Current?.Resources["chevron_left_regular"] as Geometry : Application.Current?.Resources["chevron_right_regular"] as Geometry;
-        public void OpenPane() => PaneOpen = !PaneOpen;
+        public bool PaneOpen
+        {
+            get => _paneOpen;
+            set
+            {
+                if (value != _paneOpen)
+                {
+                    _paneOpen = value;
+                    RaisePropertyChanged(nameof(PaneOpen));
+                }
+                
+                if (!_paneOpen)
+                    PaneIsClosed?.Invoke();
+            }
+        }
         
         public IEnumerable<SelectableItem<string>> FilteredAuthorList => AuthorList
             .Where(a => string.IsNullOrEmpty(AuthorSearch) || a.Item.Contains(AuthorSearch, StringComparison.OrdinalIgnoreCase));
@@ -649,6 +661,7 @@ namespace Lumafly.ViewModels
         }
 
         public event Action? OnSelectModsWithFilter;
+        public event Action? PaneIsClosed;
         public event Action<string, string>? OnModDownloaded;
         
         public void SelectModsWithFilter(ModFilterState modFilterState)

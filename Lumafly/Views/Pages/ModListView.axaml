@@ -23,50 +23,41 @@
         DisplayMode="CompactOverlay"
         OpenPaneLength="200"
         CompactPaneLength="35"
-        IsPaneOpen="{Binding PaneOpen}"
+        PaneBackground="{DynamicResource RegionColor}"
+        Background="{DynamicResource RegionColor}"
+        IsPaneOpen="{Binding PaneOpen, Mode=TwoWay}"
         PanePlacement="Left">
         <!-- Sidebar -->
         <SplitView.Pane>
             <Border
+                PointerEntered="OpenPane"
+                PointerExited="ClosePane"
+                Background="{DynamicResource BackgroundColor}"
                 BorderBrush="#a9a9a9"
                 BorderThickness="0 1 0 0">
-                <Grid
-                RowDefinitions="* Auto">
-                <Grid.Styles>
-                    <Style Selector="Button">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                        <Setter Property="ToolTip.ShowDelay" Value="0" />
-                        <Setter Property="Margin" Value=" 0 5 0 0" />
-                    </Style>
-                    <Style Selector="PathIcon">
-                        <Setter Property="Height" Value="20" />
-                        <Setter Property="Width" Value="20" />
-                        <Setter Property="Margin" Value="2 0 20 0" />
-                    </Style>
-                    <Style Selector="StackPanel">
-                        <Setter Property="Orientation" Value="Horizontal" />
-                    </Style>
-                </Grid.Styles>
-                
-                <Button 
-                    Grid.Row="0"
-                    Command="{Binding OpenPane}"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Right">
-                    <PathIcon
-                        Margin="10 0 10 0 "
-                        Data="{Binding PanelOpenIcon}" />
-                </Button>
-                
                 <StackPanel
-                    Grid.Row="1"
                     Margin="2 0 0 4"
                     HorizontalAlignment="Stretch"
                     Orientation="Vertical"
                     VerticalAlignment="Bottom">
+                    <StackPanel.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="ToolTip.ShowDelay" Value="0" />
+                            <Setter Property="Margin" Value=" 0 5 0 0" />
+                        </Style>
+                        <Style Selector="PathIcon">
+                            <Setter Property="Height" Value="20" />
+                            <Setter Property="Width" Value="20" />
+                            <Setter Property="Margin" Value="2 0 20 0" />
+                        </Style>
+                        <Style Selector="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                        </Style>
+                    </StackPanel.Styles>
                     <Button
                         Command="{Binding UninstallAll}"
                         IsEnabled="{Binding CanUninstallAll}">
@@ -136,7 +127,6 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-            </Grid>
             </Border>
         </SplitView.Pane>
     <DockPanel>
@@ -321,7 +311,7 @@
                         Padding="6 0 0 0"
                         Margin="0 0 5 0"
                         Header="{ext:Localize XAML_Search_Options}"
-                        Background="{DynamicResource DefaultButtonColor}"
+                        Background="{DynamicResource RegionColor}"
                         OnHoverColor="{DynamicResource DefaultButtonColor}"
                         Grid.Column="2">
 
@@ -405,10 +395,10 @@
                 </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*" MaxWidth="260" />
-                  <ColumnDefinition Width="3*" MaxWidth="620" />
+                  <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
-                <Expander Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+                <Expander Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Background="{DynamicResource RegionColor}">
                   <Expander.Header>
                     <Grid>
                       <Grid.ColumnDefinitions>
