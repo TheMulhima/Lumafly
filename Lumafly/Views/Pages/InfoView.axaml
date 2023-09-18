@@ -15,179 +15,179 @@
             x:DataType="viewModels:InfoViewModel">
     <ScrollViewer>
         <StackPanel>
-            <TextBlock
-                Text="{ext:Localize XAML_InfoHeader}"
-                FontSize="26"
-                FontWeight="Heavy"
+            <StackPanel>
+                <TextBox
+                    IsVisible="{Binding !AdditionalInfoVisible}"
+                    BorderThickness="0"
+                    IsReadOnly="True"
+                    Text="{ext:Localize XAML_InfoBody}"
+                    FontSize="16"
+                    TextWrapping="Wrap"
+                    HorizontalAlignment="Center"
+                    Margin="20 0 20 40" />
+
+                <md:MarkdownScrollViewer
+                    IsVisible="{Binding AdditionalInfoVisible}"
+                    Markdown="{Binding AdditionalInfo}"
+                    HorizontalAlignment="Center"
+                    Margin="25 0 20 0">
+                    <md:MarkdownScrollViewer.Styles>
+                        <Style Selector="ctxt|CTextBlock">
+                            <Setter Property="FontSize" Value="16" />
+                        </Style>
+                    </md:MarkdownScrollViewer.Styles>
+                </md:MarkdownScrollViewer>
+            </StackPanel>
+            <Image
+                MaxHeight="360"
                 HorizontalAlignment="Center"
-                Margin="0 10 0 20"/>
-            
-            <TextBox
-                IsVisible="{Binding !AdditionalInfoVisible}"
-                BorderThickness="0"
-                IsReadOnly="True"
-                Text="{ext:Localize XAML_InfoBody}"
-                FontSize="16"
-                TextWrapping="Wrap"
-                HorizontalAlignment="Center"
-                Margin="20 0 20 40"/>
-            
-            <md:MarkdownScrollViewer
-                IsVisible="{Binding AdditionalInfoVisible}"
-                Markdown="{Binding AdditionalInfo}"
-                HorizontalAlignment="Center"
-                Margin="25 0 20 40">
-                <md:MarkdownScrollViewer.Styles>
-                    <Style Selector="ctxt|CTextBlock">
-                        <Setter Property="FontSize" Value="16"/>
-                    </Style>
-                </md:MarkdownScrollViewer.Styles>
-            </md:MarkdownScrollViewer>
-            
+                VerticalAlignment="Top"
+                Opacity="0.75"
+                Source="../../Assets/banner.png" />
+
             <StackPanel
-                Margin="60 0"
-                MaxWidth="755"
-                Background="#353535">
+                VerticalAlignment="Bottom">
+                <Grid
+                    RowDefinitions="Auto"
+                    ColumnDefinitions="* Auto * Auto *">
+                    <Button
+                        Grid.Column="1"
+                        IsEnabled="{Binding !IsLaunchingGame}"
+                        Command="{Binding LaunchGame}"
+                        CommandParameter="true">
+                        <StackPanel Orientation="Horizontal">
+                            <PathIcon
+                                Width="20"
+                                Height="20"
+                                Data="{StaticResource play_regular}" />
+                            <TextBlock
+                                Text="{ext:Localize XAML_LaunchVanilla}"
+                                Margin="10 0 0 0"
+                                FontSize="16"
+                                TextAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        Grid.Column="3"
+                        IsEnabled="{Binding !IsLaunchingGame}"
+                        Command="{Binding LaunchGame}"
+                        CommandParameter="false">
+                        <StackPanel Orientation="Horizontal">
+                            <PathIcon
+                                Width="20"
+                                Height="20"
+                                Data="{StaticResource play_regular}" />
+                            <TextBlock
+                                Text="{ext:Localize XAML_LaunchModded}"
+                                Margin="10 0 0 0"
+                                FontSize="16"
+                                TextAlignment="Left"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <progRing:ProgressRing
+                    IsVisible="{Binding IsLaunchingGame}"
+                    Width="20"
+                    Height="20"
+                    IsActive="True"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="Ivory"
+                    Margin="10,5" />
+                <TextBlock
+                    IsVisible="{Binding IsLaunchingGame}"
+                    Text="{ext:Localize XAML_OpeningGame}"
+                    TextAlignment="Center" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="60 40"
+                MaxWidth="755">
                 <TextBlock
                     Text="{ext:Localize XAML_InfoLinksHeader}"
                     FontSize="20"
                     FontWeight="Heavy"
                     HorizontalAlignment="Center"
-                    Margin="0 0 0 10"/>
+                    Margin="0 0 0 10" />
                 <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <StackPanel 
+                    <StackPanel
                         Margin="20 0"
                         Orientation="Horizontal">
                         <StackPanel.Styles>
                             <Style Selector="Image, PathIcon, Svg">
-                                <Setter Property="Height" Value="50"/>
-                                <Setter Property="Width" Value="50"/>
-                                <Setter Property="Margin" Value="10"/>
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="Height" Value="50" />
+                                <Setter Property="Width" Value="50" />
+                                <Setter Property="Margin" Value="10" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
                             <Style Selector="Button">
-                                <Setter Property="MaxWidth" Value="200"/>
-                                <Setter Property="Margin" Value="10"/>
-                                <Setter Property="Command" Value="{Binding OpenLink}"/>
+                                <Setter Property="MaxWidth" Value="200" />
+                                <Setter Property="Margin" Value="10" />
+                                <Setter Property="Command" Value="{Binding OpenLink}" />
                             </Style>
                             <Style Selector="TextBlock">
-                                <Setter Property="Margin" Value="0 5 0 0"/>
-                                <Setter Property="FontSize" Value="14"/>
-                                <Setter Property="TextAlignment" Value="Center"/>
-                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="Margin" Value="0 5 0 0" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="TextAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
                             </Style>
                         </StackPanel.Styles>
                         <Button
                             CommandParameter="https://themulhima.github.io/Scarab">
                             <StackPanel>
-                                <Image Source="../../Assets/Lumafly.png"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkWebsite}"/>
+                                <Image Source="../../Assets/Lumafly.png" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkWebsite}" />
                             </StackPanel>
                         </Button>
                         <Button
                             CommandParameter="https://www.youtube.com/watch?v=z35cFvU0McQ">
                             <StackPanel>
-                                <Image Source="../../Assets/youtube.png"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkTutorial}"/>
+                                <Image Source="../../Assets/youtube.png" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkTutorial}" />
                             </StackPanel>
                         </Button>
                         <Button
                             CommandParameter="https://github.com/TheMulhima/Lumafly#readme">
                             <StackPanel>
-                                <PathIcon Data="{StaticResource book_information_regular}"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkReadme}"/>
+                                <PathIcon Data="{StaticResource book_information_regular}" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkReadme}" />
                             </StackPanel>
                         </Button>
                         <Button
                             CommandParameter="https://discord.gg/VDsg3HmWuB">
                             <StackPanel>
-                                <PathIcon Data="{StaticResource discord}"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkDiscord}"/>
+                                <PathIcon Data="{StaticResource discord}" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkDiscord}" />
                             </StackPanel>
                         </Button>
                         <Button
                             CommandParameter="https://github.com/TheMulhima/Lumafly">
                             <StackPanel>
-                                <PathIcon Data="{StaticResource github}"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkGithub}"/>
+                                <PathIcon Data="{StaticResource github}" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkGithub}" />
                             </StackPanel>
                         </Button>
                         <Button
                             ToolTip.Tip="{ext:Localize XAML_InfoLinkHKMMToolTip}" ToolTip.ShowDelay="0"
                             CommandParameter="https://github.com/HKLab/HKModManager">
                             <StackPanel>
-                                <Svg Path="../../Assets/HKMM.svg"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkHKMM}"/>
+                                <Svg Path="../../Assets/HKMM.svg" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkHKMM}" />
                             </StackPanel>
                         </Button>
                         <Button
                             CommandParameter="https://prashantmohta.github.io/ModdingDocs">
                             <StackPanel>
-                                <PathIcon Data="{StaticResource wrench_regular}"/>
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkModdingDocs}"/>
+                                <PathIcon Data="{StaticResource wrench_regular}" />
+                                <TextBlock Text="{ext:Localize XAML_InfoLinkModdingDocs}" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>
-            
-            <Grid
-                Margin="0 40 0 0"
-                RowDefinitions="Auto"
-                ColumnDefinitions="* Auto * Auto *">
-                <Button 
-                    Grid.Column="1"
-                    IsEnabled="{Binding !IsLaunchingGame}"
-                    Command="{Binding LaunchGame}"
-                    CommandParameter="true">
-                    <StackPanel Orientation="Horizontal">
-                        <PathIcon
-                            Width="20"
-                            Height="20"
-                            Data="{StaticResource play_regular}"/>
-                        <TextBlock 
-                            Text="{ext:Localize XAML_LaunchVanilla}"
-                            Margin="10 0 0 0"
-                            FontSize="16"
-                            TextAlignment="Left"
-                            VerticalAlignment="Center"
-                            />
-                    </StackPanel>
-                </Button>
-                <Button 
-                    Grid.Column="3"
-                    IsEnabled="{Binding !IsLaunchingGame}"
-                    Command="{Binding LaunchGame}"
-                    CommandParameter="false">
-                    <StackPanel Orientation="Horizontal">
-                        <PathIcon
-                            Width="20"
-                            Height="20"
-                            Data="{StaticResource play_regular}"/>
-                        <TextBlock 
-                            Text="{ext:Localize XAML_LaunchModded}"
-                            Margin="10 0 0 0"
-                            FontSize="16"
-                            TextAlignment="Left"
-                            VerticalAlignment="Center"
-                            />
-                    </StackPanel>
-                </Button>
-            </Grid>
-            <progRing:ProgressRing
-                IsVisible="{Binding IsLaunchingGame}"
-                Width="20"
-                Height="20"
-                IsActive="True"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="Ivory"
-                Margin="10,5"/>
-            <TextBlock
-                IsVisible="{Binding IsLaunchingGame}"
-                Text="{ext:Localize XAML_OpeningGame}"
-                TextAlignment="Center"/>
-            <Panel Height="20"/> <!-- Bottom Spacer -->
+            <Panel Height="20" /> <!-- Bottom Spacer -->
         </StackPanel>
     </ScrollViewer>
 </views:View>
