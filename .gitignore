@@ -1,4 +1,10 @@
 .idea/*
 Lumafly/*
-Scarab.Tests/*
+Lumafly.Tests/*
 .vscode/settings.json
+out/*
+.vs/*
+Lumafly.AU/*
+Lumafly.sln*
+_site/*
+.hintrc

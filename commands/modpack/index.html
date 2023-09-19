@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/Lumafly/css/style.css">    
+      <link rel="stylesheet" href="/Lumafly/css/downloadCommandStyle.css">    
+      <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+      <link href="/Lumafly/assets/lumafly.png" rel="icon">
+
+      <script type="text/javascript" src="/Lumafly/scripts/helper.js"></script>
+      <script type="text/javascript" src="/Lumafly/scripts/navbar.js"></script>
+      <script type="text/javascript" src="/Lumafly/scripts/modpack.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/xml-js@1.6.11/dist/xml-js.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+      <!-- for discord embeds-->
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Lumafly" />
+      <meta property="og:description" content="Command to share modspacks of Lumafly" />
+      <meta property="og:url" content="https://themulhima.github.io/Lumafly" />
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="https://github.com/TheMulhima/themulhima.github.io/blob/main/Lumafly/assets/banner.png?raw=true" />
+      <meta charset="utf-8">
+      
+      <title>Lumafly Commands: Modpack</title>
+    </head>
+    <body>
+      <!--using html in scripts instead of raw html to avoid copy pasting same html can find code in scripts/navbar.js-->
+      <script type="text/javascript">addHKMBanner();</script>
+      <script type="text/javascript">addNavBar();</script>
+
+      <div id="pack-provided">
+        <h1 class="center centertext">
+          This will open Lumafly and load the following pack: 
+        </h1>
+        <p class="center centertext">
+          For this to work you will need to download Lumafly from <a href="/Lumafly/?download">download page</a> and set it up
+        </p>
+      </div>
+      <div id="no-pack-provided">
+        <h3 class="center centertext">Enter the 8 character code to share your pack.</h3>
+        <h4 class="center centertext">If you don't have it, open <a href="scarab://">Lumafly</a> and press on share icon to generate the code</h3>
+
+        <div class="centerItemContainer" style="margin-bottom: 10px;" >
+            <input style="height:3vw; width: 30vw;" class="fit-width" type="text" id="pack-code" placeholder="Enter Pack Code">
+        </div>
+
+        <div style="margin-top: 10px;">
+          <img id="copied" class="center copiedBadge notDisplayed" alt="copied" src="https://img.shields.io/static/v1?style=for-the-badge&message=Link%20Copied&color=fed428&logo=adguard&logoColor=333333&label="/>
+        </div>
+        
+        <div class="centerItemContainer" style="margin-bottom: 30px;">
+          <button id="copy-link" onclick="copyLink()" type="button" class="center standardButton whiteGlowButton">Copy Shareable Link</button>
+        </div>
+        </div>
+      </div>
+    </body>
+</html>

@@ -11,12 +11,9 @@ window.addEventListener("load",(e) => {
     window.location.href = '/Lumafly/commands/reset';
   }
   
-  document.getElementById('customModLinks').onclick = function () {
-    var link = prompt('Enter the url to the ModLinks.xml file');
-    if (link !== null)
-    {
-      window.location.href = "/Lumafly/commands/customModLinks?link=" + link;
-    }
+  document.getElementById('modpack').onclick = function () {
+    window.location.href = "/Lumafly/commands/modpack";
+    
   }
   document.getElementById('redirect').onclick = function () {
     var link = prompt('Enter the command', "scarab://");
