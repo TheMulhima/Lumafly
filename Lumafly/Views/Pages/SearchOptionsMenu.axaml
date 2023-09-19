@@ -73,7 +73,7 @@
             <ScrollViewer Height="300">
                 <StackPanel>
                     <TextBox
-                        Watermark="Search Author"
+                        Watermark="{ext:Localize XAML_SearchAuthor}"
                         BorderThickness="0"
                         Margin="3 2"
                         Text="{Binding AuthorSearch}"/>

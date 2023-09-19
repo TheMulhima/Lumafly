@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Lumafly.ViewModels"
+        xmlns:ext="clr-namespace:Lumafly.Extensions"
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="135"
         x:Class="Lumafly.Views.Windows.ImportPackPopup"
         x:DataType="viewModels:ImportPackPopupViewModel"
@@ -24,7 +25,7 @@
             Margin="20 20 10 0"
             TextAlignment="Center"
             VerticalAlignment="Center"
-            Text="Enter Sharing Code:"
+            Text="{ext:Localize EnterSharingCode}"
             />
         <TextBox
             Margin="0 20 10 0"
@@ -44,13 +45,13 @@
         <Button
             Margin="10 20"
             Padding="10"
-            Content="Cancel"
+            Content="{ext:Localize Cancel}"
             Click="Cancel"
             />
         <Button
             Margin="10 20"
             Padding="10"
-            Content="Confirm"
+            Content="{ext:Localize Confirm}"
             IsEnabled="{Binding ValidSharingCode}"
             Click="Confirm"
             />

@@ -84,7 +84,7 @@ public class PackManager : IPackManager
             }
         }
 
-        Task.Run(async () =>
+        Task.Run(() =>
         {
             if (!_settings.LowStorageMode) return;
 

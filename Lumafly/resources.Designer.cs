@@ -69,20 +69,101 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uninstall.
+        ///   Looks up a localized string similar to Available Mods.
         /// </summary>
-        internal static string MI_InstallText_Installed {
+        internal static string AvailableMods {
             get {
-                return ResourceManager.GetString("MI_InstallText_Installed", resourceCulture);
+                return ResourceManager.GetString("AvailableMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DisableMod.
+        /// </summary>
+        internal static string DisableMod {
+            get {
+                return ResourceManager.GetString("DisableMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Details.
+        /// </summary>
+        internal static string EditDetails {
+            get {
+                return ResourceManager.GetString("EditDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Mods.
+        /// </summary>
+        internal static string EditMods {
+            get {
+                return ResourceManager.GetString("EditMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Pack.
+        /// </summary>
+        internal static string EditPack {
+            get {
+                return ResourceManager.GetString("EditPack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Mod.
+        /// </summary>
+        internal static string EnableMod {
+            get {
+                return ResourceManager.GetString("EnableMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Sharing Code:.
+        /// </summary>
+        internal static string EnterSharingCode {
+            get {
+                return ResourceManager.GetString("EnterSharingCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t use latest modlinks version. Instead use current version.
+        /// </summary>
+        internal static string FixedVersion_Tooltip {
+            get {
+                return ResourceManager.GetString("FixedVersion_Tooltip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uninstall.
         /// </summary>
-        internal static string MI_InstallText_NotInModlinks {
+        internal static string MI_InstallText_Installed {
             get {
-                return ResourceManager.GetString("MI_InstallText_NotInModlinks", resourceCulture);
+                return ResourceManager.GetString("MI_InstallText_Installed", resourceCulture);
             }
         }
         
@@ -119,24 +200,6 @@ namespace Lumafly {
         internal static string MLVM_ApiButtonText_ToggleAPI {
             get {
                 return ResourceManager.GetString("MLVM_ApiButtonText_ToggleAPI", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Re-open the installer to use your new path..
-        /// </summary>
-        internal static string MLVM_ChangePathAsync_Msgbox_Text {
-            get {
-                return ResourceManager.GetString("MLVM_ChangePathAsync_Msgbox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Path Changed!.
-        /// </summary>
-        internal static string MLVM_ChangePathAsync_Msgbox_Title {
-            get {
-                return ResourceManager.GetString("MLVM_ChangePathAsync_Msgbox_Title", resourceCulture);
             }
         }
         
@@ -258,6 +321,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use latest modlinks version.
+        /// </summary>
+        internal static string ModlinksVersion_Tooltip {
+            get {
+                return ResourceManager.GetString("ModlinksVersion_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning! Are you sure you want to do this?.
         /// </summary>
         internal static string MVVM_AreYouSure {
@@ -312,65 +384,11 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to However, Lumafly was unable to download {0} from command. Please check if the command is correct.
-        /// </summary>
-        internal static string MVVM_DownloadModUrlScheme_Body_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Body_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lumafly has successfully downloaded {0} from command.
-        /// </summary>
-        internal static string MVVM_DownloadModUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Download mod from command.
-        /// </summary>
-        internal static string MVVM_DownloadModUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid download mod command.
-        /// </summary>
-        internal static string MVVM_DownloadModUrlScheme_Invalid {
-            get {
-                return ResourceManager.GetString("MVVM_DownloadModUrlScheme_Invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An exception occured while {0} {1}.
         /// </summary>
         internal static string MVVM_ExceptionOccur {
             get {
                 return ResourceManager.GetString("MVVM_ExceptionOccur", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lumafly has successfully run force updated all command.
-        /// </summary>
-        internal static string MVVM_ForceUpdateUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_ForceUpdateUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Force update all from command.
-        /// </summary>
-        internal static string MVVM_ForceUpdateUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_ForceUpdateUrlScheme_Header", resourceCulture);
             }
         }
         
@@ -384,110 +402,11 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lumafly was unable to load modlinks from {0}. Lumafly will load official modlinks instead..
-        /// </summary>
-        internal static string MVVM_InvalidCustomModlinks_Body {
-            get {
-                return ResourceManager.GetString("MVVM_InvalidCustomModlinks_Body", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid Custom Modlinks.
-        /// </summary>
-        internal static string MVVM_InvalidCustomModlinks_Header {
-            get {
-                return ResourceManager.GetString("MVVM_InvalidCustomModlinks_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} is an invalid command.\nLumafly only accepts command prefixed by scarab://.
-        /// </summary>
-        internal static string MVVM_InvalidUrlScheme_Body_InvalidCommand {
-            get {
-                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Body_InvalidCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} is an invalid command.\nIt was not found in lumafly&apos;s accepted command list.
-        /// </summary>
-        internal static string MVVM_InvalidUrlScheme_Body_NotFound {
-            get {
-                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Body_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid URL Scheme Command.
-        /// </summary>
-        internal static string MVVM_InvalidUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_InvalidUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Do you want to launch lumafly in offline mode?.
         /// </summary>
         internal static string MVVM_LaunchOfflineMode {
             get {
                 return ResourceManager.GetString("MVVM_LaunchOfflineMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No baselink were provided. Please try again.
-        /// </summary>
-        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Got the new base link &apos;{0}&apos; from command..
-        /// </summary>
-        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load new baselink from command.
-        /// </summary>
-        internal static string MVVM_LoadCustomBaseLinkUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomBaseLinkUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No modlinks were provided. Please try again.
-        /// </summary>
-        internal static string MVVM_LoadCustomModlinksUrlScheme_Body_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Body_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Got the custom modlinks \&quot;{0}\&quot; from command..
-        /// </summary>
-        internal static string MVVM_LoadCustomModlinksUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load custom modlinks from command.
-        /// </summary>
-        internal static string MVVM_LoadCustomModlinksUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_LoadCustomModlinksUrlScheme_Header", resourceCulture);
             }
         }
         
@@ -573,96 +492,6 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All mods global settings could not be reset. Please try again.\n{0}.
-        /// </summary>
-        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All mods global settings have been reset..
-        /// </summary>
-        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset all mod global settings installer from command.
-        /// </summary>
-        internal static string MVVM_RemoveAllGlobalSettingUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveAllGlobalSettingUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to However, Lumafly was unable to find the global settings for {0}. Please check if the mod name is correct and the mod is installed.
-        /// </summary>
-        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove mod global setting.
-        /// </summary>
-        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid remove mod global command.
-        /// </summary>
-        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Invalid {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lumafly has removed global settings for {0} from command.
-        /// </summary>
-        internal static string MVVM_RemoveModGlobalSettingUrlScheme_Success {
-            get {
-                return ResourceManager.GetString("MVVM_RemoveModGlobalSettingUrlScheme_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The installer could not be reset. Please try again.\n{0}.
-        /// </summary>
-        internal static string MVVM_ResetUrlScheme_Body_Failure {
-            get {
-                return ResourceManager.GetString("MVVM_ResetUrlScheme_Body_Failure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The installer has been reset..
-        /// </summary>
-        internal static string MVVM_ResetUrlScheme_Body_Success {
-            get {
-                return ResourceManager.GetString("MVVM_ResetUrlScheme_Body_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset installer from command.
-        /// </summary>
-        internal static string MVVM_ResetUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_ResetUrlScheme_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Try running lumafly as an administrator, it may fix the issue.
         /// </summary>
         internal static string MVVM_RunAsAdmin {
@@ -722,24 +551,6 @@ namespace Lumafly {
         internal static string MVVM_UnableToGetModlinks {
             get {
                 return ResourceManager.GetString("MVVM_UnableToGetModlinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lumafly will now use official modlinks.
-        /// </summary>
-        internal static string MVVM_UseOfficialModlinksUrlScheme_Body {
-            get {
-                return ResourceManager.GetString("MVVM_UseOfficialModlinksUrlScheme_Body", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use official modlinks url command.
-        /// </summary>
-        internal static string MVVM_UseOfficialModlinksUrlScheme_Header {
-            get {
-                return ResourceManager.GetString("MVVM_UseOfficialModlinksUrlScheme_Header", resourceCulture);
             }
         }
         
@@ -879,6 +690,42 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pack Description.
+        /// </summary>
+        internal static string PackDescription {
+            get {
+                return ResourceManager.GetString("PackDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pack Details.
+        /// </summary>
+        internal static string PackDetails {
+            get {
+                return ResourceManager.GetString("PackDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit the details of your pack here..
+        /// </summary>
+        internal static string PackDetails_Explanation {
+            get {
+                return ResourceManager.GetString("PackDetails_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pack Name.
+        /// </summary>
+        internal static string PackName {
+            get {
+                return ResourceManager.GetString("PackName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Managed folder or Assembly-CSharp!.
         /// </summary>
         internal static string PU_InvalidApp {
@@ -974,6 +821,33 @@ namespace Lumafly {
         internal static string PU_SelectPath {
             get {
                 return ResourceManager.GetString("PU_SelectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Mods.
+        /// </summary>
+        internal static string SelectedMods {
+            get {
+                return ResourceManager.GetString("SelectedMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Fixed Version.
+        /// </summary>
+        internal static string UseFixedVersion {
+            get {
+                return ResourceManager.GetString("UseFixedVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Modlinks Version.
+        /// </summary>
+        internal static string UseModlinksVersion {
+            get {
+                return ResourceManager.GetString("UseModlinksVersion", resourceCulture);
             }
         }
         
@@ -1154,6 +1028,15 @@ namespace Lumafly {
         internal static string XAML_Exact_Search {
             get {
                 return ResourceManager.GetString("XAML_Exact_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Mods:  .
+        /// </summary>
+        internal static string XAML_FilterMods {
+            get {
+                return ResourceManager.GetString("XAML_FilterMods", resourceCulture);
             }
         }
         
@@ -1703,6 +1586,15 @@ namespace Lumafly {
         internal static string XAML_Search_Type {
             get {
                 return ResourceManager.GetString("XAML_Search_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Author.
+        /// </summary>
+        internal static string XAML_SearchAuthor {
+            get {
+                return ResourceManager.GetString("XAML_SearchAuthor", resourceCulture);
             }
         }
         

@@ -153,7 +153,7 @@
                     highlighted by default on app open-->
                 <MenuItem
                     IsEnabled="False"
-                    Header="Filter Mods:  " />
+                    Header="{ext:Localize XAML_FilterMods}" />
 
                 <MenuItem
                     Name="ModFilter_All"

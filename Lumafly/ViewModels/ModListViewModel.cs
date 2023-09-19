@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using MsBox.Avalonia.Dto;
@@ -185,8 +184,8 @@ namespace Lumafly.ViewModels
                 if (modNamesAndUrls.Count == 0)
                 {
                     await _urlSchemeHandler.ShowConfirmation(
-                        title: Resources.MVVM_DownloadModUrlScheme_Header, 
-                        message: Resources.MVVM_DownloadModUrlScheme_Invalid, 
+                        title: "Download mod from command", 
+                        message: "Invalid download mod command", 
                         Icon.Warning);
                     return;
                 }
@@ -291,15 +290,16 @@ namespace Lumafly.ViewModels
 
                 if (successfulDownloads.Count > 0)
                     message +=
-                        string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Success, string.Join(Resources.Array_Sep, successfulDownloads));
+                        $"Lumafly has successfully downloaded {string.Join(Resources.Array_Sep, successfulDownloads)} from command";
 
                 if (failedDownloads.Count > 0)
                 {
-                    message += string.Format(Resources.MVVM_DownloadModUrlScheme_Body_Failure, string.Join(Resources.Array_Sep, failedDownloads));
+                    message +=
+                        $"However, Lumafly was unable to download {string.Join(Resources.Array_Sep, failedDownloads)} from command. Please check if the command is correct";
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: Resources.MVVM_DownloadModUrlScheme_Header,
+                    title: "Download mod from command",
                     message, 
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
                 Trace.WriteLine("Handled download url scheme");
@@ -313,8 +313,8 @@ namespace Lumafly.ViewModels
                 await ForceUpdateAll();
                 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: Resources.MVVM_ForceUpdateUrlScheme_Header, 
-                    message: Resources.MVVM_ForceUpdateUrlScheme_Body_Success);
+                    title: "Force update all from command", 
+                    message: "Lumafly has successfully run force updated all command");
             }
                 
         }
@@ -328,8 +328,8 @@ namespace Lumafly.ViewModels
                 if (modNames.Length == 0)
                 {
                     await _urlSchemeHandler.ShowConfirmation(
-                        title: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Header, 
-                        message: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Invalid,
+                        title: "Remove mod global setting", 
+                        message: "Invalid remove mod global command",
                         Icon.Warning);
                     return;
                 }
@@ -371,15 +371,17 @@ namespace Lumafly.ViewModels
                 string message = string.Empty;
 
                 if (successfulDownloads.Count > 0)
-                    message += String.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Success, string.Join(Resources.Array_Sep, successfulDownloads));
+                    message +=
+                        $"Lumafly has removed global settings for {string.Join(Resources.Array_Sep, successfulDownloads)} from command";
 
                 if (failedDownloads.Count > 0)
                 {
-                    message += string.Format(Resources.MVVM_RemoveModGlobalSettingUrlScheme_Failure, string.Join(Resources.Array_Sep, failedDownloads));
+                    message +=
+                        $"However, Lumafly was unable to find the global settings for {string.Join(Resources.Array_Sep, failedDownloads)}. Please check if the mod name is correct and the mod is installed";
                 }
 
                 await _urlSchemeHandler.ShowConfirmation(
-                    title: Resources.MVVM_RemoveModGlobalSettingUrlScheme_Header, 
+                    title: "Remove mod global setting", 
                     message,
                     failedDownloads.Count > 0 ? Icon.Warning : Icon.Success);
                 

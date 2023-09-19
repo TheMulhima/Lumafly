@@ -14,38 +14,38 @@
         SystemDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
-        Title="Edit Pack">
+        Title="{ext:Localize EditPack}">
     <TabControl>
-        <TabItem Header="Edit Details" VerticalContentAlignment="Center">
+        <TabItem Header="{ext:Localize EditDetails}" VerticalContentAlignment="Center">
             <Grid
                 Margin="10 20 10 20"
                 ColumnDefinitions="*, *"
                 RowDefinitions="Auto, Auto, Auto, Auto, Auto, *">
                 <TextBlock 
                     Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
-                    Text="Pack Details"
+                    Text="{ext:Localize PackDetails}"
                     FontSize="24"
                     HorizontalAlignment="Center" />
                 <TextBlock
                     Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
                     Margin="0 10 0 0"
-                    Text="Edit the details of your pack here."
+                    Text="{ext:Localize PackDetails_Explanation}"
                     HorizontalAlignment="Center" />
                 
                 <TextBlock
                     Grid.Column="0" Grid.Row="2"
                     Margin="0 30 20 0"
-                    Text="Pack Name"
+                    Text="{ext:Localize PackName}"
                     HorizontalAlignment="Right" />
                 <TextBlock
                     Grid.Column="0" Grid.Row="3"
                     Margin="0 10 20 0"
-                    Text="Pack Description"
+                    Text="{ext:Localize PackDescription}"
                     HorizontalAlignment="Right" />
                 <TextBlock
                     Grid.Column="0" Grid.Row="4"
                     Margin="0 10 20 0"
-                    Text="Authors"
+                    Text="{ext:Localize XAML_Authors}"
                     HorizontalAlignment="Right" />
                 
                 <TextBox
@@ -91,7 +91,7 @@
                 </StackPanel>
             </Grid>
         </TabItem>
-        <TabItem Header="Edit Mods" VerticalContentAlignment="Center">
+        <TabItem Header="{ext:Localize EditMods}" VerticalContentAlignment="Center">
             <Grid
                 Margin="30 20 30 60"
                 ColumnDefinitions="*, Auto, *"
@@ -99,7 +99,7 @@
                 
                 <TextBlock 
                     Grid.Column="0" Grid.Row="0"
-                    Text="Available Mods"/>
+                    Text="{ext:Localize AvailableMods}"/>
                 
                 <Border 
                     Grid.Column="0" Grid.Row="1"
@@ -142,7 +142,7 @@
                 
                 <TextBlock 
                     Grid.Column="2" Grid.Row="0"
-                    Text="Selected Mods"/>
+                    Text="{ext:Localize SelectedMods}"/>
 
                 <Border
                     Grid.Column="2"
@@ -170,24 +170,24 @@
                             <Style Selector="Button.EnableButton">
                                 <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.EnableMod}"/>
                                 <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="Enable Mod"/>
+                                <Setter Property="Content" Value="{ext:Localize EnableMod}"/>
                             </Style>
                             <Style Selector="Button.DisableButton">
                                 <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.DisableMod}"/>
                                 <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="Disable Mod"/>
+                                <Setter Property="Content" Value="{ext:Localize DisableMod}"/>
                             </Style>
                             <Style Selector="Button.FixedVersion">
                                 <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseFixedVersion}"/>
                                 <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="Use Fixed Version"/>
-                                <Setter Property="ToolTip.Tip" Value="Don't use latest modlinks version. Instead use current version" />
+                                <Setter Property="Content" Value="{ext:Localize UseFixedVersion}"/>
+                                <Setter Property="ToolTip.Tip" Value="{ext:Localize FixedVersion_Tooltip}" />
                             </Style>
                             <Style Selector="Button.ModlinksVersion">
                                 <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseModlinksVersion}"/>
                                 <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="Use Modlinks Version"/>
-                                <Setter Property="ToolTip.Tip" Value="Use latest modlinks version" />
+                                <Setter Property="Content" Value="{ext:Localize UseModlinksVersion}"/>
+                                <Setter Property="ToolTip.Tip" Value="{ext:Localize ModlinksVersion_Tooltip}" />
                             </Style>
                         </ScrollViewer.Styles>
                         <StackPanel>

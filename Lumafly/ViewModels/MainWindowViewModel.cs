@@ -158,8 +158,8 @@ namespace Lumafly.ViewModels
                     catch (InvalidModlinksException)
                     {
                         await MessageBoxUtil.GetMessageBoxStandardWindow(
-                            Resources.MVVM_InvalidCustomModlinks_Header,
-                            string.Format(Resources.MVVM_InvalidCustomModlinks_Body, settings.CustomModlinksUri),
+                            "Invalid Custom Modlinks",
+                            $"Lumafly was unable to load modlinks from {settings.CustomModlinksUri}. Lumafly will load official modlinks instead.",
                             icon: Icon.Error
                         ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                     }
@@ -354,8 +354,8 @@ namespace Lumafly.ViewModels
                 }
 
                 Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                    title: Resources.MVVM_ResetUrlScheme_Header,
-                    message: success ? Resources.MVVM_ResetUrlScheme_Body_Success : string.Format(Resources.MVVM_ResetUrlScheme_Body_Failure, exception),
+                    title: "Reset installer from command",
+                    message: success ? "The installer has been reset" : $"The installer could not be reset. Please try again.\\n{exception}",
                     success ? Icon.Success : Icon.Warning
                 ));
             }
@@ -390,10 +390,10 @@ namespace Lumafly.ViewModels
                 }
 
                 Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                    title: Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Header,
+                    title: "Reset all mod global settings installer from command",
                     message: success 
-                        ? Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success 
-                        : string.Format(Resources.MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure, exception),
+                        ? "All mods global settings have been reset." 
+                        : $"All mods global settings could not be reset. Please try again.\n{exception}",
                     success ? Icon.Success : Icon.Warning));
             }
         }
@@ -418,8 +418,8 @@ namespace Lumafly.ViewModels
                     }
 
                     Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                        title: Resources.MVVM_LoadCustomModlinksUrlScheme_Header, 
-                        message: success ? string.Format(Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Success, settings.CustomModlinksUri) : Resources.MVVM_LoadCustomModlinksUrlScheme_Body_Failure,
+                        title: "Load custom modlinks from command", 
+                        message: success ? $"Got the custom modlinks \"{settings.CustomModlinksUri}\" from command." : "No modlinks were provided. Please try again",
                         success ? Icon.Success : Icon.Warning));
                 }
                 
@@ -428,8 +428,8 @@ namespace Lumafly.ViewModels
                     settings.UseCustomModlinks = false;
 
                     Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                        title: Resources.MVVM_UseOfficialModlinksUrlScheme_Header, 
-                        message: Resources.MVVM_UseOfficialModlinksUrlScheme_Body));
+                        title: "Use official modlinks url command", 
+                        message: "Lumafly will now use official modlinks"));
                 }
 
                 if (urlSchemeHandler.UrlSchemeCommand == UrlSchemeCommands.baseLink)
@@ -447,8 +447,8 @@ namespace Lumafly.ViewModels
                     }
 
                     Dispatcher.UIThread.InvokeAsync(async () => await urlSchemeHandler.ShowConfirmation(
-                            title: Resources.MVVM_LoadCustomBaseLinkUrlScheme_Header,
-                            message: success ? string.Format(Resources.MVVM_LoadCustomBaseLinkUrlScheme_Body_Success, settings.BaseLink) : Resources.MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure,
+                            title: "Load new baselink from command",
+                            message: success ? $"Got the new base link '{settings.BaseLink}' from command." : "No baselink were provided. Please try again",
                             success ? Icon.Success : Icon.Warning));
                     
                 }

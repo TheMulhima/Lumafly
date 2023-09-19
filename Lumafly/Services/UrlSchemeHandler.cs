@@ -64,8 +64,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
-                    title: Resources.MVVM_InvalidUrlScheme_Header, 
-                    message: string.Format(Resources.MVVM_InvalidUrlScheme_Body_InvalidCommand, arg), 
+                    title: "Invalid URL Scheme Command", 
+                    message: $"{arg} is an invalid command.\\nLumafly only accepts command prefixed by scarab://", 
                     Icon.Warning));
             return;
         }
@@ -87,8 +87,8 @@ public class UrlSchemeHandler : IUrlSchemeHandler
         {
             Dispatcher.UIThread.InvokeAsync(async () =>
                 await ShowConfirmation(
-                    title: Resources.MVVM_InvalidUrlScheme_Header,
-                    message: string.Format(Resources.MVVM_InvalidUrlScheme_Body_NotFound, arg),
+                    title: "Invalid URL Scheme Command",
+                    message: $"{arg}  is an invalid command.\\nIt was not found in lumafly's accepted command list",
                     Icon.Warning));
         }
     }
