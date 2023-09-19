@@ -316,7 +316,6 @@ namespace Lumafly.ViewModels
                     title: "Force update all from command", 
                     message: "Lumafly has successfully run force updated all command");
             }
-                
         }
         private async Task HandleRemoveGlobalSettingScheme()
         {

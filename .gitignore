@@ -347,3 +347,5 @@ healthchecksdb
 *.exe
 *.zip
 .vscode/settings.json
+.hintrc
+_site/*

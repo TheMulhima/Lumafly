@@ -25,6 +25,10 @@ public partial class PackManagerView : View<PackManagerViewModel>
         PackManagerViewModel.OnPackLoaded += (packName) => _notify?.Show(
             new Notification("Pack Loaded", 
                 $"Pack {packName} has loaded Successfully",
+            NotificationType.Success));        
+        PackManagerViewModel.OnPackImported += (packName) => _notify?.Show(
+            new Notification("Pack Imported", 
+                $"Pack {packName} has imported Successfully",
             NotificationType.Success));
     }
 

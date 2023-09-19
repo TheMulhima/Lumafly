@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -7,23 +8,30 @@ using PropertyChanged.SourceGenerator;
 using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Util;
+using Lumafly.Enums;
 using Lumafly.Views.Windows;
+using MsBox.Avalonia.Enums;
 
 namespace Lumafly.ViewModels;
 
 public partial class PackManagerViewModel : ViewModelBase
 {
     private readonly IPackManager _packManager;
+    private readonly IUrlSchemeHandler _urlSchemeHandler;
 
     [Notify] private bool _loadingSharingCode;
     
     public event Action<string>? OnPackLoaded;
+    public event Action<string>? OnPackImported;
     
     public SortableObservableCollection<Pack> Packs => _packManager.PackList;
 
-    public PackManagerViewModel(IPackManager packManager)
+    public PackManagerViewModel(IPackManager packManager, IUrlSchemeHandler urlSchemeHandler)
     {
         _packManager = packManager;
+        _urlSchemeHandler = urlSchemeHandler;
+
+        Dispatcher.UIThread.Invoke(HandleModPackUrlScheme);
     }
 
     public async Task GenerateSharingCode(object packObj)
@@ -121,5 +129,22 @@ public partial class PackManagerViewModel : ViewModelBase
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot share an object that is not a pack");
         _packManager.SavePackToZip(pack.Name);
+    }
+    
+    private async Task HandleModPackUrlScheme()
+    {
+        if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.modpack })
+        {
+            Pack? importedPack = await _packManager.ImportPack(_urlSchemeHandler.Data);
+
+            if (importedPack != null)
+            {
+                MainWindowViewModel.Instance!.SelectedTabIndex = 2;
+                await Task.Delay(250);
+                OnPackImported?.Invoke(importedPack.Name);
+            }
+            
+            _urlSchemeHandler.FinishHandlingUrlScheme();
+        }
     }
 }

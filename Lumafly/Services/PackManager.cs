@@ -473,14 +473,22 @@ public class PackManager : IPackManager
         try
         {
             var packJson = await _onlineTextStorage.Download(code);
-            
+
             var pack = ConvertFromHPackage(packJson);
             pack.SharingCode = code; //since we have it lets save it
 
+            if (PackList.Any(x => x.Name == pack.Name))
+                throw new ReadableError("a pack with same name already exists");
+
             PackList.Add(pack);
             await SaveEditedPack(pack);
-            
             return pack;
+        }
+        catch (ReadableError re)
+        {
+            await MessageBoxUtil.GetMessageBoxStandardWindow("Failed to import pack", $"Failed to import pack from code: {code} as {re.Message}")
+                .ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+            return null;
         }
         catch (Exception e)
         {
