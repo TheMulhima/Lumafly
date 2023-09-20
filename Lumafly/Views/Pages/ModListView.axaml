@@ -77,35 +77,35 @@
                     <Button
                         Command="{Binding UpdateUnupdated}"
                         IsEnabled="{Binding CanUpdateAll}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_ModsFilter_OutOfDate_Update}">
+                        <StackPanel>
                             <PathIcon Data="{StaticResource arrow_sync_regular}" />
                             <TextBlock Text="{ext:Localize XAML_ModsFilter_OutOfDate_Update}" />
                         </StackPanel>
                     </Button>
                     <Button
                         Command="{Binding ToggleApi}">
-                        <StackPanel ToolTip.Tip="{Binding ApiButtonText}">
+                        <StackPanel ToolTip.Tip="Enable/Disable the Modding API, the modification to the game files that allow mods to run" ToolTip.ShowDelay="0">
                             <PathIcon Data="{StaticResource options_regular}" />
                             <TextBlock Text="{Binding ApiButtonText}" />
                         </StackPanel>
                     </Button>
                     <Button
                         Command="{Binding OpenSavesDirectory}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_SavesFolder}">
+                        <StackPanel>
                             <PathIcon Data="{StaticResource folder_zip_regular}" />
                             <TextBlock Text="{ext:Localize XAML_SavesFolder}" />
                         </StackPanel>
                     </Button>
                     <Button
                         Command="{Binding OpenModsDirectory}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_OpenMods}">
+                        <StackPanel>
                             <PathIcon Data="{StaticResource folder_regular}" />
                             <TextBlock Text="{ext:Localize XAML_OpenMods}" />
                         </StackPanel>
                     </Button>
                     <Button
                         Command="{Binding ManuallyInstallMod}">
-                        <StackPanel ToolTip.Tip="{ext:Localize XAML_Manual_Install}">
+                        <StackPanel>
                             <PathIcon Data="{StaticResource arrow_download_regular}" />
                             <TextBlock Text="{ext:Localize XAML_Manual_Install}" />
                         </StackPanel>
