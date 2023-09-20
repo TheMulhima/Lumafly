@@ -48,6 +48,7 @@ Lumafly allows you to use shareable links to open and run commands in lumafly. Y
 The main shareable commands that anyone can use.
 
 - [Download Mod](https://themulhima.github.io/Lumafly/commands/download): Share links to open Lumafly and download mods using this command. Sharing a link such as [this](https://themulhima.github.io/Lumafly/commands/download?mods=Satchel) will open Lumafly and download the mod "Satchel".
+- [Share modpack](https://themulhima.github.io/Lumafly/commands/modpack): Used to share a modpack link with others.
 
 - [Custom Modlinks](https://themulhima.github.io/Lumafly/commands/customModLinks) - Open Lumafly and load its mod list from a custom modlinks.
 

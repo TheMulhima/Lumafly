@@ -122,7 +122,7 @@ public partial class PackManagerViewModel : ViewModelBase
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot copy an object that is not a pack");
         
-        TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow())?.Clipboard?.SetTextAsync(pack.SharingCode);
+        TopLevel.GetTopLevel(AvaloniaUtils.GetMainWindow())?.Clipboard?.SetTextAsync(ImportPackPopupViewModel.WebsiteShareLink + pack.SharingCode);
     }
 
     public void SavePackToZip(object packObj)

@@ -13,6 +13,7 @@
         SystemDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         Title="Import Pack Options">
+    <ScrollViewer>
     <Border
         BorderThickness="1"
         BorderBrush="{DynamicResource TextColor}">
@@ -58,4 +59,5 @@
         </StackPanel>
     </Grid>
     </Border>
+    </ScrollViewer>
 </Window>

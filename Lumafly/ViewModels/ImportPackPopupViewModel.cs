@@ -7,6 +7,8 @@ namespace Lumafly.ViewModels;
 public partial class ImportPackPopupViewModel : ViewModelBase
 {
     public readonly Regex ValidCodeRegex = new Regex("^[a-zA-Z0-9]{8}");
+
+    public const string WebsiteShareLink = "https://themulhima.github.io/Lumafly/commands/modpack/?modpack=";
     
     private string _sharingCode = "";
     public string SharingCode
@@ -23,5 +25,14 @@ public partial class ImportPackPopupViewModel : ViewModelBase
         }
     }
 
-    public bool ValidSharingCode => ValidCodeRegex.IsMatch(_sharingCode);
+    public bool ValidSharingCode 
+    {
+        get
+        {    
+            if (_sharingCode.Contains(WebsiteShareLink))
+                _sharingCode = _sharingCode.Replace(WebsiteShareLink, "");
+
+            return ValidCodeRegex.IsMatch(_sharingCode);
+        }
+    }
 }
