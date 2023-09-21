@@ -2,16 +2,16 @@
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>Lumafly Update</title>
-        <link>https://raw.githubusercontent.com/TheMulhima/Scarab/master/appcast.xml</link>
+        <link>https://raw.githubusercontent.com/TheMulhima/Lumafly/master/appcast.xml</link>
         <language>en</language>
         <item>
-            <title>Scarab Update v2.3.0.0</title>
+            <title>Lumafly Update v3.0.0.0</title>
             <sparkle:releaseNotesLink>
-            https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v2.3.0.0.md
+            https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/Changelogs/v3.0.0.0.md
             </sparkle:releaseNotesLink>
-            <pubDate>Sun, 09 Jul 2023 21:56:22 +0000</pubDate>
-            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.3.0.0/Scarab.AU.exe"
-                       sparkle:version="2.3.0.0"
+            <pubDate>Thu, 21 Sep 2023 11:13:24 +0000</pubDate>
+            <enclosure url="https://github.com/TheMulhima/Lumafly/releases/download/v3.0.0.0/Lumafly.AU.exe"
+                       sparkle:version="3.0.0.0"
                        sparkle:os="windows"
                        length="12288"
                        type="application/octet-stream"
