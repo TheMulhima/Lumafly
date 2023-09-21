@@ -3,14 +3,14 @@ function downloadScarab(latest = false, onclicked = false)
   let linkBase = "https://github.com/TheMulhima/Lumafly/releases/latest/download/";
 
   let files = {
-    "Windows" : "Scarab.exe",
-    "Mac"     : "Scarab-MacOS.zip",
-    "Linux"   : "Scarab-Linux.zip"
+    "Windows" : "Lumafly.exe",
+    "Mac"     : "Lumafly-MacOS.zip",
+    "Linux"   : "Lumafly-Linux.zip"
   }
 
   if (latest) {
     linkBase = "https://nightly.link/TheMulhima/Lumafly/workflows/build/master/";
-    files.Windows = "Scarab-Windows.zip"
+    files.Windows = "Lumafly-Windows.zip"
   }
 
   var uap = new UAParser();
