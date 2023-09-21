@@ -1,10 +1,16 @@
 # Changelogs
 
+- [v3.1.0.0](#changes-in-v3100)
 - [v3.0.0.0](#changes-in-v3000)
 - [v2.3.0.0](#changes-in-v2300)
 - [v2.2.0.0](#changes-in-v2200)
 - [v2.1.0.0](#changes-in-v2100)
 - [v2.0.0.0](#changes-in-v2000)
+
+## Changes in v3.1.0.0
+- Add button to revert changes to the mods before pack was loaded
+- Add prompt for updating outdated mods in packs.
+- Make edit pack button more visible
 
 ## Changes in v3.0.0.0
 
