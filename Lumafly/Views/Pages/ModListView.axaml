@@ -484,102 +484,112 @@
                     </Grid>
                   </Expander.Header>
 
-                  <Grid
-                      RowDefinitions="Auto, *, Auto"
-                      ColumnDefinitions="*,*"
-                      Margin="12 0 12 10">
+                    <Grid
+                        RowDefinitions="Auto, *, Auto"
+                        ColumnDefinitions="*,*"
+                        Margin="12 0 12 10">
 
-                    <md:MarkdownScrollViewer
-                        Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
-                        Markdown="{Binding Description}" Margin="-5 0 4 0"/>
+                        <md:MarkdownScrollViewer
+                            Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                            Markdown="{Binding Description}" Margin="0 0 4 0" />
 
-                    <StackPanel
-                        Grid.Column="0" Grid.Row="1"
-                        IsVisible="{Binding HasRepo}"
-                        Margin="0,10,10,0">
-                      <TextBlock Text="{ext:Localize XAML_Repository}" FontWeight="Bold" />
-                      
-                      <md:MarkdownScrollViewer
-                          Markdown="{Binding ShortenedRepository}"/>
+                        <StackPanel
+                            Grid.Column="0" Grid.Row="1"
+                            IsVisible="{Binding HasRepo}"
+                            Margin="0,10,10,0">
 
-                      <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" Margin="0 10 0 0"/>
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding VersionText}" />
-                        <TextBlock
-                            Text="{Binding UpdateText}"
-                            IsVisible="{Binding UpdateAvailable}"
-                            Foreground="{DynamicResource Highlight}"
-                            Margin="4 0 0 0"
-                            FontWeight="Bold"
-                                                >
-                          <TextBlock.Resources>
-                            <SolidColorBrush x:Key="Highlight" Color="#f49107" />
-                          </TextBlock.Resources>
-                        </TextBlock>
-                      </StackPanel>
+                            <TextBlock Text="{ext:Localize XAML_Version}" FontWeight="Bold" Margin="0 0 0 0" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding VersionText}" />
+                                <TextBlock
+                                    Text="{Binding UpdateText}"
+                                    IsVisible="{Binding UpdateAvailable}"
+                                    Foreground="{DynamicResource Highlight}"
+                                    Margin="4 0 0 0"
+                                    FontWeight="Bold">
+                                    <TextBlock.Resources>
+                                        <SolidColorBrush x:Key="Highlight" Color="#f49107" />
+                                    </TextBlock.Resources>
+                                </TextBlock>
+                            </StackPanel>
+                            
+                            <StackPanel IsVisible="{Binding HasDependencies}" Margin="0 10 0 0">
+                                <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding DependenciesDesc}" TextWrapping="Wrap" />
+                            </StackPanel>
 
-                      <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
-                        <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
-                        <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap"/>
-                      </StackPanel>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="10,0,0,0">
-                      <StackPanel IsVisible="{Binding HasDependencies}" Margin="0 10 0 0">
-                        <TextBlock Text="{ext:Localize XAML_Dependencies}" FontWeight="Bold" />
-                        <TextBlock Text="{Binding DependenciesDesc}" TextWrapping="Wrap"/>
-                      </StackPanel>
-                      <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
-                        <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
-                        <TextBlock Text="{Binding IntegrationsDesc}" TextWrapping="Wrap"/>
-                      </StackPanel>
-                      <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
-                        <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
-                        <TextBlock Text="{Binding TagDesc}" TextWrapping="Wrap"/>
-                      </StackPanel>
-                    </StackPanel>
-                    <StackPanel 
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal"
-                        Margin="0 10 0 0">
-                        <StackPanel.Styles>
-                            <Style Selector="Button">
-                                <Setter Property="Width" Value="25"/>
-                                <Setter Property="Height" Value="25"/>
-                                <Setter Property="Margin" Value="0 0 10 0"/>
-                            </Style>
-                        </StackPanel.Styles>
-                        <Button 
-                            ToolTip.Tip="{ext:Localize XAML_Share}" ToolTip.ShowDelay="0"
-                            Command="{Binding Share}">
-                            <PathIcon Data="{StaticResource share_android_regular}" />
-                        </Button>
-                        <Button 
-                            ToolTip.Tip="{ext:Localize XAML_OpenFolder}" ToolTip.ShowDelay="0"
-                            IsEnabled="{Binding Installed}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OpenFolder}"
-                            CommandParameter="{Binding .}">
-                            <PathIcon Data="{StaticResource folder_regular}" />
-                        </Button>
-                        <Button 
-                            ToolTip.Tip="{ext:Localize XAML_ResetMod}" ToolTip.ShowDelay="0"
-                            IsEnabled="{Binding Installed}"
-                            Command="{ReflectionBinding $parent[pages:ModListView].DataContext.ResetMod}"
-                            CommandParameter="{Binding .}">
-                            <PathIcon Data="{StaticResource history_regular}" />
-                        </Button>
-                        <Button 
-                            ToolTip.Tip="{ext:Localize XAML_EditSettings}" ToolTip.ShowDelay="0"
-                            IsEnabled="{Binding HasSettings}"
-                            Command="{Binding OpenSettingsFile}">
-                            <PathIcon Data="{StaticResource edit_settings_regular}" />
-                        </Button>
-                        <Button 
-                            ToolTip.Tip="{ext:Localize XAML_ReportBug}" ToolTip.ShowDelay="0"
-                            Command="{Binding ReportBug}">
-                            <PathIcon Data="{StaticResource bug_regular}" />
-                        </Button>
-                    </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="10,0,0,0">
+                            <StackPanel IsVisible="{Binding HasAuthors}" Margin="0 10 0 0">
+                                <TextBlock Text="{ext:Localize XAML_Authors}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding AuthorsDesc}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel IsVisible="{Binding HasIntegrations}" Margin="0 10 0 0">
+                                <TextBlock Text="{ext:Localize XAML_Integrations}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding IntegrationsDesc}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel IsVisible="{Binding HasTags}" Margin="0 10 0 0">
+                                <TextBlock Text="{ext:Localize XAML_Tags}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding TagDesc}" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal"
+                            Margin="0 10 0 0">
+                            <StackPanel.Styles>
+                                <Style Selector="Button.Icon">
+                                    <Setter Property="Width" Value="25" />
+                                    <Setter Property="Height" Value="25" />
+                                </Style>
+                                <Style Selector="Button">
+                                    <Setter Property="Margin" Value="0 0 10 0" />
+                                </Style>
+                            </StackPanel.Styles>
+                            <Button Content="View Readme"
+                                    Command="{Binding OpenReadme}"/>
+                            <Button
+                                Classes="Icon"
+                                ToolTip.Tip="{ext:Localize XAML_Repository}" ToolTip.ShowDelay="0"
+                                Command="{Binding OpenRepository}">
+                                <Svg Path="../../Assets/github.svg" Width="20" Height="20"/>
+                            </Button>
+                            <Button
+                                Classes="Icon"
+                                ToolTip.Tip="{ext:Localize XAML_Share}" ToolTip.ShowDelay="0"
+                                Command="{Binding Share}">
+                                <PathIcon Data="{StaticResource share_android_regular}" />
+                            </Button>
+                            <Button
+                                Classes="Icon"
+                                ToolTip.Tip="{ext:Localize XAML_OpenFolder}" ToolTip.ShowDelay="0"
+                                IsEnabled="{Binding Installed}"
+                                Command="{ReflectionBinding $parent[pages:ModListView].DataContext.OpenFolder}"
+                                CommandParameter="{Binding .}">
+                                <PathIcon Data="{StaticResource folder_regular}" />
+                            </Button>
+                            <Button
+                                ToolTip.Tip="{ext:Localize XAML_ResetMod}" ToolTip.ShowDelay="0"
+                                IsEnabled="{Binding Installed}"
+                                Command="{ReflectionBinding $parent[pages:ModListView].DataContext.ResetMod}"
+                                CommandParameter="{Binding .}">
+                                <PathIcon Data="{StaticResource history_regular}" Width="16" Height="16"/>
+                            </Button>
+                            <Button
+                                Classes="Icon"
+                                ToolTip.Tip="{ext:Localize XAML_EditSettings}" ToolTip.ShowDelay="0"
+                                IsEnabled="{Binding HasSettings}"
+                                Command="{Binding OpenSettingsFile}">
+                                <PathIcon Data="{StaticResource edit_settings_regular}" />
+                            </Button>
+                            <Button
+                                Classes="Icon"
+                                ToolTip.Tip="{ext:Localize XAML_ReportBug}" ToolTip.ShowDelay="0"
+                                Command="{Binding ReportBug}">
+                                <PathIcon Data="{StaticResource bug_regular}" />
+                            </Button>
+                        </StackPanel>
                   </Grid>
                 </Expander>
               </Grid>

@@ -223,7 +223,7 @@
     <value>Open Mods Folder</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repository and Readme:</value>
+    <value>Repository</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Mod Search</value>

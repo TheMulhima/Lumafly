@@ -5,11 +5,19 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
+using Avalonia.Threading;
+using Lumafly.Util;
+using Lumafly.ViewModels;
+using Lumafly.Views.Windows;
+using Microsoft.Toolkit.HighPerformance.Helpers;
 
 namespace Lumafly.Models
 {
@@ -51,7 +59,6 @@ namespace Lumafly.Models
             TagDesc          = string.Join(", ", Tags);
             IntegrationsDesc = string.Join(", ", Integrations);
             AuthorsDesc      = string.Join(", ", Authors);
-            ShortenedRepository = $"[{Repository}]({Repository})";
 
             if (!string.IsNullOrEmpty(Description))
             {
@@ -63,20 +70,6 @@ namespace Lumafly.Models
                     if (match == null) continue;
                     Description = Description.Replace(match.ToString()!, $"[{match}]({match})");
                 }
-            }
-
-            try
-            {
-                // only remove http part if its a github link
-                if (ShortenedRepository.Contains("github.com"))
-                {
-                    var path = new Uri(Repository).AbsolutePath;
-                    ShortenedRepository = $"[{path.TrimStart('/').TrimEnd('/')}]({Repository})";
-                }
-            }
-            catch (InvalidOperationException e)
-            {
-                Trace.Write($"Unable to get absolute path of {Repository} {e}");
             }
         }
 
@@ -94,12 +87,11 @@ namespace Lumafly.Models
         public string[] Integrations     { get; }
         public string[] Authors          { get; }
         public ModRecentChangeInfo RecentChangeInfo { get; set; }
-
-        public string   ShortenedRepository   { get; }
         public string   DependenciesDesc { get; }
         public string   TagDesc          { get; }
         public string   IntegrationsDesc { get; }
         public string   AuthorsDesc      { get; }
+        public string?  Readme           { get; set; }
 
         [Notify]
         private ModState _state;
@@ -267,6 +259,20 @@ namespace Lumafly.Models
                 Process.Start(new ProcessStartInfo($"{Repository}/issues/new/choose") { UseShellExecute = true });
         }
         
+        public void OpenRepository()
+        {
+            if (HasRepo)
+                Process.Start(new ProcessStartInfo(Repository) { UseShellExecute = true });
+        }
+
+        public void OpenReadme()
+        {
+            var readmePopup = new ReadmePopup()
+            {
+                DataContext = new ReadmePopupViewModel(this)
+            }.ShowDialog(AvaloniaUtils.GetMainWindow());
+        }
+
         public static ModItem Empty(
             ModState? state = null,
             Version? version = null,

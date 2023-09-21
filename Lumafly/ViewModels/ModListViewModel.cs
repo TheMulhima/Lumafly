@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
@@ -89,7 +90,7 @@ namespace Lumafly.ViewModels
             IInstaller inst, 
             IModSource mods,
             IGlobalSettingsFinder settingsFinder, 
-            IUrlSchemeHandler urlSchemeHandler, 
+            IUrlSchemeHandler urlSchemeHandler,
             LumaflyMode lumaflyMode)
         {
             Trace.WriteLine("Initializing ModListViewModel");
@@ -99,7 +100,7 @@ namespace Lumafly.ViewModels
             _db = db;
             _settingsFinder = settingsFinder;
             _urlSchemeHandler = urlSchemeHandler;
-            _lumaflyMode = lumaflyMode; 
+            _lumaflyMode = lumaflyMode;
 
             Trace.WriteLine("Creating Items");
             _items = new SortableObservableCollection<ModItem>(db.Items.OrderBy(ModToOrderedTuple));
@@ -1326,6 +1327,5 @@ namespace Lumafly.ViewModels
                 default: return tag;
             }
         }
-
     }
 }

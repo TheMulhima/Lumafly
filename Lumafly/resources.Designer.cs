@@ -1527,7 +1527,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository and Readme:.
+        ///   Looks up a localized string similar to Repository.
         /// </summary>
         internal static string XAML_Repository {
             get {

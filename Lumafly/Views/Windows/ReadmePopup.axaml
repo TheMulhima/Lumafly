@@ -1,0 +1,33 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Lumafly.ViewModels"
+        xmlns:ext="clr-namespace:Lumafly.Extensions"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
+        x:Class="Lumafly.Views.Windows.ReadmePopup"
+        x:DataType="viewModels:ReadmePopupViewModel"
+        x:CompileBindings="True"
+        SystemDecorations="BorderOnly"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Title="Readme Viewer">
+    <Grid RowDefinitions="*, Auto"
+          Margin="0 30 0 15 ">
+        <md:MarkdownScrollViewer
+            Grid.Row="0"
+            Markdown="{Binding Readme}" 
+            Margin="30 0"
+            />
+        
+        <Button 
+            HotKey="Ctrl+W"
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Content="Close"
+            Click="Close"
+            Padding="10"
+            Margin="0 10 20 0"/>
+    </Grid>
+</Window>

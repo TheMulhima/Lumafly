@@ -19,6 +19,10 @@
             <SubType>Designer</SubType>
         </AvaloniaResource>
         <AvaloniaResource Include="Assets\**" />
+        <Compile Update="Views\Windows\ReadmePopup.axaml.cs">
+          <DependentUpon>ReadmePopup.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
     
     <ItemGroup>
