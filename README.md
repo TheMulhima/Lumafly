@@ -81,6 +81,7 @@ There are currently 4 settings that can be changed in Lumafly
 - Warn before removing a dependent mod (Default: Yes) - Do you want lumafly to warn before disabling or uninstalling a mod that is listed as a required dependency of an installed and enabled mod which could cause it to not function correctly.
 - Use custom modlinks (Default: No) - Do you want Lumafly to load its mod list from another source other than the [official modlinks](https://github.com/hk-modding/modlinks). Enabling this will give you the prompt for the custom modlinks URI.
 - Game Path - Which install of the game do you want Lumafly to modify.
+- Low Storage Mode (Default: False) - Do you want lumafly to not cache mod downloads for faster installs and quicker switching between packs.
 
 ### Tools for mod developers
 
@@ -115,4 +116,6 @@ If you want to contribute to Lumafly, feel free to. You can see what features ar
 
 ### Art
 
-- [Dwarfwoot]( https://patreon.com/DwarfWoot), [SFGrenade](https://github.com/SFGrenade), and [MTMerm](https://www.youtube.com/channel/UCf6Mnwo_9krAr6RGhuhrB-A) - Art and images.
+- [Dwarfwoot]( https://patreon.com/DwarfWoot), [SFGrenade](https://github.com/SFGrenade) - Images and icons used in the installer.
+- [Lime](https://www.tumblr.com/ded-lime) - The Lumafly banner.
+- [HBKit](https://ko-fi.com/hbkit) - The Lumafly icon.

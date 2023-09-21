@@ -13,16 +13,16 @@
 - UI overhaul (side panel in mod list, new colors)
 - Improve mod download speed (by not downloading MAPI every time)
 - Add button to view mod readmes in app
-- Improve tag search options (allow exlusion and add tag for untagged mods)
+- Improve tag search options (allow exlcusion and add tag for untagged mods)
 - Add buttons to open logs and installer settings folder
 - Fix manually install and download url scheme command
 - Allow searching through authors
 
 - Credits
   - [TheMulhima](https://github.com/TheMulhima) - Most of the changes.
-  - Acu1000
-  - Lime
-  - HBKit
+  - [Acu1000](https://github.com/Acu1000) - Helped with many changes
+  - [Lime](https://www.tumblr.com/ded-lime) - Lumafly banner
+  - [HBKit](https://ko-fi.com/hbkit) - Lumafly icon
 
 ## Changes in v2.3.0.0
 
