@@ -11,6 +11,8 @@
 - Add button to revert changes to the mods before pack was loaded
 - Add prompt for updating outdated mods in packs.
 - Make edit pack button more visible
+- Fix previous release notes not showing if an update was skipped
+- Allow loading packs without replacing mods in mods folder
 
 ## Changes in v3.0.0.0
 
