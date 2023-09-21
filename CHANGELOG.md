@@ -1,23 +1,42 @@
 # Changelogs
 
+- [v3.0.0.0](#changes-in-v3000)
 - [v2.3.0.0](#changes-in-v2300)
 - [v2.2.0.0](#changes-in-v2200)
 - [v2.1.0.0](#changes-in-v2100)
 - [v2.0.0.0](#changes-in-v2000)
 
+## Changes in v3.0.0.0
+
+- Modpacks - create mod presets to quickly switch between them and share them.
+- Rebrand installer to Lumafly
+- UI overhaul (side panel in mod list, new colors)
+- Improve mod download speed (by not downloading MAPI every time)
+- Add button to view mod readmes in app
+- Improve tag search options (allow exlusion and add tag for untagged mods)
+- Add buttons to open logs and installer settings folder
+- Fix manually install and download url scheme command
+- Allow searching through authors
+
+- Credits
+  - [TheMulhima](https://github.com/TheMulhima) - Most of the changes.
+  - Acu1000
+  - Lime
+  - HBKit
+
 ## Changes in v2.3.0.0
 
-  - Add option to cache downloads (making uninstalling and reinstalling quicker).
-  - Add Spanish translations (thanks to Adrin and Helen).
-  - Add Russian translations (thanks to Страг).
-  - Add ability to change preffered language that Scarab uses.
-  - Add option to skip update.
-  - Use noto sans font - for uniformity bewteen OS and fixes issue with Chinese fonts.
-  - New url scheme commands: useOfficialModlinks and launch (usage scarab://launch/vanilla or scarab://launch/modded)
-  - Fully localize settings page.
-  - Fix issue with big log file causing Scarab to not open.
-  - Fix issue with showing prompts on resetting mod
-  - If toggling will delete a folder, ask for confirmation before doing so
+- Add option to cache downloads (making uninstalling and reinstalling quicker).
+- Add Spanish translations (thanks to Adrin and Helen).
+- Add Russian translations (thanks to Страг).
+- Add ability to change preffered language that Scarab uses.
+- Add option to skip update.
+- Use noto sans font - for uniformity bewteen OS and fixes issue with Chinese fonts.
+- New url scheme commands: useOfficialModlinks and launch (usage scarab://launch/vanilla or scarab://launch/modded)
+- Fully localize settings page.
+- Fix issue with big log file causing Scarab to not open.
+- Fix issue with showing prompts on resetting mod
+- If toggling will delete a folder, ask for confirmation before doing so
 
 - Credits
   - [TheMulhima](https://github.com/TheMulhima) - Most of the changes.
@@ -26,11 +45,11 @@
 
 ## Changes in v2.2.0.0
 
-  - Add confirmation prompt for url scheme commands.
-  - Add additional info that can be changed without needing update.
-  - Correct SHA256 checking when downloading from modlinks.
-  - Fix handling of download url scheme when custom links provided.
-  - Fix crash that happens on auto uninstall dependencies confimation window.
+- Add confirmation prompt for url scheme commands.
+- Add additional info that can be changed without needing update.
+- Correct SHA256 checking when downloading from modlinks.
+- Fix handling of download url scheme when custom links provided.
+- Fix crash that happens on auto uninstall dependencies confimation window.
 
 - Credits
   - [TheMulhima](https://github.com/TheMulhima) - All the changes.

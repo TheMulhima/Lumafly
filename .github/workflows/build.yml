@@ -26,7 +26,7 @@ jobs:
     - name: Upload windows binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-Windows
+        name: Lumafly-Windows
         path: Lumafly/bin/Release/net7.0/win-x64/publish/
 
   build-linux:
@@ -49,7 +49,7 @@ jobs:
     - name: Upload linux binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-Linux
+        name: Lumafly-Linux
         path: linux.zip
 
   build-macos:
@@ -75,7 +75,7 @@ jobs:
     - name: Upload macos binary
       uses: actions/upload-artifact@v3
       with:
-        name: Scarab-MacOS
+        name: Lumafly-MacOS
         path: out/mac.zip
 
   # needs to run when releasing but before main release action
