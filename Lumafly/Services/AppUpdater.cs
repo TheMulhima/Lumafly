@@ -35,7 +35,7 @@ public class AppUpdater : IAppUpdater
             {
                 AdditionalReleaseNotesHeaderHTML = """
                 <style> 
-                html {background: #282828; background-color: #282828; color: #dedede;}
+                html {background: #101727; background-color: #101727; color: #dedede;}
                 </style>
                 """,
                 ReleaseNotesHTMLTemplate = """
