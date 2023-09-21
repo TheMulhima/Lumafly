@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -9,6 +10,7 @@ using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Util;
 using Lumafly.Enums;
+using Lumafly.Services;
 using Lumafly.Views.Windows;
 using MsBox.Avalonia.Enums;
 
@@ -18,6 +20,7 @@ public partial class PackManagerViewModel : ViewModelBase
 {
     private readonly IPackManager _packManager;
     private readonly IUrlSchemeHandler _urlSchemeHandler;
+    private readonly ISettings _settings;
 
     [Notify] private bool _loadingSharingCode;
     
@@ -26,10 +29,11 @@ public partial class PackManagerViewModel : ViewModelBase
     
     public SortableObservableCollection<Pack> Packs => _packManager.PackList;
 
-    public PackManagerViewModel(IPackManager packManager, IUrlSchemeHandler urlSchemeHandler)
+    public PackManagerViewModel(IPackManager packManager, IUrlSchemeHandler urlSchemeHandler, ISettings settings)
     {
         _packManager = packManager;
         _urlSchemeHandler = urlSchemeHandler;
+        _settings = settings;
 
         Dispatcher.UIThread.Invoke(HandleModPackUrlScheme);
     }
@@ -147,4 +151,26 @@ public partial class PackManagerViewModel : ViewModelBase
             _urlSchemeHandler.FinishHandlingUrlScheme();
         }
     }
+
+    public async Task RevertToPreviousModsFolder()
+    {
+        await Dispatcher.UIThread.InvokeAsync(
+            async () => await MainWindowViewModel.Instance!.LoadApp(2,
+                new LoadingTaskDetails(
+                    async () =>
+                    {
+                        try
+                        {
+                            await _packManager.RevertToPreviousModsFolder();
+                        }
+                        catch (Exception e)
+                        {
+                            await DisplayErrors.DisplayGenericError("Failed to load mod folder", e);
+                        }
+                    },
+                    "Loading previous mods folder")));
+    }
+
+    public bool CanRevertToPreviousModsFolder =>
+        Directory.Exists(Path.Combine(_settings.ManagedFolder, PackManager.TempModStorage));
 }

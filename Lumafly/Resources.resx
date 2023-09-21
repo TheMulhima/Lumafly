@@ -699,4 +699,10 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="AvailablePacks" xml:space="preserve">
+    <value>Available Packs:</value>
+  </data>
+  <data name="RevertToPreviousMods" xml:space="preserve">
+    <value>Revert to previous mods</value>
+  </data>
 </root>

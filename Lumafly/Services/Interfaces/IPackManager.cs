@@ -21,4 +21,6 @@ public interface IPackManager
    Task UploadPack(string packName);
 
    Task<Pack?> ImportPack(string code);
+
+   Task RevertToPreviousModsFolder();
 }

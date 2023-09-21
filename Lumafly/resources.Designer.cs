@@ -78,6 +78,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available Packs:.
+        /// </summary>
+        internal static string AvailablePacks {
+            get {
+                return ResourceManager.GetString("AvailablePacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -821,6 +830,15 @@ namespace Lumafly {
         internal static string PU_SelectPath {
             get {
                 return ResourceManager.GetString("PU_SelectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert to previous mods.
+        /// </summary>
+        internal static string RevertToPreviousMods {
+            get {
+                return ResourceManager.GetString("RevertToPreviousMods", resourceCulture);
             }
         }
         

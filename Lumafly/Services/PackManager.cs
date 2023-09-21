@@ -40,6 +40,8 @@ public class PackManager : IPackManager
     public SortableObservableCollection<Pack> PackList => _packList;
 
     internal const string packInfoFileName = "packMods.json";
+    internal const string TempModStorage = "Temp_Mods_Storage";
+    internal string TempModStorageLocation => Path.Combine(_settings.ManagedFolder, TempModStorage);
 
     public PackManager(ISettings settings, IInstaller installer, IModDatabase db, IFileSystem fs, IModSource mods, IOnlineTextStorage onlineTextStorage)
     {
@@ -134,8 +136,13 @@ public class PackManager : IPackManager
         var packFolder = Path.Combine(_settings.ManagedFolder, packName);
 
         // move all the mods to a temp folder so we can revert if the pack enabling fails
-        FileUtil.CopyDirectory(_settings.ModsFolder, Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"));
+        FileUtil.DeleteDirectory(TempModStorageLocation);
+        FileUtil.CopyDirectory(_settings.ModsFolder, TempModStorageLocation);
+        var tempInstalledMods = Path.Combine(TempModStorageLocation, InstalledMods.FILE_NAME);
+        await using Stream fs = _fs.File.Exists(tempInstalledMods) ? _fs.FileStream.New(tempInstalledMods, FileMode.Truncate) : _fs.File.Create(tempInstalledMods);
+        await JsonSerializer.SerializeAsync(fs, _mods, new JsonSerializerOptions { WriteIndented = true });
         FileUtil.DeleteDirectory(_settings.ModsFolder);
+        
         var tempDbMods = _mods.Mods.ToDictionary(x => x.Key, x => x.Value);
         var tempDbNotInModlinksMods = _mods.NotInModlinksMods.ToDictionary(x => x.Key, x => x.Value);
         
@@ -204,16 +211,13 @@ public class PackManager : IPackManager
             await SavePack(pack.Name, pack.Description, pack.Authors);
             
             _fs.File.Delete(Path.Combine(_settings.ModsFolder, packInfoFileName));
-            
-            // delete temp folder
-            _fs.Directory.Delete(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), true);
 
             return true;
         }
         catch (Exception e)
         {
             _fs.Directory.Delete(_settings.ModsFolder, true);
-            _fs.Directory.Move(Path.Combine(_settings.ManagedFolder, "Temp_Mods_Storage"), _settings.ModsFolder);
+            _fs.Directory.Move(TempModStorageLocation, _settings.ModsFolder);
             await _mods.SetMods(tempDbMods, tempDbNotInModlinksMods);
             
             await DisplayErrors.DisplayGenericError("An error occured when activating pack. Lumafly will revert to old mods", e);
@@ -541,5 +545,14 @@ public class PackManager : IPackManager
             });
         
         return pack;
+    }
+
+    public async Task RevertToPreviousModsFolder()
+    {
+        FileUtil.DeleteDirectory(_settings.ModsFolder);
+        var installedMods = JsonSerializer.Deserialize<InstalledMods>(await File.ReadAllTextAsync(Path.Combine(TempModStorageLocation, InstalledMods.FILE_NAME)));
+        if (installedMods != null) 
+            await _mods.SetMods(installedMods.Mods, installedMods.NotInModlinksMods);
+        Directory.Move(TempModStorageLocation, _settings.ModsFolder);
     }
 }

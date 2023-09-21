@@ -18,7 +18,7 @@ namespace Lumafly.Services
     [Serializable]
     public record InstalledMods : IModSource
     {
-        private const string FILE_NAME = "InstalledMods.json";
+        internal const string FILE_NAME = "InstalledMods.json";
         
         internal static readonly string ConfigPath = Path.Combine(Settings.GetOrCreateDirPath(), FILE_NAME);
 
