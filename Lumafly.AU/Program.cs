@@ -27,6 +27,13 @@ try
         LumaflyExeName = Path.GetFileName(fullPath);
         LumaflyPath = Path.GetDirectoryName(fullPath) ?? throw new Exception("Invalid path given in arguments.");
         shouldLaunchUpdated = false; // don't launch the updated app as it'll be handled by NetSparkle
+
+        // do rename of exe if it has Scarab in its name
+        if (LumaflyExeName.Contains("Scarab"))
+        {
+            LumaflyExeName = LumaflyExeName.Replace("Scarab", "Lumafly");
+            shouldLaunchUpdated = true; // netsparkle wont launch lumafly if exe name had scarab
+        }
     }
 
     var originalLumaflyExe = Path.Combine(LumaflyPath, LumaflyExeName);
@@ -36,7 +43,15 @@ try
 
     // these actions shouldn't fail as Lumafly is running as admin
     File.WriteAllBytes(updatedLumaflyFile, updatedLumaflyExeBytes); // create the file
-    if (File.Exists(originalLumaflyExe)) File.Delete(originalLumaflyExe); // delete the old file
+    if (File.Exists(originalLumaflyExe)) // delete the old file
+    {
+        File.Delete(originalLumaflyExe); 
+    }
+    else // it means original exe file has Scarab in it and "originalLumaflyExe" doesnt exist anymore as we did the replace above
+    {
+        if (File.Exists(fullPath)) File.Delete(fullPath); // delete the actual old file
+        shouldLaunchUpdated = true; // netsparkle doesn't expect this to happen so we have to do it now
+    }
     File.Move(updatedLumaflyFile, originalLumaflyExe); // move the new file to the old file's location
     
     Console.WriteLine("Successfully updated Lumafly.");
