@@ -708,4 +708,10 @@
   <data name="PackUpdatePrompt" xml:space="preserve">
     <value>Some mods in the pack are outdated, do you want to update them?</value>
   </data>
+  <data name="LoadPackAdditive" xml:space="preserve">
+    <value>Load without replacing</value>
+  </data>
+  <data name="LoadPackAdditive_Explanation" xml:space="preserve">
+    <value>Load this pack without replacing mods in current mods folder</value>
+  </data>
 </root>

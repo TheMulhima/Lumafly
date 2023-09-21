@@ -73,10 +73,8 @@ public partial class PackManagerViewModel : ViewModelBase
         _packManager.RemovePack(pack.Name);
     }
     
-    public async Task LoadPack(object packObj)
+    private async Task _LoadPack(Pack pack, bool additive)
     {
-        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
-
         bool success = false;
         
         await Dispatcher.UIThread.InvokeAsync(
@@ -86,7 +84,7 @@ public partial class PackManagerViewModel : ViewModelBase
                 {
                     try
                     {
-                        success = await _packManager.LoadPack(pack.Name);
+                        success = await _packManager.LoadPack(pack.Name, additive);
                         if (success)
                         {
                             MainWindowViewModel.Instance.IsLoadingModPack = true;
@@ -102,6 +100,18 @@ public partial class PackManagerViewModel : ViewModelBase
 
         if (success) 
             OnPackLoaded?.Invoke(pack.Name);
+    }
+    public async Task LoadPack(object packObj)
+    {
+        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
+
+        await _LoadPack(pack, false);
+    }
+    public async Task LoadPackAdditive(object packObj)
+    {
+        var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
+
+        await _LoadPack(pack, true);
     }
     
     public void CreateNewPack()

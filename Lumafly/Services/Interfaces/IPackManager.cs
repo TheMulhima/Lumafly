@@ -9,7 +9,7 @@ public interface IPackManager
 {
    public SortableObservableCollection<Pack> PackList { get; }
    
-   Task<bool> LoadPack(string packName);
+   Task<bool> LoadPack(string packName, bool additive);
 
    Task SavePack(string name, string description, string authors);
 

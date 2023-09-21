@@ -168,6 +168,24 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load without replacing.
+        /// </summary>
+        internal static string LoadPackAdditive {
+            get {
+                return ResourceManager.GetString("LoadPackAdditive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load this pack without replacing mods in current mods folder.
+        /// </summary>
+        internal static string LoadPackAdditive_Explanation {
+            get {
+                return ResourceManager.GetString("LoadPackAdditive_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall.
         /// </summary>
         internal static string MI_InstallText_Installed {

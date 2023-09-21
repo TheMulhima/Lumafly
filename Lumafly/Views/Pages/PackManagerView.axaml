@@ -165,14 +165,33 @@
                                  Margin="0 0 5 0"/>
                         </Grid>
                     </Expander>
-                    <Button
+                    <SplitButton
                         Grid.Column="1"
                         VerticalAlignment="Top"
                         Margin="0 7 5 0"
                         Padding="5 6"
                         Content="{ext:Localize XAML_LoadPack}"
                         Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.LoadPack}"
-                        CommandParameter="{Binding .}"/>
+                        CommandParameter="{Binding .}">
+                        <SplitButton.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="#272e3c" />
+                            </Style>
+                        </SplitButton.Styles>
+                        <SplitButton.Flyout>
+                            <Flyout
+                                ShowMode="Transient"
+                                Placement="BottomEdgeAlignedRight">
+                                <Button
+                                    Margin="-13 -18"
+                                    Content="{ext:Localize LoadPackAdditive}"
+                                    Background="#404552"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.LoadPackAdditive}"
+                                    CommandParameter="{Binding .}"
+                                    ToolTip.Tip="{ext:Localize LoadPackAdditive_Explanation}" ToolTip.ShowDelay="0" />
+                            </Flyout>
+                        </SplitButton.Flyout>
+                    </SplitButton>
                     </Grid>
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>

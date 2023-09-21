@@ -122,7 +122,7 @@ public class PackManager : IPackManager
     /// Loads a pack as the main mod list.
     /// </summary>
     /// <param name="packName">The profile to set as current.</param>
-    public async Task<bool> LoadPack(string packName)
+    public async Task<bool> LoadPack(string packName, bool additive)
     {
         await EnsureGameClosed();
         
@@ -132,23 +132,78 @@ public class PackManager : IPackManager
             await DisplayErrors.DisplayGenericError("Could not set current profile: profile not found!");
             return false;
         }
+        
+        if (additive)
+            return await LoadPackAdditive(pack);
+        else
+            return await LoadPackExclusive(pack);
+    }
 
-        var packFolder = Path.Combine(_settings.ManagedFolder, packName);
-
+    private async Task CacheOldModsFolder()
+    {
         // move all the mods to a temp folder so we can revert if the pack enabling fails
         FileUtil.DeleteDirectory(TempModStorageLocation);
         FileUtil.CopyDirectory(_settings.ModsFolder, TempModStorageLocation);
         var tempInstalledMods = Path.Combine(TempModStorageLocation, InstalledMods.FILE_NAME);
         await using Stream fs = _fs.File.Exists(tempInstalledMods) ? _fs.FileStream.New(tempInstalledMods, FileMode.Truncate) : _fs.File.Create(tempInstalledMods);
         await JsonSerializer.SerializeAsync(fs, _mods, new JsonSerializerOptions { WriteIndented = true });
-        FileUtil.DeleteDirectory(_settings.ModsFolder);
-        
-        var tempDbMods = _mods.Mods.ToDictionary(x => x.Key, x => x.Value);
-        var tempDbNotInModlinksMods = _mods.NotInModlinksMods.ToDictionary(x => x.Key, x => x.Value);
-        
-        // enable pack
+        fs.Close();
+    }
+
+    private async Task<bool> LoadPackAdditive(Pack pack)
+    {
         try
         {
+            var packFolder = Path.Combine(_settings.ManagedFolder, pack.Name);
+
+            await CacheOldModsFolder();
+            
+            foreach (var mod in pack.InstalledMods.Mods.Where(x => x.Value.Enabled))
+            {
+                if (!_mods.Mods.ContainsKey(mod.Key))
+                {
+                    _mods.Mods.Add(mod.Key, mod.Value);
+                    if (Directory.Exists(Path.Combine(packFolder, mod.Key)))
+                    {
+                        FileUtil.CopyDirectory(Path.Combine(packFolder, mod.Key), Path.Combine(_settings.ModsFolder, mod.Key));
+                    }
+                    else
+                    {
+                        await _installer.Install(_items[mod.Key], _ => { }, true);
+                    }
+                }
+                else
+                {
+                    if (Directory.Exists(Path.Combine(packFolder, mod.Key)))
+                    {
+                        FileUtil.CopyDirectory(Path.Combine(packFolder, mod.Key), Path.Combine(_settings.ModsFolder, mod.Key));
+                    }
+                }
+            }   
+
+            await _mods.SetMods(_mods.Mods, _mods.NotInModlinksMods);
+            
+            return true;
+        }
+        catch (Exception e)
+        {
+            await RevertToPreviousModsFolder();
+            
+            await DisplayErrors.DisplayGenericError("An error occured when activating pack. Lumafly will revert to old mods", e);
+
+            return false;
+        }
+    }
+    private async Task<bool> LoadPackExclusive(Pack pack)
+    {
+        try
+        {
+            var packFolder = Path.Combine(_settings.ManagedFolder, pack.Name);
+
+            await CacheOldModsFolder();
+        
+            FileUtil.DeleteDirectory(_settings.ModsFolder);
+            
             // move the mods from the profile to the mods folder
             FileUtil.CopyDirectory(packFolder, _settings.ModsFolder);
             await _mods.SetMods(pack.InstalledMods.Mods, pack.InstalledMods.NotInModlinksMods);
@@ -216,9 +271,7 @@ public class PackManager : IPackManager
         }
         catch (Exception e)
         {
-            _fs.Directory.Delete(_settings.ModsFolder, true);
-            _fs.Directory.Move(TempModStorageLocation, _settings.ModsFolder);
-            await _mods.SetMods(tempDbMods, tempDbNotInModlinksMods);
+            await RevertToPreviousModsFolder();
             
             await DisplayErrors.DisplayGenericError("An error occured when activating pack. Lumafly will revert to old mods", e);
 
