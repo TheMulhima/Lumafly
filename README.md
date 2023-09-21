@@ -9,6 +9,8 @@
 
 This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, Russian and Polish.
 
+Formerly known as **Scarab+**
+
 ## Usage
 
 - Download the latest version from the [automatic download link](https://themulhima.github.io/Lumafly?download) or the [releases page](https://github.com/TheMulhima/Lumafly/releases/latest).
