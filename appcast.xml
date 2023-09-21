@@ -17,5 +17,31 @@
                        type="application/octet-stream"
                         />
         </item>
+        <item>
+            <title>Scarab Update v2.3.0.0</title>
+            <sparkle:releaseNotesLink>
+                https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v2.3.0.0.md
+            </sparkle:releaseNotesLink>
+            <pubDate>Sun, 09 Jul 2023 21:56:22 +0000</pubDate>
+            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.3.0.0/Scarab.AU.exe"
+                       sparkle:version="2.3.0.0"
+                       sparkle:os="windows"
+                       length="12288"
+                       type="application/octet-stream"
+            />
+        </item>
+        <item>
+            <title>Scarab Update v2.2.0.0</title>
+            <sparkle:releaseNotesLink>
+                https://raw.githubusercontent.com/TheMulhima/Scarab/static-resources/Changelogs/v2.2.0.0.md
+            </sparkle:releaseNotesLink>
+            <pubDate>Thu, 29 Jun 2023 21:55:08 +0000</pubDate>
+            <enclosure url="https://github.com/TheMulhima/Scarab/releases/download/v2.2.0.0/Scarab.AU.exe"
+                       sparkle:version="2.2.0.0"
+                       sparkle:os="windows"
+                       length="12288"
+                       type="application/octet-stream"
+            />
+        </item>
     </channel>
 </rss>
