@@ -102,7 +102,7 @@ If you want to contribute to Lumafly, feel free to. You can see what features ar
 
 ### Programming
 
-- [56](https://github.com/fifty-six): Original creator of Lumafly
+- [56](https://github.com/fifty-six): Creator of Scarab, on which Lumafly is based
 - [JacksonFaller](https://github.com/JacksonFaller), [Italy](https://github.com/jngo102), and [Acu1000](https://github.com/Acu1000) - Helped create new features
 
 ### Translations
