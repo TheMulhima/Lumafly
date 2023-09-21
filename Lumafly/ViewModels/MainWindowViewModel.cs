@@ -43,6 +43,9 @@ namespace Lumafly.ViewModels
 
         private static bool isFirstLoad { get; set; } = true;
         public static MainWindowViewModel? Instance { get; private set; }
+
+        public bool IsLoadingModPack = false;
+        public string LastLoadedPack = "";
         
         [Notify]
         private LoadingViewModel _loadingPage { get; set; }
@@ -258,6 +261,7 @@ namespace Lumafly.ViewModels
                       sp.GetRequiredService<IModSource>(),
                       sp.GetRequiredService<IGlobalSettingsFinder>(),
                       sp.GetRequiredService<IUrlSchemeHandler>(),
+                      sp.GetRequiredService<IPackManager>(),
                       lumaflyMode))
               .AddSingleton<SettingsViewModel>()
               .AddSingleton<InfoViewModel>()

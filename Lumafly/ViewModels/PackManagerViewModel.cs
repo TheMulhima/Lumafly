@@ -87,6 +87,11 @@ public partial class PackManagerViewModel : ViewModelBase
                     try
                     {
                         success = await _packManager.LoadPack(pack.Name);
+                        if (success)
+                        {
+                            MainWindowViewModel.Instance.IsLoadingModPack = true;
+                            MainWindowViewModel.Instance.LastLoadedPack = pack.Name;
+                        }
                     }
                     catch (Exception e)
                     {

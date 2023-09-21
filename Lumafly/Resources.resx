@@ -705,4 +705,7 @@
   <data name="RevertToPreviousMods" xml:space="preserve">
     <value>Revert to previous mods</value>
   </data>
+  <data name="PackUpdatePrompt" xml:space="preserve">
+    <value>Some mods in the pack are outdated, do you want to update them?</value>
+  </data>
 </root>

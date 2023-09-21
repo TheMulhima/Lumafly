@@ -735,6 +735,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some mods in the pack are outdated, do you want to update them?.
+        /// </summary>
+        internal static string PackUpdatePrompt {
+            get {
+                return ResourceManager.GetString("PackUpdatePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Managed folder or Assembly-CSharp!.
         /// </summary>
         internal static string PU_InvalidApp {

@@ -36,6 +36,7 @@ namespace Lumafly.ViewModels
         private readonly IReverseDependencySearch _reverseDependencySearch;
         private readonly IModLinksChanges _modlinksChanges;
         private readonly IUrlSchemeHandler _urlSchemeHandler;
+        private readonly IPackManager _packManager;
         private readonly LumaflyMode _lumaflyMode;
         
         [Notify("ProgressBarVisible")]
@@ -91,6 +92,7 @@ namespace Lumafly.ViewModels
             IModSource mods,
             IGlobalSettingsFinder settingsFinder, 
             IUrlSchemeHandler urlSchemeHandler,
+            IPackManager packManager,
             LumaflyMode lumaflyMode)
         {
             Trace.WriteLine("Initializing ModListViewModel");
@@ -100,6 +102,7 @@ namespace Lumafly.ViewModels
             _db = db;
             _settingsFinder = settingsFinder;
             _urlSchemeHandler = urlSchemeHandler;
+            _packManager = packManager;
             _lumaflyMode = lumaflyMode;
 
             Trace.WriteLine("Creating Items");
@@ -173,6 +176,7 @@ namespace Lumafly.ViewModels
             Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme());
+            Dispatcher.UIThread.InvokeAsync(async () => await HandleOutdatedPackMods());
         }
 
         private async Task HandleDownloadUrlScheme()
@@ -1325,6 +1329,29 @@ namespace Lumafly.ViewModels
                 case "Library": return Resources.ModLinks_Tags_Library;
                 case "Expansion": return Resources.ModLinks_Tags_Expansion;
                 default: return tag;
+            }
+        }
+
+        public async Task HandleOutdatedPackMods()
+        {
+            if (MainWindowViewModel.Instance!.IsLoadingModPack)
+            {
+                
+                var outdated = _mods.Mods.Where(modWithState => _items.First(x => x.Name == modWithState.Key).UpdateAvailable).ToList();
+                if (outdated.Any())
+                {
+                    var response = await MessageBoxUtil.GetMessageBoxStandardWindow("", Resources.PackUpdatePrompt, ButtonEnum.YesNo)
+                        .ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+
+                    if (response == ButtonResult.Yes)
+                    {
+                        await UpdateUnupdated();
+                        var pack = _packManager.PackList.First(x => x.Name == MainWindowViewModel.Instance.LastLoadedPack);
+                        await _packManager.SavePack(pack.Name, pack.Description, pack.Authors);
+                        MainWindowViewModel.Instance.IsLoadingModPack = false;
+                        await MainWindowViewModel.Instance.LoadApp();
+                    }
+                }
             }
         }
     }
