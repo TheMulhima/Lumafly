@@ -79,6 +79,18 @@
                                     Grid.Column="2"
                                     VerticalAlignment="Stretch"
                                     Margin="0 1 10 1"
+                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.EditPack}"
+                                    CommandParameter="{Binding .}"
+                                    ToolTip.Tip="{ext:Localize XAML_EditPack}" ToolTip.ShowDelay="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{ext:Localize XAML_EditPack}" Margin="0 0 10 0"/>
+                                        <PathIcon Data="{StaticResource edit_regular}"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Grid.Column="3"
+                                    VerticalAlignment="Stretch"
+                                    Margin="0 1 10 1"
                                     ToolTip.Tip="{ext:Localize XAML_SharePack}" ToolTip.ShowDelay="0">
                                     <PathIcon Data="{StaticResource share_android_regular}"/>
                                     <Button.Flyout>
@@ -106,15 +118,6 @@
                                             </StackPanel>
                                         </Flyout>
                                     </Button.Flyout>
-                                </Button>
-                                <Button
-                                    Grid.Column="3"
-                                    VerticalAlignment="Stretch"
-                                    Margin="0 1 10 1"
-                                    Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.EditPack}"
-                                    CommandParameter="{Binding .}"
-                                    ToolTip.Tip="{ext:Localize XAML_EditPack}" ToolTip.ShowDelay="0">
-                                    <PathIcon Data="{StaticResource edit_regular}"/>
                                 </Button>
                                 <Button
                                     Grid.Column="4"
@@ -165,7 +168,7 @@
                     <Button
                         Grid.Column="1"
                         VerticalAlignment="Top"
-                        Margin="0 3 5 0"
+                        Margin="0 7 5 0"
                         Padding="5 6"
                         Content="{ext:Localize XAML_LoadPack}"
                         Command="{ReflectionBinding $parent[pages:PackManagerView].DataContext.LoadPack}"
