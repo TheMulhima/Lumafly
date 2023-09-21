@@ -9,6 +9,8 @@
 
 This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, Russian and Polish.
 
+Formerly known as **Scarab+**
+
 ## Usage
 
 - Download the latest version from the [automatic download link](https://themulhima.github.io/Lumafly?download) or the [releases page](https://github.com/TheMulhima/Lumafly/releases/latest).
@@ -102,7 +104,7 @@ If you want to contribute to Lumafly, feel free to. You can see what features ar
 
 ### Programming
 
-- [56](https://github.com/fifty-six): Original creator of Lumafly
+- [56](https://github.com/fifty-six): Creator of Scarab, on which Lumafly is based
 - [JacksonFaller](https://github.com/JacksonFaller), [Italy](https://github.com/jngo102), and [Acu1000](https://github.com/Acu1000) - Helped create new features
 
 ### Translations
