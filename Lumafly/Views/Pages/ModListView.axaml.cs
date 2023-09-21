@@ -69,7 +69,7 @@ namespace Lumafly.Views.Pages
             
             _notify = new WindowNotificationManager(topLevel)
             {
-                MaxItems = 3,
+                MaxItems = 1,
                 Margin = new Thickness(0, 50),
                 Opacity = 0.65,
             };
