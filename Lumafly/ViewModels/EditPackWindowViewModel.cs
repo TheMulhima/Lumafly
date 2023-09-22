@@ -138,7 +138,17 @@ public partial class EditPackWindowViewModel : ViewModelBase
         
         ModSelectionChanged(null);
     }
-    
+
+    public void RemoveMod(object modObj)
+    {
+        var mod = (ModItem)modObj;
+
+        var selectableMod = _mods.First(x => x.DisplayName == mod.Name);
+        selectableMod.IsSelected = false;
+        
+        ModSelectionChanged(selectableMod);
+    }
+
     public string ModSearch
     {
         get => _modSearch;

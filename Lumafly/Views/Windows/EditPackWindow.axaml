@@ -152,8 +152,8 @@
                     <ScrollViewer>
                         <ScrollViewer.Styles>
                             <Style Selector="Border">
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="BorderThickness" Value="0.5"/>
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="BorderThickness" Value="0.5" />
                             </Style>
                             <Style Selector="customControls|TextButtonFlyout">
                                 <Setter Property="FlyoutShowMode" Value="Transient" />
@@ -168,26 +168,37 @@
                                 <Setter Property="Margin" Value="2 2 2 5" />
                             </Style>
                             <Style Selector="Button.EnableButton">
-                                <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.EnableMod}"/>
-                                <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="{ext:Localize EnableMod}"/>
+                                <Setter Property="Command"
+                                        Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.EnableMod}" />
+                                <Setter Property="CommandParameter" Value="{Binding .}" />
+                                <Setter Property="Content" Value="{ext:Localize EnableMod}" />
                             </Style>
                             <Style Selector="Button.DisableButton">
-                                <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.DisableMod}"/>
-                                <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="{ext:Localize DisableMod}"/>
+                                <Setter Property="Command"
+                                        Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.DisableMod}" />
+                                <Setter Property="CommandParameter" Value="{Binding .}" />
+                                <Setter Property="Content" Value="{ext:Localize DisableMod}" />
                             </Style>
                             <Style Selector="Button.FixedVersion">
-                                <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseFixedVersion}"/>
-                                <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="{ext:Localize UseFixedVersion}"/>
+                                <Setter Property="Command"
+                                        Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseFixedVersion}" />
+                                <Setter Property="CommandParameter" Value="{Binding .}" />
+                                <Setter Property="Content" Value="{ext:Localize UseFixedVersion}" />
                                 <Setter Property="ToolTip.Tip" Value="{ext:Localize FixedVersion_Tooltip}" />
                             </Style>
                             <Style Selector="Button.ModlinksVersion">
-                                <Setter Property="Command" Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseModlinksVersion}"/>
-                                <Setter Property="CommandParameter" Value="{Binding .}"/>
-                                <Setter Property="Content" Value="{ext:Localize UseModlinksVersion}"/>
+                                <Setter Property="Command"
+                                        Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.UseModlinksVersion}" />
+                                <Setter Property="CommandParameter" Value="{Binding .}" />
+                                <Setter Property="Content" Value="{ext:Localize UseModlinksVersion}" />
                                 <Setter Property="ToolTip.Tip" Value="{ext:Localize ModlinksVersion_Tooltip}" />
+                            </Style>
+                            <Style Selector="Button.Remove">
+                                <Setter Property="Command"
+                                        Value="{ReflectionBinding $parent[windows:EditPackWindow].DataContext.RemoveMod}" />
+                                <Setter Property="CommandParameter" Value="{Binding .}" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="HorizontalAlignment" Value="Right" />
                             </Style>
                         </ScrollViewer.Styles>
                         <StackPanel>
@@ -195,13 +206,19 @@
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="models:ModItem">
                                         <Border BorderBrush="#dedede">
-                                            <customControls:TextButtonFlyout
-                                                Header="{Binding Name}">
-                                                <StackPanel>
-                                                    <Button Classes="DisableButton" Click="DismissOnClick"/>
-                                                    <Button Classes="FixedVersion" Click="DismissOnClick"/>
-                                                </StackPanel>
-                                            </customControls:TextButtonFlyout>
+                                            <Grid ColumnDefinitions="Auto *">
+                                                <Button Grid.Column="1" Classes="Remove">
+                                                    <PathIcon Data="{StaticResource delete_regular}" />
+                                                </Button>
+                                                <customControls:TextButtonFlyout
+                                                    Grid.Column="0"
+                                                    Header="{Binding Name}">
+                                                    <StackPanel>
+                                                        <Button Classes="DisableButton" Click="DismissOnClick" />
+                                                        <Button Classes="FixedVersion" Click="DismissOnClick" />
+                                                    </StackPanel>
+                                                </customControls:TextButtonFlyout>
+                                            </Grid>
                                         </Border>
 
                                     </DataTemplate>
@@ -212,14 +229,19 @@
                                     <DataTemplate x:DataType="models:ModItem">
 
                                         <Border BorderBrush="Khaki">
-                                            <customControls:TextButtonFlyout
-                                                Header="{Binding Name}">
-                                                <StackPanel>
-                                                    <Button Classes="EnableButton" Click="DismissOnClick"/>
-                                                    <Button Classes="FixedVersion" Click="DismissOnClick"/>
-                                                </StackPanel>
-                                            </customControls:TextButtonFlyout>
-
+                                            <Grid ColumnDefinitions="Auto *">
+                                                <Button Grid.Column="1" Classes="Remove">
+                                                    <PathIcon Data="{StaticResource delete_regular}" />
+                                                </Button>
+                                                <customControls:TextButtonFlyout
+                                                    Grid.Column="0"
+                                                    Header="{Binding Name}">
+                                                    <StackPanel>
+                                                        <Button Classes="EnableButton" Click="DismissOnClick" />
+                                                        <Button Classes="FixedVersion" Click="DismissOnClick" />
+                                                    </StackPanel>
+                                                </customControls:TextButtonFlyout>
+                                            </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>
@@ -228,14 +250,19 @@
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="models:ModItem">
                                         <Border BorderBrush="DarkOrange">
-                                            <customControls:TextButtonFlyout
-                                                Header="{Binding Name}">
-                                                <StackPanel>
-                                                    <Button Classes="DisableButton" Click="DismissOnClick"/>
-                                                    <Button Classes="ModlinksVersion" Click="DismissOnClick"/>
-                                                </StackPanel>
-                                            </customControls:TextButtonFlyout>
-
+                                            <Grid ColumnDefinitions="Auto *">
+                                                <Button Grid.Column="1" Classes="Remove">
+                                                    <PathIcon Data="{StaticResource delete_regular}" />
+                                                </Button>
+                                                <customControls:TextButtonFlyout
+                                                    Grid.Column="0"
+                                                    Header="{Binding Name}">
+                                                    <StackPanel>
+                                                        <Button Classes="DisableButton" Click="DismissOnClick" />
+                                                        <Button Classes="ModlinksVersion" Click="DismissOnClick" />
+                                                    </StackPanel>
+                                                </customControls:TextButtonFlyout>
+                                            </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>
@@ -244,13 +271,19 @@
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="models:ModItem">
                                         <Border BorderBrush="Yellow">
-                                            <customControls:TextButtonFlyout
-                                                Header="{Binding Name}">
-                                                <StackPanel>
-                                                    <Button Classes="EnableButton" Click="DismissOnClick"/>
-                                                    <Button Classes="ModlinksVersion" Click="DismissOnClick"/>
-                                                </StackPanel>
-                                            </customControls:TextButtonFlyout>
+                                            <Grid ColumnDefinitions="Auto *">
+                                                <Button Grid.Column="1" Classes="Remove">
+                                                    <PathIcon Data="{StaticResource delete_regular}" />
+                                                </Button>
+                                                <customControls:TextButtonFlyout
+                                                    Grid.Column="0"
+                                                    Header="{Binding Name}">
+                                                    <StackPanel>
+                                                        <Button Classes="EnableButton" Click="DismissOnClick" />
+                                                        <Button Classes="ModlinksVersion" Click="DismissOnClick" />
+                                                    </StackPanel>
+                                                </customControls:TextButtonFlyout>
+                                            </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>
