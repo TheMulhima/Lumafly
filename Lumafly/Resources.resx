@@ -676,7 +676,7 @@
     <value>Enable Mod</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>DisableMod</value>
+    <value>Disable Mod</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
     <value>Use Fixed Version</value>

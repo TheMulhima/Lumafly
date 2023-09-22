@@ -105,7 +105,7 @@ namespace Lumafly {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DisableMod.
+        ///   Looks up a localized string similar to Disable Mod.
         /// </summary>
         internal static string DisableMod {
             get {
