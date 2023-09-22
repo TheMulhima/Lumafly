@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>API ki/be</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Indítsd újra a telepítőt az új útvonal használatához.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Az útvonal megváltozott!</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>A {0} letöltési hash-e ({1}) nem egyezik a megadottal ({2}). Korruptálódhatott, vagy a bejegyzés helytelen.</value>
   </data>
@@ -284,8 +278,5 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Mindent frissíteni</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Eltávolít</value>
   </data>
 </root>

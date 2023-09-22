@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>Activer l'API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Relancer le programme pour utiliser le nouveau chemin.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Chemin changé !</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>Le hachage pour {0} ({1}) ne correspond pas à la signature ({2}). Il est corrompu ou bien la valeur est incorrecte.</value>
   </data>
@@ -293,9 +287,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Tout mettre à jour</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Désinstaller</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Actions multiples</value>
@@ -525,12 +516,6 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>(rechargez pour prendre en compte les changements)</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Lien personnalisé modlinks invalide</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly n'a pas pu charger modlinks de {0}. Lumafly va utiliser le modlinks officiel.</value>
-  </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>Info</value>
   </data>
@@ -599,81 +584,6 @@
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Version ne provenant pas de modlinks</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Commande de schéma d'URL invalide</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} est une commande invalide.\nLumafly n'accepte que les commandes préfixées par scarab://</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} est une commande invalide.\nIl n'a pas été trouvé dans la liste des commandes acceptées par Lumafly.</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Réinitialisation de l'installateur à partir de la commande</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>L'installateur a été réinitialisé.</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>L'installateur n'a pas pu être réinitialisé. Veuillez réessayer.\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Réinitialise tous les paramètres globaux de l'installateur des mods à partir de la commande</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>Tous les paramètres globaux des mods ont été réinitialisés.</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Tous les paramètres globaux des mods n'ont pas pu être réinitialisés. Veuillez réessayer.\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Télécharger le mod à partir de la commande</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Commande de téléchargement de mod invalide</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly a téléchargé avec succès {0} depuis la commande</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\Cependant, Lumafly n'a pas pu télécharger {0} à partir de la commande. Veuillez vérifier si la commande est correcte</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Supprimer le paramètre global du mod</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Commande de suppression globale de mod invalide</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly a supprimé les paramètres globaux pour {0} depuis la commande</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>Cependant\nLumafly n'a pas pu trouver les paramètres globaux pour {0}. Veuillez vérifier que le nom du mod est correct et que le mod est installé.</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Forcer la mise à jour de tous les mods à partir de la commande</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly a exécuté avec succès la mise à jour de tous les mods forcée.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Charger des modlinks personnalisés à partir de la commande</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Obtention du modlinks personnalisé \"{0}\" à partir de la commande.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Aucun modlink n'a été fourni. Veuillez réessayer</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Charger un baselink personnalisés à partir de la commande</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Obtention du baselink personnalisé \"{0}\" à partir de la commande.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Aucun baselink n'a été fourni. Veuillez réessayer</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Langue</value>

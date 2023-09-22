@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>Ativar/Desativar API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Reabra o Lumafly para aplicar seu novo caminho.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Caminho Alterado!</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>O hash da transferência de {0} ({1}) não correspondeu com a assinatura concedida ({2}). Ele está corrompido ou o registro está incorreto.</value>
   </data>
@@ -290,9 +284,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Atualizar Tudo</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Desinstalar</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
     <value>Selecione a dll ou o zip do mod</value>
@@ -457,12 +448,6 @@
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
     <value>O mod tem dependências que não estão instaladas!</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly não conseguiu carregar modlinks de {0}. Em vez disso, Lumafly irá carregar o modlinks oficial.</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Modlinks Personalizado Inválido</value>
-  </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
     <value>Você quer iniciar Lumafly no modo offline?</value>
   </data>
@@ -600,81 +585,6 @@
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Versão não vinda do modlinks</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Comando de Esquema de URL Inválido</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} é um comando inválido.\nLumafly apenas aceita comandos prefixados por scarab://</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} é um comando inválido.\nEle não foi encontrado na lista de comandos aceitos do Lumafly</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Redefinir instalador por comando</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>O instalador foi redefinido.</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>O instalador não pôde ser redefinido. Por favor tente novamente.\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Redefinir todas as configurações globais de mods por comando</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>Todas as configurações globais de mods foram redefinidas.</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Todas as configurações globais de mods não puderam ser redefinidas. Por favor tente novamente.\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Baixar mod por comando</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Comando de baixar mod inválido</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly baixou {0} com sucesso por comando</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\nPorém, Lumafly não conseguiu baixar {0} por comando. Por favor cheque se o comando está correto</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Remover configuração global de mod</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Comando de remover global de mod inválido</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly removeu configurações globais para {0} por comando</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>Porém\nLumafly não conseguiu achar as configurações globais para {0}. Por favor cheque se o nome do mod está correto e se o mod está instalado</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Forçar atualização de tudo por comando</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly executou o comando de forçar atualização de tudo com sucesso</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Carregar modlinks personalizado por comando</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Modlinks personalizado \"{0}\" obtido por comando.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nenhum modlinks foi disponibilizado. Por favor tente novamente</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Carregar novo baselink por comando</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Novo baselink '{0}' obtido por comando.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nenhum baselink foi disponibilizado. Por favor tente novamente</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Língua</value>

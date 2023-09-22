@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>切换 API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>重启 Lumafly 来使用新路径。</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>游戏路径已更改！</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>{0}（{1}）的哈希值与给定值（{2}）不匹配。可能是下载出错或 Mod 条目有误。</value>
   </data>
@@ -293,9 +287,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>全部更新</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>卸载</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>批量操作</value>
@@ -525,12 +516,6 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>（重新加载来应用更改）</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>无效自定义 Mod 列表</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly 无法从 {0} 加载 Mod 列表，将会加载官方 Mod 列表。</value>
-  </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>关于</value>
   </data>
@@ -599,81 +584,6 @@
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>该版本不在 Mod 列表中</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>无效的 URL Scheme 命令</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>命令 {0} 无效。\nLumafly 只接受以 scarab:// 开头的命令</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>命令 {0} 无效。\n它不在 Lumafly 的命令列表中。</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：重置 Lumafly</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly 已重置。</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>无法重置 Lumafly。请重试。\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：重置全部 Mod 的全局配置文件</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>已重置全部 Mod 的全局配置文件。</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>无法重置全部 Mod 的全局配置文件。请重试。\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：下载 Mod</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>无效的 Mod 下载命令</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly 已成功下载 {0}。</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\n然而，Lumafly 无法下载 {0}。请检查命令是否正确。</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：清除 Mod 全局配置文件</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>无效的清除 Mod 全局配置文件命令</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly 已移除 {0} 的全局配置文件。</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>\n然而，Lumafly 无法找到 {0} 的全局配置文件。请检查 Mod 名称是否正确且已经安装。</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：强制全部更新</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly 已成功强制全部更新。</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：加载自定义 Mod 列表。</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>已成功获取自定义 Mod 列表 \"{0}\"。</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>未提供 Mod 列表。请重试。</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>命令触发：加载新基础链接</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>已获取新基础链接 \"{0}\"。</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>未提供基础链接。请重试。</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>语言</value>

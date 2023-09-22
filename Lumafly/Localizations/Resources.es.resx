@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>Instalar API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Reabrir el instalador para usar una nueva ruta de instalación.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>¡Ruta cambiada!</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>El hash descargado para {0} ({1}) no coincide con el valor dado ({2}). Está corrupto o la entrada es incorrecta.</value>
   </data>
@@ -293,9 +287,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Actualizar todo</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Desinstalar</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Acciones combinadas</value>
@@ -525,13 +516,6 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>(Hace falta reiniciar Lumafly para que se apliquen los cambios)</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Modlinks personalizados inválidos</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly no ha sido capaz de cargar modlinks de {0}. Lumafly cargará los modlinks oficiales.</value>
-    }
-  </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>Información</value>
   </data>
@@ -600,81 +584,6 @@
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Esta versión no se encuentra en los modlinks</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Comando URL Scheme inválido</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} es un comando inválido.\nLumafly solo acepta comandos que comiencen por scarab://</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} es un comando inválido.\nNo se ha encontrado en la lista de comandos permitidos de Lumafly</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Restablecer el instalador con un comando</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>El instalador se ha reseteado.</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>El instalador no se ha podido resetear. Por favor, inténtalo de nuevo.\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Restablecer las opciones globales de todos los mods con un comando</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>Todas las opciones globales de los mods se han restablecido.</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>No se han podido restablecer las opciones globales de los mods. Por favor, inténtalo de nuevo.\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Descargar mods con un comando</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Comando de descarga de mods inválido</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly ha descargado con éxito {0} con un comando.</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\nSin embargo, Lumafly no ha sido capaz de descargar {0} con un comando. Comprueba si el comando es correcto.</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Eliminar las opciones globales de un mod</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Comando para eliminar opciones globales inválido</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly ha eliminado las opciones globales de {0} con un comando.</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>\nSin embargo, Lumafly no ha sido capaz de encontrar las opciones globales de {0}. Por favor, comprueba si el mod está instalado y su nombre es correcto.</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Forzar actualizar todo con un comando</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly ha usado el comando de forzar actualizar todo de forma correcta.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Cargar modlinks personalizados con un comando</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Se han obtenido los modlinks personalizados \"{0}\" con un comando.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>No se han proporcionado modlinks. Por favor, inténtalo de nuevo.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Cargar enlace base nuevo con un comando</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Se ha obtenido un enlace base nuevo '{0}' con un comando.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>No se ha proporcionado un enlace base. Por favor, inténtalo de nuevo.</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Idioma</value>

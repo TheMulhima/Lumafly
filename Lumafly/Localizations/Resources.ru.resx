@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>Переключить API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Повторно откройте установщик, чтобы использовать новый путь.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Путь Изменён!</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>Хэш загрузки для {0} ({1}) не соответствует заданной подписи ({2}). Либо он повреждён, либо введена неверная информация.</value>
   </data>
@@ -290,9 +284,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Обновить Всё</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Удалить</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Массовые действия</value>
@@ -522,12 +513,6 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>(Перезагрузите, чтобы изменения вступили в силу)</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Недопустимые Пользовательские Ссылки на Моды</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly не удалось загрузить modlinks из {0}. Вместо этого Lumafly загрузит официальный modlinks.</value>
-  </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>Информация</value>
   </data>
@@ -596,81 +581,6 @@
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Версия не из modlinks</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Недопустимая Команда Схемы URL-Адреса</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} - недопустимая команда.\nLumafly принимает только команду с префиксом scarab://</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} - недопустимая команда.\nОна не была найдена в списке принятых команда scarab</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Сбросить установщик с помощью команды</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>Установщик был сброшен.</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Не удалось сбросить установщик. Пожалуйста, попробуйте ещё раз.\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Сбросить все глобальные настройки установщика мода с помощью команды</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>Все глобальные настройки модов были сброшены.</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Не удалось сбросить глобальные настройки всех модов. Пожалуйста, повторите попытку.\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Установить мод с помощью команды</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Неверная команда загрузки мода</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly успешно загрузил {0} с помощью команды</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>\nОднако, Lumafly не смог загрузить {0} с помощью команды. Пожалуйста, проверьте правильность команды</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Удалить глобальные настройки мода</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Неверная глобальная команда удаления мода</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly удалил глобальные настройки для {0} с помощью команды</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>Однако\nLumafly не смог найти гробальные настройки для {0}. Пожалуйста, проверьте, правильно ли указано название мода и установлен ли сам мод</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Принудительное обновление всего с помощью команды</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly успешно запустил принудительное обновление всех команд</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Загрузить пользовательский modlinks с помощью команды</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Получить пользовательский modlinks \"{0}\" с помощью команды.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Не были предоставлены modlinks. Пожалуйста, повторите попытку</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Загрузить новую базовую ссылку с помощью команды</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Получена новая базовая ссылка '{0}' с помощью команды.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Базовая ссылка не была предоставлена. Пожалуйста, повторите попытку	</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
     <value>Спросите</value>

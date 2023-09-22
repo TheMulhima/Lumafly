@@ -135,12 +135,6 @@
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
     <value>Przełącz API</value>
   </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Text" xml:space="preserve">
-    <value>Otwórz instalator ponownie aby użyć nowej ścieżki.</value>
-  </data>
-  <data name="MLVM_ChangePathAsync_Msgbox_Title" xml:space="preserve">
-    <value>Ścieżka zmieniona!</value>
-  </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
     <value>Hasz pobierania dla {0} ({1}) nie zgadza się z otrzymanym podpisem ({2}). Jest uszkodzony lub pozycja jest niewłaściwa. </value>
   </data>
@@ -293,9 +287,6 @@
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Zaktualizuj Wszystkie</value>
-  </data>
-  <data name="MI_InstallText_NotInModlinks" xml:space="preserve">
-    <value>Odinstaluj</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Akcje Masowe</value>
@@ -525,12 +516,6 @@
   <data name="XAML_ReloadPrompt" xml:space="preserve">
     <value>(Załaduj ponownie aby wprowadzić zmiany)</value>
   </data>
-  <data name="MVVM_InvalidCustomModlinks_Header" xml:space="preserve">
-    <value>Niewłaściwa niestandardowa lista modów</value>
-  </data>
-  <data name="MVVM_InvalidCustomModlinks_Body" xml:space="preserve">
-    <value>Lumafly nie był w stanie załadować listy modów z {0}. Lumafly zamiast tego załaduje domyślną listę (modlinks).</value>
-  </data>
   <data name="XAML_Info" xml:space="preserve">
     <value>Informacje</value>
   </data>
@@ -600,92 +585,8 @@
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Wersja spoza modlinks</value>
   </data>
-  <data name="MVVM_InvalidUrlScheme_Header" xml:space="preserve">
-    <value>Niewłaściwe polecenie schematu adresu URL</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_InvalidCommand" xml:space="preserve">
-    <value>{0} to niepoprawne polecenie.\nLumafly akceptuje tylko polecenia poprzedzone przez scarab://</value>
-  </data>
-  <data name="MVVM_InvalidUrlScheme_Body_NotFound" xml:space="preserve">
-    <value>{0} to niepoprawne polecenie.\nNie zostało ono znalezione w liście poleceń akceptowanych przez Lumafly</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Header" xml:space="preserve">
-    <value>Zresetuj instalator z polecenia</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Success" xml:space="preserve">
-    <value>Instalator został zresetowany</value>
-  </data>
-  <data name="MVVM_ResetUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Instalator nie mógł zostać zresetowany. Spróbuj ponownie.\n{0}</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Zresetuj wszystkie globalne ustawienia modów instalatora z polecenia</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Success" xml:space="preserve">
-    <value>Globalne ustawienia wszystkich modów zostały zresetowane.</value>
-  </data>
-  <data name="MVVM_RemoveAllGlobalSettingUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nie udało się zresetować globalnych ustawień wszystkich modów. Spróbuj ponownie.\n{0}</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Header" xml:space="preserve">
-    <value>Pobierz mod z polecenia</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Invalid" xml:space="preserve">
-    <value>Niepoprawne polecenie pobrania moda</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly z powodzeniem pobrał {0} z polecenia</value>
-  </data>
-  <data name="MVVM_DownloadModUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Lumafly nie był jednak w stanie pobrać {0} z polecenia. Upewnij się że polecenie jest poprawne</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Header" xml:space="preserve">
-    <value>Usuń globalne ustawienia moda</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Invalid" xml:space="preserve">
-    <value>Niepoprawne polecenie usunięcia globalnych ustawień moda</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Success" xml:space="preserve">
-    <value>Lumafly usunął globalne ustawienia dla {0} z polecenia</value>
-  </data>
-  <data name="MVVM_RemoveModGlobalSettingUrlScheme_Failure" xml:space="preserve">
-    <value>Lumafly nie był jednak w stanie znaleźć globalnych ustawień dla {0}. Upewnij się że nazwa moda jest poprawna a mod jest zainstalowany</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Header" xml:space="preserve">
-    <value>Wymuś aktualizację wszystkiego z polecenia</value>
-  </data>
-  <data name="MVVM_ForceUpdateUrlScheme_Body_Success" xml:space="preserve">
-    <value>Lumafly z powodzeniem wymusił aktualizację wszystkiego z polecenia</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Załaduj niestandardową listę modów z polecenia</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Success" xml:space="preserve">
-    <value>Załadowano niestandardową listę modów \"{0}\" z polecenia.</value>
-  </data>
-  <data name="MVVM_LoadCustomModlinksUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nie podano listy modów. Spróbuj ponownie</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Header" xml:space="preserve">
-    <value>Załaduj nowy baselink z polecenia</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Success" xml:space="preserve">
-    <value>Załadowano nowy baselink '{0}' z polecenia.</value>
-  </data>
-  <data name="MVVM_LoadCustomBaseLinkUrlScheme_Body_Failure" xml:space="preserve">
-    <value>Nie podano baselink. Spróbuj ponownie</value>
-  </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Język</value>
-  </data>
-  <data name="MVVM_UseOfficialModlinksUrlScheme_Header" xml:space="preserve">
-    <value>Użyj oficjalnej komendy url modlinks</value>
-  </data>
-  <data name="MVVM_UseOfficialModlinksUrlScheme_Body" xml:space="preserve">
-    <value>Lumafly używa teraz domyślnej listy modów (modlinks)</value>
-  </data>
-  <data name="XAML_CacheDownloads" xml:space="preserve">
-    <value>Pliki do pobrania z pamięci podręcznej</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
     <value>(Używa dodatkowych {0} pamięci)</value>
