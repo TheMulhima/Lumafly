@@ -588,4 +588,130 @@
   <data name="XAML_Language" xml:space="preserve">
     <value>Langue</value>
   </data>
+  <data name="AvailableMods" xml:space="preserve">
+    <value>Mods disponibles</value>
+  </data>
+  <data name="AvailablePacks" xml:space="preserve">
+    <value>Modpack disponibles :</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+  <data name="DisableMod" xml:space="preserve">
+    <value>Désactiver le mod</value>
+  </data>
+  <data name="EditDetails" xml:space="preserve">
+    <value>Modifier les infos</value>
+  </data>
+  <data name="EditMods" xml:space="preserve">
+    <value>Modifier le mod</value>
+  </data>
+  <data name="EditPack" xml:space="preserve">
+    <value>Modifier le modpack</value>
+  </data>
+  <data name="EnableMod" xml:space="preserve">
+    <value>Activer le mod</value>
+  </data>
+  <data name="EnterSharingCode" xml:space="preserve">
+    <value>Saisir le code de partage</value>
+  </data>
+  <data name="FixedVersion_Tooltip" xml:space="preserve">
+    <value>Veuillez utiliser la version courante de modlinks plutôt que la dernière</value>
+  </data>
+  <data name="LoadPackAdditive" xml:space="preserve">
+    <value>Charger sans remplacer</value>
+  </data>
+  <data name="LoadPackAdditive_Explanation" xml:space="preserve">
+    <value>Charger ce modpack sans remplacer les mods du dossier des mods</value>
+  </data>
+  <data name="ModlinksVersion_Tooltip" xml:space="preserve">
+    <value>Utilisez la dernière version de modlinks</value>
+  </data>
+  <data name="PackDescription" xml:space="preserve">
+    <value>Description du modpack</value>
+  </data>
+  <data name="PackDetails" xml:space="preserve">
+    <value>Infos du modpack</value>
+  </data>
+  <data name="PackDetails_Explanation" xml:space="preserve">
+    <value>Modifiez les infos du modpack.</value>
+  </data>
+  <data name="PackName" xml:space="preserve">
+    <value>Nom du modpack</value>
+  </data>
+  <data name="PackUpdatePrompt" xml:space="preserve">
+    <value>Des mods du modpack ne sont plus à jour, voulez-vous les mettre à jour ?</value>
+  </data>
+  <data name="RevertToPreviousMods" xml:space="preserve">
+    <value>Revenir aux mods précédents</value>
+  </data>
+  <data name="SelectedMods" xml:space="preserve">
+    <value>Mods sélectionnés</value>
+  </data>
+  <data name="UseFixedVersion" xml:space="preserve">
+    <value>Utiliser la version fixe</value>
+  </data>
+  <data name="UseModlinksVersion" xml:space="preserve">
+    <value>Utiliser la version de modlinks</value>
+  </data>
+  <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
+    <value>(Utilisation supplémentaire du stockage de {0})</value>
+  </data>
+  <data name="XAML_CreateNewPack" xml:space="preserve">
+    <value>Créer un modpack</value>
+  </data>
+  <data name="XAML_DeletePack" xml:space="preserve">
+    <value>Supprimer le modpack</value>
+  </data>
+  <data name="XAML_Description" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="XAML_EditPack" xml:space="preserve">
+    <value>Modifer le modpack</value>
+  </data>
+  <data name="XAML_FilterMods" xml:space="preserve">
+    <value>Filtres :  </value>
+  </data>
+  <data name="XAML_GenerateSharingCode" xml:space="preserve">
+    <value>Générer un code de partage de 8 caractères. Ce code permet à quiconque d'utiliser ce modpack.</value>
+  </data>
+  <data name="XAML_ImportPack" xml:space="preserve">
+    <value>Importer un modpack</value>
+  </data>
+  <data name="XAML_LoadPack" xml:space="preserve">
+    <value>Charger le modpack</value>
+  </data>
+  <data name="XAML_Low_Storage_Mode" xml:space="preserve">
+    <value>Mode de stockage faible</value>
+  </data>
+  <data name="XAML_ModsInPack" xml:space="preserve">
+    <value>Mods du modpack :</value>
+  </data>
+  <data name="XAML_Packs" xml:space="preserve">
+    <value>Modpacks</value>
+  </data>
+  <data name="XAML_SearchAuthor" xml:space="preserve">
+    <value>Chercher un auteur</value>
+  </data>
+  <data name="XAML_Search_Integrations" xml:space="preserve">
+    <value>Chercher par intégrations</value>
+  </data>
+  <data name="XAML_SharePack" xml:space="preserve">
+    <value>Partager ce modpack</value>
+  </data>
+  <data name="XAML_SharePackManually" xml:space="preserve">
+    <value>Partager ce modpack manuellement. Vous devrez partager le fichier zip vous-même.</value>
+  </data>
+  <data name="XAML_SharingCode" xml:space="preserve">
+    <value>Code de partage</value>
+  </data>
+  <data name="XAML_Toggle_All" xml:space="preserve">
+    <value>Tout activer</value>
+  </data>
+  <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
+    <value>Désactive tous les mods actifs, ou active tous les mods si aucun n'est actif.</value>
+  </data>
 </root>
