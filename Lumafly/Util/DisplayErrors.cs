@@ -24,7 +24,7 @@ public static class DisplayErrors
             title: Resources.MLVM_DisplayHashMismatch_Msgbox_Title,
             text: string.Format(Resources.MLVM_DisplayHashMismatch_Msgbox_Text, e.Name, e.Actual, e.Expected),
             icon: Icon.Error
-        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
     }
 
     public static async Task DisplayGenericError(string action, string name, Exception e)
@@ -59,7 +59,7 @@ public static class DisplayErrors
             title: Resources.MLVM_DisplayNetworkError_Msgbox_Title,
             text: string.Format(Resources.MLVM_DisplayNetworkError_Msgbox_Text, name),
             icon: Icon.Error
-        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
     }
     
     // asks user for confirmation on whether or not they want to uninstall/disable mod.
@@ -73,7 +73,7 @@ public static class DisplayErrors
             text: string.Format(Resources.MVVM_DependentsWarning_Body, modName, dependentsString),
             icon: Icon.Stop,
             @enum: ButtonEnum.YesNo
-        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
 
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
@@ -90,7 +90,7 @@ public static class DisplayErrors
             text: string.Format(Resources.MVVM_DependenciesNotInstalledWarning_Body, dependenciesString, modName),
             icon: Icon.Stop,
             @enum: ButtonEnum.YesNo
-        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
 
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
@@ -114,7 +114,7 @@ public static class DisplayErrors
             text: warningText,
             icon: Icon.Stop,
             @enum: ButtonEnum.YesNo
-        ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+        ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
 
         // return whether or not yes was clicked. Also don't remove mod when box is closed with the x
         return result.HasFlag(ButtonResult.Yes) && !result.HasFlag(ButtonResult.None);
