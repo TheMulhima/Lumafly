@@ -187,7 +187,7 @@
 				VerticalAlignment="Bottom"
 				HorizontalContentAlignment="Center"
 				Command="{Binding CheckForUpdates}"
-				Content="Check For Updates"/>
+				Content="{ext:Localize XAML_CheckForUpdates}"/>
 			
 			<Button
 				Grid.Column="2"
@@ -197,7 +197,7 @@
 				VerticalAlignment="Bottom"
 				HorizontalContentAlignment="Center"
 				Command="{Binding OpenLogsFolder}"
-				Content="Open Logs Folder"/>
+				Content="{ext:Localize XAML_OpenLogsFolder}"/>
 			
 			<StackPanel
 				Grid.Column="3"

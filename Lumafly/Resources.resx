@@ -714,4 +714,10 @@
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
     <value>Load this pack without replacing mods in current mods folder</value>
   </data>
+  <data name="XAML_CheckForUpdates" xml:space="preserve">
+    <value>Check For Updates</value>
+  </data>
+  <data name="XAML_OpenLogsFolder" xml:space="preserve">
+    <value>Open Logs Folder</value>
+  </data>
 </root>

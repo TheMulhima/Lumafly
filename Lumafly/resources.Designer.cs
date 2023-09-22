@@ -951,6 +951,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check For Updates.
+        /// </summary>
+        internal static string XAML_CheckForUpdates {
+            get {
+                return ResourceManager.GetString("XAML_CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select manually.
         /// </summary>
         internal static string XAML_ChooseDependenciesToUninstall {
@@ -1469,6 +1478,15 @@ namespace Lumafly {
         internal static string XAML_OpeningGame {
             get {
                 return ResourceManager.GetString("XAML_OpeningGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Logs Folder.
+        /// </summary>
+        internal static string XAML_OpenLogsFolder {
+            get {
+                return ResourceManager.GetString("XAML_OpenLogsFolder", resourceCulture);
             }
         }
         
