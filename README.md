@@ -7,7 +7,7 @@
 [![contributors](https://img.shields.io/github/contributors/TheMulhima/Lumafly)](https://github.com/TheMulhima/Lumafly/graphs/contributors)  
 [![discord](https://img.shields.io/discord/879125729936298015?label=discord)](https://discord.gg/VDsg3HmWuB)
 
-This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portugese, French, Chinese, Russian and Polish.
+This is a cross platform mod manager for [Hollow Knight](https://www.hollowknight.com) which is fully localized in English, Spanish, Portuguese, French, Chinese, Russian and Polish.
 
 Formerly known as **Scarab+**
 
