@@ -61,10 +61,10 @@ public partial class PackManagerViewModel : ViewModelBase
         }
     }
     
-    public void EditPack(object packObj)
+    public async Task EditPack(object packObj)
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot edit an object that is not a pack");
-        _packManager.EditPack(pack);
+        await _packManager.EditPack(pack);
     }
     
     public void DeletePack(object packObj)
@@ -114,9 +114,10 @@ public partial class PackManagerViewModel : ViewModelBase
         await _LoadPack(pack, true);
     }
     
-    public void CreateNewPack()
+    public async Task CreateNewPack()
     {
-        _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack", "");
+        var pack = await _packManager.SavePack("New Pack " + new Random().NextInt64(2000), "New Pack", "");
+        await EditPack(pack);
     }
     
     public async Task ImportPack()

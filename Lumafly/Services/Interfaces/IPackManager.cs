@@ -11,7 +11,7 @@ public interface IPackManager
    
    Task<bool> LoadPack(string packName, bool additive);
 
-   Task SavePack(string name, string description, string authors);
+   Task<Pack> SavePack(string name, string description, string authors);
 
    void RemovePack(string packName);
 

@@ -282,7 +282,7 @@ public class PackManager : IPackManager
     /// <summary>
     /// Saves the current Mods folder as a pack. Replaces the pack if it already exists.
     /// </summary>
-    public async Task SavePack(string name, string description, string authors)
+    public async Task<Pack> SavePack(string name, string description, string authors)
     {
         var packFolder = Path.Combine(_settings.ManagedFolder, name);
 
@@ -316,6 +316,8 @@ public class PackManager : IPackManager
             PackList.Add(packDetails); 
         
         PackList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));
+
+        return PackList.First(x => x.Name == name);
     }
     
     /// <summary>
