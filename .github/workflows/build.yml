@@ -172,3 +172,28 @@ jobs:
           folder: .
           clean: true
           commit-message: Update appcast to ${{ steps.vars.outputs.tag }}
+  
+  # Create a changelog file for the release so the app doesn't crash. The contents are still manually added
+  add-changeLog:
+    needs: [release]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags')
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: static-resources
+          path: static-resources
+      - name: Get tag
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Add Changelog
+        run: touch static-resources/Changelogs/${{ steps.vars.outputs.tag }}.md
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: static-resources
+          folder: static-resources
+          clean: true
+          commit-message: Add ${{ steps.vars.outputs.tag }}.md
