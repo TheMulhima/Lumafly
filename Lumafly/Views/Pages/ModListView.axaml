@@ -144,7 +144,7 @@
                 
                 <Menu.Styles>
                     <Style Selector="MenuItem">
-                        <Setter Property="Padding" Value="6 8" />
+                        <Setter Property="Padding" Value="6 0" />
                     </Style>
                 </Menu.Styles>
 
