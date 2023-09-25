@@ -11,6 +11,7 @@ public enum SupportedLanguages
     zh,
     ru,
     pl,
+    ja,
 }
 
 public static class SupportedLanguagesInfo
@@ -24,6 +25,7 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.zh, "zh-CN" },
         { SupportedLanguages.ru, "ru-RU" },
         { SupportedLanguages.pl, "pl-PL" },
+        { SupportedLanguages.ja, "ja-JP" },
     };
 
     public static readonly Dictionary<SupportedLanguages, string> LocalizedLanguageOptions = new()
@@ -35,5 +37,6 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.zh, "中文" },
         { SupportedLanguages.ru, "Русский" },
         { SupportedLanguages.pl, "Polski" },
+        { SupportedLanguages.ja, "日本語" },
     };
 }
