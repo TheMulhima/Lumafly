@@ -118,418 +118,415 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Array_Sep" xml:space="preserve">
-    <value>, </value>
+    <value>、 </value>
   </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
-    <value>Uninstall</value>
+    <value>削除</value>
   </data>
   <data name="MI_InstallText_NotInstalled" xml:space="preserve">
-    <value>Install</value>
+    <value>インストール</value>
   </data>
   <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
-    <value>Disable API</value>
+    <value>APIを無効化</value>
   </data>
   <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
-    <value>Enable API</value>
+    <value>APIを有効化</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>Toggle API</value>
+    <value>API有効化・無効化</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>The download hash for {0} ({1}) didn't match the given signature ({2}). It is either corrupt or the entry is incorrect.</value>
+    <value>{0}のダウンロードのハッシュ値（{1}）が既定のハッシュ値（{2}）と一致しませんでした。ダウンロードが破損しているか、modlinks側のハッシュ値が間違っています。</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>Hash mismatch!</value>
+    <value>ハッシュ値不一致！</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>Unable to download {0}! The site may be down or you may lack network connectivity.</value>
+    <value>{0}のダウンロードが失敗しました。サイトが停止しているか、インターネットに繋がっていない可能性があります。</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>Network Error</value>
+    <value>ネットワークエラー！</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>Hollow Knight is open! This may lead to issues when installing mods. Close Hollow Knight?</value>
+    <value>Hollow Knightが開いてます！ このままMODをインストールすると、予期せぬトラブルが起こる可能性があります。Hollow Knightを閉じますか？</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
-    <value>Warning!</value>
+    <value>注意！</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>failed with HTTP error {0}</value>
+    <value>HTTPエラーが発生しました（{0}）</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Unable to get list of mods from modlinks, the operation {0}</value>
+    <value>modlinksからmod一覧を取得できませんでした：{0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
-    <value>Error!</value>
+    <value>エラ－！</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>timed out. Please check your internet connection and try again</value>
+    <value>処理がタイムアウトしました。インターネット接続を確認してから再度お試しください。</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>Get the latest release</value>
+    <value>最新版をダウンロード</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>Continue anyways.</value>
+    <value>このまま続ける</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Out of date!</value>
+    <value>更新があります！</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Lumafly has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features.</value>
+    <value>Lumaflyの更新データが見つかりました。バグ修正や最新の機能を使用するために、最新の更新データ（v{0}）をダウンロードしてください。</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Lumafly failed to download update automatically. Lumafly will now open the link to get the latest version</value>
+    <value>Lumaflyの自動更新に失敗しました。最新版へのリンクを開きます。</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>注意</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>The saved Hollow Knight path is invalid, please re-select a valid path.</value>
+    <value>指定されたHollow Knightへのパスが間違っています。正しいパスを入力してください。</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>情報</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>Unable to detect your Hollow Knight installation. Please select it.</value>
+    <value>Hollow Knightのゲームデータが見つかりませんでした。手動で指定してください。</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>Detected path!</value>
+    <value>検出成功！</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>Detected Hollow Knight install at {0}. Is this correct?</value>
+    <value>{0}にHollow Knightのゲームデータが見つかりました。これで合ってますか？</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>Change Path</value>
+    <value>パス変更</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>Dependencies:</value>
+    <value>依存mod</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>寄付</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>All</value>
+    <value>全て</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>有効のみ</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
-    <value>Installed</value>
+    <value>インストール済み</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>Out of date</value>
+    <value>更新あり</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>Open Mods Folder</value>
+    <value>modフォルダを開く</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repository</value>
+    <value>リポジトリとreadme</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>Mod Search</value>
+    <value>検索</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>Update API</value>
+    <value>APIを更新</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>Version:</value>
+    <value>バージョン</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integrations:</value>
+    <value>連携mod</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Tags:</value>
+    <value>タグ</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>On</value>
+    <value>オン</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>オフ</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>Ask</value>
+    <value>聞く</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
-    <value>Update</value>
+    <value>更新する</value>
   </data>
   <data name="PU_NoSelect" xml:space="preserve">
-    <value>No path was selected!</value>
+    <value>パスが選択されませんでした！</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>No application was selected!</value>
+    <value>アプリケーションが選択されませんでした！</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight path!</value>
+    <value>パスが無効です！</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight app!</value>
+    <value>アプリケーションが無効です！</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
+    <value>hollow_knight.exeが無効です！ hollow_knight.exeかそれを指すショートカットを選択してください。</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>Select the folder containing hollow_knight_Data or Hollow Knight_Data.</value>
+    <value>hollow_knight_Data、またはHollow Knight_Dataを含むフォルダを選択してください。</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>Missing Managed folder or Assembly-CSharp!</value>
+    <value>Managedフォルダ、またはAssembly-CSharpがありません！</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>Select your Hollow Knight folder.</value>
+    <value>Hollow Knightフォルダを指定してください。</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
-    <value>Path</value>
+    <value>パス</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>Select your Hollow Knight app.</value>
+    <value>Hollow Knightアプリケーションを選択してください。</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>Select your Hollow Knight executable or its shortcut.</value>
+    <value>Hollow Knightの.exeファイル、またはそれを指すショートカットを選択してください。</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>Update All</value>
+    <value>まとめて更新</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>Bulk Actions</value>
+    <value>まとめて操作</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>Disable All</value>
+    <value>全て無効化</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>Enable All</value>
+    <value>全て有効化</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>Uninstall All</value>
+    <value>全てアンインストール</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Authors:</value>
+    <value>開発者</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Advanced Search</value>
+    <value>検索オプション</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>Search Type</value>
+    <value>検索タイプ</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>Select Tags</value>
+    <value>タグでフィルタ</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Exact Search</value>
+    <value>タイトル一致検索</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>Normal Search</value>
+    <value>通常検索</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Search by Dependencies and Integrations</value>
+    <value>依存・連携modで検索</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>Select Mod</value>
+    <value>modを選択</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>No mods to display</value>
+    <value>modがありません。</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>Open Saves Folder</value>
+    <value>セーブデータのフォルダを開く</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Manually Install</value>
+    <value>手動でインストール</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>Select the mod dll or zip</value>
+    <value>modの.dllか.zipを選択してください。</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>New Mods</value>
+    <value>新規mod</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Updated Mods</value>
+    <value>更新されたmod</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>Last Week</value>
+    <value>1週間</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Last Month</value>
+    <value>1ヶ月</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>Whats New</value>
+    <value>新作</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Copy Error</value>
+    <value>エラーをコピー</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Click to show full error</value>
+    <value>エラーの詳細を表示</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edit mod's settings file</value>
+    <value>modの設定ファイルを開く</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Loading the newest mods that are on modlinks...</value>
+    <value>modlinksから最新modを読み込み中…</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Lumafly was unable to load the newest mods from modlinks.</value>
+    <value>modlinksからの最新modの読み込みに失敗しました。</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
+    <value>インターネットに接続されてない、または接続が悪い可能性があります。インターネット接続を確認してから再度お試しください。</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>Warning! This mod is required for other mods to function!</value>
+    <value>注意！</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
+    <value>{0}は{1}が正常に動作するために必要です。それでも続行しますか？</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>Warning! Are you sure you want to do this?</value>
+    <value>本当に続行しますか？</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Lumafly was unable to access the file in the mods folder</value>
+    <value>Modsフォルダ内のファイルにアクセスできませんでした。</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>Please make sure that the mods folder is not in a write protected location</value>
+    <value>Modsフォルダに書き込み制限がかかってないことを確認してください。</value>
   </data>
   <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
-    <value>Lumafly cannot access the file:</value>
+    <value>ファイルにアクセスできませんでした：</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>Please make sure to close all other apps that could be using the mods folder</value>
+    <value>Modsフォルダにアクセスしているプログラムを閉じてください。</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>Please close the following processes as they are locking important files:</value>
+    <value>重要なファイルにアクセスしているので、下記のプログラムを閉じてください：</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
-    <value>Boss</value>
+    <value>ボス戦</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>Gameplay</value>
+    <value>ゲームプレイ</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>Utility</value>
+    <value>便利ツール</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>Cosmetic</value>
+    <value>見た目</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>Library</value>
+    <value>ライブラリ</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>エクスパンション</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Fetching mods from modlinks...</value>
+    <value>modlinksからmodを取得中…</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Waiting for response from github...</value>
+    <value>GitHubからの応答を待機中…</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>待機中…</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Trying from fallback source...</value>
+    <value>別のソースにフォールバック中…</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Waiting for response from jsdelivr...</value>
+    <value>JSDelivrからの応答を待機中…</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>Try running lumafly as an administrator, it may fix the issue</value>
+    <value>Lumaflyを管理者として立ち上げて、再度お試しください。</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>An exception occured while {0} {1}</value>
+    <value>次の処理の中で問題が発生しました：{0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>OK</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>Ask for help</value>
+    <value>ヘルプ</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Report Error</value>
+    <value>エラーを報告</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>Install</value>
+    <value>インストール</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
+    <value>{1}の正常な動作に、{0}が必要です。{0}をインストールしますか？</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>The mod has dependencies that are not installed!</value>
+    <value>このmodの動作に必要な依存modがインストールされていません！</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>Select manually</value>
+    <value>手動で選択</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Note: they may be used by any mods you have installed manually</value>
+    <value>※手動でインストールしたmodに使用されている可能性があります</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>None</value>
+    <value>なし</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
+    <value>このmodをアンインストールすると、使用されなくなった依存modが残ります。</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>Auto remove dependencies?</value>
+    <value>依存modを自動でアンインストールしますか？</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>ピン止め</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Pin a mod so it isn't automatically replaced by Lumafly</value>
+    <value>Lumaflyに自動で上書きされないようにピン止めする</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>ピン止めを解除</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Unable to get modlinks</value>
+    <value>modlinksの取得に失敗</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>Do you want to launch lumafly in offline mode?</value>
+    <value>Lumaflyをオフラインモードで使用しますか？</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>Select Authors</value>
+    <value>開発者で検索</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Warn before removing a dependent mod</value>
+    <value>依存されているmodを無効化するときに注意する</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
-    <value>Mods</value>
+    <value>mods</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>Automatically Remove Unused Dependencies</value>
+    <value>使用されていない依存modを自動でアンインストール</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>フォルダを開く</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>Game Path</value>
+    <value>ゲームデータのパス</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Use Custom Modlinks</value>
+    <value>任意のmodlinksを使用</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normally Lumafly loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
+    <value>Lumaflyは、通常は一般的なmodlinksからmod一覧を読み込んでいます。任意のmodlinksを使用したい場合は、そのURIをここに入力してください。httpsのリンクや、PC上のファイル（file://{filepath}のフォーマット）を読み込めます。 \n空のリンクや無効なリンクの場合、一般的なmodlinksから読み込みます。</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
+    <value>任意のmodlinksのリンクを入力してください。変更の適応にはLumaflyの再起動が必要です</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
-    <value>Reload Lumafly</value>
+    <value>再起動</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>(Reload for changes to take effect)</value>
+    <value>（変更の適応にはLumaflyの再起動が必要です）</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>Info</value>
-  </data>
-  <data name="XAML_InfoHeader" xml:space="preserve">
-    <value>Lumafly</value>
+    <value>情報</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
+    <value>Lumaflyは、Hollow Knightバージョン1.5用のmodインストーラーです。1.5以前のバージョンでは使用できません。</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>Relevant Links</value>
+    <value>リンク</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
-    <value>Website\n</value>
+    <value>ホームページ\n</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
     <value>Github\n</value>
@@ -537,187 +534,196 @@
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
     <value>Readme\n</value>
   </data>
-  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
-  </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>An Alternate Installer</value>
+    <value>代わりのmodインストーラー</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Create Mods\n</value>
+    <value>modを開発\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Modding\nTutorial</value>
+    <value>mod使用\n解説動画</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>Launch Vanilla Game</value>
+    <value>modなしで起動</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>Launch Modded Game</value>
+    <value>modありで起動</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>Please wait launching game...</value>
+    <value>ゲームを起動中…</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>Record as custom version</value>
+    <value>任意のバージョンとして登録</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly</value>
+    <value>このmodをmodlinksからとは別の、任意のバージョンとして登録します。ゲーム内での働きには影響せず、Lumafly内での扱いのみに影響します。ピン止めされている任意のバージョンは、Lumaflyに上書きされません。</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
+    <value>modをリセット：modを再インストールし、modの設定を初期化</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Get the shareable download link of this mod.</value>
+    <value>modの共有リンクを取得する</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>Open folder where this mod is installed</value>
+    <value>modがインストールされているフォルダを開く</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>Report a bug or an issue with this mod</value>
+    <value>modのバグや問題を報告する</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>This mod was manually installed and is not from official modlinks</value>
+    <value>このmodは手動でインストールされており、一般的なmodlinksからのものではありません。</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>Version not from modlinks</value>
+    <value>modlinksからではないバージョン</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>言語</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
-    <value>Low Storage Mode</value>
+    <value>低用量モード</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>(Uses extra {0} of storage)</value>
+    <value>（{0}の容量を使用します）</value>
   </data>
   <data name="XAML_SharingCode" xml:space="preserve">
-    <value>Sharing Code:</value>
+    <value>共有コード</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
+    <value>8ケタの共有コードを生成する。他の人がこのコードを入力すれば、このmodパックが使用できます。</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
-    <value>Edit pack</value>
+    <value>パックを編集</value>
   </data>
   <data name="XAML_DeletePack" xml:space="preserve">
-    <value>Delete pack</value>
+    <value>パックを削除</value>
   </data>
   <data name="XAML_CreateNewPack" xml:space="preserve">
-    <value>Create new pack</value>
+    <value>新しくパックを作る</value>
   </data>
   <data name="XAML_ImportPack" xml:space="preserve">
-    <value>Import pack</value>
+    <value>パックを読み込む</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Packs</value>
+    <value>modパック</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
-    <value>Load Pack</value>
+    <value>パックを適用</value>
   </data>
   <data name="XAML_Description" xml:space="preserve">
-    <value>Description:</value>
+    <value>概要</value>
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
-    <value>Mods In Pack:</value>
+    <value>含まれているmod</value>
   </data>
   <data name="XAML_SharePack" xml:space="preserve">
-    <value>Share this pack</value>
+    <value>パックを共有</value>
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
-    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
+    <value>このmodパックを.zip形式で共有します。この.zipファイルを自分で他の人に送る必要があります。</value>
   </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
-    <value>Search by Integrations</value>
+    <value>連携modで検索</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
-    <value>Toggle All</value>
+    <value>全modを切り替える</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
-    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
+    <value>有効のmodがある場合は無効にし、全てのmodが無効の場合は全て有効にする</value>
   </data>
   <data name="XAML_FilterMods" xml:space="preserve">
-    <value>Filter Mods:  </value>
+    <value>絞り込み  </value>
   </data>
   <data name="XAML_SearchAuthor" xml:space="preserve">
-    <value>Search Author</value>
+    <value>開発者を探す</value>
   </data>
   <data name="EditPack" xml:space="preserve">
-    <value>Edit Pack</value>
+    <value>パックを編集</value>
   </data>
   <data name="PackDetails" xml:space="preserve">
-    <value>Pack Details</value>
+    <value>パックの詳細</value>
   </data>
   <data name="PackDetails_Explanation" xml:space="preserve">
-    <value>Edit the details of your pack here.</value>
+    <value>modパックの詳細をここから編集してください</value>
   </data>
   <data name="PackName" xml:space="preserve">
-    <value>Pack Name</value>
+    <value>パックの名前</value>
   </data>
   <data name="PackDescription" xml:space="preserve">
-    <value>Pack Description</value>
+    <value>パックの概要</value>
   </data>
   <data name="EditDetails" xml:space="preserve">
-    <value>Edit Details</value>
+    <value>詳細</value>
   </data>
   <data name="EditMods" xml:space="preserve">
-    <value>Edit Mods</value>
+    <value>搭載mod</value>
   </data>
   <data name="AvailableMods" xml:space="preserve">
-    <value>Available Mods</value>
+    <value>使用可能mod</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
-    <value>Selected Mods</value>
+    <value>選択mod</value>
   </data>
   <data name="EnableMod" xml:space="preserve">
-    <value>Enable Mod</value>
+    <value>modを有効化</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>Disable Mod</value>
+    <value>modを無効化</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>Use Fixed Version</value>
+    <value>バージョンを固定</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
-    <value>Don't use latest modlinks version. Instead use current version</value>
+    <value>現在のバージョンを使用する</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
-    <value>Use Modlinks Version</value>
+    <value>modlinksのバージョンを使用</value>
   </data>
   <data name="ModlinksVersion_Tooltip" xml:space="preserve">
-    <value>Use latest modlinks version</value>
+    <value>modlinksにある最新版を使用する</value>
   </data>
   <data name="EnterSharingCode" xml:space="preserve">
-    <value>Enter Sharing Code:</value>
+    <value>共有コードを入力</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>キャンセル</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>承認</value>
   </data>
   <data name="AvailablePacks" xml:space="preserve">
-    <value>Available Packs:</value>
+    <value>使用可能modパック</value>
   </data>
   <data name="RevertToPreviousMods" xml:space="preserve">
-    <value>Revert to previous mods</value>
+    <value>適用前のmodに戻す</value>
   </data>
   <data name="PackUpdatePrompt" xml:space="preserve">
-    <value>Some mods in the pack are outdated, do you want to update them?</value>
+    <value>modパック内に更新があるmodがあります。更新しますか？</value>
   </data>
   <data name="LoadPackAdditive" xml:space="preserve">
-    <value>Load without replacing</value>
+    <value>現在のmodを無効化せずに適用</value>
   </data>
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
-    <value>Load this pack without replacing mods in current mods folder</value>
+    <value>現在有効なmodを無効化せずに、追加でmodパック内のmodを有効化する</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>更新データを確認</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>ログのフォルダを開く</value>
+  </data>
+  <data name="ToggleAPI_Explanation" xml:space="preserve">
+    <value>modの機能を可能にするmodding apiを有効化・無効化する</value>
+    <comment/>
+  </data>
+  <data name="ViewReadme" xml:space="preserve">
+    <value>readmeを表示</value>
+    <comment/>
+  </data>
+  <data name="ModLinks_Tags_Untagged" xml:space="preserve">
+    <value>タグなし</value>
+    <comment/>
   </data>
 </root>
