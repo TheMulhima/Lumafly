@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -519,9 +519,6 @@
   <data name="XAML_Info" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="XAML_InfoHeader" xml:space="preserve">
-    <value>Lumafly</value>
-  </data>
   <data name="XAML_InfoBody" xml:space="preserve">
     <value>Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
   </data>
@@ -536,9 +533,6 @@
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
     <value>Readme\n</value>
-  </data>
-  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
@@ -719,5 +713,17 @@
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
     <value>Open Logs Folder</value>
+  </data>
+  <data name="ToggleAPI_Explanation" xml:space="preserve">
+    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <comment/>
+  </data>
+  <data name="ViewReadme" xml:space="preserve">
+    <value>View Readme</value>
+    <comment/>
+  </data>
+  <data name="ModLinks_Tags_Untagged" xml:space="preserve">
+    <value>Untagged</value>
+    <comment></comment>
   </data>
 </root>

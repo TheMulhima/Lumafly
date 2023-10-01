@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -245,6 +245,9 @@
   </data>
   <data name="XAML_Off" xml:space="preserve">
     <value>Отключено</value>
+  </data>
+  <data name="XAML_Ask" xml:space="preserve">
+    <value>Спросите</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Обновить</value>
@@ -516,9 +519,6 @@
   <data name="XAML_Info" xml:space="preserve">
     <value>Информация</value>
   </data>
-  <data name="XAML_InfoHeader" xml:space="preserve">
-    <value>Lumafly</value>
-  </data>
   <data name="XAML_InfoBody" xml:space="preserve">
     <value>Lumafly - это установщик Hollow Knight версии 1.5. Он не будет работать для более старых версий Hollow Knight.</value>
   </data>
@@ -533,9 +533,6 @@
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
     <value>Readme\n</value>
-  </data>
-  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
@@ -582,10 +579,151 @@
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
     <value>Версия не из modlinks</value>
   </data>
-  <data name="XAML_Ask" xml:space="preserve">
-    <value>Спросите</value>
-  </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Язык</value>
+  </data>
+  <data name="XAML_Low_Storage_Mode" xml:space="preserve">
+    <value>Low Storage Mode</value>
+  </data>
+  <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
+    <value>(Uses extra {0} of storage)</value>
+  </data>
+  <data name="XAML_SharingCode" xml:space="preserve">
+    <value>Sharing Code:</value>
+  </data>
+  <data name="XAML_GenerateSharingCode" xml:space="preserve">
+    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
+  </data>
+  <data name="XAML_EditPack" xml:space="preserve">
+    <value>Edit pack</value>
+  </data>
+  <data name="XAML_DeletePack" xml:space="preserve">
+    <value>Delete pack</value>
+  </data>
+  <data name="XAML_CreateNewPack" xml:space="preserve">
+    <value>Create new pack</value>
+  </data>
+  <data name="XAML_ImportPack" xml:space="preserve">
+    <value>Import pack</value>
+  </data>
+  <data name="XAML_Packs" xml:space="preserve">
+    <value>Packs</value>
+  </data>
+  <data name="XAML_LoadPack" xml:space="preserve">
+    <value>Load Pack</value>
+  </data>
+  <data name="XAML_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="XAML_ModsInPack" xml:space="preserve">
+    <value>Mods In Pack:</value>
+  </data>
+  <data name="XAML_SharePack" xml:space="preserve">
+    <value>Share this pack</value>
+  </data>
+  <data name="XAML_SharePackManually" xml:space="preserve">
+    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
+  </data>
+  <data name="XAML_Search_Integrations" xml:space="preserve">
+    <value>Search by Integrations</value>
+  </data>
+  <data name="XAML_Toggle_All" xml:space="preserve">
+    <value>Toggle All</value>
+  </data>
+  <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
+    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
+  </data>
+  <data name="XAML_FilterMods" xml:space="preserve">
+    <value>Filter Mods:  </value>
+  </data>
+  <data name="XAML_SearchAuthor" xml:space="preserve">
+    <value>Search Author</value>
+  </data>
+  <data name="EditPack" xml:space="preserve">
+    <value>Edit Pack</value>
+  </data>
+  <data name="PackDetails" xml:space="preserve">
+    <value>Pack Details</value>
+  </data>
+  <data name="PackDetails_Explanation" xml:space="preserve">
+    <value>Edit the details of your pack here.</value>
+  </data>
+  <data name="PackName" xml:space="preserve">
+    <value>Pack Name</value>
+  </data>
+  <data name="PackDescription" xml:space="preserve">
+    <value>Pack Description</value>
+  </data>
+  <data name="EditDetails" xml:space="preserve">
+    <value>Edit Details</value>
+  </data>
+  <data name="EditMods" xml:space="preserve">
+    <value>Edit Mods</value>
+  </data>
+  <data name="AvailableMods" xml:space="preserve">
+    <value>Available Mods</value>
+  </data>
+  <data name="SelectedMods" xml:space="preserve">
+    <value>Selected Mods</value>
+  </data>
+  <data name="EnableMod" xml:space="preserve">
+    <value>Enable Mod</value>
+  </data>
+  <data name="DisableMod" xml:space="preserve">
+    <value>Disable Mod</value>
+  </data>
+  <data name="UseFixedVersion" xml:space="preserve">
+    <value>Use Fixed Version</value>
+  </data>
+  <data name="FixedVersion_Tooltip" xml:space="preserve">
+    <value>Don't use latest modlinks version. Instead use current version</value>
+  </data>
+  <data name="UseModlinksVersion" xml:space="preserve">
+    <value>Use Modlinks Version</value>
+  </data>
+  <data name="ModlinksVersion_Tooltip" xml:space="preserve">
+    <value>Use latest modlinks version</value>
+  </data>
+  <data name="EnterSharingCode" xml:space="preserve">
+    <value>Enter Sharing Code:</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="AvailablePacks" xml:space="preserve">
+    <value>Available Packs:</value>
+  </data>
+  <data name="RevertToPreviousMods" xml:space="preserve">
+    <value>Revert to previous mods</value>
+  </data>
+  <data name="PackUpdatePrompt" xml:space="preserve">
+    <value>Some mods in the pack are outdated, do you want to update them?</value>
+  </data>
+  <data name="LoadPackAdditive" xml:space="preserve">
+    <value>Load without replacing</value>
+  </data>
+  <data name="LoadPackAdditive_Explanation" xml:space="preserve">
+    <value>Load this pack without replacing mods in current mods folder</value>
+  </data>
+  <data name="XAML_CheckForUpdates" xml:space="preserve">
+    <value>Check For Updates</value>
+  </data>
+  <data name="XAML_OpenLogsFolder" xml:space="preserve">
+    <value>Open Logs Folder</value>
+  </data>
+  <data name="ToggleAPI_Explanation" xml:space="preserve">
+    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <comment/>
+  </data>
+  <data name="ViewReadme" xml:space="preserve">
+    <value>View Readme</value>
+    <comment/>
+  </data>
+  <data name="ModLinks_Tags_Untagged" xml:space="preserve">
+    <value>Untagged</value>
+    <comment/>
   </data>
 </root>
