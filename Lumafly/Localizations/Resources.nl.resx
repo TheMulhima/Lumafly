@@ -190,76 +190,76 @@
     <value>Info</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>Unable to detect your Hollow Knight installation. Please select it.</value>
+    <value>Niet in staat om uw Hollow Knight installatie te detecteren. Selecteer deze alstublieft.</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>Detected path!</value>
+    <value>Gedetecteerd pad!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
     <value>Detected Hollow Knight install at {0}. Is this correct?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>Change Path</value>
+    <value>Wijzig pad</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
     <value>Dependencies:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>Donate</value>
+    <value>Doneer</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>All</value>
+    <value>Alle</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Ingeschakeld</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
-    <value>Installed</value>
+    <value>Geïnstalleerd</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>Out of date</value>
+    <value>Verouderd</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>Open Mods Folder</value>
+    <value>Map met mods openen</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
     <value>Repository</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>Mod Search</value>
+    <value>Mod zoeken</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>Update API</value>
+    <value>API bijwerken</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>Version:</value>
+    <value>Versie:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integrations:</value>
+    <value>Integraties:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Tags:</value>
+    <value>Labels:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>On</value>
+    <value>Aan</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Uit</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
     <value>Ask</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
-    <value>Update</value>
+    <value>Bijwerken</value>
   </data>
   <data name="PU_NoSelect" xml:space="preserve">
-    <value>No path was selected!</value>
+    <value>Geen pad is geselecteerd!</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>No application was selected!</value>
+    <value>Geen applicatie is geselecteerd!</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight path!</value>
+    <value>Ongeldig Hollow Knight pad!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
     <value>Invalid Hollow Knight app!</value>
@@ -268,7 +268,7 @@
     <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>Select the folder containing hollow_knight_Data or Hollow Knight_Data.</value>
+    <value>Selecteer de map met hollow_knight_Data of Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
     <value>Missing Managed folder or Assembly-CSharp!</value>
@@ -277,16 +277,16 @@
     <value>Select your Hollow Knight folder.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
-    <value>Path</value>
+    <value>Pad</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>Select your Hollow Knight app.</value>
+    <value>Selecteer uw Hollow Knight pad.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
     <value>Select your Hollow Knight executable or its shortcut.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>Update All</value>
+    <value>Alles bijwerken</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Bulk Actions</value>
@@ -361,10 +361,10 @@
     <value>Edit mod's settings file</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Loading the newest mods that are on modlinks...</value>
+    <value>Nieuwste mods laden van modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Lumafly was unable to load the newest mods from modlinks.</value>
+    <value>Lumafly kon de nieuwste mods van de modlinks niet laden.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
