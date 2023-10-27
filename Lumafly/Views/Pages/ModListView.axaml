@@ -388,7 +388,7 @@
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />  <!-- enable (always visible, no need to reserve space for it) -->
-                        <ColumnDefinition MaxWidth="120" /> <!-- update -->
+                        <ColumnDefinition MaxWidth="150" /> <!-- update -->
                         <ColumnDefinition MaxWidth="105" /> <!-- install-->
                         <ColumnDefinition MaxWidth="40"/>   <!-- pin -->
                       </Grid.ColumnDefinitions>
@@ -419,9 +419,7 @@
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center"
                           Grid.Column="2">
-                          <Button
-                              Padding="3"
-                              Margin="0 -3 0 0"
+                          <SplitButton
                               CommandParameter="{Binding .}"
                               Background="#976526"
                               BorderBrush="#976526"
@@ -438,7 +436,13 @@
                                     Margin="0 0 5 0"/>
                                 <TextBlock Text="{ext:Localize XAML_Update}"/>
                               </StackPanel>
-                            </Button>   
+                              <SplitButton.Flyout>
+                                  <MenuFlyout>
+                                      <MenuItem Header="View release notes"
+                                                Command="{Binding OpenReleaseNotes}" />
+                                  </MenuFlyout>
+                              </SplitButton.Flyout>
+                            </SplitButton>   
                       </Panel>
                       <Panel
                           VerticalAlignment="Center"

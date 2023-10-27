@@ -5,19 +5,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
-using Avalonia.Threading;
 using Lumafly.Util;
 using Lumafly.ViewModels;
 using Lumafly.Views.Windows;
-using Microsoft.Toolkit.HighPerformance.Helpers;
 
 namespace Lumafly.Models
 {
@@ -270,6 +265,13 @@ namespace Lumafly.Models
             var readmePopup = new ReadmePopup()
             {
                 DataContext = new ReadmePopupViewModel(this)
+            }.ShowDialog(AvaloniaUtils.GetMainWindow());
+        }
+        public void OpenReleaseNotes()
+        {
+            var readmePopup = new ReadmePopup()
+            {
+                DataContext = new ReadmePopupViewModel(this, requestingReleaseNotes: true)
             }.ShowDialog(AvaloniaUtils.GetMainWindow());
         }
 

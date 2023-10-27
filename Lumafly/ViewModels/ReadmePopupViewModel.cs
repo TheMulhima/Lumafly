@@ -11,22 +11,25 @@ namespace Lumafly.ViewModels
     public class ReadmePopupViewModel : ViewModelBase
     {
         private readonly ModItem _modItem;
+        public bool IsRequestingReleaseNotes { get; }
         private static readonly HttpClient _hc;
+        private string requestName => IsRequestingReleaseNotes ? "Release Notes" : "Readme";
         
-        public ReadmePopupViewModel(ModItem modItem)
+        public ReadmePopupViewModel(ModItem modItem, bool requestingReleaseNotes = false)
         {
             _modItem = modItem;
+            IsRequestingReleaseNotes = requestingReleaseNotes;
 
             Task.Run(async () =>
             {
-                var readmeString = await FetchReadme();
+                var displayString = IsRequestingReleaseNotes ? await FetchReleaseNotes() : await FetchReadme();
                 
-                if (readmeString is not null)
+                if (displayString is not null)
                 {
                     string pattern = @"(?<!\([^)]*)https://\S+";
 
                     // Replace matched links with Markdown syntax
-                    Readme = Regex.Replace(readmeString, pattern, match => {
+                    Readme = Regex.Replace(displayString, pattern, match => {
                         string link = match.Value;
                         return $"[{link}]({link})";
                     });
@@ -46,9 +49,9 @@ namespace Lumafly.ViewModels
                     return _modItem.Readme;
 
                 if (_modItem.Readme is null)
-                    return "Readme is loading....";
+                    return $"{requestName} is loading....";
 
-                return "Readme not available";
+                return $"{requestName} not available";
             }
             set
             {
@@ -94,6 +97,41 @@ namespace Lumafly.ViewModels
             catch
             {
                 return null;
+            }
+        }
+        
+        private async Task<string?> FetchReleaseNotes()
+        {
+            try
+            {
+                var uri = new Uri(_modItem.Repository);
+
+                string releaseInfo = $"https://api.github.com/repos/{uri.AbsolutePath.TrimEnd('/').TrimStart('/')}/releases/latest";
+
+                HttpResponseMessage response = await _hc.GetAsync(releaseInfo);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    JsonDocument json = JsonDocument.Parse(jsonResponse);
+                    // the release info is in the body property
+                    return json.RootElement.GetProperty("body").ToString();
+                }
+                
+                throw new Exception($"Failed to fetch changelog for {_modItem.Name} from {releaseInfo}");
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        
+        public void Close()
+        {
+            if (IsRequestingReleaseNotes)
+            {
+                // we don't want view readme button to display release notes
+                _modItem.Readme = null;
             }
         }
     }
