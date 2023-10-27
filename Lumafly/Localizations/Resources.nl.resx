@@ -247,7 +247,7 @@
     <value>Uit</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>Ask</value>
+    <value>Vragen</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Bijwerken</value>
@@ -262,10 +262,10 @@
     <value>Ongeldig Hollow Knight pad!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight app!</value>
+    <value>Ongeldige Hollow Knight app!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
+    <value>Ongeldige Hollow Knight exe! Selecteer alstublieft de Hollow Knight exe of zijn snelkoppeling</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Selecteer de map met hollow_knight_Data of Hollow Knight_Data.</value>
@@ -301,22 +301,22 @@
     <value>Uninstall All</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Authors:</value>
+    <value>Auteurs:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Advanced Search</value>
+    <value>Geavanceerd Zoeken</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
     <value>Search Type</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>Select Tags</value>
+    <value>Selecteer Labels</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Exact Search</value>
+    <value>Exact Zoeken</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>Normal Search</value>
+    <value>Normaal Zoeken</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
     <value>Search by Dependencies and Integrations</value>
