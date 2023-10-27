@@ -133,58 +133,58 @@
     <value>Schakel API in</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>Toggle API</value>
+    <value>Schakel API aan/uit</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>The download hash for {0} ({1}) didn't match the given signature ({2}). It is either corrupt or the entry is incorrect.</value>
+    <value>De download hash voor {0} ({1}) komt niet overeen met de opgegeven handtekening ({2}). Het is corrupt of het item is incorrect.</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>Hash mismatch!</value>
+    <value>Hash komt niet overeen!</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>Unable to download {0}! The site may be down or you may lack network connectivity.</value>
+    <value>Niet in staat om te downloaden{0}! De site is mogelijk offline of u heeft geen internetverbinding.</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>Network Error</value>
+    <value>Netwerk fout</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>Hollow Knight is open! This may lead to issues when installing mods. Close Hollow Knight?</value>
+    <value>Hollow Knight is geopend! Dit kan leiden tot problemen bij het installeren van mods. Hollow Knight sluiten?</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
     <value>Waarschuwing!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>failed with HTTP error {0}</value>
+    <value>mislukt met HTTP fout {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Unable to get list of mods from modlinks, the operation {0}</value>
+    <value>Kan de lijst met mods niet ophalen, operatie {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
     <value>Fout!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>timed out. Please check your internet connection and try again</value>
+    <value>timed out. Controleer uw internet verbinding en probeer opnieuw</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>Get the latest release</value>
+    <value>Download de nieuwste versie</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>Continue anyways.</value>
+    <value>Toch doorgaan.</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Out of date!</value>
+    <value>Verouderd!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Lumafly has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features.</value>
+    <value>Lumafly heeft een nieuwe update beschikbaar. Download alstublieft de nieuwste update (v{0}) om de nieuwste bugfixes en functies te krijgen.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Lumafly failed to download update automatically. Lumafly will now open the link to get the latest version</value>
+    <value>Lumafly kon niet automatisch de update downloaden. Lumafly opent nu de link om de nieuwste versie te downloaden</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Waarschuwing</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>The saved Hollow Knight path is invalid, please re-select a valid path.</value>
+    <value>Het opgeslagen Hollow Knight pad is ongeldig, selecteer alstublieft een geldig pad.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
     <value>Info</value>
@@ -196,7 +196,7 @@
     <value>Gedetecteerd pad!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>Detected Hollow Knight install at {0}. Is this correct?</value>
+    <value>Hollow Knight installatie gedetecteerd op {0}. Is dit correct?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
     <value>Wijzig pad</value>
@@ -719,11 +719,10 @@
     <comment/>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>View Readme</value>
+    <value>Bekijk Readme</value>
     <comment/>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Untagged</value>
-    <comment/>
+    <value>Zonder label</value>
   </data>
 </root>
