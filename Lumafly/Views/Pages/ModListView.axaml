@@ -21,7 +21,7 @@
             KeyDown="OnKeyDown">
     <SplitView
         DisplayMode="CompactOverlay"
-        OpenPaneLength="200"
+        OpenPaneLength="{Binding PaneWidth}"
         CompactPaneLength="35"
         PaneBackground="{DynamicResource RegionColor}"
         Background="{DynamicResource RegionColor}"

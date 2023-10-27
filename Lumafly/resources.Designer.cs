@@ -339,6 +339,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Untagged.
+        /// </summary>
+        internal static string ModLinks_Tags_Untagged {
+            get {
+                return ResourceManager.GetString("ModLinks_Tags_Untagged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Utility.
         /// </summary>
         internal static string ModLinks_Tags_Utility {
@@ -879,6 +888,15 @@ namespace Lumafly {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable/Disable the Modding API, the modification to the game files that allow mods to run.
+        /// </summary>
+        internal static string ToggleAPI_Explanation {
+            get {
+                return ResourceManager.GetString("ToggleAPI_Explanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Fixed Version.
         /// </summary>
         internal static string UseFixedVersion {
@@ -893,6 +911,15 @@ namespace Lumafly {
         internal static string UseModlinksVersion {
             get {
                 return ResourceManager.GetString("UseModlinksVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Readme.
+        /// </summary>
+        internal static string ViewReadme {
+            get {
+                return ResourceManager.GetString("ViewReadme", resourceCulture);
             }
         }
         
@@ -1136,24 +1163,6 @@ namespace Lumafly {
         internal static string XAML_InfoBody {
             get {
                 return ResourceManager.GetString("XAML_InfoBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lumafly.
-        /// </summary>
-        internal static string XAML_InfoHeader {
-            get {
-                return ResourceManager.GetString("XAML_InfoHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discord\n.
-        /// </summary>
-        internal static string XAML_InfoLinkDiscord {
-            get {
-                return ResourceManager.GetString("XAML_InfoLinkDiscord", resourceCulture);
             }
         }
         

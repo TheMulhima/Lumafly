@@ -565,6 +565,7 @@ namespace Lumafly.ViewModels
                                     && !_updating;
         public bool CanUninstallAll => _items.Any(x => x.State is ExistsModState);
         public bool CanToggleAll => _items.Any(x => x.State is ExistsModState);
+        public float PaneWidth => (_settings.PreferredLanguage ?? SupportedLanguages.en) == SupportedLanguages.en ? 200 : 350; 
 
         public static async Task ToggleApiCommand(IModSource _mods, IInstaller _installer)
         {
