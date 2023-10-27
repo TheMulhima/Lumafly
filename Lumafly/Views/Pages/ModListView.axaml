@@ -84,7 +84,7 @@
                     </Button>
                     <Button
                         Command="{Binding ToggleApi}">
-                        <StackPanel ToolTip.Tip="Enable/Disable the Modding API, the modification to the game files that allow mods to run" ToolTip.ShowDelay="0">
+                        <StackPanel ToolTip.Tip="{ext:Localize ToggleAPI_Explanation}" ToolTip.ShowDelay="0">
                             <PathIcon Data="{StaticResource options_regular}" />
                             <TextBlock Text="{Binding ApiButtonText}" />
                         </StackPanel>
@@ -547,7 +547,7 @@
                                     <Setter Property="Margin" Value="0 0 10 0" />
                                 </Style>
                             </StackPanel.Styles>
-                            <Button Content="View Readme"
+                            <Button Content="{ext:Localize ViewReadme}"
                                     Command="{Binding OpenReadme}"/>
                             <Button
                                 Classes="Icon"

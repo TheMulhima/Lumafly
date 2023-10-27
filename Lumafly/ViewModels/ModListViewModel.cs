@@ -1328,6 +1328,7 @@ namespace Lumafly.ViewModels
                 case "Cosmetic": return Resources.ModLinks_Tags_Cosmetic;
                 case "Library": return Resources.ModLinks_Tags_Library;
                 case "Expansion": return Resources.ModLinks_Tags_Expansion;
+                case "Untagged": return Resources.ModLinks_Tags_Untagged;
                 default: return tag;
             }
         }
