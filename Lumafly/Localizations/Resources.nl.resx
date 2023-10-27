@@ -118,601 +118,601 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Array_Sep" xml:space="preserve">
-    <value>，</value>
+    <value>, </value>
   </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
-    <value>卸载</value>
+    <value>Verwijderen</value>
   </data>
   <data name="MI_InstallText_NotInstalled" xml:space="preserve">
-    <value>安装</value>
+    <value>Installeren</value>
   </data>
   <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
-    <value>禁用 API</value>
+    <value>Schakel API uit</value>
   </data>
   <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
-    <value>启用 API</value>
+    <value>Schakel API in</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>切换 API</value>
+    <value>Toggle API</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>{0}（{1}）的哈希值与给定值（{2}）不匹配。可能是下载出错或 Mod 条目有误。</value>
+    <value>The download hash for {0} ({1}) didn't match the given signature ({2}). It is either corrupt or the entry is incorrect.</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>哈希值不匹配！</value>
+    <value>Hash mismatch!</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>无法下载 {0}！可能是网站出现问题，或者未连接网络。</value>
+    <value>Unable to download {0}! The site may be down or you may lack network connectivity.</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>网络错误</value>
+    <value>Network Error</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>游戏正在运行！这可能会导致安装 Mod 出错。是否关闭游戏？</value>
+    <value>Hollow Knight is open! This may lead to issues when installing mods. Close Hollow Knight?</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
-    <value>警告！</value>
+    <value>Waarschuwing!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>HTTP 错误 {0}</value>
+    <value>failed with HTTP error {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>无法获取 Mod 列表，原因为：{0}</value>
+    <value>Unable to get list of mods from modlinks, the operation {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
-    <value>错误！</value>
+    <value>Fout!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>连接已超时。请检查网络连接并再试一次。</value>
+    <value>timed out. Please check your internet connection and try again</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>获取最新版</value>
+    <value>Get the latest release</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>暂不更新</value>
+    <value>Continue anyways.</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>有更新！</value>
+    <value>Out of date!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Lumafly 有更新，建议更新到最新版（v{0}）以获取最新的 bug 修复以及功能。</value>
+    <value>Lumafly has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Lumafly 下载自动更新失败，将会在浏览器中打开最新版下载链接。</value>
+    <value>Lumafly failed to download update automatically. Lumafly will now open the link to get the latest version</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>警告</value>
+    <value>Warning</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>保存的游戏路径无效，请重新选择有效路径。</value>
+    <value>The saved Hollow Knight path is invalid, please re-select a valid path.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>提示</value>
+    <value>Info</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>无法自动检测游戏路径，请手动选择。</value>
+    <value>Niet in staat om uw Hollow Knight installatie te detecteren. Selecteer deze alstublieft.</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>已自动检测到游戏路径</value>
+    <value>Gedetecteerd pad!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>检测到游戏路径为：{0}。是否正确？</value>
+    <value>Detected Hollow Knight install at {0}. Is this correct?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>更改路径</value>
+    <value>Wijzig pad</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>前置</value>
+    <value>Dependencies:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>捐助</value>
+    <value>Doneer</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>全部</value>
+    <value>Alle</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>已启用</value>
+    <value>Ingeschakeld</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
-    <value>已安装</value>
+    <value>Geïnstalleerd</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>有更新</value>
+    <value>Verouderd</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>打开 Mods 文件夹</value>
+    <value>Map met mods openen</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>代码仓库与说明文件</value>
+    <value>Repository</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>Mod 搜索</value>
+    <value>Mod zoeken</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>更新 API</value>
+    <value>API bijwerken</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>版本</value>
+    <value>Versie:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>联动</value>
+    <value>Integraties:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>标签</value>
+    <value>Labels:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>开启</value>
+    <value>Aan</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>关闭</value>
+    <value>Uit</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>询问</value>
+    <value>Ask</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
-    <value>更新</value>
+    <value>Bijwerken</value>
   </data>
   <data name="PU_NoSelect" xml:space="preserve">
-    <value>未选择路径！</value>
+    <value>Geen pad is geselecteerd!</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>未选择程序！</value>
+    <value>Geen applicatie is geselecteerd!</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>无效的游戏路径！</value>
+    <value>Ongeldig Hollow Knight pad!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>无效的游戏程序！</value>
+    <value>Invalid Hollow Knight app!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>无效的游戏程序！请选择游戏 exe 文件或其快捷方式。</value>
+    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>请选择包含 “hollow_knight_Data” 或 “Hollow Knight_Data” 的文件夹。</value>
+    <value>Selecteer de map met hollow_knight_Data of Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>缺少 Managed 文件夹或 Assembly-CSharp.dll</value>
+    <value>Missing Managed folder or Assembly-CSharp!</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>选择游戏文件夹</value>
+    <value>Select your Hollow Knight folder.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
-    <value>路径</value>
+    <value>Pad</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>选择游戏程序</value>
+    <value>Selecteer uw Hollow Knight pad.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>请选择游戏 exe 文件或其快捷方式</value>
+    <value>Select your Hollow Knight executable or its shortcut.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>全部更新</value>
+    <value>Alles bijwerken</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>批量操作</value>
+    <value>Bulk Actions</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>全部禁用</value>
+    <value>Disable All</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>启用所有</value>
+    <value>Enable All</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>全部卸载</value>
+    <value>Uninstall All</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>作者：</value>
+    <value>Authors:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>搜索选项</value>
+    <value>Advanced Search</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>搜索类型</value>
+    <value>Search Type</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>选择标签</value>
+    <value>Select Tags</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>精确搜索</value>
+    <value>Exact Search</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>常规搜索</value>
+    <value>Normal Search</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>按前置搜索</value>
+    <value>Search by Dependencies and Integrations</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>选择 Mod</value>
+    <value>Select Mod</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>无 Mod</value>
+    <value>No mods to display</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>打开存档文件夹</value>
+    <value>Open Saves Folder</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>手动安装 Mod</value>
+    <value>Manually Install</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>选择 Mod dll 或 zip</value>
+    <value>Select the mod dll or zip</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>新 Mod</value>
+    <value>New Mods</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>有更新的 Mod</value>
+    <value>Updated Mods</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>上周</value>
+    <value>Last Week</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>上个月</value>
+    <value>Last Month</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>最新动态</value>
+    <value>Whats New</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>复制错误信息</value>
+    <value>Copy Error</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>点击显示完整错误信息</value>
+    <value>Click to show full error</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>编辑 Mod 配置文件</value>
+    <value>Edit mod's settings file</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>正在加载 Mod 列表中的最新 Mod……</value>
+    <value>Nieuwste mods laden van modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>无法从 Mod 列表加载最新 Mod。</value>
+    <value>Lumafly kon de nieuwste mods van de modlinks niet laden.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>可能为网络连接问题，请再试一次。</value>
+    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>警告！有其它 Mod 依赖于本 Mod！</value>
+    <value>Warning! This mod is required for other mods to function!</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{1} 需要 {0} 才能正常工作。确定要继续吗？</value>
+    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>警告！确定要这么做吗？</value>
+    <value>Warning! Are you sure you want to do this?</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Lumafly 无法访问 Mods 文件夹中的文件</value>
+    <value>Lumafly was unable to access the file in the mods folder</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>请确保 Mods 文件夹不是只读的</value>
+    <value>Please make sure that the mods folder is not in a write protected location</value>
   </data>
   <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
-    <value>Lumafly 无法访问文件：</value>
+    <value>Lumafly cannot access the file:</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>请关闭所有其它可能在访问 Mods 文件夹的程序</value>
+    <value>Please make sure to close all other apps that could be using the mods folder</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>请关闭下列进程，因为他们锁定了重要的文件：</value>
+    <value>Please close the following processes as they are locking important files:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
-    <value>Boss </value>
+    <value>Boss</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>玩法</value>
+    <value>Gameplay</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>工具</value>
+    <value>Utility</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>装饰</value>
+    <value>Cosmetic</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>前置</value>
+    <value>Library</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>拓展</value>
+    <value>Expansion</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>正在加载 Mod 列表……</value>
+    <value>Fetching mods from modlinks...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>正在等待 GitHub 响应……</value>
+    <value>Waiting for response from github...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>仍在等待……</value>
+    <value>Still waiting...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>正在尝试使用备用源……</value>
+    <value>Trying from fallback source...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>正在等待 JsDelivr 响应……</value>
+    <value>Waiting for response from jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>以管理员身份运行 Lumafly 可能会解决这个问题</value>
+    <value>Try running lumafly as an administrator, it may fix the issue</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>在 {0} {1} 时出现错误</value>
+    <value>An exception occured while {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
-    <value>确定</value>
+    <value>Ok</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>在 Discord 求助</value>
+    <value>Ask for help</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>报告错误</value>
+    <value>Report Error</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>安装</value>
+    <value>Install</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{1} 需要 {0} 才能正常工作。要安装吗？</value>
+    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>这个 Mod 有前置没有安装！</value>
+    <value>The mod has dependencies that are not installed!</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>手动选择</value>
+    <value>Select manually</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>注意：手动安装的 Mod 可能仍依赖于这些 Mod</value>
+    <value>Note: they may be used by any mods you have installed manually</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>无</value>
+    <value>None</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>卸载这些 Mod 将会留下未被使用的前置 Mod</value>
+    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>自动移除前置？</value>
+    <value>Auto remove dependencies?</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>固定</value>
+    <value>Pin</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>固定 Mod 以使 Lumafly 不再自动替换它</value>
+    <value>Pin a mod so it isn't automatically replaced by Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>取消固定</value>
+    <value>Unpin</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>无法获取 Mod 列表</value>
+    <value>Unable to get modlinks</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>是否以离线模式启动 Lumafly？</value>
+    <value>Do you want to launch lumafly in offline mode?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>选择作者</value>
+    <value>Select Authors</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>移除正被使用的前置时警告</value>
+    <value>Warn before removing a dependent mod</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>设置</value>
+    <value>Settings</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
-    <value>模组</value>
+    <value>Mods</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>自动移除未被使用的前置</value>
+    <value>Automatically Remove Unused Dependencies</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>打开文件夹</value>
+    <value>Open Folder</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>游戏路径</value>
+    <value>Game Path</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>使用自定义 Mod 列表</value>
+    <value>Use Custom Modlinks</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>通常情况下，Lumafly 加载官方的 Mod 列表。如需自定义，则需输入其 URI，可为 HTTPS 或文件（格式为 file://{filepath}）。\n输入空链接或无效链接将会加载官方 Mod 列表</value>
+    <value>Normally Lumafly loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>输入自定义 Mod 列表链接。需要重新加载生效</value>
+    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
-    <value>重新加载 Lumafly</value>
+    <value>Reload Lumafly</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>（重新加载来应用更改）</value>
+    <value>(Reload for changes to take effect)</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>关于</value>
+    <value>Info</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Lumafly 是适用于《空洞骑士》1.5 版本的 Mod 安装器，不适用于更旧版的《空洞骑士》。</value>
+    <value>Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>相关链接</value>
+    <value>Relevant Links</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
-    <value>网站\n</value>
+    <value>Website\n</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
-    <value>GitHub\n</value>
+    <value>Github\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>自述文件\n</value>
+    <value>Readme\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>另一个 Mod 安装器</value>
+    <value>An Alternate Installer</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>制作 Mod\n</value>
+    <value>Create Mods\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Mod\n使用教程</value>
+    <value>Modding\nTutorial</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>启动原版游戏</value>
+    <value>Launch Vanilla Game</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>启动装有 Mod 的游戏</value>
+    <value>Launch Modded Game</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>正在启动游戏，请稍候……</value>
+    <value>Please wait launching game...</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>标记为自定义版本</value>
+    <value>Record as custom version</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>标记现版本 Mod 为 Mod 列表外的 Mod。不影响 Mod 本身，只决定 Lumafly 如何处理该 Mod。被固定的列表外 Mod 将永远不会被 Lumafly 替换</value>
+    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>重置 Mod：强制重新安装 Mod 并删除配置文件</value>
+    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>获取 Mod 分享链接。链接会打开 Lumafly 并下载该 Mod</value>
+    <value>Get the shareable download link of this mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>打开 Mod 所在的文件夹</value>
+    <value>Open folder where this mod is installed</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>报告该 Mod 的 bug 或问题</value>
+    <value>Report a bug or an issue with this mod</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>该 Mod 是手动安装的，不在官方 Mod 列表中</value>
+    <value>This mod was manually installed and is not from official modlinks</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>该版本不在 Mod 列表中</value>
+    <value>Version not from modlinks</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>语言</value>
+    <value>Language</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
-    <value>低存储占用模式</value>
+    <value>Low Storage Mode</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>（使用了{0}的额外空间）</value>
+    <value>(Uses extra {0} of storage)</value>
   </data>
   <data name="XAML_SharingCode" xml:space="preserve">
-    <value>分享代码：</value>
+    <value>Sharing Code:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>生成一个8位数字的分享代码。可以分享给别人让他们使用这个整合包</value>
+    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
-    <value>编辑整合包</value>
+    <value>Edit pack</value>
   </data>
   <data name="XAML_DeletePack" xml:space="preserve">
-    <value>删除整合包</value>
+    <value>Delete pack</value>
   </data>
   <data name="XAML_CreateNewPack" xml:space="preserve">
-    <value>创建新整合包</value>
+    <value>Create new pack</value>
   </data>
   <data name="XAML_ImportPack" xml:space="preserve">
-    <value>导入整合包</value>
+    <value>Import pack</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>整合包</value>
+    <value>Packs</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
-    <value>加载整合包</value>
+    <value>Load Pack</value>
   </data>
   <data name="XAML_Description" xml:space="preserve">
-    <value>描述：</value>
+    <value>Description:</value>
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
-    <value>整合包内 Mods：</value>
+    <value>Mods In Pack:</value>
   </data>
   <data name="XAML_SharePack" xml:space="preserve">
-    <value>分享这个整合包</value>
+    <value>Share this pack</value>
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
-    <value>用zip压缩包的方式分享这个整合包。你需要自己发送这个zip压缩包。</value>
+    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
   </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
-    <value>按集成搜索</value>
+    <value>Search by Integrations</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
-    <value>切换所有</value>
+    <value>Toggle All</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
-    <value>如果有任意 mods 被启用了则禁用所有，如果所有 mods 都被禁用了则全部启用。</value>
+    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
   </data>
   <data name="XAML_FilterMods" xml:space="preserve">
-    <value>筛选 Mods：</value>
+    <value>Filter Mods:  </value>
   </data>
   <data name="XAML_SearchAuthor" xml:space="preserve">
-    <value>搜索作者</value>
+    <value>Search Author</value>
   </data>
   <data name="EditPack" xml:space="preserve">
-    <value>修改整合包</value>
+    <value>Edit Pack</value>
   </data>
   <data name="PackDetails" xml:space="preserve">
-    <value>整合包细节</value>
+    <value>Pack Details</value>
   </data>
   <data name="PackDetails_Explanation" xml:space="preserve">
-    <value>在这里修改你的整合包细节</value>
+    <value>Edit the details of your pack here.</value>
   </data>
   <data name="PackName" xml:space="preserve">
-    <value>整合包名称</value>
+    <value>Pack Name</value>
   </data>
   <data name="PackDescription" xml:space="preserve">
-    <value>整合包描述</value>
+    <value>Pack Description</value>
   </data>
   <data name="EditDetails" xml:space="preserve">
-    <value>修改细节</value>
+    <value>Edit Details</value>
   </data>
   <data name="EditMods" xml:space="preserve">
-    <value>编辑 Mod</value>
+    <value>Edit Mods</value>
   </data>
   <data name="AvailableMods" xml:space="preserve">
-    <value>可用 Mod</value>
+    <value>Available Mods</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
-    <value>选择的 Mods</value>
+    <value>Selected Mods</value>
   </data>
   <data name="EnableMod" xml:space="preserve">
-    <value>启用 Mod</value>
+    <value>Enable Mod</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>禁用 Mod</value>
+    <value>Disable Mod</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>使用固定版本</value>
+    <value>Use Fixed Version</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
-    <value>不要使用最新版本的modlinks。请使用当前版本</value>
+    <value>Don't use latest modlinks version. Instead use current version</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
-    <value>使用的 Modlinks 版本</value>
+    <value>Use Modlinks Version</value>
   </data>
   <data name="ModlinksVersion_Tooltip" xml:space="preserve">
-    <value>使用最新版本的modlinks</value>
+    <value>Use latest modlinks version</value>
   </data>
   <data name="EnterSharingCode" xml:space="preserve">
-    <value>输入分享代码：</value>
+    <value>Enter Sharing Code:</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Cancel</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>确认</value>
+    <value>Confirm</value>
   </data>
   <data name="AvailablePacks" xml:space="preserve">
-    <value>可用 整合包</value>
+    <value>Available Packs:</value>
   </data>
   <data name="RevertToPreviousMods" xml:space="preserve">
-    <value>恢复到原来的 mods</value>
+    <value>Revert to previous mods</value>
   </data>
   <data name="PackUpdatePrompt" xml:space="preserve">
-    <value>这个整合包里的一些 mod 已经过时了，你是否想要更新它们？</value>
+    <value>Some mods in the pack are outdated, do you want to update them?</value>
   </data>
   <data name="LoadPackAdditive" xml:space="preserve">
-    <value>无替换加载</value>
+    <value>Load without replacing</value>
   </data>
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
-    <value>在不替换当前 mods 文件夹里的 mods 的情况下加载整合包</value>
+    <value>Load this pack without replacing mods in current mods folder</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>检查更新</value>
+    <value>Check For Updates</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>打开日志文件夹</value>
+    <value>Open Logs Folder</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
     <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
@@ -723,7 +723,7 @@
     <comment/>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>无标签</value>
+    <value>Untagged</value>
     <comment/>
   </data>
 </root>
