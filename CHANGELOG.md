@@ -1,11 +1,21 @@
 # Changelogs
 
+- [v3.2.0.0](#changes-in-v3200)
 - [v3.1.0.0](#changes-in-v3100)
 - [v3.0.0.0](#changes-in-v3000)
 - [v2.3.0.0](#changes-in-v2300)
 - [v2.2.0.0](#changes-in-v2200)
 - [v2.1.0.0](#changes-in-v2100)
 - [v2.0.0.0](#changes-in-v2000)
+
+## Changes in v3.2.0.0
+- Add ability to view release notes of mods that need updating.
+- Add support for Japanese localizations (thanks to [sawayoshi](https://twittter.com/sawayoshiyt))
+- Update Spanish, French, Portuguese, and Chinese localizations (thanks to [Helen](https://ko-fi.com/helensb), [Dastan](https://github.com/Dastan21), [luiz_eldorado](https://github.com/luizeldorado), and [lxymahatma](https://github.com/lxymahatma)).
+- Fix scroll position in modlist being reset on any popup being shown.
+- Open edit pack window on pack creation.
+- Fix error that happened when invalid path popup was shown.
+- Fix modlist side pane being too narrow on other languages.
 
 ## Changes in v3.1.0.0
 - Add button to revert changes to the mods before pack was loaded
