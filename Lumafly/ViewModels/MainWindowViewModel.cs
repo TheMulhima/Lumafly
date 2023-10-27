@@ -535,7 +535,7 @@ namespace Lumafly.ViewModels
                     // ensure that the message doesn't get cut off 
                     MinWidth = 550
                 }
-            ).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
+            ).ShowWindowDialogAsync(AvaloniaUtils.GetMainWindow());
 
             return Settings.Create(await GetSettingsPath());
         }
