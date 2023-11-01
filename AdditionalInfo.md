@@ -1,1 +1,1 @@
-Latest Modding News: Pale Court is available to download now! [Watch trailer](https://youtu.be/8jtHOcQMmeE)
+The Hollow Knight Wiki has moved to [hollowknight.wiki](https://hollowknight.wiki/). The former wiki will be abandoned due to problem with the Fandom platform. For more info, see the [reddit post](https://www.reddit.com/r/HollowKnight/comments/17kjcde/the_hollow_knight_wiki_has_moved_to/)
