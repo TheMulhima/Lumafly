@@ -202,7 +202,7 @@
     <value>Wijzig pad</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>Dependencies:</value>
+    <value>Vereiste mods:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
     <value>Doneer</value>
@@ -271,10 +271,10 @@
     <value>Selecteer de map met hollow_knight_Data of Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>Missing Managed folder or Assembly-CSharp!</value>
+    <value>Managed map of Assembly-CSharp ontbreekt!</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>Select your Hollow Knight folder.</value>
+    <value>Selecteer uw Hollow Knight map.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
     <value>Pad</value>
@@ -283,22 +283,22 @@
     <value>Selecteer uw Hollow Knight pad.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>Select your Hollow Knight executable or its shortcut.</value>
+    <value>Selecteer uw Hollow Knight. exe of zijn snelkoppeling.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Alles bijwerken</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>Bulk Actions</value>
+    <value>Bulk Acties</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>Disable All</value>
+    <value>Alles Uitschakelen</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>Enable All</value>
+    <value>Alles Inschakelen</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>Uninstall All</value>
+    <value>Alles De-installeren</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
     <value>Auteurs:</value>
@@ -307,7 +307,7 @@
     <value>Geavanceerd Zoeken</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>Search Type</value>
+    <value>Zoek Type</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
     <value>Selecteer Labels</value>
@@ -319,19 +319,19 @@
     <value>Normaal Zoeken</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Search by Dependencies and Integrations</value>
+    <value>Zoek op Vereiste mods en Integraties</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>Select Mod</value>
+    <value>Selecteer Mod</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>No mods to display</value>
+    <value>Geen mods gevonden</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
     <value>Open Saves Folder</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Manually Install</value>
+    <value>Handmatig Installeren</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
     <value>Select the mod dll or zip</value>
