@@ -337,25 +337,25 @@
     <value>Select the mod dll or zip</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>New Mods</value>
+    <value>Nieuwe Mods</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Updated Mods</value>
+    <value>Bijgewerkte Mods</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>Last Week</value>
+    <value>Afgelopen Week</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Last Month</value>
+    <value>Afgelopen Maand</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>Whats New</value>
+    <value>Wat is er nieuw</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Copy Error</value>
+    <value>Kopieer Fout</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Click to show full error</value>
+    <value>Klik om de volledige foutmelding te tonen</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
     <value>Edit mod's settings file</value>
@@ -367,19 +367,19 @@
     <value>Lumafly kon de nieuwste mods van de modlinks niet laden.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
+    <value>Mogelijk veroorzaakt door een slechte of geen internetverbinding. Controleer dat en probeer het opnieuw</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>Warning! This mod is required for other mods to function!</value>
+    <value>Opgelet! Deze mod is nodig voor andere mods om te functioneren!</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
+    <value>{0} is vereist voor {1} om goed te functioneren. Wilt u nog steeds doorgaan?</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>Warning! Are you sure you want to do this?</value>
+    <value>Opgelet! Weet u zeker dat u dit wilt doen?</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Lumafly was unable to access the file in the mods folder</value>
+    <value>Lumafly was niet in staat om toegang te krijgen tot het bestand in de mods map</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
     <value>Please make sure that the mods folder is not in a write protected location</value>
@@ -397,55 +397,55 @@
     <value>Boss</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>Gameplay</value>
+    <value>Spelverloop</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
     <value>Utility</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>Cosmetic</value>
+    <value>Cosmetisch</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Bibliotheek</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>Uitbreiding</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Fetching mods from modlinks...</value>
+    <value>Mods van modlinks ophalen...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Waiting for response from github...</value>
+    <value>Wachten op reactie van GitHub...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>Nog even geduld...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
     <value>Trying from fallback source...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Waiting for response from jsdelivr...</value>
+    <value>Wachten op reactie van jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>Try running lumafly as an administrator, it may fix the issue</value>
+    <value>Probeer Lumafly als administrator uit te voeren, mogelijk lost dat het probleem op</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
     <value>An exception occured while {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>Oké</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>Ask for help</value>
+    <value>Vraag om hulp</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Report Error</value>
+    <value>Error Rapporteren</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>Install</value>
+    <value>Installeren</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
+    <value>{0} is vereist voor {1} om goed te functioneren. Wilt u deze installeren?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
     <value>The mod has dependencies that are not installed!</value>
@@ -457,16 +457,16 @@
     <value>Note: they may be used by any mods you have installed manually</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>None</value>
+    <value>Geen</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
     <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>Auto remove dependencies?</value>
+    <value>Vereiste mods automatisch verwijderen?</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>Vastzetten</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
     <value>Pin a mod so it isn't automatically replaced by Lumafly</value>
