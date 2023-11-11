@@ -577,7 +577,7 @@
     <value>このmodは手動でインストールされており、一般的なmodlinksからのものではありません。</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>modlinksからではないバージョン</value>
+    <value>手動でインストールされたmod</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>言語</value>
