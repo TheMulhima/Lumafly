@@ -580,7 +580,7 @@
     <value>Version not from modlinks</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Taal</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
     <value>Low Storage Mode</value>
@@ -631,37 +631,37 @@
     <value>Toggle All</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
-    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
+    <value>Schakelt alle mods uit als enige zijn ingeschakeld, Schakelt alle mods in als alle zijn uitgeschakeld</value>
   </data>
   <data name="XAML_FilterMods" xml:space="preserve">
-    <value>Filter Mods:  </value>
+    <value>Filter Mods:</value>
   </data>
   <data name="XAML_SearchAuthor" xml:space="preserve">
-    <value>Search Author</value>
+    <value>Zoek op Auteur</value>
   </data>
   <data name="EditPack" xml:space="preserve">
-    <value>Edit Pack</value>
+    <value>Bewerk Pakket</value>
   </data>
   <data name="PackDetails" xml:space="preserve">
-    <value>Pack Details</value>
+    <value>Pakket Details</value>
   </data>
   <data name="PackDetails_Explanation" xml:space="preserve">
-    <value>Edit the details of your pack here.</value>
+    <value>Bewerk de details van uw pakket hier.</value>
   </data>
   <data name="PackName" xml:space="preserve">
-    <value>Pack Name</value>
+    <value>Pakket Naam</value>
   </data>
   <data name="PackDescription" xml:space="preserve">
-    <value>Pack Description</value>
+    <value>Pakket Omschrijving</value>
   </data>
   <data name="EditDetails" xml:space="preserve">
-    <value>Edit Details</value>
+    <value>Bewerk Details</value>
   </data>
   <data name="EditMods" xml:space="preserve">
-    <value>Edit Mods</value>
+    <value>Bewerk Mods</value>
   </data>
   <data name="AvailableMods" xml:space="preserve">
-    <value>Available Mods</value>
+    <value>Beschikbare Mods</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
     <value>Geselecteerde Mods</value>
@@ -676,7 +676,7 @@
     <value>Gebruik Gefixeerde Versie</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
-    <value>Don't use latest modlinks version. Instead use current version</value>
+    <value>Niet modlinks laatste versie gebruiken. Gebruik in plaats daarvan de huidige versie</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
     <value>Modlinks Versie Gebruiken</value>
