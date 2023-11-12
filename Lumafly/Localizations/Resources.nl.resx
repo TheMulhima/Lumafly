@@ -394,7 +394,7 @@
     <value>Please close the following processes as they are locking important files:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
-    <value>Boss</value>
+    <value>Baas</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
     <value>Spelverloop</value>
@@ -664,58 +664,58 @@
     <value>Available Mods</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
-    <value>Selected Mods</value>
+    <value>Geselecteerde Mods</value>
   </data>
   <data name="EnableMod" xml:space="preserve">
-    <value>Enable Mod</value>
+    <value>Schakel Mod In</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>Disable Mod</value>
+    <value>Schakel Mod Uit</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>Use Fixed Version</value>
+    <value>Gebruik Gefixeerde Versie</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
     <value>Don't use latest modlinks version. Instead use current version</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
-    <value>Use Modlinks Version</value>
+    <value>Modlinks Versie Gebruiken</value>
   </data>
   <data name="ModlinksVersion_Tooltip" xml:space="preserve">
-    <value>Use latest modlinks version</value>
+    <value>Laatste modlinks versie gebruiken</value>
   </data>
   <data name="EnterSharingCode" xml:space="preserve">
-    <value>Enter Sharing Code:</value>
+    <value>Vul Deel-Code in:</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Bevestigen</value>
   </data>
   <data name="AvailablePacks" xml:space="preserve">
-    <value>Available Packs:</value>
+    <value>Beschikbare Pakketten:</value>
   </data>
   <data name="RevertToPreviousMods" xml:space="preserve">
-    <value>Revert to previous mods</value>
+    <value>Keer terug naar vorige mods</value>
   </data>
   <data name="PackUpdatePrompt" xml:space="preserve">
-    <value>Some mods in the pack are outdated, do you want to update them?</value>
+    <value>Sommige mods in het pakket zijn verouderd, wilt u ze bijwerken?</value>
   </data>
   <data name="LoadPackAdditive" xml:space="preserve">
-    <value>Load without replacing</value>
+    <value>Laad zonder te vervangen</value>
   </data>
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
-    <value>Load this pack without replacing mods in current mods folder</value>
+    <value>Laad dit pakket zonder de huidig geïnstalleerde mods te vervangen</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Controleer Voor Updates</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Open Logs Map</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Schakel de Modding API in/uit, die de bestanden wijzigt om mods te kunnen gebruiken</value>
     <comment/>
   </data>
   <data name="ViewReadme" xml:space="preserve">
