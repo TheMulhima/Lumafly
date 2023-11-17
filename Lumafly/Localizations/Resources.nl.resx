@@ -421,7 +421,7 @@
     <value>Nog even geduld...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Trying from fallback source...</value>
+    <value>Proberen met noodbron...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
     <value>Wachten op reactie van jsdelivr...</value>
@@ -430,7 +430,7 @@
     <value>Probeer Lumafly als administrator uit te voeren, mogelijk lost dat het probleem op</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>An exception occured while {0} {1}</value>
+    <value>Er is een fout opgetreden gedurende {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
     <value>Oké</value>
@@ -448,13 +448,13 @@
     <value>{0} is vereist voor {1} om goed te functioneren. Wilt u deze installeren?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>The mod has dependencies that are not installed!</value>
+    <value>Deze mod heeft andere vereiste mods die niet geïnstalleerd zijn!</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>Select manually</value>
+    <value>Selecteer handmatig</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Note: they may be used by any mods you have installed manually</value>
+    <value>Opmerking: Deze worden mogelijk gebruikt door handmatig geïnstalleerde mods</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
     <value>Geen</value>
@@ -496,7 +496,7 @@
     <value>Automatically Remove Unused Dependencies</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>Open Map</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
     <value>Game Path</value>
@@ -562,37 +562,37 @@
     <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
+    <value>Reset Mod: Herinstalleert de mod en verwijdert zijn blijvende instellingen</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Get the shareable download link of this mod.</value>
+    <value>Krijg de deelbare download link van deze mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>Open folder where this mod is installed</value>
+    <value>Map openen waar deze mod is geïnstalleerd</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>Report a bug or an issue with this mod</value>
+    <value>Meld een bug of een probleem met deze mod</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>This mod was manually installed and is not from official modlinks</value>
+    <value>Deze mod is handmatig geïnstalleerd en niet van de officiële modlinks</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>Version not from modlinks</value>
+    <value>Versie is niet van modlinks</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
     <value>Taal</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
-    <value>Low Storage Mode</value>
+    <value>Weinig Opslagmodus</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>(Uses extra {0} of storage)</value>
+    <value>(Gebruikt een extra {0} van opslag)</value>
   </data>
   <data name="XAML_SharingCode" xml:space="preserve">
-    <value>Sharing Code:</value>
+    <value>Deel code:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
+    <value>Genereer een 8 cijferige deel code. Deze kan aan iemand gegeven worden zodat zij dit pakket kunnen gebruiken</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
     <value>Bewerk pakket</value>
@@ -628,7 +628,7 @@
     <value>Zoek op integraties</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
-    <value>Toggle All</value>
+    <value>Alles Omschakelen</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
     <value>Schakelt alle mods uit als enige zijn ingeschakeld, Schakelt alle mods in als alle zijn uitgeschakeld</value>
