@@ -328,13 +328,13 @@
     <value>Geen mods gevonden</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>Open Saves Folder</value>
+    <value>Open map met opgeslagen spellen</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
     <value>Handmatig Installeren</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>Select the mod dll or zip</value>
+    <value>Selecteer de mod dll of zip</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
     <value>Nieuwe Mods</value>
@@ -358,7 +358,7 @@
     <value>Klik om de volledige foutmelding te tonen</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edit mod's settings file</value>
+    <value>Bewerk instellingenbestand van mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
     <value>Nieuwste mods laden van modlinks...</value>
@@ -595,37 +595,37 @@
     <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
-    <value>Edit pack</value>
+    <value>Bewerk pakket</value>
   </data>
   <data name="XAML_DeletePack" xml:space="preserve">
-    <value>Delete pack</value>
+    <value>Verwijder pakket</value>
   </data>
   <data name="XAML_CreateNewPack" xml:space="preserve">
-    <value>Create new pack</value>
+    <value>Nieuw pakket maken</value>
   </data>
   <data name="XAML_ImportPack" xml:space="preserve">
-    <value>Import pack</value>
+    <value>Pack importeren</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Packs</value>
+    <value>Pakketten</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
-    <value>Load Pack</value>
+    <value>Laad Pakket</value>
   </data>
   <data name="XAML_Description" xml:space="preserve">
-    <value>Description:</value>
+    <value>Omschrijving:</value>
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
-    <value>Mods In Pack:</value>
+    <value>Mods In Pakket:</value>
   </data>
   <data name="XAML_SharePack" xml:space="preserve">
-    <value>Share this pack</value>
+    <value>Deel dit pakket</value>
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
-    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
+    <value>Deel dit pakket als een zip bestand. U moet dit zip bestand zelf sturen.</value>
   </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
-    <value>Search by Integrations</value>
+    <value>Zoek op integraties</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
     <value>Toggle All</value>
