@@ -715,7 +715,7 @@
     <value>打开日志文件夹</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>启用/禁用API，修改游戏文件以允许Mods运行</value>
     <comment/>
   </data>
   <data name="ViewReadme" xml:space="preserve">
