@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Lumafly.Interfaces;
+using Lumafly.Util;
 
 namespace Lumafly.Services;
 
@@ -10,10 +11,11 @@ namespace Lumafly.Services;
 public class PastebinTextStorage : IOnlineTextStorage
 {
     private readonly HttpClient _hc;
-    
-    public PastebinTextStorage(HttpClient hc)
+    private readonly ISettings _settings;
+    public PastebinTextStorage(ISettings settings, HttpClient hc)
     {
         _hc = hc;
+        _settings = settings;
     }
     
     // taken from https://github.com/hkmodmanager/HKModManager/blob/master/HKMM-Core/Modules/Upload/PastebinUploadModule.cs#L17-L29
@@ -37,6 +39,6 @@ public class PastebinTextStorage : IOnlineTextStorage
 
     public async Task<string> Download(string code)
     {
-        return await _hc.GetStringAsync("https://pastebin.com/raw/" + code);
+        return await _hc.GetStringAsync2(_settings,"https://pastebin.com/raw/" + code);
     }
 }

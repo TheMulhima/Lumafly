@@ -148,7 +148,8 @@ public partial class InfoViewModel : ViewModelBase
         const string additionalInfoLink = "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/AdditionalInfo.md";
         try
         {
-            AdditionalInfo = await _hc.GetStringAsync(
+            AdditionalInfo = await _hc.GetStringAsync2(
+                _settings,
                 new Uri(additionalInfoLink),
                 new CancellationTokenSource(ModDatabase.TIMEOUT).Token);
             

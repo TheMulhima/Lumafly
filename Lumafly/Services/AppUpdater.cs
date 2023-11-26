@@ -25,9 +25,10 @@ namespace Lumafly.Services;
 public class AppUpdater : IAppUpdater
 {
     private readonly SparkleUpdater _sparkleUpdater;
-
-    public AppUpdater()
+    private readonly ISettings _settings;
+    public AppUpdater(ISettings settings)
     {
+        _settings = settings;
         _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Lumafly/master/appcast.xml",
             new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
         {
@@ -152,7 +153,7 @@ public class AppUpdater : IAppUpdater
             hc.DefaultRequestHeaders.Add("User-Agent", "Lumafly");
             
             CancellationTokenSource cts = new CancellationTokenSource(Timeout);
-            var links = await hc.GetStringAsync(new Uri(LatestReleaseLinkJson), cts.Token);
+            var links = await hc.GetStringAsync2(_settings, new Uri(LatestReleaseLinkJson), cts.Token);
             
             JsonDocument linksDoc = JsonDocument.Parse(links);
             if (!linksDoc.RootElement.TryGetProperty(nameof(latestRelease), out JsonElement latestReleaseLinkElem)) 
@@ -192,7 +193,7 @@ public class AppUpdater : IAppUpdater
                 return;
             
             var cts = new CancellationTokenSource(Timeout);
-            var latestRepoInfo = await hc.GetStringAsync(new Uri(links.Value.latestReleaseInfo), cts.Token);
+            var latestRepoInfo = await hc.GetStringAsync2(_settings, new Uri(links.Value.latestReleaseInfo), cts.Token);
 
             JsonDocument doc = JsonDocument.Parse(latestRepoInfo);
             if (!doc.RootElement.TryGetProperty("tag_name", out JsonElement tag_elem))

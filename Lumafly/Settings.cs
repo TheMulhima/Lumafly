@@ -31,6 +31,8 @@ namespace Lumafly
         public bool UseCustomModlinks { get; set; }
         public string CustomModlinksUri { get; set; } = string.Empty;
         public string BaseLink { get; set; } = ModDatabase.DEFAULT_LINKS_BASE;
+        public bool UseGithubMirror { get; set; }
+        public string GithubMirrorFormat { get; set; } = string.Empty;
         
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }

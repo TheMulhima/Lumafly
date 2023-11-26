@@ -91,8 +91,8 @@ namespace Lumafly.ViewModels
             await HandleURLSchemeCommand(urlSchemeHandler);
 
             Trace.WriteLine("Checking if up to date...");
-
-            var appUpdater = new AppUpdater();
+            Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
+            var appUpdater = new AppUpdater(settings);
             
             await appUpdater.CheckUpToDate();
             
@@ -104,7 +104,7 @@ namespace Lumafly.ViewModels
             HandleResetUrlScheme(urlSchemeHandler);
             HandleResetAllGlobalSettingsUrlScheme(urlSchemeHandler);
 
-            Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
+            
 
             if (settings.PreferredLanguage == null)
             {
@@ -241,10 +241,11 @@ namespace Lumafly.ViewModels
 
             Trace.WriteLine("Creating service collection");
             sc
+              .AddSingleton<ISettings>(_ => settings)
               .AddSingleton<IUrlSchemeHandler>(_ => urlSchemeHandler)
               .AddSingleton(hc)
               .AddSingleton<IAppUpdater>(_ => appUpdater)
-              .AddSingleton<ISettings>(_ => settings)
+              
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
               .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
               .AddSingleton<IOnlineTextStorage, PastebinTextStorage>()
