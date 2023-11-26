@@ -24,7 +24,10 @@ public static class HttpClientExt
         Func<HttpClient, Uri, CancellationToken, Task<T>> action,
         CancellationToken cancellationToken = default) where T : class
     {
-        if (settings is null || !github_hosts.Contains(uri.Host.ToLower()))
+        if (settings is null ||
+            !settings.UseGithubMirror ||
+            string.IsNullOrEmpty(settings.GithubMirrorFormat) ||
+            !github_hosts.Contains(uri.Host.ToLower()))
         {
             return await action(client, uri, cancellationToken);
         }
