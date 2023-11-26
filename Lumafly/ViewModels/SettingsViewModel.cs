@@ -41,6 +41,7 @@ namespace Lumafly.ViewModels
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
 
             useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
+            useGithubMirrorOriginalValue = _settings.UseGithubMirror;
             pathOriginalValue = _settings.ManagedFolder;
             _customModlinksUri = _settings.CustomModlinksUri;
             _githubMirrorFormat = _settings.GithubMirrorFormat;
