@@ -460,7 +460,7 @@
     <value>Geen</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
+    <value>Deze mod verwijderen zal de getoonde vereiste mods onbruikbaar maken</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
     <value>Vereiste mods automatisch verwijderen?</value>
@@ -469,16 +469,16 @@
     <value>Vastzetten</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Pin a mod so it isn't automatically replaced by Lumafly</value>
+    <value>Zet een mod vast zodat hij niet vervangen wordt door Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Losmaken</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Unable to get modlinks</value>
+    <value>Kan modlinks niet opvragen</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>Do you want to launch lumafly in offline mode?</value>
+    <value>Wilt u Lumafly in de offline modus opstarten?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
     <value>Select Authors</value>
