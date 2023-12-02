@@ -62,12 +62,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Restore dependencies
-      run: dotnet restore -r osx-x64
     - name: Build
       run: |
         cd Lumafly
-        dotnet publish --no-restore -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
+        dotnet publish -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
         cd ..
         cd Scripts
         python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net7.0/osx-x64/publish ../out
