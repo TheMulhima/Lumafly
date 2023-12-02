@@ -9,7 +9,6 @@ namespace Lumafly.Interfaces
         bool WarnBeforeRemovingDependents { get; set; }
         bool UseCustomModlinks { get; set; }
         string CustomModlinksUri { get; set; }
-        string BaseLink { get; set; }
         SupportedLanguages? PreferredLanguage { get; set; }
         bool LowStorageMode { get; set; }
         string ExtraSpaceTaken { get; }

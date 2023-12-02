@@ -106,6 +106,7 @@ namespace Lumafly.Tests
             (
                 new ModItem
                 (
+                    null,
                     new NotInstalledState(),
                     new Version(3, 0, 0, 0),
                     new[] { "Vasi" },

@@ -17,16 +17,16 @@ namespace Lumafly.Services
 {
     public class ModDatabase : IModDatabase
     {
-        public const string DEFAULT_LINKS_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
+        public const string LINKS_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
 
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
         
         private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/AssemblyLinks.json";
         
-        public static string GetModlinksUri(ISettings settings) => settings.BaseLink + "/ModLinks.xml";
+        public static string GetModlinksUri(ISettings settings) => LINKS_BASE + "/ModLinks.xml";
 
-        private static string GetAPILinksUri(ISettings settings) => settings.BaseLink + "/ApiLinks.xml";
+        private static string GetAPILinksUri(ISettings settings) => LINKS_BASE + "/ApiLinks.xml";
 
         internal const int TIMEOUT = 30_000;
 

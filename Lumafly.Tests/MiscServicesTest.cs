@@ -46,7 +46,6 @@ public class MiscServicesTest
         File.WriteAllText(Path.Combine(savesFolder, "MockModWithSlightlyDifferentName.GlobalSettings.json"), "");
 
         var installedState = new InstalledState(true, new Version(0, 0, 0), true);
-        
         var normalMod = ModItem.Empty(name: "MockNormalMod", state: installedState);
         var modWithModSuffix = ModItem.Empty(name: "MockModWithModSuffix", state: installedState);
         var modWithSpacesInName = ModItem.Empty(name: "Mock Mod With Spaces In Name", state: installedState);

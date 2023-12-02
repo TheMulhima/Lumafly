@@ -267,19 +267,19 @@ namespace Lumafly.Models
         {
             var readmePopup = new ReadmePopup()
             {
-                DataContext = new ReadmePopupViewModel(_settings, this)
+                DataContext = new ReadmePopupViewModel(this)
             }.ShowDialog(AvaloniaUtils.GetMainWindow());
         }
         public void OpenReleaseNotes()
         {
             var readmePopup = new ReadmePopup()
             {
-                DataContext = new ReadmePopupViewModel(_settings, this, requestingReleaseNotes: true)
+                DataContext = new ReadmePopupViewModel(this, requestingReleaseNotes: true)
             }.ShowDialog(AvaloniaUtils.GetMainWindow());
         }
 
         public static ModItem Empty(
-            ISettings? settings,
+            ISettings? settings = null,
             ModState? state = null,
             Version? version = null,
             string[]? dependencies = null,

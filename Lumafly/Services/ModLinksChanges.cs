@@ -48,7 +48,6 @@ public class ModLinksChanges : IModLinksChanges
     {
         // only do it if its not offline and lumafly is using hk-modding/modlinks as its modlinks provider
         if (lumaflyMode == LumaflyMode.Offline ||
-            settings.BaseLink != ModDatabase.DEFAULT_LINKS_BASE ||
             settings.UseCustomModlinks)
         {
             IsLoaded = false;

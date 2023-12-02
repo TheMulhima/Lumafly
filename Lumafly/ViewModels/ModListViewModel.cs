@@ -424,7 +424,6 @@ namespace Lumafly.ViewModels
         public bool ShouldShowWhatsNewErrorIcon => IsInWhatsNew && (!_modlinksChanges.IsLoaded ?? false);
         public bool IsInOnlineMode => _lumaflyMode == LumaflyMode.Online;
         public bool ShouldShowWhatsNew => IsInOnlineMode &&
-                                          _settings.BaseLink == ModDatabase.DEFAULT_LINKS_BASE &&
                                           !_settings.UseCustomModlinks;
 
         public bool LoadedWhatsNew => IsInWhatsNew && (_modlinksChanges.IsLoaded ?? false);
