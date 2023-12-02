@@ -14,7 +14,7 @@
 		ShowGridLines="False"
 		Margin="20 10"
 		ColumnDefinitions="Auto * Auto"
-		RowDefinitions="Auto Auto Auto Auto Auto Auto Auto *">
+		RowDefinitions="Auto Auto Auto Auto Auto Auto Auto Auto Auto *">
 		
 		<TextBlock
 			Grid.Column="0"
@@ -34,6 +34,7 @@
 			Margin="0 15"
 			Text="{ext:Localize XAML_UseCustomModlinks}"
 			VerticalAlignment="Center"/>
+    
 		<!-- 3 reserved for custom modlinks text box -->
 		<StackPanel
 			Grid.Column="0"
@@ -66,6 +67,14 @@
 			Margin="0 15"
 			Text="{ext:Localize XAML_Language}"
 			VerticalAlignment="Center"/>
+
+    <TextBlock
+			Grid.Column="0"
+			Grid.Row="7"
+			Margin="0 15"
+			Text="{ext:Localize XAML_UseGithubMirror}"
+			VerticalAlignment="Center"/>
+    <!-- 3 reserved for github mirror format text box -->
 		
 		<TextBox
 			Grid.Column="1"
@@ -161,10 +170,33 @@
 			MinWidth="75"
 			ItemsSource="{Binding LanguageOptions}"
 			SelectedItem="{Binding LanguageSelection}"/>
-		
+
+    <ToggleSwitch
+			Grid.Column="1"
+			Grid.Row="7"
+			Margin="10 0 5 0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			OnContent="{ext:Localize XAML_On}"
+			OffContent="{ext:Localize XAML_Off}"
+			IsChecked="{Binding UseGithubMirror}"
+		/>
+
+    <TextBox
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			Grid.Row="8"
+			Margin="0 0 5 15"
+			IsVisible="{Binding UseGithubMirror}"
+			HorizontalAlignment="Stretch"
+			Watermark="{ext:Localize XAML_GithubMirrorFormatWatermark}"
+			UseFloatingWatermark="True"
+			Text="{Binding GithubMirrorFormat}"
+			AcceptsReturn="False"/>
+
 		<Grid
 			Grid.Column="0" Grid.ColumnSpan="3"
-			Grid.Row="7"
+			Grid.Row="10"
 			HorizontalAlignment="Right"
 			ColumnDefinitions="Auto Auto Auto Auto">
 			

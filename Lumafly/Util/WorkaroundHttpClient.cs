@@ -1,11 +1,14 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Logging;
 using Lumafly.Enums;
+using Lumafly.Interfaces;
 using Lumafly.Models;
 
 namespace Lumafly.Util;
@@ -75,9 +78,10 @@ public static class WorkaroundHttpClient
     // https://github.com/fifty-six/Scarab/issues/47
     private static HttpClient CreateWorkaroundClient()
     {
+        
         return new HttpClient(new SocketsHttpHandler {
-            ConnectCallback = IPv4ConnectAsync
-        });
+                ConnectCallback = IPv4ConnectAsync
+            });
 
         static async ValueTask<Stream> IPv4ConnectAsync(SocketsHttpConnectionContext context,
             CancellationToken cancellationToken)

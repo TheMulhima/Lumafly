@@ -4,19 +4,23 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Lumafly.Interfaces;
 using Lumafly.Models;
+using Lumafly.Util;
 
 namespace Lumafly.ViewModels
 {
     public class ReadmePopupViewModel : ViewModelBase
     {
         private readonly ModItem _modItem;
+        private readonly ISettings? _settings;
         public bool IsRequestingReleaseNotes { get; }
         private static readonly HttpClient _hc;
         private string requestName => IsRequestingReleaseNotes ? "Release Notes" : "Readme";
         
-        public ReadmePopupViewModel(ModItem modItem, bool requestingReleaseNotes = false)
+        public ReadmePopupViewModel(ISettings? settings, ModItem modItem, bool requestingReleaseNotes = false)
         {
+            _settings = settings;
             _modItem = modItem;
             IsRequestingReleaseNotes = requestingReleaseNotes;
 
@@ -75,7 +79,7 @@ namespace Lumafly.ViewModels
 
                 string apiUrl = $"https://api.github.com/repos/{uri.AbsolutePath.TrimEnd('/').TrimStart('/')}/readme";
 
-                HttpResponseMessage response = await _hc.GetAsync(apiUrl);
+                HttpResponseMessage response = await _hc.GetAsync2(_settings, apiUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -84,7 +88,7 @@ namespace Lumafly.ViewModels
                     json.RootElement.TryGetProperty("download_url", out var downloadUrlProperty);
 
                     // Make a request to fetch the README content
-                    HttpResponseMessage readmeResponse = await _hc.GetAsync(downloadUrlProperty.GetString());
+                    HttpResponseMessage readmeResponse = await _hc.GetAsync2(_settings, downloadUrlProperty.GetString()!);
 
                     if (readmeResponse.IsSuccessStatusCode)
                     {
@@ -108,7 +112,7 @@ namespace Lumafly.ViewModels
 
                 string releaseInfo = $"https://api.github.com/repos/{uri.AbsolutePath.TrimEnd('/').TrimStart('/')}/releases/latest";
 
-                HttpResponseMessage response = await _hc.GetAsync(releaseInfo);
+                HttpResponseMessage response = await _hc.GetAsync2(_settings, releaseInfo);
 
                 if (response.IsSuccessStatusCode)
                 {

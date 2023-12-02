@@ -70,6 +70,7 @@ namespace Lumafly.Services
         // 2 mod toggles shouldn't happen at the same time because if they are conflicting it can cause problems
         private readonly SemaphoreSlim _modToggleSemaphore = new (1);
         private readonly HttpClient _hc;
+        private readonly ISettings _settings;
 
         public Installer(
             ISettings config, 
@@ -77,6 +78,7 @@ namespace Lumafly.Services
             IModDatabase db,
             IFileSystem fs,
             HttpClient hc,
+            ISettings settings,
             ICheckValidityOfAssembly checkValidityOfAssembly)
         {
             _config = config;
@@ -84,6 +86,7 @@ namespace Lumafly.Services
             _db = db;
             _fs = fs;
             _hc = hc;
+            _settings = settings;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
             // run some tasks on installer init
@@ -226,7 +229,7 @@ namespace Lumafly.Services
                 
                 string managed = _config.ManagedFolder;
 
-                var url = await ModDatabase.FetchVanillaAssemblyLink();
+                var url = await ModDatabase.FetchVanillaAssemblyLink(_settings);
 
                 (ArraySegment<byte> data, _) = await DownloadFile(url, _ => { });
                 
@@ -584,9 +587,11 @@ namespace Lumafly.Services
                 throw new HashMismatchException(name, actual: strHash, expected: modSha256);
         }
 
-        private async Task<(ArraySegment<byte> data, string filename)> DownloadFile(string uri, Action<DownloadProgressArgs> setProgress)
+        private async Task<(ArraySegment<byte> data, string filename)> DownloadFile(
+            string uri, Action<DownloadProgressArgs> setProgress)
         {
             (ArraySegment<byte> bytes, HttpResponseMessage response) = await _hc.DownloadBytesWithProgressAsync(
+                _settings,
                 new Uri(uri), 
                 new Progress<DownloadProgressArgs>(setProgress)
             );

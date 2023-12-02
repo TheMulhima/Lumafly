@@ -26,6 +26,7 @@ namespace Lumafly.Tests
             
             var item = new ModItem
             (
+                null,
                 state,
                 new Version("1.3.2.2"),
                 Array.Empty<string>(),

@@ -24,6 +24,7 @@ namespace Lumafly.ViewModels
         private readonly ISettings _settings;
         private readonly IModSource _mods;
         private readonly IAppUpdater _updater;
+        private bool useGithubMirrorOriginalValue;
         private bool useCustomModlinksOriginalValue;
         private bool cacheDownloadsOriginalValue;
         private string pathOriginalValue;
@@ -40,8 +41,10 @@ namespace Lumafly.ViewModels
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
 
             useCustomModlinksOriginalValue = _settings.UseCustomModlinks;
+            useGithubMirrorOriginalValue = _settings.UseGithubMirror;
             pathOriginalValue = _settings.ManagedFolder;
             _customModlinksUri = _settings.CustomModlinksUri;
+            _githubMirrorFormat = _settings.GithubMirrorFormat;
             cacheDownloadsOriginalValue = _settings.LowStorageMode;
             ((IClassicDesktopStyleApplicationLifetime?)Application.Current?.ApplicationLifetime)!.ShutdownRequested +=
                 SaveCustomModlinksUri;
@@ -110,7 +113,19 @@ namespace Lumafly.ViewModels
                 RaisePropertyChanged(nameof(AskForReload));
             }
         }
-        
+
+        public bool UseGithubMirror
+        {
+            get => _settings.UseGithubMirror;
+            set
+            {
+                _settings.UseGithubMirror = value;
+                _settings.Save();
+                RaisePropertyChanged(nameof(UseGithubMirror));
+                RaisePropertyChanged(nameof(AskForReload));
+            }
+        }
+
         public bool LowStorageMode
         {
             get => _settings.LowStorageMode;
@@ -145,7 +160,21 @@ namespace Lumafly.ViewModels
             }
         }
 
-        public bool AskForReload => CustomModlinksUri != _settings.CustomModlinksUri ||
+        private string _githubMirrorFormat;
+
+        public string GithubMirrorFormat
+        {
+            get => _githubMirrorFormat;
+            set
+            {
+                _githubMirrorFormat = value;
+                RaisePropertyChanged(nameof(AskForReload));
+            }
+        }
+
+        public bool AskForReload =>  CustomModlinksUri != _settings.CustomModlinksUri ||
+                                     GithubMirrorFormat != _settings.GithubMirrorFormat ||
+                                     useGithubMirrorOriginalValue != _settings.UseGithubMirror ||
                                      useCustomModlinksOriginalValue != _settings.UseCustomModlinks ||
                                      cacheDownloadsOriginalValue != _settings.LowStorageMode ||
                                      pathOriginalValue != _settings.ManagedFolder;
@@ -154,6 +183,7 @@ namespace Lumafly.ViewModels
         
         public void ReloadApp()
         {
+            _settings.GithubMirrorFormat = GithubMirrorFormat;
             _settings.CustomModlinksUri = CustomModlinksUri;
             _settings.Save(); 
             Dispatcher.UIThread.InvokeAsync(async () => await MainWindowViewModel.Instance!.LoadApp(3));

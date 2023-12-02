@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Lumafly.Interfaces;
 using Lumafly.Models;
+using Lumafly.Util;
 
 namespace Lumafly.Services
 {
     public class ModDatabase : IModDatabase
     {
         public const string DEFAULT_LINKS_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
-        
+
         private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
         private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
         
@@ -46,6 +47,7 @@ namespace Lumafly.Services
             {
                 var item = new ModItem
                 (
+                    settings,
                     link: mod.Links.OSUrl,
                     version: mod.Version.Value,
                     name: mod.Name,
@@ -79,6 +81,7 @@ namespace Lumafly.Services
                     else
                     {
                         _items.Add(ModItem.Empty(
+                            settings,
                             state: externalModState,
                             name: externalModName,
                             description: "This mod is not from official modlinks"));
@@ -126,7 +129,7 @@ namespace Lumafly.Services
 
         private static async Task<ApiLinks> FetchApiLinks(HttpClient hc, ISettings settings)
         {
-            return FromString<ApiLinks>(await FetchWithFallback(hc, new Uri(GetAPILinksUri(settings)), new Uri(FALLBACK_APILINKS_URI)));
+            return FromString<ApiLinks>(await FetchWithFallback(hc, settings, new Uri(GetAPILinksUri(settings)), new Uri(FALLBACK_APILINKS_URI)));
         }
         
         private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings settings, bool fetchOfficial)
@@ -157,7 +160,7 @@ namespace Lumafly.Services
                         settings.CustomModlinksUri = settings.CustomModlinksUri.Replace("pastebin.com", "pastebin.com/raw");
                     }
                     
-                    return FromString<ModLinks>(await hc.GetStringAsync(new Uri(settings.CustomModlinksUri), cts.Token));
+                    return FromString<ModLinks>(await hc.GetStringAsync2(settings, new Uri(settings.CustomModlinksUri), cts.Token));
                 }
                 catch (Exception e)
                 {
@@ -166,30 +169,30 @@ namespace Lumafly.Services
                 }
             }
 
-            return FromString<ModLinks>(await FetchWithFallback(hc, new Uri(GetModlinksUri(settings)), new Uri(FALLBACK_MODLINKS_URI)));
+            return FromString<ModLinks>(await FetchWithFallback(hc, settings, new Uri(GetModlinksUri(settings)), new Uri(FALLBACK_MODLINKS_URI)));
             
         }
 
-        private static async Task<string> FetchWithFallback(HttpClient hc, Uri uri, Uri fallback)
+        private static async Task<string> FetchWithFallback(HttpClient hc, ISettings? settings, Uri uri, Uri fallback)
         {
             try
             {
                 var cts = new CancellationTokenSource(TIMEOUT);
-                return await hc.GetStringAsync(uri, cts.Token);
+                return await hc.GetStringAsync2(settings, uri, cts.Token);
             }
             catch (Exception e) when (e is TaskCanceledException or HttpRequestException)
             {
                 var cts = new CancellationTokenSource(TIMEOUT);
-                return await hc.GetStringAsync(fallback, cts.Token);
+                return await hc.GetStringAsync2(settings, fallback, cts.Token);
             }
         }
 
-        public static async Task<string> FetchVanillaAssemblyLink()
+        public static async Task<string> FetchVanillaAssemblyLink(ISettings? settings)
         {
             var cts = new CancellationTokenSource(TIMEOUT);
             var hc = new HttpClient();
             hc.DefaultRequestHeaders.Add("User-Agent", "Lumafly");
-            var json = JsonDocument.Parse(await hc.GetStringAsync(VanillaApiRepo, cts.Token));
+            var json = JsonDocument.Parse(await hc.GetStringAsync2(settings, VanillaApiRepo, cts.Token));
             
             var jsonKey = "Assembly-CSharp.dll.v";
             // windows assembly is just called that because initially this was overlooked and only windows assembly was downloaded

@@ -22,6 +22,9 @@ namespace Lumafly.Interfaces
         string ModsFolder     => Path.Combine(ManagedFolder, "Mods");
         string DisabledFolder => Path.Combine(ModsFolder, "Disabled");
 
+        string GithubMirrorFormat { get; set; }
+        bool UseGithubMirror { get; set; }
+
         void Save();
     }
 }
