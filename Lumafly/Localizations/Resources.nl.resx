@@ -223,7 +223,7 @@
     <value>Map met mods openen</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repository</value>
+    <value>Opslagplaats</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Mod zoeken</value>
@@ -400,7 +400,7 @@
     <value>Spelverloop</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>Utility</value>
+    <value>Nutsvoorzieningen</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
     <value>Cosmetisch</value>
@@ -481,49 +481,49 @@
     <value>Wilt u Lumafly in de offline modus opstarten?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>Select Authors</value>
+    <value>Zoek op Auteurs</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Warn before removing a dependent mod</value>
+    <value>Waarschuw bij het verwijderen van een vereiste mod</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Instellingen</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
     <value>Mods</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>Automatically Remove Unused Dependencies</value>
+    <value>Verwijder Automatisch Ongebruikte Vereiste Mods</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
     <value>Open Map</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>Game Path</value>
+    <value>Spel Pad</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Use Custom Modlinks</value>
+    <value>Gebruik Aangepaste Modlinks</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normally Lumafly loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
+    <value>Normaal laad Lumafly de lijst met mods van de officiële modlinks. Als u uw eigen mods wilt laden, vult hier de URI in; Https links of bestanden (in het formaat file://{filepath}) worden geaccepteerd. \nLege of ongeldige links zullen de officiële modlinks laden</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
+    <value>Voer de link in voor aangepaste modlinks. Herladen is vereist voordat het effect heeft</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
-    <value>Reload Lumafly</value>
+    <value>Herlaad Lumafly</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>(Reload for changes to take effect)</value>
+    <value>(Herlaad om veranderingen door te voeren)</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>Informatie</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
+    <value>Lumafly is een installatieprogramma voor de Hollow Knight versie 1.5. Het zal niet werken voor oudere versies van Hollow Knight.</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>Relevant Links</value>
+    <value>Relevante Links</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
     <value>Website\n</value>
@@ -532,34 +532,34 @@
     <value>Github\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Readme\n</value>
+    <value>Leesmij\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>An Alternate Installer</value>
+    <value>Een Alternatief Installatieprogramma</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Create Mods\n</value>
+    <value>Mods Maken\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Modding\nTutorial</value>
+    <value>Mod\nHandleiding</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>Launch Vanilla Game</value>
+    <value>Open Niet Gemodificeerd Spel</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>Launch Modded Game</value>
+    <value>Open Gemodificeerd Spel</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>Please wait launching game...</value>
+    <value>Even geduld, spel start op...</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>Record as custom version</value>
+    <value>Sla op als aangepaste versie</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly</value>
+    <value>Sla deze mod's versie op als niet van modlinks. Dat heeft geen invloed op hoe de mod werkt, alleen op hoe Lumafly ermee omgaat. Een vastgezette versie zal niet worden vervangen door Lumafly</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
     <value>Reset Mod: Herinstalleert de mod en verwijdert zijn blijvende instellingen</value>
@@ -724,12 +724,12 @@
     <value>Zonder label</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Enter format to github mirror. Needs a reload to take effect</value>
+    <value>Enter formaat naar GitHub Mirror. Herlaad om het toe te passen</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Use Github Mirror</value>
+    <value>Gebruik GitHub Mirror</value>
   </data>
 </root>
