@@ -55,6 +55,7 @@ Formerly known as **Scarab+**
   - [Страг](https://discordapp.com/users/274945280775028736) - Russian translations
   - [Acu1000](https://github.com/Acu1000) - Polish translations
   - [Sawayoshi](https://twittter.com/sawayoshiyt) - Japanese translations
+  - [Thommie](https://discordapp.com/users/454185487641608193) - Dutch translations
   
 - Art
   - [Dwarfwoot]( https://patreon.com/DwarfWoot), [SFGrenade](https://github.com/SFGrenade) - Images and icons used in the installer.
