@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -133,58 +133,58 @@
     <value>Schakel API in</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>Toggle API</value>
+    <value>Schakel API aan/uit</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>The download hash for {0} ({1}) didn't match the given signature ({2}). It is either corrupt or the entry is incorrect.</value>
+    <value>De download hash voor {0} ({1}) komt niet overeen met de opgegeven handtekening ({2}). Het is corrupt of het item is incorrect.</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>Hash mismatch!</value>
+    <value>Hash komt niet overeen!</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>Unable to download {0}! The site may be down or you may lack network connectivity.</value>
+    <value>Niet in staat om te downloaden{0}! De site is mogelijk offline of u heeft geen internetverbinding.</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>Network Error</value>
+    <value>Netwerk fout</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>Hollow Knight is open! This may lead to issues when installing mods. Close Hollow Knight?</value>
+    <value>Hollow Knight is geopend! Dit kan leiden tot problemen bij het installeren van mods. Hollow Knight sluiten?</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
     <value>Waarschuwing!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>failed with HTTP error {0}</value>
+    <value>mislukt met HTTP fout {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Unable to get list of mods from modlinks, the operation {0}</value>
+    <value>Kan de lijst met mods niet ophalen, operatie {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
     <value>Fout!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>timed out. Please check your internet connection and try again</value>
+    <value>timed out. Controleer uw internet verbinding en probeer opnieuw</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>Get the latest release</value>
+    <value>Download de nieuwste versie</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>Continue anyways.</value>
+    <value>Toch doorgaan.</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Out of date!</value>
+    <value>Verouderd!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Lumafly has a new update available. Please download the newest update (v{0}) to get the latest bug fixes and features.</value>
+    <value>Lumafly heeft een nieuwe update beschikbaar. Download alstublieft de nieuwste update (v{0}) om de nieuwste bugfixes en functies te krijgen.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Lumafly failed to download update automatically. Lumafly will now open the link to get the latest version</value>
+    <value>Lumafly kon niet automatisch de update downloaden. Lumafly opent nu de link om de nieuwste versie te downloaden</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Waarschuwing</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>The saved Hollow Knight path is invalid, please re-select a valid path.</value>
+    <value>Het opgeslagen Hollow Knight pad is ongeldig, selecteer alstublieft een geldig pad.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
     <value>Info</value>
@@ -196,13 +196,13 @@
     <value>Gedetecteerd pad!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>Detected Hollow Knight install at {0}. Is this correct?</value>
+    <value>Hollow Knight installatie gedetecteerd op {0}. Is dit correct?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
     <value>Wijzig pad</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>Dependencies:</value>
+    <value>Vereiste mods:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
     <value>Doneer</value>
@@ -223,7 +223,7 @@
     <value>Map met mods openen</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repository</value>
+    <value>Opslagplaats</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Mod zoeken</value>
@@ -247,7 +247,7 @@
     <value>Uit</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>Ask</value>
+    <value>Vragen</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
     <value>Bijwerken</value>
@@ -262,19 +262,19 @@
     <value>Ongeldig Hollow Knight pad!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight app!</value>
+    <value>Ongeldige Hollow Knight app!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Invalid Hollow Knight exe! Please select the hollow knight exe or its shortcut</value>
+    <value>Ongeldige Hollow Knight exe! Selecteer alstublieft de Hollow Knight exe of zijn snelkoppeling</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
     <value>Selecteer de map met hollow_knight_Data of Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>Missing Managed folder or Assembly-CSharp!</value>
+    <value>Managed map of Assembly-CSharp ontbreekt!</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>Select your Hollow Knight folder.</value>
+    <value>Selecteer uw Hollow Knight map.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
     <value>Pad</value>
@@ -283,82 +283,82 @@
     <value>Selecteer uw Hollow Knight pad.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>Select your Hollow Knight executable or its shortcut.</value>
+    <value>Selecteer uw Hollow Knight. exe of zijn snelkoppeling.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
     <value>Alles bijwerken</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>Bulk Actions</value>
+    <value>Bulk Acties</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>Disable All</value>
+    <value>Alles Uitschakelen</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>Enable All</value>
+    <value>Alles Inschakelen</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>Uninstall All</value>
+    <value>Alles De-installeren</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Authors:</value>
+    <value>Auteurs:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Advanced Search</value>
+    <value>Geavanceerd Zoeken</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>Search Type</value>
+    <value>Zoek Type</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>Select Tags</value>
+    <value>Selecteer Labels</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Exact Search</value>
+    <value>Exact Zoeken</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>Normal Search</value>
+    <value>Normaal Zoeken</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Search by Dependencies and Integrations</value>
+    <value>Zoek op Vereiste mods en Integraties</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>Select Mod</value>
+    <value>Selecteer Mod</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>No mods to display</value>
+    <value>Geen mods gevonden</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>Open Saves Folder</value>
+    <value>Open map met opgeslagen spellen</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Manually Install</value>
+    <value>Handmatig Installeren</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>Select the mod dll or zip</value>
+    <value>Selecteer de mod dll of zip</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>New Mods</value>
+    <value>Nieuwe Mods</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Updated Mods</value>
+    <value>Bijgewerkte Mods</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>Last Week</value>
+    <value>Afgelopen Week</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Last Month</value>
+    <value>Afgelopen Maand</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>Whats New</value>
+    <value>Wat is er nieuw</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Copy Error</value>
+    <value>Kopieer Fout</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Click to show full error</value>
+    <value>Klik om de volledige foutmelding te tonen</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edit mod's settings file</value>
+    <value>Bewerk instellingenbestand van mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
     <value>Nieuwste mods laden van modlinks...</value>
@@ -367,163 +367,163 @@
     <value>Lumafly kon de nieuwste mods van de modlinks niet laden.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>Possibly caused by poor or no internet connection. Please check that and try again</value>
+    <value>Mogelijk veroorzaakt door een slechte of geen internetverbinding. Controleer dat en probeer het opnieuw</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>Warning! This mod is required for other mods to function!</value>
+    <value>Opgelet! Deze mod is nodig voor andere mods om te functioneren!</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you still want to continue?</value>
+    <value>{0} is vereist voor {1} om goed te functioneren. Wilt u nog steeds doorgaan?</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>Warning! Are you sure you want to do this?</value>
+    <value>Opgelet! Weet u zeker dat u dit wilt doen?</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Lumafly was unable to access the file in the mods folder</value>
+    <value>Lumafly was niet in staat om toegang te krijgen tot het bestand in de mods map</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>Please make sure that the mods folder is not in a write protected location</value>
+    <value>Zorg ervoor dat de map mods niet op een locatie met schrijfbeveiliging staat</value>
   </data>
   <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
-    <value>Lumafly cannot access the file:</value>
+    <value>Lumafly heeft geen toegang tot het bestand:</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>Please make sure to close all other apps that could be using the mods folder</value>
+    <value>Sluit alle apps die mogelijk gebruik maken van de mods map</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>Please close the following processes as they are locking important files:</value>
+    <value>Sluit de volgende processen omdat ze belangrijke bestanden vergrendelen:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
-    <value>Boss</value>
+    <value>Baas</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>Gameplay</value>
+    <value>Spelverloop</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>Utility</value>
+    <value>Nutsvoorzieningen</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>Cosmetic</value>
+    <value>Cosmetisch</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>Library</value>
+    <value>Bibliotheek</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>Uitbreiding</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Fetching mods from modlinks...</value>
+    <value>Mods van modlinks ophalen...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Waiting for response from github...</value>
+    <value>Wachten op reactie van GitHub...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Still waiting...</value>
+    <value>Nog even geduld...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Trying from fallback source...</value>
+    <value>Proberen met noodbron...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Waiting for response from jsdelivr...</value>
+    <value>Wachten op reactie van jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>Try running lumafly as an administrator, it may fix the issue</value>
+    <value>Probeer Lumafly als administrator uit te voeren, mogelijk lost dat het probleem op</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>An exception occured while {0} {1}</value>
+    <value>Er is een fout opgetreden gedurende {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>Oké</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>Ask for help</value>
+    <value>Vraag om hulp</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Report Error</value>
+    <value>Error Rapporteren</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>Install</value>
+    <value>Installeren</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{0} is required for {1} to function properly. Do you want to install them?</value>
+    <value>{0} is vereist voor {1} om goed te functioneren. Wilt u deze installeren?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>The mod has dependencies that are not installed!</value>
+    <value>Deze mod heeft andere vereiste mods die niet geïnstalleerd zijn!</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>Select manually</value>
+    <value>Selecteer handmatig</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Note: they may be used by any mods you have installed manually</value>
+    <value>Opmerking: Deze worden mogelijk gebruikt door handmatig geïnstalleerde mods</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>None</value>
+    <value>Geen</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>Uninstalling this mod will leave dependencies that appear to be unused now</value>
+    <value>Deze mod verwijderen zal de getoonde vereiste mods onbruikbaar maken</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>Auto remove dependencies?</value>
+    <value>Vereiste mods automatisch verwijderen?</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>Vastzetten</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Pin a mod so it isn't automatically replaced by Lumafly</value>
+    <value>Zet een mod vast zodat hij niet vervangen wordt door Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Losmaken</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Unable to get modlinks</value>
+    <value>Kan modlinks niet opvragen</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>Do you want to launch lumafly in offline mode?</value>
+    <value>Wilt u Lumafly in de offline modus opstarten?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>Select Authors</value>
+    <value>Zoek op Auteurs</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Warn before removing a dependent mod</value>
+    <value>Waarschuw bij het verwijderen van een vereiste mod</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Instellingen</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
     <value>Mods</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>Automatically Remove Unused Dependencies</value>
+    <value>Verwijder Automatisch Ongebruikte Vereiste Mods</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>Open Map</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>Game Path</value>
+    <value>Spel Pad</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Use Custom Modlinks</value>
+    <value>Gebruik Aangepaste Modlinks</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normally Lumafly loads its list of mods from the official modlinks. If you want to load your own then enter its URI here it accepts https links or files (in the format file://{filepath}). \nEmpty links or invalid links will load official modlinks</value>
+    <value>Normaal laad Lumafly de lijst met mods van de officiële modlinks. Als u uw eigen mods wilt laden, vult hier de URI in; Https links of bestanden (in het formaat file://{filepath}) worden geaccepteerd. \nLege of ongeldige links zullen de officiële modlinks laden</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Enter link to custom modlinks. Needs a reload to take effect</value>
+    <value>Voer de link in voor aangepaste modlinks. Herladen is vereist voordat het effect heeft</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
-    <value>Reload Lumafly</value>
+    <value>Herlaad Lumafly</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>(Reload for changes to take effect)</value>
+    <value>(Herlaad om veranderingen door te voeren)</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>Informatie</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Lumafly is an installer for Hollow Knight version 1.5. It will not work for older versions of Hollow Knight.</value>
+    <value>Lumafly is een installatieprogramma voor de Hollow Knight versie 1.5. Het zal niet werken voor oudere versies van Hollow Knight.</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>Relevant Links</value>
+    <value>Relevante Links</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
     <value>Website\n</value>
@@ -532,198 +532,204 @@
     <value>Github\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Readme\n</value>
+    <value>Leesmij\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>An Alternate Installer</value>
+    <value>Een Alternatief Installatieprogramma</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Create Mods\n</value>
+    <value>Mods Maken\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Modding\nTutorial</value>
+    <value>Mod\nHandleiding</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>Launch Vanilla Game</value>
+    <value>Open Niet Gemodificeerd Spel</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>Launch Modded Game</value>
+    <value>Open Gemodificeerd Spel</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>Please wait launching game...</value>
+    <value>Even geduld, spel start op...</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>Record as custom version</value>
+    <value>Sla op als aangepaste versie</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>Record this mod's version as not from modlinks. Doesn't affect the mod in any way only affects how lumafly handles it. A pinned custom version mod will never be replaced by lumafly</value>
+    <value>Sla deze mod's versie op als niet van modlinks. Dat heeft geen invloed op hoe de mod werkt, alleen op hoe Lumafly ermee omgaat. Een vastgezette versie zal niet worden vervangen door Lumafly</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>Reset Mod: force re-installs the mod and removes its persistent settings</value>
+    <value>Reset Mod: Herinstalleert de mod en verwijdert zijn blijvende instellingen</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Get the shareable download link of this mod.</value>
+    <value>Krijg de deelbare download link van deze mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>Open folder where this mod is installed</value>
+    <value>Map openen waar deze mod is geïnstalleerd</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>Report a bug or an issue with this mod</value>
+    <value>Meld een bug of een probleem met deze mod</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>This mod was manually installed and is not from official modlinks</value>
+    <value>Deze mod is handmatig geïnstalleerd en niet van de officiële modlinks</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>Version not from modlinks</value>
+    <value>Versie is niet van modlinks</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Taal</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
-    <value>Low Storage Mode</value>
+    <value>Weinig Opslagmodus</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>(Uses extra {0} of storage)</value>
+    <value>(Gebruikt een extra {0} van opslag)</value>
   </data>
   <data name="XAML_SharingCode" xml:space="preserve">
-    <value>Sharing Code:</value>
+    <value>Deel code:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>Generate a 8 digit sharing code. This can be given to someone else and they can use this pack</value>
+    <value>Genereer een 8 cijferige deel code. Deze kan aan iemand gegeven worden zodat zij dit pakket kunnen gebruiken</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
-    <value>Edit pack</value>
+    <value>Bewerk pakket</value>
   </data>
   <data name="XAML_DeletePack" xml:space="preserve">
-    <value>Delete pack</value>
+    <value>Verwijder pakket</value>
   </data>
   <data name="XAML_CreateNewPack" xml:space="preserve">
-    <value>Create new pack</value>
+    <value>Nieuw pakket maken</value>
   </data>
   <data name="XAML_ImportPack" xml:space="preserve">
-    <value>Import pack</value>
+    <value>Pack importeren</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Packs</value>
+    <value>Pakketten</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
-    <value>Load Pack</value>
+    <value>Laad Pakket</value>
   </data>
   <data name="XAML_Description" xml:space="preserve">
-    <value>Description:</value>
+    <value>Omschrijving:</value>
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
-    <value>Mods In Pack:</value>
+    <value>Mods In Pakket:</value>
   </data>
   <data name="XAML_SharePack" xml:space="preserve">
-    <value>Share this pack</value>
+    <value>Deel dit pakket</value>
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
-    <value>Share this pack as a zip file. You will need to send this zip file yourself.</value>
+    <value>Deel dit pakket als een zip bestand. U moet dit zip bestand zelf sturen.</value>
   </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
-    <value>Search by Integrations</value>
+    <value>Zoek op integraties</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
-    <value>Toggle All</value>
+    <value>Alles Omschakelen</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
-    <value>Disable all mods if any are enabled, Enable all mods if all are disabled</value>
+    <value>Schakelt alle mods uit als enige zijn ingeschakeld, Schakelt alle mods in als alle zijn uitgeschakeld</value>
   </data>
   <data name="XAML_FilterMods" xml:space="preserve">
-    <value>Filter Mods:  </value>
+    <value>Filter Mods:</value>
   </data>
   <data name="XAML_SearchAuthor" xml:space="preserve">
-    <value>Search Author</value>
+    <value>Zoek op Auteur</value>
   </data>
   <data name="EditPack" xml:space="preserve">
-    <value>Edit Pack</value>
+    <value>Bewerk Pakket</value>
   </data>
   <data name="PackDetails" xml:space="preserve">
-    <value>Pack Details</value>
+    <value>Pakket Details</value>
   </data>
   <data name="PackDetails_Explanation" xml:space="preserve">
-    <value>Edit the details of your pack here.</value>
+    <value>Bewerk de details van uw pakket hier.</value>
   </data>
   <data name="PackName" xml:space="preserve">
-    <value>Pack Name</value>
+    <value>Pakket Naam</value>
   </data>
   <data name="PackDescription" xml:space="preserve">
-    <value>Pack Description</value>
+    <value>Pakket Omschrijving</value>
   </data>
   <data name="EditDetails" xml:space="preserve">
-    <value>Edit Details</value>
+    <value>Bewerk Details</value>
   </data>
   <data name="EditMods" xml:space="preserve">
-    <value>Edit Mods</value>
+    <value>Bewerk Mods</value>
   </data>
   <data name="AvailableMods" xml:space="preserve">
-    <value>Available Mods</value>
+    <value>Beschikbare Mods</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
-    <value>Selected Mods</value>
+    <value>Geselecteerde Mods</value>
   </data>
   <data name="EnableMod" xml:space="preserve">
-    <value>Enable Mod</value>
+    <value>Schakel Mod In</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>Disable Mod</value>
+    <value>Schakel Mod Uit</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>Use Fixed Version</value>
+    <value>Gebruik Gefixeerde Versie</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
-    <value>Don't use latest modlinks version. Instead use current version</value>
+    <value>Niet modlinks laatste versie gebruiken. Gebruik in plaats daarvan de huidige versie</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
-    <value>Use Modlinks Version</value>
+    <value>Modlinks Versie Gebruiken</value>
   </data>
   <data name="ModlinksVersion_Tooltip" xml:space="preserve">
-    <value>Use latest modlinks version</value>
+    <value>Laatste modlinks versie gebruiken</value>
   </data>
   <data name="EnterSharingCode" xml:space="preserve">
-    <value>Enter Sharing Code:</value>
+    <value>Vul Deel-Code in:</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Bevestigen</value>
   </data>
   <data name="AvailablePacks" xml:space="preserve">
-    <value>Available Packs:</value>
+    <value>Beschikbare Pakketten:</value>
   </data>
   <data name="RevertToPreviousMods" xml:space="preserve">
-    <value>Revert to previous mods</value>
+    <value>Keer terug naar vorige mods</value>
   </data>
   <data name="PackUpdatePrompt" xml:space="preserve">
-    <value>Some mods in the pack are outdated, do you want to update them?</value>
+    <value>Sommige mods in het pakket zijn verouderd, wilt u ze bijwerken?</value>
   </data>
   <data name="LoadPackAdditive" xml:space="preserve">
-    <value>Load without replacing</value>
+    <value>Laad zonder te vervangen</value>
   </data>
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
-    <value>Load this pack without replacing mods in current mods folder</value>
+    <value>Laad dit pakket zonder de huidig geïnstalleerde mods te vervangen</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Controleer Voor Updates</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Open Logs Map</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
-    <comment/>
+    <value>Schakel de Modding API in/uit, die de bestanden wijzigt om mods te kunnen gebruiken</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>View Readme</value>
-    <comment/>
+    <value>Bekijk Readme</value>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Untagged</value>
-    <comment/>
+    <value>Zonder label</value>
+  </data>
+  <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
+    <value>Enter formaat naar GitHub Mirror. Herlaad om het toe te passen</value>
+  </data>
+  <data name="XAML_InfoLinkDiscord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="XAML_UseGithubMirror" xml:space="preserve">
+    <value>Gebruik GitHub Mirror</value>
   </data>
 </root>
