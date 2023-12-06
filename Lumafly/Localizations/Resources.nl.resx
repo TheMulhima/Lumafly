@@ -382,16 +382,16 @@
     <value>Lumafly was niet in staat om toegang te krijgen tot het bestand in de mods map</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>Please make sure that the mods folder is not in a write protected location</value>
+    <value>Zorg ervoor dat de map mods niet op een locatie met schrijfbeveiliging staat</value>
   </data>
   <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
-    <value>Lumafly cannot access the file:</value>
+    <value>Lumafly heeft geen toegang tot het bestand:</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>Please make sure to close all other apps that could be using the mods folder</value>
+    <value>Sluit alle apps die mogelijk gebruik maken van de mods map</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>Please close the following processes as they are locking important files:</value>
+    <value>Sluit de volgende processen omdat ze belangrijke bestanden vergrendelen:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
     <value>Baas</value>
