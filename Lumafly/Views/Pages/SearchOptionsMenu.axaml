@@ -30,17 +30,23 @@
             VerticalAlignment="Stretch"
             Background="{DynamicResource RegionColor}"
             >
-            <TextBlock
-                Margin="3 0 0 0"
-                Text="{ext:Localize XAML_Search_Type}" VerticalAlignment="Center"
-                />
             <ComboBox
-                Margin="5 5 2 2"
-                Width="75"
+                Margin="0 5 2 2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding $parent[pages:ModListView].DataContext.SearchComboBoxOptions}"
-                SelectedItem="{Binding $parent[pages:ModListView].DataContext.SearchComboBox}"/>    
+                SelectedItem="{Binding $parent[pages:ModListView].DataContext.SearchComboBox}"/>
+            <PathIcon
+                Data="{StaticResource info_regular}"
+                Width="12"
+                Height="12"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="7 0 5 0"
+                ToolTip.Tip="Normal Search: Search by mod name and description
+                Search by Dependencies and Integrations: List mods that are dependencies or integrations of the selected mods (Reverse dependent search)
+                Search by Integrations: Similar to Dependencies and Integrations, but only list mods that are integrations of the selected mods"
+                ToolTip.ShowDelay="0"/>
         </StackPanel>
 
 
