@@ -1,4 +1,3 @@
 The Hollow Knight Wiki has moved to [hollowknight.wiki](https://hollowknight.wiki/). The former wiki will be abandoned due to problems with the Fandom platform. For more info, see the [reddit post](https://www.reddit.com/r/HollowKnight/comments/17kjcde/the_hollow_knight_wiki_has_moved_to/)
 
-Due to a recent incident, mods from developer HKLab/Box047 are not currently available. This means it is now impossible to download mods created by this developer, or mods that depend on libraries created by this developer. Affected mods include, but are not limited to: HKTool Legacy, CustomKnightPlus, HKTool, Nosk God, ShieldParry, BackDash, UnityExplorerPlus, Dead Cells Barrel Launcher, Dead Cells The Queen, Dead Cells Bosses, Dead Cells Time Keeper, Zote Killer, Cyclone Throws, Cyclone Real Combat, Uumuu Plus.
-Please wait while we attempt to recover them.
+All mods from developer HKLab/Box047 are available again!
