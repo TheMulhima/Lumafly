@@ -607,7 +607,7 @@
     <value>Importar pack</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Packs</value>
+    <value>Paquetes</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
     <value>Cargar pack</value>
@@ -709,10 +709,10 @@
     <value>Cargar este pack sin reemplazar los mods en la carpeta de mods actual</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Buscar Las Actualizaciones</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Abrir Archivo de Registro</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
     <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
