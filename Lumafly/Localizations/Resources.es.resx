@@ -715,7 +715,8 @@
     <value>Abrir Archivo de Registro</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Activar/Desactivar La API de 
+Modificación, la reforma de los archivos del juego que permiten que se ejecuten las modificaciones</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
     <value>View Readme</value>
