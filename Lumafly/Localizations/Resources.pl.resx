@@ -709,27 +709,27 @@
     <value>Załaduj tę paczkę bez zastępowania modów w bieżącym folderze modów</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Sprawdź dostępność aktualizacji</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Otwórz folder z logami</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Włącz/Wyłącz API modowania — modyfikacja plików gry, który pozwala na uruchamianie modów</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>View Readme</value>
+    <value>Otwórz plik readme</value>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Untagged</value>
+    <value>Nieztagowane</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Enter format to github mirror. Needs a reload to take effect</value>
+    <value>Wprowadź format do lustra Github (potrzebuje przeładowania, aby zacząć działać)</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Use Github Mirror</value>
+    <value>Użyj lustra Github</value>
   </data>
 </root>
