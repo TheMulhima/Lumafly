@@ -121,615 +121,615 @@
     <value>, </value>
   </data>
   <data name="MI_InstallText_Installed" xml:space="preserve">
-    <value>Odinstaluj</value>
+    <value>Disinstalla</value>
   </data>
   <data name="MI_InstallText_NotInstalled" xml:space="preserve">
-    <value>Zainstaluj</value>
+    <value>Installa</value>
   </data>
   <data name="MLVM_ApiButtonText_DisableAPI" xml:space="preserve">
-    <value>Wyłącz API</value>
+    <value>Disattiva API</value>
   </data>
   <data name="MLVM_ApiButtonText_EnableAPI" xml:space="preserve">
-    <value>Włącz API</value>
+    <value>Attiva API</value>
   </data>
   <data name="MLVM_ApiButtonText_ToggleAPI" xml:space="preserve">
-    <value>Przełącz API</value>
+    <value>Attiva/disattiva API</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Text" xml:space="preserve">
-    <value>Hasz pobierania dla {0} ({1}) nie zgadza się z otrzymanym podpisem ({2}). Jest uszkodzony lub pozycja jest niewłaściwa. </value>
+    <value>L'hash del download per {0} ({1}) non corrisponde alla firma ({2}). O è corrotto, o la voce non è corretta.</value>
   </data>
   <data name="MLVM_DisplayHashMismatch_Msgbox_Title" xml:space="preserve">
-    <value>Hasz się nie zgadza!</value>
+    <value>L'hash non corrisponde!</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Text" xml:space="preserve">
-    <value>Nie udało się pobrać {0}! Strona internetowa może tymczasowo nie działać lub mógł wystąpić problem z twoim połączeniem.</value>
+    <value>Impossibile scaricare {0}! Il sito potrebbe essere offline o potresti avere problemi di connessione.</value>
   </data>
   <data name="MLVM_DisplayNetworkError_Msgbox_Title" xml:space="preserve">
-    <value>Błąd Sieci</value>
+    <value>Errore di rete</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Text" xml:space="preserve">
-    <value>Hollow Knight jest otwarty! To może spowodować problemy podczas instalowania modów. Zamknąć Hollow Knight?</value>
+    <value>Hollow Knight è aperto! Questo potrebbe causare problemi con l'installazione delle mod. Vuoi chiudere Hollow Knight?</value>
   </data>
   <data name="MLVM_InternalUpdateInstallAsync_Msgbox_W_Title" xml:space="preserve">
-    <value>Ostrzeżenie!</value>
+    <value>Attenzione!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Error" xml:space="preserve">
-    <value>błąd HTTP {0}</value>
+    <value>errore HTTP {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Text" xml:space="preserve">
-    <value>Nie udało się załadować listy modów z modlinks, operacja {0}</value>
+    <value>Impossibile scaricare la lista delle mod dal modlink: {0}</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Msgbox_Title" xml:space="preserve">
-    <value>Błąd!</value>
+    <value>Errore!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>przekroczono limit czasu. Sprawdź swoje połączenie z internetem i spróbuj ponownie</value>
+    <value>connessione scaduta. Controlla il collegamento a internet e riprova</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
-    <value>Pobierz najnowszą wersję</value>
+    <value>Scarica l'ultima versione</value>
   </data>
   <data name="MWVM_OutOfDate_ContinueAnyways" xml:space="preserve">
-    <value>Kontynuuj mimo to</value>
+    <value>Continua comunque.</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Nieaktualny!</value>
+    <value>Da aggiornare!</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
-    <value>Dostępna jest nowa aktualizacja Lumafly. Pobierz najnowszą wersję (v{0}) z nowymi funkcjami i naprawionymi błędami.</value>
+    <value>È disponibile una nuova versione di Lumafly (v{0}), scaricala per ottenere le ultime funzionalità e correzioni.</value>
   </data>
   <data name="MWVM_UpdateDownloadError_Message" xml:space="preserve">
-    <value>Nie udało się pobrać aktualizacji automatycznie. Lumafly teraz otworzy link do pobrania najnowszej wersji</value>
+    <value>Lumafly ha fallito a scaricare l'ultimo aggiornamento automaticamente. Lumafly aprirà il link per ottenere l'ultima versione</value>
   </data>
   <data name="MWVM_Warning" xml:space="preserve">
-    <value>Ostrzeżenie</value>
+    <value>Attenzione</value>
   </data>
   <data name="MWVM_InvalidSavedPath_Message" xml:space="preserve">
-    <value>Zapisana ścieżka Hollow Knight jest niepoprawna, wybierz poprawną ścieżkę.</value>
+    <value>Il percorso selezionato per l'installazione di Hollow Knight non è valido, scegline uno corretto.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>Informacje</value>
+    <value>Informazione</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
-    <value>Nie udało się wykryć twojej instalacji Hollow Knight. Prosimy o wskazanie jej.</value>
+    <value>Installazione di Hollow Knight non trovata. Si prega di selezionarla.</value>
   </data>
   <data name="MWVM_DetectedPath_Title" xml:space="preserve">
-    <value>Wykryto ścieżkę!</value>
+    <value>Percorso rilevato!</value>
   </data>
   <data name="MWVM_DetectedPath_Message" xml:space="preserve">
-    <value>Wykryto instalację Hollow Knight w {0}. Czy ta ścieżka jest poprawna?</value>
+    <value>Installazione di Hollow Knight trovata in {0}. È corretto?</value>
   </data>
   <data name="XAML_ChangPath" xml:space="preserve">
-    <value>Zmień ścieżkę</value>
+    <value>Cambia percorso</value>
   </data>
   <data name="XAML_Dependencies" xml:space="preserve">
-    <value>Zależności:</value>
+    <value>Dipendenze:</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>Wesprzyj</value>
+    <value>Donare</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
-    <value>Wszystkie</value>
+    <value>Tutte</value>
   </data>
   <data name="XAML_ModsFilter_Enabled" xml:space="preserve">
-    <value>Aktywne</value>
+    <value>Attivate</value>
   </data>
   <data name="XAML_ModsFilter_Installed" xml:space="preserve">
-    <value>Zainstalowane</value>
+    <value>Installate</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate" xml:space="preserve">
-    <value>Przestarzałe</value>
+    <value>Da aggiornare</value>
   </data>
   <data name="XAML_OpenMods" xml:space="preserve">
-    <value>Otwórz folder modów</value>
+    <value>Apri la cartella delle mod</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repozytorium i README:</value>
+    <value>Repository</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
-    <value>Wyszukaj Mody</value>
+    <value>Cerca mod</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>Zaktualizuj API</value>
+    <value>Aggiorna API</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
-    <value>Wersja:</value>
+    <value>Versione:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integracje:</value>
+    <value>Integrazioni:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Tagi:</value>
+    <value>Etichette:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>Aktywny</value>
+    <value>Attivo</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Nieaktywny</value>
+    <value>Off</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
-    <value>Zapytaj</value>
+    <value>Chiedi</value>
   </data>
   <data name="XAML_Update" xml:space="preserve">
-    <value>Aktualizacja</value>
+    <value>Aggiorna</value>
   </data>
   <data name="PU_NoSelect" xml:space="preserve">
-    <value>Nie wybrano ścieżki!</value>
+    <value>Nessun percorso selezionato!</value>
   </data>
   <data name="PU_NoSelectMac" xml:space="preserve">
-    <value>Nie wybrano aplikacji!</value>
+    <value>Nessuna applicazione selezionata!</value>
   </data>
   <data name="PU_InvalidPathHeader" xml:space="preserve">
-    <value>Niewłaściwa ścieżka Hollow Knight!</value>
+    <value>Percorso di Hollow Knight non valido!</value>
   </data>
   <data name="PU_InvalidAppHeader" xml:space="preserve">
-    <value>Niewłaściwa aplikacja Hollow Knight!</value>
+    <value>Applicazione di Hollow Knight non valida!</value>
   </data>
   <data name="PU_InvalidExeHeader" xml:space="preserve">
-    <value>Niewłaściwy .exe Hollow Knight! Wybierz plik .exe Hollow Knight lub skrót do niego</value>
+    <value>Eseguibile di Hollow Knight non valido! Seleziona l'eseguibile di Hollow Knight on un suo collegamento</value>
   </data>
   <data name="PU_InvalidPath" xml:space="preserve">
-    <value>Wybierz folder zawierający hollow_knight_Data lub Hollow Knight_Data.</value>
+    <value>Selezionare la cartella contenente hollow_knight_Data o Hollow Knight_Data.</value>
   </data>
   <data name="PU_InvalidApp" xml:space="preserve">
-    <value>Brakuje folderu Managed lub Assembly-CSharp!</value>
+    <value>Cartella Managed o Assembly-CSharp mancante!</value>
   </data>
   <data name="PU_SelectPath" xml:space="preserve">
-    <value>Wybierz swój folder Hollow Knight.</value>
+    <value>Seleziona la cartella di Hollow Knight.</value>
   </data>
   <data name="PU_InvalidPathTitle" xml:space="preserve">
-    <value>Ścieżka</value>
+    <value>Percorso</value>
   </data>
   <data name="PU_SelectApp" xml:space="preserve">
-    <value>Wybierz swoją aplikację Hollow Knight.</value>
+    <value>Seleziona l'applicazione di Hollow Knight.</value>
   </data>
   <data name="PU_SelectEXE" xml:space="preserve">
-    <value>Wybierz swój plik wykonywalny Hollow Knight (.exe) lub jego skrót.</value>
+    <value>Seleziona l'eseguibile di Hollow Knight o un suo collegamento.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>Zaktualizuj Wszystkie</value>
+    <value>Aggiorna tutto</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
-    <value>Akcje Masowe</value>
+    <value>Azioni in blocco</value>
   </data>
   <data name="XAML_Disable_All_Installed" xml:space="preserve">
-    <value>Deaktywuj Wszystkie</value>
+    <value>Disattiva tutto</value>
   </data>
   <data name="XAML_Enable_All_Installed" xml:space="preserve">
-    <value>Aktywuj Wszystkie</value>
+    <value>Attiva tutto</value>
   </data>
   <data name="XAML_Uninstall_All" xml:space="preserve">
-    <value>Odinstaluj Wszystkie</value>
+    <value>Disinstalla tutto</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Autorzy:</value>
+    <value>Autori:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Opcje Wyszukiwania</value>
+    <value>Ricerca avanzata</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
-    <value>Typ Wyszukiwania</value>
+    <value>Tipo di ricerca</value>
   </data>
   <data name="XAML_Select_Tags" xml:space="preserve">
-    <value>Wybierz Tagi</value>
+    <value>Seleziona etichette</value>
   </data>
   <data name="XAML_Exact_Search" xml:space="preserve">
-    <value>Wyszukiwanie Dokładne</value>
+    <value>Ricerca esatta</value>
   </data>
   <data name="XAML_Normal_Search" xml:space="preserve">
-    <value>Wyszukiwanie Zwykłe</value>
+    <value>Ricerca normale</value>
   </data>
   <data name="XAML_Search_Dependents" xml:space="preserve">
-    <value>Wyszukaj według zależności</value>
+    <value>Ricerca per dipendenze e integrazioni</value>
   </data>
   <data name="XAML_Select_Mod" xml:space="preserve">
-    <value>Wybierz Mod</value>
+    <value>Seleziona mod</value>
   </data>
   <data name="XAML_No_Items" xml:space="preserve">
-    <value>Brak modów do wyświetlenia</value>
+    <value>Nessuna mod da mostrare</value>
   </data>
   <data name="XAML_SavesFolder" xml:space="preserve">
-    <value>Otwórz Folder Zapisów</value>
+    <value>Apri la cartella dei salvataggi</value>
   </data>
   <data name="XAML_Manual_Install" xml:space="preserve">
-    <value>Zainstaluj Ręcznie</value>
+    <value>Installa manualmente</value>
   </data>
   <data name="MLVM_Select_Mod" xml:space="preserve">
-    <value>Wybierz .dll lub .zip moda</value>
+    <value>Selezionare la mod dll o zip</value>
   </data>
   <data name="XAML_NewMods" xml:space="preserve">
-    <value>Nowe Mody</value>
+    <value>Nuova mod</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Zaktualizowane Mody</value>
+    <value>Mod aggiornate</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>Ostatni Tydzień</value>
+    <value>Ultima settimana</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Ostatni Miesiąc</value>
+    <value>Ultimo mese</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
-    <value>Co Nowego</value>
+    <value>Novità</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Błąd Kopiowania</value>
+    <value>Errore di copia</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Kliknij aby wyświetlić pełny błąd</value>
+    <value>Clicca per mostrare l'errore completo</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
-    <value>Edytuj plik z ustawieniami moda</value>
+    <value>Modifica le impostazioni della mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Ładowanie najnowszych modów z modlinks...</value>
+    <value>Caricamento delle nuove mod dai modlink...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Lumafly nie był w stanie załadować najnowszych modów z modlinks.</value>
+    <value>Lumafly non è riuscito a caricare le nuove mod dai modlink.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>Mogło to być wywołane przez słabe połączenie internetowe lub jego brak. Sprawdź to i spróbuj ponownie.</value>
+    <value>La causa potrebbe essere la connessione internet scarsa o assente. Controlla la connessione e riprova</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
-    <value>Uwaga! Ten mod jest wymagany, aby inne mody mogły funkcjonować!</value>
+    <value>Attenzione! Questa mod è necessaria ad altre mod per funzionare!</value>
   </data>
   <data name="MVVM_DependentsWarning_Body" xml:space="preserve">
-    <value>{0} jest konieczny aby {1} mógł działać poprawnie. Czy nadal chcesz kontynuować?</value>
+    <value>{0} è necessaria affinché {1} funzioni correttamente. Vuoi comunque continuare?</value>
   </data>
   <data name="MVVM_AreYouSure" xml:space="preserve">
-    <value>Uwaga! Czy na pewno chcesz to zrobić?</value>
+    <value>Attenzione! Vuoi davvero continuare?</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralReason" xml:space="preserve">
-    <value>Lumafly nie był w stanie uzyskać dostępu do pliku w folderze z modami</value>
+    <value>Lumafly non è stato in grado di accedere al file nella cartella delle mod</value>
   </data>
   <data name="MVVM_SystemIOException_ProtectedLocation" xml:space="preserve">
-    <value>Upewnij się że folder z modami nie jest w lokalizacji chronionej przed zapisem</value>
+    <value>Assicurati di avere il permesso di scrittura sulla cartella delle mod</value>
   </data>
   <data name="MVVM_SystemIOException_LumaflyCantAccessFile" xml:space="preserve">
-    <value>Lumafly nie może uzyskać dostępu do pliku:</value>
+    <value>Lumafly non può accedere al file:</value>
   </data>
   <data name="MVVM_SystemIOException_GeneralFileLock" xml:space="preserve">
-    <value>Upewnij się że zamknąłeś/aś wszystkie pozostałe aplikacje które mogłyby używać folderu z modami</value>
+    <value>Assicurati di chiudere tutti gli altri programmi che potrebbero usare la cartella delle mod</value>
   </data>
   <data name="MVVM_SystemIOException_LockingProcessesList" xml:space="preserve">
-    <value>Proszę o zamknięcie następujących procesów, gdyż blokują one ważne pliki:</value>
+    <value>Si prega di chiudere i seguenti processi perché stanno bloccando dei file importanti:</value>
   </data>
   <data name="ModLinks_Tags_Boss" xml:space="preserve">
     <value>Boss</value>
   </data>
   <data name="ModLinks_Tags_Gameplay" xml:space="preserve">
-    <value>Rozgrywka</value>
+    <value>Gameplay</value>
   </data>
   <data name="ModLinks_Tags_Utility" xml:space="preserve">
-    <value>Użytkowe</value>
+    <value>Utilità</value>
   </data>
   <data name="ModLinks_Tags_Cosmetic" xml:space="preserve">
-    <value>Ozdobne</value>
+    <value>Estetica</value>
   </data>
   <data name="ModLinks_Tags_Library" xml:space="preserve">
-    <value>Biblioteki</value>
+    <value>Libreria</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Ekspansja</value>
+    <value>Espansione</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Pobieranie listy modów z modlinks...</value>
+    <value>Recupero delle mod dai modlink...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Czekanie na odpowiedź z Githuba...</value>
+    <value>In attesa di risposta da GitHub...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
-    <value>Nadal czekanie...</value>
+    <value>Ancora in attesa...</value>
   </data>
   <data name="MVVM_Loading4" xml:space="preserve">
-    <value>Próbowanie awaryjnego źródła...</value>
+    <value>Provando da una sorgente di riserva...</value>
   </data>
   <data name="MVVM_Loading5" xml:space="preserve">
-    <value>Czekanie na odpowiedź z jsdelivr...</value>
+    <value>In attesa di risposta da jsdelivr...</value>
   </data>
   <data name="MVVM_RunAsAdmin" xml:space="preserve">
-    <value>Spróbuj uruchomić Lumafly jako administrator, to może naprawić problem</value>
+    <value>Prova a eseguire Lumafly come amministratore, potrebbe risolvere il problema</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>Wystąpił wyjątek podczas {0} {1}</value>
+    <value>Si è verificato un errore mentre {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="XAML_AskForHelp" xml:space="preserve">
-    <value>Poproś o pomoc</value>
+    <value>Chiedi aiuto</value>
   </data>
   <data name="XAML_ReportError" xml:space="preserve">
-    <value>Zgłoś błąd</value>
+    <value>Segnala un errore</value>
   </data>
   <data name="MVVM_Install" xml:space="preserve">
-    <value>Zainstaluj</value>
+    <value>Installa</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Body" xml:space="preserve">
-    <value>{0} jest wymagany, aby {1} mógł działać poprawnie. Zainstalować?</value>
+    <value>{0} è necessaria affinché {1} funzioni correttamente. Vuoi installarla?</value>
   </data>
   <data name="MVVM_DependenciesNotInstalledWarning_Header" xml:space="preserve">
-    <value>Mod zawiera zależności które nie są zainstalowane!</value>
+    <value>La mod ha dipendenze non installate!</value>
   </data>
   <data name="XAML_ChooseDependenciesToUninstall" xml:space="preserve">
-    <value>Wybierz ręcznie</value>
+    <value>Seleziona manualmente</value>
   </data>
   <data name="XAML_ManuallyInstalledModesNote" xml:space="preserve">
-    <value>Uwaga: mogą być używane przez mody zainstalowane ręcznie</value>
+    <value>Nota: potrebbero essere utilizzate da qualsiasi mod che hai installato manualmente</value>
   </data>
   <data name="XAML_None" xml:space="preserve">
-    <value>Żadne</value>
+    <value>Nessuno</value>
   </data>
   <data name="XAML_UninstallDependencies" xml:space="preserve">
-    <value>Odinstalowanie tego moda pozostawi zależności które nie są już używane</value>
+    <value>Disinstallare questa mod lascerà delle dipendenze che sembrano essere inutilizzate</value>
   </data>
   <data name="XAML_UninstallDependencies_Title" xml:space="preserve">
-    <value>Usunąć zależności automatycznie?</value>
+    <value>Rimuovere automaticamente le dipendenze?</value>
   </data>
   <data name="XAML_Pin" xml:space="preserve">
-    <value>Przypnij</value>
+    <value>Blocca</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Przypnij mod, aby nie był on automatycznie zamieniony przez Lumafly</value>
+    <value>Blocca una mod in modo che non venga sostituita automaticamente da Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
-    <value>Odepnij</value>
+    <value>Sblocca</value>
   </data>
   <data name="MVVM_UnableToGetModlinks" xml:space="preserve">
-    <value>Nie udało się pobrać listy modów z modlinks</value>
+    <value>Impossibile scaricare i modlink</value>
   </data>
   <data name="MVVM_LaunchOfflineMode" xml:space="preserve">
-    <value>Czy chcesz uruchomić Lumafly w trybie offline?</value>
+    <value>Vuoi avviare Lumafly in modalità offline?</value>
   </data>
   <data name="XAML_Select_Authors" xml:space="preserve">
-    <value>Wybierz Autorów</value>
+    <value>Seleziona autori</value>
   </data>
   <data name="XAML_WarnBeforeRemovingDependentMods" xml:space="preserve">
-    <value>Ostrzeż mnie przed usunięciem zależnych modów</value>
+    <value>Avvisa prima di rimuovere una mod con delle dipendenze</value>
   </data>
   <data name="XAML_Settings" xml:space="preserve">
-    <value>Opcje</value>
+    <value>Impostazioni</value>
   </data>
   <data name="XAML_Mods" xml:space="preserve">
-    <value>Mody</value>
+    <value>Mod</value>
   </data>
   <data name="XAML_AutoRemoveDeps" xml:space="preserve">
-    <value>Automatycznie usuwaj nieużywane zależności</value>
+    <value>Rimuovi automaticamente dipendenze inutilizzate</value>
   </data>
   <data name="XAML_OpenModsOrSaves" xml:space="preserve">
-    <value>Otwórz Folder</value>
+    <value>Apri cartella</value>
   </data>
   <data name="XAML_GamePath" xml:space="preserve">
-    <value>Ścieżka Gry</value>
+    <value>Percorso del gioco</value>
   </data>
   <data name="XAML_UseCustomModlinks" xml:space="preserve">
-    <value>Użyj niestandardowej listy modów</value>
+    <value>Usa modlink personalizzati</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normalnie Lumafly ładuje listę modów z oficjalnej listy modów (modlinks). Jeżeli chcesz załadować swoją własną, wpisz tu jej URL - można wpisać link https lub pliki (w formacie file://{filepath}).\nPuste lub niewłaściwe linki załadują oficjalny modlinks.</value>
+    <value>Normalmente Lumafly carica la sua lista di mod dai modlink ufficiali. Per utilizzarne uno personalizzato, inserire qui il suo URI (accetta collegamenti https o file nel formato file://{filepath}).\nIn caso di link vuoto o non valido, verranno utilizzati i modlink ufficiali</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Wpisz link do niestandardowej listy modów. Wymagane ponowne załadowanie aby uzyskać efekt</value>
+    <value>Inserisci il link ai modlink personalizzati. È necessario riavviare Lumafly perché abbia effetto</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
-    <value>Załaduj Lumafly ponownie</value>
+    <value>Riavvia Lumafly</value>
   </data>
   <data name="XAML_ReloadPrompt" xml:space="preserve">
-    <value>(Załaduj ponownie aby wprowadzić zmiany)</value>
+    <value>(Riavvia affinché le modifiche abbiano effetto)</value>
   </data>
   <data name="XAML_Info" xml:space="preserve">
-    <value>Informacje</value>
+    <value>Informazione</value>
   </data>
   <data name="XAML_InfoBody" xml:space="preserve">
-    <value>Lumafly to instalator dla Hollow Knight w wersji 1.5. Nie będzie on działać dla starszych wersji Hollow Knight</value>
+    <value>Lumafly è un installatore per la versione 1.5 di Hollow Knight. Non funzionerà per le versioni precedenti del gioco.</value>
   </data>
   <data name="XAML_InfoLinksHeader" xml:space="preserve">
-    <value>Stosowne Linki</value>
+    <value>Collegamenti importanti</value>
   </data>
   <data name="XAML_InfoLinkWebsite" xml:space="preserve">
-    <value>Strona\nInternetowa</value>
+    <value>Sito web\n</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
-    <value>Github\n</value>
+    <value>GitHub\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Przeczytaj\nmnie</value>
+    <value>Readme\n</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
-    <value>Menedżer\n modów HK</value>
+    <value>HK Mod\nManager</value>
   </data>
   <data name="XAML_InfoLinkHKMMToolTip" xml:space="preserve">
-    <value>Alternatywny Instalator</value>
+    <value>Un installatore alternativo</value>
   </data>
   <data name="XAML_InfoLinkModdingDocs" xml:space="preserve">
-    <value>Twórz\nMody</value>
+    <value>Crea mod\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Jak\nModować?</value>
+    <value>Tutorial\nal modding</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
-    <value>Uruchom Grę Podstawową</value>
+    <value>Avvia il gioco vanilla</value>
   </data>
   <data name="XAML_LaunchModded" xml:space="preserve">
-    <value>Uruchom Grę z Modami</value>
+    <value>Avvia il gioco moddato</value>
   </data>
   <data name="XAML_OpeningGame" xml:space="preserve">
-    <value>Proszę czekać, uruchamianie gry...</value>
+    <value>Attendere l'avvio del gioco...</value>
   </data>
   <data name="XAML_RegisterNotInModlinks" xml:space="preserve">
-    <value>Zapamiętaj jako wersję niestandardową</value>
+    <value>Salva come versione personalizzata</value>
   </data>
   <data name="XAML_RegisterNotInModlinks_Explanation" xml:space="preserve">
-    <value>Zapamiętaj wersję tego moda jako niepochodzącą z modlinks. Nie wpływa w żaden sposób na moda, jedynie na sposób w jaki Lumafly go traktuje. Przypięty mod z wersją niestandardową nigdy nie zostanie zastąpiony przez Lumafly</value>
+    <value>Salva la versione di questa mod come non proveniente dai modlink. Questo non ha nessun effetto sulla mod stessa, ma solo su come Lumafly la gestisce. Una versione di una mod bloccata non verrà mai sostituita da Lumafly</value>
   </data>
   <data name="XAML_ResetMod" xml:space="preserve">
-    <value>Zresetuj Moda: przymusowo re-instaluje moda i usuwa jego ustawienia</value>
+    <value>Resetta mod: forza la reinstallazione della mod e rimuove le sue impostazioni attuali</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Zdobądź udostępnialny link do pobrania tego moda</value>
+    <value>Ottieni un link di download condivisibile per questa mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
-    <value>Otwórz folder w którym ten mod jest zainstalowany</value>
+    <value>Apri la cartella dove è installata questa mod</value>
   </data>
   <data name="XAML_ReportBug" xml:space="preserve">
-    <value>Zgłoś problem z tym modem</value>
+    <value>Segnala un bug o un problema con questa mod</value>
   </data>
   <data name="MVVM_NotInModlinks_Description" xml:space="preserve">
-    <value>Ten mod został zainstalowany ręcznie i nie pochodzi z modlinks</value>
+    <value>Questa mod è stata installata manualmente e non proviene dai modlink ufficiali</value>
   </data>
   <data name="MVVM_NotInModlinks_Disclaimer" xml:space="preserve">
-    <value>Wersja spoza modlinks</value>
+    <value>Versione non dai modlink</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Język</value>
+    <value>Lingua</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
-    <value>Tryb małej ilości miejsca na dysku</value>
+    <value>Modalità basso spazio di archiviazione</value>
   </data>
   <data name="XAML_CacheDownloads_Explanation" xml:space="preserve">
-    <value>(Używa dodatkowych {0} pamięci)</value>
+    <value>(Utilizza {0} extra di archiviazione)</value>
   </data>
   <data name="XAML_SharingCode" xml:space="preserve">
-    <value>Kod udostępniania:</value>
+    <value>Codice di condivisione:</value>
   </data>
   <data name="XAML_GenerateSharingCode" xml:space="preserve">
-    <value>Wygeneruj 8-cyfrowy kod udostępniania. Może być on podany komuś, kto wtedy będzie mógł użyć tej paczki</value>
+    <value>Genera un codice di condivisione a 8 cifre, che può essere utilizzato da altre persone per usare questo pacchetto</value>
   </data>
   <data name="XAML_EditPack" xml:space="preserve">
-    <value>Edytuj paczkę</value>
+    <value>Modifica pacchetto</value>
   </data>
   <data name="XAML_DeletePack" xml:space="preserve">
-    <value>Usuń paczkę</value>
+    <value>Elimina pacchetto</value>
   </data>
   <data name="XAML_CreateNewPack" xml:space="preserve">
-    <value>Utwórz nową paczkę</value>
+    <value>Crea nuovo pacchetto</value>
   </data>
   <data name="XAML_ImportPack" xml:space="preserve">
-    <value>Importuj paczkę</value>
+    <value>Importa pacchetto</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Paczki</value>
+    <value>Pacchetti</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
-    <value>Załaduj paczkę</value>
+    <value>Carica pacchetto</value>
   </data>
   <data name="XAML_Description" xml:space="preserve">
-    <value>Opis:</value>
+    <value>Descrizione:</value>
   </data>
   <data name="XAML_ModsInPack" xml:space="preserve">
-    <value>Mody w paczce:</value>
+    <value>Mod nel pacchetto:</value>
   </data>
   <data name="XAML_SharePack" xml:space="preserve">
-    <value>Udostępnij tę paczkę</value>
+    <value>Condividi questo pacchetto</value>
   </data>
   <data name="XAML_SharePackManually" xml:space="preserve">
-    <value>Udostępnij tę paczkę jako plik zip. Będziesz musiał wysłać ten plik samodzielnie.</value>
+    <value>Condividi questo pacchetto come file zip. Dovrai inviare questo file zip personalmente.</value>
   </data>
   <data name="XAML_Search_Integrations" xml:space="preserve">
-    <value>Szukaj według Integracji</value>
+    <value>Ricerca per integrazioni</value>
   </data>
   <data name="XAML_Toggle_All" xml:space="preserve">
-    <value>Włącz/wyłącz wszystkie</value>
+    <value>Inverti tutte</value>
   </data>
   <data name="XAML_Toggle_All_Tooltip" xml:space="preserve">
-    <value>Wyłącz wszystkie mody, jeśli są jakieś włączone lub włącz wszystkie mody, jeśli wszystkie są wyłączone</value>
+    <value>Disattiva tutte le mod attive, o le attiva tutte se sono tutte disattivate</value>
   </data>
   <data name="XAML_FilterMods" xml:space="preserve">
-    <value>Filtry modów:  </value>
+    <value>Filtra mod:  </value>
   </data>
   <data name="XAML_SearchAuthor" xml:space="preserve">
-    <value>Szukaj autora</value>
+    <value>Ricerca per autore</value>
   </data>
   <data name="EditPack" xml:space="preserve">
-    <value>Edytuj paczkę</value>
+    <value>Modifica pacchetto</value>
   </data>
   <data name="PackDetails" xml:space="preserve">
-    <value>Szczegóły paczki</value>
+    <value>Dettagli pacchetto</value>
   </data>
   <data name="PackDetails_Explanation" xml:space="preserve">
-    <value>Edytuj szczegóły swojej paczki tutaj.</value>
+    <value>Modifica i dettagli del tuo pacchetto qui.</value>
   </data>
   <data name="PackName" xml:space="preserve">
-    <value>Nazwa paczki</value>
+    <value>Nome del pacchetto</value>
   </data>
   <data name="PackDescription" xml:space="preserve">
-    <value>Opis paczki</value>
+    <value>Descrizione del pacchetto</value>
   </data>
   <data name="EditDetails" xml:space="preserve">
-    <value>Edytuj szczegóły</value>
+    <value>Modifica dettagli</value>
   </data>
   <data name="EditMods" xml:space="preserve">
-    <value>Edytuj mody</value>
+    <value>Modifica mod</value>
   </data>
   <data name="AvailableMods" xml:space="preserve">
-    <value>Dostępne mody</value>
+    <value>Mod disponibili</value>
   </data>
   <data name="SelectedMods" xml:space="preserve">
-    <value>Wybrane mody</value>
+    <value>Mod selezionate</value>
   </data>
   <data name="EnableMod" xml:space="preserve">
-    <value>Aktywuj mod</value>
+    <value>Attiva mod</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>Deaktywuj mod</value>
+    <value>Disattiva mod</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>Użyj stałej wersji</value>
+    <value>Usa versione fissata</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
-    <value>Nie używaj najnowszej wersji modlinks, zamiast tego użyj bieżącej wersji</value>
+    <value>Utilizza la versione corrente invece dell'ultima versione dei modlink</value>
   </data>
   <data name="UseModlinksVersion" xml:space="preserve">
-    <value>Użyj wersji Modlinks</value>
+    <value>Usa la versione dei modlink</value>
   </data>
   <data name="ModlinksVersion_Tooltip" xml:space="preserve">
-    <value>Użyj najnowszej wersji modlinks</value>
+    <value>Usa l'ultima versione dei modlink</value>
   </data>
   <data name="EnterSharingCode" xml:space="preserve">
-    <value>Wprowadź kod udostępniania:</value>
+    <value>Inserisci il codice di condivisione:</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Anuluj</value>
+    <value>Annulla</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Potwierdź</value>
+    <value>Conferma</value>
   </data>
   <data name="AvailablePacks" xml:space="preserve">
-    <value>Dostępne paczki:</value>
+    <value>Pacchetti disponibili:</value>
   </data>
   <data name="RevertToPreviousMods" xml:space="preserve">
-    <value>Przywróć do poprzednich modów</value>
+    <value>Ripristina alle mod precedenti</value>
   </data>
   <data name="PackUpdatePrompt" xml:space="preserve">
-    <value>Niektóre mody w paczce są nieaktualne, czy chcesz je zaktualizować?</value>
+    <value>Alcune mod nel pacchetto non sono aggiornate, vuoi aggiornarle?</value>
   </data>
   <data name="LoadPackAdditive" xml:space="preserve">
-    <value>Załaduj bez zastępowania</value>
+    <value>Carica senza sostituire</value>
   </data>
   <data name="LoadPackAdditive_Explanation" xml:space="preserve">
-    <value>Załaduj tę paczkę bez zastępowania modów w bieżącym folderze modów</value>
+    <value>Carica questo pacchetto senza sostituire le mod attualmente presenti</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Sprawdź dostępność aktualizacji</value>
+    <value>Controlla aggiornamenti</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Otwórz folder z logami</value>
+    <value>Apri la cartella dei log</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Włącz/Wyłącz API modowania — modyfikacja plików gry, który pozwala na uruchamianie modów</value>
+    <value>Attiva/disattiva la modding API, la modifica ai file di gioco che permette di caricare tutte le altre mod</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>Otwórz plik readme</value>
+    <value>Visualizza Readme</value>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Nieztagowane</value>
+    <value>Senza etichette</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Wprowadź format do lustra Github (potrzebuje przeładowania, aby zacząć działać)</value>
+    <value>Inserisci il formato del mirror di GitHub. È necessario riavviare Lumafly perché faccia effetto</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
+    <value>Discord</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Użyj lustra Github</value>
+    <value>Usa un mirror di GitHub</value>
   </data>
 </root>

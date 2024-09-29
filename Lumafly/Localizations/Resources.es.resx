@@ -529,10 +529,10 @@
     <value>Sitio web\n</value>
   </data>
   <data name="XAML_InfoLinkGithub" xml:space="preserve">
-    <value>Github\n</value>
+    <value>GitHub\n</value>
   </data>
   <data name="XAML_InfoLinkReadme" xml:space="preserve">
-    <value>Readme\n</value>
+    <value>README</value>
   </data>
   <data name="XAML_InfoLinkHKMM" xml:space="preserve">
     <value>HK Gestor\nde mods</value>
@@ -607,7 +607,7 @@
     <value>Importar pack</value>
   </data>
   <data name="XAML_Packs" xml:space="preserve">
-    <value>Packs</value>
+    <value>Paquetes</value>
   </data>
   <data name="XAML_LoadPack" xml:space="preserve">
     <value>Cargar pack</value>
@@ -709,13 +709,14 @@
     <value>Cargar este pack sin reemplazar los mods en la carpeta de mods actual</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Buscar Las Actualizaciones</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Abrir Archivo de Registro</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Activar/Desactivar La API de 
+Modificación, la reforma de los archivos del juego que permiten que se ejecuten las modificaciones</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
     <value>View Readme</value>
