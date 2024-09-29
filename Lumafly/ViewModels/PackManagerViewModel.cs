@@ -105,13 +105,19 @@ public partial class PackManagerViewModel : ViewModelBase
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
 
-        await _LoadPack(pack, false);
+        await DisplayErrors.DoActionAfterConfirmation(true,
+            () => DisplayErrors.DisplayAreYouSureWarning(
+                "Loading a pack will result in your old mods being removed. Are you sure you want to continue?"),
+            async () => await _LoadPack(pack, false));
     }
     public async Task LoadPackAdditive(object packObj)
     {
         var pack = packObj as Pack ?? throw new InvalidOperationException("Cannot load an object that is not a pack");
 
-        await _LoadPack(pack, true);
+        await DisplayErrors.DoActionAfterConfirmation(true,
+            () => DisplayErrors.DisplayAreYouSureWarning(
+                "Loading a pack will result in your old mods being removed. Are you sure you want to continue?"),
+            async () => await _LoadPack(pack, true));
     }
     
     public async Task CreateNewPack()

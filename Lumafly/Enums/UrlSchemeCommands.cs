@@ -12,4 +12,5 @@ public enum UrlSchemeCommands
     removeGlobalSettings,
     launch,
     modpack,
+    location,
 }

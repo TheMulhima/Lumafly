@@ -173,10 +173,33 @@ namespace Lumafly.ViewModels
             // so only "installed" and "enabled" are shown so we force set the filter state to installed
             if (_lumaflyMode == LumaflyMode.Offline) SelectModsWithFilter(ModFilterState.Installed);
 
+            Dispatcher.UIThread.InvokeAsync(async () => await HandleLocationURLScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleDownloadUrlScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleForceUpdateAllScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleRemoveGlobalSettingScheme());
             Dispatcher.UIThread.InvokeAsync(async () => await HandleOutdatedPackMods());
+        }
+
+        private async Task HandleLocationURLScheme()
+        {
+            if (_urlSchemeHandler is { Handled: false, UrlSchemeCommand: UrlSchemeCommands.location })
+            {
+                var sucess = true;
+                if (_urlSchemeHandler.Data.ToLower() == "mods") 
+                    OpenModsDirectory();
+                else if(_urlSchemeHandler.Data.ToLower() == "saves")
+                    OpenSavesDirectory();
+                else if (_urlSchemeHandler.Data.ToLower() == "modlog")
+                    OpenModlog();
+                else
+                    sucess = false;
+
+                await _urlSchemeHandler.ShowConfirmation(
+                    title: "Opened folder from command",
+                    message: sucess ? $"Lumafly has opened {_urlSchemeHandler.Data}" : $"Lumafly was unable to open {_urlSchemeHandler.Data}. Please check if the command is correct",
+                    sucess ? Icon.Success : Icon.Warning);
+
+            }
         }
 
         private async Task HandleDownloadUrlScheme()
@@ -657,6 +680,22 @@ namespace Lumafly.ViewModels
             try
             {
                 Process.Start(new ProcessStartInfo(GlobalSettingsFinder.GetSavesFolder()) {
+                    UseShellExecute = true 
+                });
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Failed to open saves directory. {e}");
+            }
+        }
+        
+        public void OpenModlog()
+        {
+            // try catch just incase it doesn't exist
+            try
+            {
+                var modlog = Path.Combine(GlobalSettingsFinder.GetSavesFolder(), "ModLog.txt");
+                Process.Start(new ProcessStartInfo(modlog) {
                     UseShellExecute = true 
                 });
             }

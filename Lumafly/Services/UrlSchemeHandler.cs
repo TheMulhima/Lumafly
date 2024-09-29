@@ -44,6 +44,7 @@ public class UrlSchemeHandler : IUrlSchemeHandler
             {UrlSchemeCommands.useOfficialModLinks, null},
             {UrlSchemeCommands.launch, s => Data = s},
             {UrlSchemeCommands.modpack, s => Data = s},
+            {UrlSchemeCommands.location, s => Data = s},
         };
     }
 

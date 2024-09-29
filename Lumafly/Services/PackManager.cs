@@ -51,7 +51,7 @@ public class PackManager : IPackManager
         _settings = settings;
         _onlineTextStorage = onlineTextStorage;
         
-        _items = db.Items.ToDictionary(x => x.Name, x => x);
+        _items = db.Items.DistinctBy(x => x.Name).ToDictionary(x => x.Name, x => x);
 
         _packList = new SortableObservableCollection<Pack>(FindAvailablePacks());
         _packList.SortBy((pack1, pack2) => string.CompareOrdinal(pack1.Name, pack2.Name));

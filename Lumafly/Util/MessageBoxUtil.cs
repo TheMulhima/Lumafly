@@ -1,6 +1,7 @@
 using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Lumafly.Views.Windows;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
@@ -27,7 +28,8 @@ internal static class MessageBoxUtil {
             ContentMessage = text,
             ButtonDefinitions = @enum,
             Icon = icon,
-            WindowStartupLocation = windowStartupLocation
+            WindowStartupLocation = windowStartupLocation,
+            MaxWidth = AvaloniaUtils.GetMainWindow().Width,
         });
 
     static MessageBoxUtil() =>
