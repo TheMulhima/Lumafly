@@ -104,6 +104,13 @@
                         </StackPanel>
                     </Button>
                     <Button
+                        Command="{Binding OpenModlog}">
+                        <StackPanel>
+                            <PathIcon Data="{StaticResource book_database_regular}" />
+                            <TextBlock Text="{ext:Localize XAML_Modlog}" />
+                        </StackPanel>
+                    </Button>
+                    <Button
                         Command="{Binding ManuallyInstallMod}">
                         <StackPanel>
                             <PathIcon Data="{StaticResource arrow_download_regular}" />
