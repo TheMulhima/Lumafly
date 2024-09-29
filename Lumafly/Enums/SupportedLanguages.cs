@@ -13,6 +13,7 @@ public enum SupportedLanguages
     pl,
     ja,
     nl,
+    it,
 }
 
 public static class SupportedLanguagesInfo
@@ -28,6 +29,7 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.pl, "pl-PL" },
         { SupportedLanguages.ja, "ja-JP" },
         { SupportedLanguages.nl, "nl-NL" },
+        { SupportedLanguages.it, "it-IT" },
     };
 
     public static readonly Dictionary<SupportedLanguages, string> LocalizedLanguageOptions = new()
@@ -41,5 +43,6 @@ public static class SupportedLanguagesInfo
         { SupportedLanguages.pl, "Polski" },
         { SupportedLanguages.ja, "日本語" },
         { SupportedLanguages.nl, "Nederlands" },
+        { SupportedLanguages.it, "Italian" },
     };
 }
