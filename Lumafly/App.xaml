@@ -5,6 +5,11 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
+    <NativeMenu.Menu>
+        <NativeMenu>
+            <NativeMenuItem Header="Lumafly" />
+        </NativeMenu>
+    </NativeMenu.Menu>
 
     <Application.Styles>
         <FluentTheme DensityStyle="Compact">
