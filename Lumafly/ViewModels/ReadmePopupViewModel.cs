@@ -14,6 +14,8 @@ namespace Lumafly.ViewModels
         public bool IsRequestingReleaseNotes { get; }
         private static readonly HttpClient _hc;
         private string requestName => IsRequestingReleaseNotes ? "Release Notes" : "Readme";
+
+        private string ReadmeLink = "";
         
         public ReadmePopupViewModel(ModItem modItem, bool requestingReleaseNotes = false)
         {
@@ -26,13 +28,21 @@ namespace Lumafly.ViewModels
                 
                 if (displayString is not null)
                 {
-                    string pattern = @"(?<!\([^)]*)https://\S+";
+                    string rawLinkPattern = @"(?<!\([^)]*)https://\S+";
 
                     // Replace matched links with Markdown syntax
-                    Readme = Regex.Replace(displayString, pattern, match => {
+                    displayString = Regex.Replace(displayString, rawLinkPattern, match => {
                         string link = match.Value;
                         return $"[{link}]({link})";
                     });
+                    
+                    string anchorPattern = @"\[(.*?)\]\(#(.*?)\)";
+                    string anchorPatternReplacement = $"[$1]({ReadmeLink}#$2)";
+                    
+                    displayString = Regex.Replace(displayString, anchorPattern, anchorPatternReplacement);
+                    
+                    Readme = displayString;
+
                 }
                 else
                 {
@@ -82,6 +92,8 @@ namespace Lumafly.ViewModels
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     JsonDocument json = JsonDocument.Parse(jsonResponse);
                     json.RootElement.TryGetProperty("download_url", out var downloadUrlProperty);
+
+                    ReadmeLink = json.RootElement.GetProperty("html_url").GetString();
 
                     // Make a request to fetch the README content
                     HttpResponseMessage readmeResponse = await _hc.GetAsync(downloadUrlProperty.GetString());
