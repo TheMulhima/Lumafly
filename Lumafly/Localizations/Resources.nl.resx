@@ -727,7 +727,7 @@
     <value>Enter formaat naar GitHub Mirror. Herlaad om het toe te passen</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord</value>
+    <value>Discord\n</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Gebruik GitHub Mirror</value>

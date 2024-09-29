@@ -727,7 +727,7 @@
     <value>Enter format to github mirror. Needs a reload to take effect</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord</value>
+    <value>Discord\n</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Use Github Mirror</value>
