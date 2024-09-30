@@ -732,4 +732,7 @@
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Use Github Mirror</value>
   </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
+  </data>
 </root>
