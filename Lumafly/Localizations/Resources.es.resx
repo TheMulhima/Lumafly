@@ -728,9 +728,12 @@ Modificación, la reforma de los archivos del juego que permiten que se ejecuten
     <value>Enter format to github mirror. Needs a reload to take effect</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
+    <value>Discord</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Use Github Mirror</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
   </data>
 </root>
