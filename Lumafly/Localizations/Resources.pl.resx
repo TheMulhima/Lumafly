@@ -727,9 +727,12 @@
     <value>Wprowadź format do lustra Github (potrzebuje przeładowania, aby zacząć działać)</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
-    <value>Discord\n</value>
+    <value>Discord</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Użyj lustra Github</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
   </data>
 </root>

@@ -361,13 +361,13 @@
     <value>Modifica le impostazioni della mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Caricamento delle nuove mod dai modlink...</value>
+    <value>Caricamento delle nuove mod dal modlink...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Lumafly non è riuscito a caricare le nuove mod dai modlink.</value>
+    <value>Lumafly non è riuscito a caricare le nuove mod dal modlink.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
-    <value>La causa potrebbe essere la connessione internet scarsa o assente. Controlla la connessione e riprova</value>
+    <value>La causa potrebbe essere la connessione internet scarsa o assente. Si prega di controllare e riprovare</value>
   </data>
   <data name="MVVM_DependentsWarning_Header" xml:space="preserve">
     <value>Attenzione! Questa mod è necessaria ad altre mod per funzionare!</value>
@@ -412,7 +412,7 @@
     <value>Espansione</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Recupero delle mod dai modlink...</value>
+    <value>Recupero delle mod dal modlink...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
     <value>In attesa di risposta da GitHub...</value>
@@ -505,10 +505,10 @@
     <value>Usa modlink personalizzati</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value>Normalmente Lumafly carica la sua lista di mod dai modlink ufficiali. Per utilizzarne uno personalizzato, inserire qui il suo URI (accetta collegamenti https o file nel formato file://{filepath}).\nIn caso di link vuoto o non valido, verranno utilizzati i modlink ufficiali</value>
+    <value>Normalmente Lumafly carica la sua lista di mod dai modlink ufficiali. Per utilizzarne uno personalizzato, inserire qui il suo URI (accetta collegamenti https o file nel formato://{filepath}).\nIn caso di link vuoto o non valido, verranno utilizzati i modlink ufficiali</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
-    <value>Inserisci il link ai modlink personalizzati. È necessario riavviare Lumafly perché abbia effetto</value>
+    <value>Inserisci il link ai modlink personalizzati. È necessario riavviare Lumafly perché faccia effetto</value>
   </data>
   <data name="XAML_ReloadLumafly" xml:space="preserve">
     <value>Riavvia Lumafly</value>
@@ -544,7 +544,7 @@
     <value>Crea mod\n</value>
   </data>
   <data name="XAML_InfoLinkTutorial" xml:space="preserve">
-    <value>Tutorial\nal modding</value>
+    <value>Tutorial al modding\n</value>
   </data>
   <data name="XAML_LaunchVanilla" xml:space="preserve">
     <value>Avvia il gioco vanilla</value>
@@ -715,7 +715,7 @@
     <value>Apri la cartella dei log</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Attiva/disattiva la modding API, la modifica ai file di gioco che permette di caricare tutte le altre mod</value>
+    <value>Abilita/disabilita la modding API, la modifica ai file di gioco che permette di caricare tutte le altre mod</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
     <value>Visualizza Readme</value>
@@ -731,5 +731,8 @@
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Usa un mirror di GitHub</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
   </data>
 </root>

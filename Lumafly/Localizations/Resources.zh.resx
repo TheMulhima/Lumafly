@@ -724,12 +724,15 @@
     <value>无标签</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Enter format to github mirror. Needs a reload to take effect</value>
+    <value>输入 Github 镜像网址格式。需要重新加载才能生效</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord\n</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Use Github Mirror</value>
+    <value>使用Github镜像</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
   </data>
 </root>
