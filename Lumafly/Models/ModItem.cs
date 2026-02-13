@@ -278,6 +278,11 @@ namespace Lumafly.Models
             }.ShowDialog(AvaloniaUtils.GetMainWindow());
         }
 
+        public bool IsLibraryMod()
+        {
+            return Tags.Contains("Library");
+        }
+
         public static ModItem Empty(
             ISettings? settings = null,
             ModState? state = null,
