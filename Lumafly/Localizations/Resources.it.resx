@@ -352,7 +352,7 @@
     <value>Novità</value>
   </data>
   <data name="XAML_CopyError" xml:space="preserve">
-    <value>Errore di copia</value>
+    <value>Copia errore</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
     <value>Clicca per mostrare l'errore completo</value>
