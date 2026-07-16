@@ -81,30 +81,13 @@ namespace Lumafly.ViewModels
         {
             try
             {
-                var uri = new Uri(_modItem.Repository);
-
-                string apiUrl = $"https://api.github.com/repos/{uri.AbsolutePath.TrimEnd('/').TrimStart('/')}/readme";
-
-                HttpResponseMessage response = await _hc.GetAsync(apiUrl);
-
-                if (response.IsSuccessStatusCode)
+                HttpResponseMessage readmeResponse = await _hc.GetAsync(_modItem.RawReadMeURL);
+                if (readmeResponse.IsSuccessStatusCode)
                 {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    JsonDocument json = JsonDocument.Parse(jsonResponse);
-                    json.RootElement.TryGetProperty("download_url", out var downloadUrlProperty);
-
-                    ReadmeLink = json.RootElement.GetProperty("html_url").GetString();
-
-                    // Make a request to fetch the README content
-                    HttpResponseMessage readmeResponse = await _hc.GetAsync(downloadUrlProperty.GetString());
-
-                    if (readmeResponse.IsSuccessStatusCode)
-                    {
-                        return await readmeResponse.Content.ReadAsStringAsync();
-                    }
+                    return await readmeResponse.Content.ReadAsStringAsync();
                 }
 
-                throw new Exception($"Failed to fetch readme for {_modItem.Name} from {apiUrl}");
+                throw new Exception($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}");
             }
             catch
             {

@@ -55,6 +55,7 @@ namespace Lumafly.Services
                     description: mod.Description,
                     repository: mod.Repository,
                     issues: mod.Issues,
+                    rawReadMeURL: mod.ReadMePath,
                     dependencies: mod.Dependencies,
                     
                     tags: mod.Tags,
