@@ -82,8 +82,9 @@ public partial class InfoViewModel : ViewModelBase
 
             var exeDetails = GetExecutableDetails();
 
-            if (exeDetails.isSteam)
+            if (exeDetails.name is hollow_knight or hollow_knight + ".exe")
             {
+                // assumption: hollow_knight is only used in steam. So might as well make steam run it
                 Process.Start(new ProcessStartInfo("steam://rungameid/367520")
                 {
                     UseShellExecute = true
@@ -109,7 +110,7 @@ public partial class InfoViewModel : ViewModelBase
         IsLaunchingGame = false;
     }
 
-    private (string path, string name, bool isSteam) GetExecutableDetails()
+    private (string path, string name) GetExecutableDetails()
     {
         string exeName;
         
@@ -139,16 +140,8 @@ public partial class InfoViewModel : ViewModelBase
 
         if (hkExeFolder is null) throw new Exception("Hollow Knight executable not found");
         string exePath = hkExeFolder.FullName;
-        
-        // check if path contains steam_api64.dll
-        var isSteam = File.Exists(Path.Combine(
-            managedParent.FullName,
-            "Plugins",
-            "x86_64",
-            "steam_api64.dll"
-        ));
-        
-        return (exePath, exeName, isSteam);
+
+        return (exePath, exeName);
     }
 
     public async Task FetchAdditionalInfo()
