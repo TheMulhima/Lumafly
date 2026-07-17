@@ -79,6 +79,14 @@ namespace Lumafly.ViewModels
         
         private async Task<string?> FetchReadme()
         {
+            if (string.IsNullOrEmpty(_modItem.RawReadMeURL))
+                return await FetchReadmeFromGithubRepo();
+
+            return await FetchReadmeFromRawURL();
+        }
+
+        private async Task<string?> FetchReadmeFromGithubRepo()
+        {
             try
             {
                 var uri = new Uri(_modItem.Repository);
@@ -105,6 +113,24 @@ namespace Lumafly.ViewModels
                 }
 
                 throw new Exception($"Failed to fetch readme for {_modItem.Name} from {apiUrl}");
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private async Task<string?> FetchReadmeFromRawURL()
+        {
+            try
+            {
+                HttpResponseMessage readmeResponse = await _hc.GetAsync(_modItem.RawReadMeURL);
+                if (readmeResponse.IsSuccessStatusCode)
+                {
+                    return await readmeResponse.Content.ReadAsStringAsync();
+                }
+
+                throw new Exception($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}");
             }
             catch
             {

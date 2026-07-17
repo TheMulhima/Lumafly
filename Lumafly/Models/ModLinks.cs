@@ -26,6 +26,7 @@ namespace Lumafly.Models
 
         public string Repository { get; set; } = null!;
         public string Issues { get; set; } = null!;
+        public string ReadMe { get; set; } = null!;
 
         [XmlElement]
         public Link? Link
