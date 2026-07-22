@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -132,8 +133,9 @@ namespace Lumafly.ViewModels
 
                 throw new Exception($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}");
             }
-            catch
+            catch (Exception e)
             {
+                Trace.TraceWarning($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}: {e}");
                 return null;
             }
         }
