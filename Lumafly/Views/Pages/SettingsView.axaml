@@ -17,12 +17,19 @@
 			ColumnDefinitions="Auto * Auto"
 			RowDefinitions="Auto Auto Auto Auto Auto Auto Auto Auto Auto Auto *">
 			
-			<TextBlock
+			<StackPanel
 				Grid.Column="0"
 				Grid.Row="0"
 				Margin="0 15"
 				VerticalAlignment="Center"
-				Text="{ext:Localize XAML_GamePath}"/>
+				Orientation="Vertical">
+				<TextBlock Text="{ext:Localize XAML_GamePath}"/>
+				<TextBlock
+					Text="{Binding GameVersion}"
+					IsVisible="{Binding GameVersion, Converter={x:Static ObjectConverters.IsNotNull}}"
+					Opacity="0.6"
+					FontSize="11"/>
+			</StackPanel>
 			<TextBlock
 				Grid.Column="0"
 				Grid.Row="1"
