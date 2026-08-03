@@ -6,11 +6,17 @@
         x:Class="Lumafly.Views.Windows.MainWindow"
         Icon="/Assets/Lumafly.ico"
         Title="Lumafly"
+        
 		xmlns:vm="using:Lumafly.ViewModels"
 		ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaTitleBarHeightHint="-1"
         x:DataType="vm:MainWindowViewModel"
         TransparencyLevelHint="Transparent">
+  <Window.Styles>
+    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel > TextBlock">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </Window.Styles>
     <Border 
 		CornerRadius="{CompiledBinding CornerRadius}" 
 		BorderBrush="{CompiledBinding BorderBrush}" 

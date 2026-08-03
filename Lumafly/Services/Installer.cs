@@ -290,6 +290,24 @@ namespace Lumafly.Services
 
             ExtractZip(data, managed);
 
+            if (was_vanilla)
+            {
+                // Check version
+                _checkValidityOfAssembly.GetAPIVersion(Current, out var currentGameVersion);
+                _checkValidityOfAssembly.GetAPIVersion(Vanilla, out var vanillaGameVersion);
+
+                if (currentGameVersion != vanillaGameVersion)
+                {
+                    Trace.TraceError($"Mismatched Game Version while installing api. {Current}({currentGameVersion}) -> {Vanilla}({Vanilla})");
+
+                    // Restore
+                    _fs.File.Copy(Path.Combine(managed, Vanilla), Path.Combine(managed, Current), true);
+                    await _installed.RecordApiState(new InstalledState(false, new(), false));
+
+                    throw new InvalidOperationException("Mismatched Game Version while installing api.");
+                }
+            }
+
             await _installed.RecordApiState(new InstalledState(true, new Version(ver, 0, 0), true));
         }
 
@@ -317,7 +335,10 @@ namespace Lumafly.Services
 
             var st = (InstalledState) _installed.ApiInstall;
             
-            if (st.Enabled && !_installed.HasVanilla) return;
+            if (st.Enabled && !_installed.HasVanilla)
+            {
+                throw new InvalidOperationException("Invalid Vanilla.");
+            }
 
             var (move_to, move_from) = st.Enabled
                 // If the api is enabled, move the current (modded) dll
@@ -326,6 +347,15 @@ namespace Lumafly.Services
                 // Otherwise, we're enabling the api, so move the current (vanilla) dll
                 // And take from our .m file
                 : (Vanilla, Modded);
+
+            _checkValidityOfAssembly.GetAPIVersion(Current, out var currentGameVersion);
+            _checkValidityOfAssembly.GetAPIVersion(move_from, out var fromGameVersion);
+
+            if(currentGameVersion != fromGameVersion)
+            {
+                Trace.TraceError($"Mismatched Game Version: {move_from}({fromGameVersion}) -> {Current}({currentGameVersion})");
+                throw new InvalidOperationException("Mismatched Game Version.");
+            }
             
             _fs.File.Move(Path.Combine(managed, Current), Path.Combine(managed, move_to), true);
             _fs.File.Move(Path.Combine(managed, move_from), Path.Combine(managed, Current), true);
