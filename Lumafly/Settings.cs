@@ -32,6 +32,7 @@ namespace Lumafly
         public string CustomModlinksUri { get; set; } = string.Empty;
         public bool UseGithubMirror { get; set; }
         public string GithubMirrorFormat { get; set; } = string.Empty;
+        public Version? GameVersion { get; set; }
         
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }

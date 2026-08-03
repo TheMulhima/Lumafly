@@ -1,4 +1,5 @@
 using Lumafly.Enums;
+using System;
 using System.IO;
 
 namespace Lumafly.Interfaces
@@ -15,7 +16,7 @@ namespace Lumafly.Interfaces
 
         string ManagedFolder { get; set; }
         string CacheFolder { get; }
-
+        Version? GameVersion { get; set; }
         bool RequiresWorkaroundClient { get; set; }
         
         string ModsFolder     => Path.Combine(ManagedFolder, "Mods");

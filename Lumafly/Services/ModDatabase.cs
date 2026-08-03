@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Avalonia;
 using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Util;
@@ -26,7 +27,33 @@ namespace Lumafly.Services
         
         public static string GetModlinksUri(ISettings settings) => LINKS_BASE + "/ModLinks.xml";
 
-        private static string GetAPILinksUri(ISettings settings) => LINKS_BASE + "/ApiLinks.xml";
+        private static string GetAPILinksUri(ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly)
+        {
+            if(settings.GameVersion == null)
+            {
+                checkValidityOfAssembly.GetAPIVersion(Installer.Current, out var gameVersionString);
+
+                if(!Version.TryParse(gameVersionString, out var gameVersion))
+                {
+                    throw new InvalidOperationException("Invalid game file");
+                }
+
+                settings.GameVersion = gameVersion;
+            }
+
+            if(settings.GameVersion >= new Version("1.5.12620"))
+            {
+                // New modding api (latest)
+                return LINKS_BASE + "/ApiLinks.xml";
+            }
+            else if(settings.GameVersion == new Version("1.5.78.11833"))
+            {
+                // Old modding api 
+                // See https://discord.com/channels/879125729936298015/913460282750291968/1533483165845557349
+                return "https://raw.githubusercontent.com/hk-modding/modlinks/6f68dbcce825b6b0e5464e36fd5ad10fc9ba72fb/ApiLinks.xml";
+            }
+            throw new NotSupportedException($"The current version of the game is not supported. ({settings.GameVersion})");
+        }
 
         internal const int TIMEOUT = 30_000;
 
@@ -101,12 +128,14 @@ namespace Lumafly.Services
         public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, string modlinks, string apilinks) 
             : this(mods, settingsFinder, FromString<ModLinks>(modlinks), FromString<ApiLinks>(apilinks)) { }
         
-        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc, ISettings settings, bool fetchOfficial = true)
+        public static async Task<(ModLinks, ApiLinks)> FetchContent(HttpClient hc, 
+            ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly,
+            bool fetchOfficial = true)
         {
             // although slower to fetch one by one, prevents silent errors and hence resulting in 
             // empty screen with no error
             ModLinks ml = await FetchModLinks(hc, settings, fetchOfficial);
-            ApiLinks al = await FetchApiLinks(hc, settings);
+            ApiLinks al = await FetchApiLinks(hc, settings, checkValidityOfAssembly);
 
             return (ml, al);
         }
@@ -127,9 +156,10 @@ namespace Lumafly.Services
             return obj;
         }
 
-        private static async Task<ApiLinks> FetchApiLinks(HttpClient hc, ISettings settings)
+        private static async Task<ApiLinks> FetchApiLinks(HttpClient hc, ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly)
         {
-            return FromString<ApiLinks>(await FetchWithFallback(hc, settings, new Uri(GetAPILinksUri(settings)), new Uri(FALLBACK_APILINKS_URI)));
+            return FromString<ApiLinks>(await FetchWithFallback(hc, settings, new Uri(GetAPILinksUri(settings, checkValidityOfAssembly)), 
+                new Uri(FALLBACK_APILINKS_URI)));
         }
         
         private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings settings, bool fetchOfficial)

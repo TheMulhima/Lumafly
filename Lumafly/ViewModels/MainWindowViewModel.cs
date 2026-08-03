@@ -138,6 +138,7 @@ namespace Lumafly.ViewModels
             }
 
             HttpClient hc = new HttpClient();
+            CheckValidityOfAssembly checkValidityOfAssembly = new(fs, settings);
             LumaflyMode lumaflyMode;
             
             var modLinksCache = Path.Combine(Settings.ConfigFolderPath, "Modlinks.xml");
@@ -155,7 +156,7 @@ namespace Lumafly.ViewModels
                             settings.RequiresWorkaroundClient
                                 ? HttpSetting.OnlyWorkaround
                                 : HttpSetting.TryBoth,
-                            f => ModDatabase.FetchContent(f, settings, fetchOfficial: false),
+                            f => ModDatabase.FetchContent(f, settings, checkValidityOfAssembly, fetchOfficial: false),
                             AddSettings);
                     }
                     catch (InvalidModlinksException)
@@ -174,7 +175,7 @@ namespace Lumafly.ViewModels
                     settings.RequiresWorkaroundClient
                         ? HttpSetting.OnlyWorkaround
                         : HttpSetting.TryBoth,
-                    f => ModDatabase.FetchContent(f, settings, fetchOfficial: true),
+                    f => ModDatabase.FetchContent(f, settings, checkValidityOfAssembly, fetchOfficial: true),
                     AddSettings);
 
 
@@ -247,7 +248,7 @@ namespace Lumafly.ViewModels
               .AddSingleton<IAppUpdater>(_ => appUpdater)
               
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
-              .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
+              .AddSingleton<ICheckValidityOfAssembly>(_ => checkValidityOfAssembly)
               .AddSingleton<IOnlineTextStorage, PastebinTextStorage>()
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
@@ -579,6 +580,8 @@ namespace Lumafly.ViewModels
             {
                 Trace.TraceError(e.ToString());
                 Trace.Flush();
+
+                await DisplayErrors.DisplayGenericError(e.Message, e);
 
                 if (Debugger.IsAttached)
                     Debugger.Break();
