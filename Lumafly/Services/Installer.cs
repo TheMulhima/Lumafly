@@ -705,14 +705,14 @@ namespace Lumafly.Services
         public async Task<bool> CheckAPI()
         {
             _installed.HasVanilla =
-                _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla);
+                _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla, Current);
             
-            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current);
+            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current, out _);
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
-                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded);
+                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded, out _);
             }
             
             if (current_version == null)
