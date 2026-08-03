@@ -33,7 +33,7 @@ namespace Lumafly
         public bool UseGithubMirror { get; set; }
         public string GithubMirrorFormat { get; set; } = string.Empty;
         public Version? GameVersion { get; set; }
-        
+
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
         public bool LowStorageMode { get; set; } = false;
@@ -55,7 +55,7 @@ namespace Lumafly
                         size += FileUtil.GetAllFilesInDirectory(dir.FullName).Sum(x => x.Length);
                     }
                 }
-                
+
                 return $"{size / 1024 / 1024} MB";
             }
         }
@@ -90,7 +90,7 @@ namespace Lumafly
         }
         .ToImmutableList();
         // @formatter:on
-        
+
         public static string ConfigFolderPath => Path.Combine
         (
             Environment.GetFolderPath
@@ -100,14 +100,14 @@ namespace Lumafly
             ),
             "HKModInstaller"
         );
-        
+
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
         public string CacheFolder => Path.Combine(ConfigFolderPath, "HKInstallerCache");
 
         internal Settings(string path)
         {
             ManagedFolder = path;
-            
+
             var culture = Thread.CurrentThread.CurrentUICulture;
             if (Enum.TryParse(culture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage))
                 PreferredLanguage = preferredLanguage;
@@ -154,7 +154,7 @@ namespace Lumafly
 
             if (TryDetectFromRegistry(out path))
                 return path;
-            
+
             // since it cant detect from registry assume its because it can't access the registry
             await DisplayErrors.AskForAdminReload("Path was not automatically found from registry.");
 
@@ -269,8 +269,7 @@ namespace Lumafly
         {
             string content = JsonSerializer.Serialize(this, new JsonSerializerOptions()
             {
-                WriteIndented = true,
-                
+                WriteIndented = true
             });
 
             GetOrCreateDirPath();
