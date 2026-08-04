@@ -389,8 +389,9 @@ public class PackManager : IPackManager
     private async Task EnsureGameClosed()
     {
         static bool IsHollowKnight(Process p) => (
-            p.ProcessName.StartsWith("hollow_knight")
-            || p.ProcessName.StartsWith("Hollow Knight")
+              (p.ProcessName.StartsWith("hollow_knight")
+            || p.ProcessName.StartsWith("Hollow Knight"))
+            && p.ProcessName != "Hollow Knight Silksong"
         );
             
         if (Process.GetProcesses().FirstOrDefault(IsHollowKnight) is { } proc)

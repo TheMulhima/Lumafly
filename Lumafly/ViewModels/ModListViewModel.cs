@@ -983,8 +983,9 @@ namespace Lumafly.ViewModels
         public async Task InternalModDownload(ModItem item, Func<IInstaller, Action<ModProgressArgs>, Task> downloader)
         {
             static bool IsHollowKnight(Process p) => (
-                   p.ProcessName.StartsWith("hollow_knight")
-                || p.ProcessName.StartsWith("Hollow Knight")
+                  (p.ProcessName.StartsWith("hollow_knight")
+                || p.ProcessName.StartsWith("Hollow Knight"))
+                && p.ProcessName != "Hollow Knight Silksong"
             );
             
             if (Process.GetProcesses().FirstOrDefault(IsHollowKnight) is { } proc)
