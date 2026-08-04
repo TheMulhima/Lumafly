@@ -15,7 +15,7 @@
 			ShowGridLines="False"
 			Margin="20 10"
 			ColumnDefinitions="Auto * Auto"
-			RowDefinitions="Auto Auto Auto Auto Auto Auto Auto Auto Auto *">
+			RowDefinitions="Auto Auto Auto Auto Auto Auto Auto Auto Auto Auto *">
 			
 			<TextBlock
 				Grid.Column="0"
@@ -193,6 +193,25 @@
 				Watermark="{ext:Localize XAML_GithubMirrorFormatWatermark}"
 				UseFloatingWatermark="True"
 				Text="{Binding GithubMirrorFormat}"
+				AcceptsReturn="False"/>
+			
+			<TextBlock
+				Grid.Column="0"
+				Grid.Row="9"
+				Margin="0 15"
+				VerticalAlignment="Center"
+				Text="{ext:Localize XAML_LaunchArguments}"/>
+
+			<TextBox
+				Grid.Column="1"
+				Grid.ColumnSpan="2"
+				Grid.Row="9"
+				Margin="10 0 5 0"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
+				Watermark="{ext:Localize XAML_LaunchArguments}"
+				UseFloatingWatermark="True"
+				Text="{Binding LaunchArgs}"
 				AcceptsReturn="False"/>
 
 			<Grid

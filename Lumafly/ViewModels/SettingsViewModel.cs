@@ -137,6 +137,17 @@ namespace Lumafly.ViewModels
                 RaisePropertyChanged(nameof(AskForReload));
             }
         }
+        
+        public string LaunchArgs
+        {
+            get => _settings.LaunchArgs;
+            set
+            {
+                _settings.LaunchArgs = value;
+                _settings.Save();
+                RaisePropertyChanged(nameof(LaunchArgs));
+            }
+        }
 
         public string ExtraSpaceTaken => string.Format(Resources.XAML_CacheDownloads_Explanation, _settings.ExtraSpaceTaken);
         

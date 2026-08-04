@@ -735,4 +735,7 @@
   <data name="XAML_Modlog" xml:space="preserve">
     <value>Open ModLog.txt</value>
   </data>
+  <data name="XAML_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
+  </data>
 </root>

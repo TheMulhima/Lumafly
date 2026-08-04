@@ -94,6 +94,7 @@ public partial class InfoViewModel : ViewModelBase
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = exeDetails.name,
+                    Arguments=_settings.LaunchArgs,
                     WorkingDirectory = exeDetails.path,
                     UseShellExecute = true,
                 });

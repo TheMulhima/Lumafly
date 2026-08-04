@@ -1903,5 +1903,14 @@ namespace Lumafly {
                 return ResourceManager.GetString("XAML_WarnBeforeRemovingDependentMods", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Specify the launch args for the game
+        /// </summary>
+        internal static string XAML_LaunchArguments {
+            get {
+                return ResourceManager.GetString("XAML_LaunchArguments", resourceCulture);
+            }
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace Lumafly
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
         public bool LowStorageMode { get; set; } = false;
+        public string LaunchArgs { get; set; } = string.Empty;
         public string ExtraSpaceTaken
         {
             get
