@@ -6,4 +6,4 @@ if not exist "%~dp0out\*" (
     del /Q /F "%~dp0out\*"
 )
 
-copy "%~dp0bin\Release\net7.0\win-x64\publish\Lumafly.AU.exe" "%~dp0out\Lumafly.AU.exe"
+copy "%~dp0bin\Release\net9.0\win-x64\publish\Lumafly.AU.exe" "%~dp0out\Lumafly.AU.exe"

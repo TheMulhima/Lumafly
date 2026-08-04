@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Lumafly-Windows
-        path: Lumafly/bin/Release/net7.0/win-x64/publish/
+        path: Lumafly/bin/Release/net9.0/win-x64/publish/
 
   build-linux:
     runs-on: ubuntu-latest
@@ -40,8 +40,8 @@ jobs:
         cd Lumafly
         dotnet publish -r linux-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
         cd ..
-        chmod +x Lumafly/bin/Release/net7.0/linux-x64/publish/Lumafly
-        zip -jr linux.zip Lumafly/bin/Release/net7.0/linux-x64/publish/*
+        chmod +x Lumafly/bin/Release/net9.0/linux-x64/publish/Lumafly
+        zip -jr linux.zip Lumafly/bin/Release/net9.0/linux-x64/publish/*
     - name: Upload linux binary
       uses: actions/upload-artifact@v3
       with:
@@ -64,7 +64,7 @@ jobs:
         dotnet publish -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
         cd ..
         cd Scripts
-        python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net7.0/osx-x64/publish ../out
+        python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net9.0/osx-x64/publish ../out
         cd ..
     - name: Upload macos binary
       uses: actions/upload-artifact@v3
@@ -104,7 +104,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Lumafly-AU
-        path: Lumafly.AU/bin/Release/net7.0/win-x64/publish/
+        path: Lumafly.AU/bin/Release/net9.0/win-x64/publish/
 
 
   release:
