@@ -515,7 +515,31 @@ namespace Lumafly.ViewModels
                 RaisePropertyChanged(nameof(SearchComboBox));
             }
         }
+
+        public bool ShouldShowDependencyItems
+        {
+            get
+            {
+                return DependencyItems.Count() != 0;
+            }    
+        }
+
+        public IEnumerable<ModItem> DependencyItems
+        {
+            get 
+            {
+                return FilteredItems.Where(x => x.IsLibraryMod());
+            }
+        }
         
+        public IEnumerable<ModItem> BaseItems
+        {
+            get 
+            {
+                return FilteredItems.Where(x => !x.IsLibraryMod());
+            }
+        }
+
         public IEnumerable<ModItem> FilteredItems
         {
             get
