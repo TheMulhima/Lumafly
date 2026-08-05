@@ -736,4 +736,7 @@ Modificación, la reforma de los archivos del juego que permiten que se ejecuten
   <data name="XAML_Modlog" xml:space="preserve">
     <value>Open ModLog.txt</value>
   </data>
+  <data name="XAML_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
+  </data>
 </root>
