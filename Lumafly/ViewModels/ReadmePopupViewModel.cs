@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -79,6 +80,14 @@ namespace Lumafly.ViewModels
         
         private async Task<string?> FetchReadme()
         {
+            if (string.IsNullOrEmpty(_modItem.RawReadMeURL))
+                return await FetchReadmeFromGithubRepo();
+
+            return await FetchReadmeFromRawURL();
+        }
+
+        private async Task<string?> FetchReadmeFromGithubRepo()
+        {
             try
             {
                 var uri = new Uri(_modItem.Repository);
@@ -108,6 +117,25 @@ namespace Lumafly.ViewModels
             }
             catch
             {
+                return null;
+            }
+        }
+
+        private async Task<string?> FetchReadmeFromRawURL()
+        {
+            try
+            {
+                HttpResponseMessage readmeResponse = await _hc.GetAsync(_modItem.RawReadMeURL);
+                if (readmeResponse.IsSuccessStatusCode)
+                {
+                    return await readmeResponse.Content.ReadAsStringAsync();
+                }
+
+                throw new Exception($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}");
+            }
+            catch (Exception e)
+            {
+                Trace.TraceWarning($"Failed to fetch readme for {_modItem.Name} from {_modItem.RawReadMeURL}: {e}");
                 return null;
             }
         }

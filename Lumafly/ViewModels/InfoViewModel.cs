@@ -62,8 +62,9 @@ public partial class InfoViewModel : ViewModelBase
         {
             // remove any existing hk instance
             static bool IsHollowKnight(Process p) => (
-                p.ProcessName.StartsWith(hollow_knight)
-                || p.ProcessName.StartsWith(HollowKnight)
+                  (p.ProcessName.StartsWith(hollow_knight)
+                || p.ProcessName.StartsWith(HollowKnight))
+                && p.ProcessName != "Hollow Knight Silksong"
             );
             
             if (Process.GetProcesses().FirstOrDefault(IsHollowKnight) is { } proc) 
@@ -94,6 +95,7 @@ public partial class InfoViewModel : ViewModelBase
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = exeDetails.name,
+                    Arguments=_settings.LaunchArgs,
                     WorkingDirectory = exeDetails.path,
                     UseShellExecute = true,
                 });
