@@ -10,14 +10,14 @@
                 <ContextMenu IsEnabled="{Binding IsModContextMenuEnabled}">
                     <MenuItem IsEnabled="{Binding CanBePinned}"
                               Header="{ext:Localize XAML_Pin}"
-                              Command="{Binding DataContext.PinMod,
+                              Command="{ReflectionBinding DataContext.PinMod,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                               CommandParameter="{Binding .}"
                               ToolTip.Tip="{ext:Localize XAML_PinMod_Explanation}"
                               ToolTip.ShowDelay="0" />
                     <MenuItem IsEnabled="{Binding CanBeRegisteredNotInModlinks}"
                               Header="{ext:Localize XAML_RegisterNotInModlinks}"
-                              Command="{Binding DataContext.RegisterNotInModlinks,
+                              Command="{ReflectionBinding DataContext.RegisterNotInModlinks,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                               CommandParameter="{Binding .}"
                               ToolTip.Tip="{ext:Localize XAML_RegisterNotInModlinks_Explanation}"
@@ -59,7 +59,7 @@
                                           CommandParameter="{Binding .}"
                                           OnContent="{ext:Localize XAML_On}"
                                           OffContent="{ext:Localize XAML_Off}"
-                                          Command="{Binding DataContext.OnEnable,
+                                          Command="{ReflectionBinding DataContext.OnEnable,
                                                     RelativeSource={RelativeSource AncestorType=UserControl}}"
                                           IsChecked="{Binding EnabledIsChecked}"
                                           IsEnabled="{Binding EnableButtonAccessible}"
@@ -74,7 +74,7 @@
                                          BorderBrush="#976526"
                                          IsVisible="{Binding UpdateAvailable}"
                                          IsEnabled="{Binding !InstallingButtonAccessible}"
-                                         Command="{Binding DataContext.OnUpdate,
+                                         Command="{ReflectionBinding DataContext.OnUpdate,
                                                 RelativeSource={RelativeSource AncestorType=UserControl}}"
                                          VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal">
@@ -100,7 +100,7 @@
                                     CommandParameter="{Binding .}"
                                     MinWidth="80"
                                     IsEnabled="{Binding !InstallingButtonAccessible}"
-                                    Command="{Binding DataContext.OnInstall,
+                                    Command="{ReflectionBinding DataContext.OnInstall,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center"
@@ -123,7 +123,7 @@
                                 IsVisible="{Binding Pinned}"
                                 ToolTip.Tip="{ext:Localize XAML_Unpin}"
                                 ToolTip.ShowDelay="0"
-                                Command="{Binding DataContext.PinMod,
+                                Command="{ReflectionBinding DataContext.PinMod,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding .}"
                                 HorizontalAlignment="Right">
@@ -235,7 +235,7 @@
                                 ToolTip.Tip="{ext:Localize XAML_OpenFolder}"
                                 ToolTip.ShowDelay="0"
                                 IsEnabled="{Binding Installed}"
-                                Command="{Binding DataContext.OpenFolder,
+                                Command="{ReflectionBinding DataContext.OpenFolder,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding .}">
                             <PathIcon Data="{StaticResource folder_regular}" />
@@ -243,7 +243,7 @@
                         <Button ToolTip.Tip="{ext:Localize XAML_ResetMod}"
                                 ToolTip.ShowDelay="0"
                                 IsEnabled="{Binding Installed}"
-                                Command="{Binding DataContext.ResetMod,
+                                Command="{ReflectionBinding DataContext.ResetMod,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding .}">
                             <PathIcon Data="{StaticResource history_regular}"
