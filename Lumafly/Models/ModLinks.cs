@@ -55,15 +55,15 @@ namespace Lumafly.Models
 
         [XmlArray(ElementName = "Tags")]
         [XmlArrayItem(ElementName = "Tag")]
-        public string[] Tags { get; set; } = Array.Empty<string>();
+        public string[] Tags { get; set; } = [];
 
         [XmlArray(ElementName = "Integrations")]
         [XmlArrayItem(ElementName = "Integration")]
-        public string[] Integrations { get; set; } = Array.Empty<string>();
+        public string[] Integrations { get; set; } = [];
 
         [XmlArray(ElementName = "Authors")]
         [XmlArrayItem(ElementName = "Author")]
-        public string[] Authors { get; set; } = Array.Empty<string>();
+        public string[] Authors { get; set; } = [];
 
         public override string ToString()
         {

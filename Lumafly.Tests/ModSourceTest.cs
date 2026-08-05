@@ -29,16 +29,18 @@ namespace Lumafly.Tests
                 null,
                 state,
                 new Version("1.3.2.2"),
-                Array.Empty<string>(),
+                [],
                 string.Empty,
                 string.Empty,
                 "test",
                 "test",
                 "repo",
                 "repo",
-                Array.Empty<string>(),
-                Array.Empty<string>(),
-                Array.Empty<string>()
+                null,
+                [],
+                [],
+                [],
+                null
             );
             
             await ms.RecordInstalledState(item);

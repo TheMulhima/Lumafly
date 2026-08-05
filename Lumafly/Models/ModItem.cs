@@ -308,7 +308,7 @@ namespace Lumafly.Models
                 settings,
                 state ?? new NotInModLinksState(false),
                 version ?? new Version(0, 0, 0, 0),
-                dependencies ?? Array.Empty<string>(),
+                dependencies ?? [],
                 link ?? string.Empty,
                 shasum ?? string.Empty,
                 name ?? string.Empty,
@@ -316,9 +316,9 @@ namespace Lumafly.Models
                 repository ?? string.Empty,
                 issues ?? string.Empty,
                 rawReadMeURL ?? string.Empty,
-                tags ?? Array.Empty<string>(),
-                integrations ?? Array.Empty<string>(),
-                authors ?? Array.Empty<string>(),
+                tags ?? [],
+                integrations ?? [],
+                authors ?? [],
                 changeInfo
             );
         }
