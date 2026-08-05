@@ -209,8 +209,8 @@
 				Margin="10 0 5 0"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Center"
-				Watermark="{ext:Localize XAML_LaunchArguments}"
-				UseFloatingWatermark="True"
+				PlaceholderText="{ext:Localize XAML_LaunchArguments}"
+				UseFloatingPlaceholder="True"
 				Text="{Binding LaunchArgs}"
 				AcceptsReturn="False"/>
 
