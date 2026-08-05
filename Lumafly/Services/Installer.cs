@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using MsBox.Avalonia.Enums;
-using Microsoft.Toolkit.HighPerformance;
+using CommunityToolkit.HighPerformance;
 using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Util;

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
@@ -16,6 +15,7 @@ using Lumafly.Enums;
 using Lumafly.Interfaces;
 using Lumafly.Services;
 using Lumafly.Util;
+using ReactiveUI.Primitives;
 
 namespace Lumafly.ViewModels
 {
@@ -29,7 +29,7 @@ namespace Lumafly.ViewModels
         private bool cacheDownloadsOriginalValue;
         private string pathOriginalValue;
         
-        public ReactiveCommand<Unit, Unit> ChangePath { get; }
+        public ReactiveCommand<RxVoid, RxVoid> ChangePath { get; }
 
         public SettingsViewModel(ISettings settings, IModSource mods, IAppUpdater updater)
         {

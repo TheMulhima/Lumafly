@@ -8,8 +8,8 @@ using Lumafly.Util;
 using Lumafly.ViewModels;
 using Lumafly.Views.Windows;
 using ReactiveUI;
+using ReactiveUI.Builder;
 using System;
-using System.Reactive;
 
 namespace Lumafly
 {
@@ -23,10 +23,6 @@ namespace Lumafly
 
         public override void OnFrameworkInitializationCompleted()
         {
-            RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
-            {
-                _ = DisplayErrors.DisplayGenericError(ex.Message, ex);
-            });
             Dispatcher.UIThread.UnhandledException += (_, e) =>
             {
                 _ = DisplayErrors.DisplayGenericError("Unhandled error!", e.Exception);
