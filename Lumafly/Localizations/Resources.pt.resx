@@ -163,7 +163,7 @@
     <value>Erro!</value>
   </data>
   <data name="MWVM_Impl_Error_Fetch_ModLinks_Timeout" xml:space="preserve">
-    <value>excedeu o tempo limite</value>
+    <value>excedeu o tempo limite. Verifique sua conexão com a internet e tente novamente</value>
   </data>
   <data name="MWVM_OutOfDate_GetLatest" xml:space="preserve">
     <value>Obter a última versão</value>
@@ -187,7 +187,7 @@
     <value>O caminho salvo do Hollow Knight é inválido. Por favor, selecione novamente um caminho válido.</value>
   </data>
   <data name="MWVM_Info" xml:space="preserve">
-    <value>informação</value>
+    <value>Informação</value>
   </data>
   <data name="MWVM_UnableToDetect_Message" xml:space="preserve">
     <value>Não foi possível detectar a sua instalação do Hollow Knight. Por favor, selecione-a.</value>
@@ -223,7 +223,7 @@
     <value>Abrir Mods</value>
   </data>
   <data name="XAML_Repository" xml:space="preserve">
-    <value>Repositório:</value>
+    <value>Repositório</value>
   </data>
   <data name="XAML_SearchMark" xml:space="preserve">
     <value>Pesquisar Mod</value>
@@ -235,10 +235,10 @@
     <value>Versão:</value>
   </data>
   <data name="XAML_Integrations" xml:space="preserve">
-    <value>Integrações</value>
+    <value>Integrações:</value>
   </data>
   <data name="XAML_Tags" xml:space="preserve">
-    <value>Etiquetas</value>
+    <value>Etiquetas:</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
     <value>Ativado</value>
@@ -301,10 +301,10 @@
     <value>Desinstalar Tudo</value>
   </data>
   <data name="XAML_Authors" xml:space="preserve">
-    <value>Autores</value>
+    <value>Autores:</value>
   </data>
   <data name="XAML_Search_Options" xml:space="preserve">
-    <value>Pesquisar Opções</value>
+    <value>Pesquisa Avançada</value>
   </data>
   <data name="XAML_Search_Type" xml:space="preserve">
     <value>Pesquisar Tipo</value>
@@ -361,10 +361,10 @@
     <value>Editar arquivo de configurações do mod</value>
   </data>
   <data name="MVVM_LoadingWhatsNew" xml:space="preserve">
-    <value>Carregando os novos mods que estão em modlinks...</value>
+    <value>Carregando os novos mods que estão no modlinks...</value>
   </data>
   <data name="MVVM_NotAbleToLoadWhatsNew" xml:space="preserve">
-    <value>Lumafly não conseguiu carregar os últimos mods em modlinks.</value>
+    <value>Lumafly não conseguiu carregar os últimos mods do modlinks.</value>
   </data>
   <data name="MVVM_DNSError" xml:space="preserve">
     <value>Possivelmente causado por uma conexão à internet ruim ou não existente. Por favor cheque isso e tente novamente.</value>
@@ -412,10 +412,10 @@
     <value>Expansão</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
-    <value>Obtendo mods em modlinks...</value>
+    <value>Obtendo mods do modlinks...</value>
   </data>
   <data name="MVVM_Loading2" xml:space="preserve">
-    <value>Esperando uma resposta de GitHub...</value>
+    <value>Esperando uma resposta do GitHub...</value>
   </data>
   <data name="MVVM_Loading3" xml:space="preserve">
     <value>Ainda esperando...</value>
@@ -430,7 +430,7 @@
     <value>Tente executar Lumafly como um administrador, isso pode resolver o problema</value>
   </data>
   <data name="MVVM_ExceptionOccur" xml:space="preserve">
-    <value>Uma exceção ocorrer enquanto {0} {1}</value>
+    <value>Uma exceção ocorreu enquanto {0} {1}</value>
   </data>
   <data name="XAML_Ok" xml:space="preserve">
     <value>Ok </value>
@@ -469,7 +469,7 @@
     <value>Fixar</value>
   </data>
   <data name="XAML_PinMod_Explanation" xml:space="preserve">
-    <value>Fixar um mod para que não seja automaticamente substituído por Lumafly</value>
+    <value>Fixar um mod para que não seja automaticamente substituído pelo Lumafly</value>
   </data>
   <data name="XAML_Unpin" xml:space="preserve">
     <value> Desafixar</value>
@@ -505,7 +505,7 @@
     <value>Usar Modlinks Personalizado</value>
   </data>
   <data name="XAML_CustomModlinksExplanation" xml:space="preserve">
-    <value> Normalmente, Lumafly carrega sua lista de mods do modlinks oficial. Se você quiser carregar o seu próprio então insira sua URI aqui. Aceita-se links https ou arquivos (no formato file://{caminho do arquivo}). \nLinks vazios ou links inválidos vão carregar o modlinks oficial</value>
+    <value>Normalmente, o Lumafly carrega sua lista de mods do modlinks oficial. Se você quiser carregar o seu próprio, insira sua URI aqui. Aceita-se links https ou arquivos (no formato file://{caminho do arquivo}). \nLinks vazios ou links inválidos vão carregar o modlinks oficial</value>
   </data>
   <data name="XAML_CustomModlinksWatermark" xml:space="preserve">
     <value>Insira o link para o modlinks personalizado. Necessita-se recarregar para fazer efeito</value>
@@ -565,7 +565,7 @@
     <value>Redefinir Mod: força a reinstalação do mod e remove suas configurações persistentes</value>
   </data>
   <data name="XAML_Share" xml:space="preserve">
-    <value>Obter um link para compartilhar esse mod. Quando o link é aberto, ele irá abrir Lumafly e baixar o mod</value>
+    <value>Obter o link de download compartilhável deste mod.</value>
   </data>
   <data name="XAML_OpenFolder" xml:space="preserve">
     <value>Abrir pasta onde esse mod está instalado</value>
@@ -580,7 +580,7 @@
     <value>Versão não vinda do modlinks</value>
   </data>
   <data name="XAML_Language" xml:space="preserve">
-    <value>Língua</value>
+    <value>Linguagem</value>
   </data>
   <data name="XAML_Low_Storage_Mode" xml:space="preserve">
     <value>Modo de Armazenamento Baixo</value>
@@ -670,10 +670,10 @@
     <value>Ativar Mod</value>
   </data>
   <data name="DisableMod" xml:space="preserve">
-    <value>DesativarMod</value>
+    <value>Desativar Mod</value>
   </data>
   <data name="UseFixedVersion" xml:space="preserve">
-    <value>Use Fixed Version</value>
+    <value>Usar Versão Fixa</value>
   </data>
   <data name="FixedVersion_Tooltip" xml:space="preserve">
     <value>Não usar a última versão do modlinks. Em vez disso, usar a versão atual</value>
@@ -709,27 +709,33 @@
     <value>Carregar esse pacote sem substituir mods na pasta de mods atual</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Verificar Atualizações</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Abrir Pasta de Logs</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Ativar/Desativar a Modding API, a modificação aos arquivos do jogo que permite que mods rodem</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>View Readme</value>
+    <value>Ver Readme</value>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Untagged</value>
+    <value>Sem Etiqueta</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Enter format to github mirror. Needs a reload to take effect</value>
+    <value>Insira o formato para o mirror do github. Necessita-se recarregar para fazer efeito</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord\n</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Use Github Mirror</value>
+    <value>Usar Mirror do Github</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Abrir ModLog.txt</value>
+  </data>
+  <data name="XAML_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
   </data>
 </root>

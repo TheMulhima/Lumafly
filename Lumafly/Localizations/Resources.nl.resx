@@ -229,7 +229,7 @@
     <value>Mod zoeken</value>
   </data>
   <data name="XAML_UpdateAPI" xml:space="preserve">
-    <value>API bijwerken</value>
+    <value>API Bijwerken</value>
   </data>
   <data name="XAML_Version" xml:space="preserve">
     <value>Versie:</value>
@@ -286,7 +286,7 @@
     <value>Selecteer uw Hollow Knight. exe of zijn snelkoppeling.</value>
   </data>
   <data name="XAML_ModsFilter_OutOfDate_Update" xml:space="preserve">
-    <value>Alles bijwerken</value>
+    <value>Alles Bijwerken</value>
   </data>
   <data name="XAML_Open_Bulk_Action" xml:space="preserve">
     <value>Bulk Acties</value>
@@ -731,5 +731,11 @@
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
     <value>Gebruik GitHub Mirror</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Open ModLog.txt</value>
+  </data>
+  <data name="XAML_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
   </data>
 </root>

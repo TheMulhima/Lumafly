@@ -172,7 +172,7 @@
     <value>Continuer quand même.</value>
   </data>
   <data name="MWVM_OutOfDate_Title" xml:space="preserve">
-    <value>Périmé !</value>
+    <value>Obsolète !</value>
   </data>
   <data name="MWVM_OutOfDate_Message" xml:space="preserve">
     <value>Une nouvelle version de Lumafly est disponible. Merci de télécharger la nouvelle version (v{0}) pour avoir les dernières fonctionnalités et corrections de bugs.</value>
@@ -205,7 +205,7 @@
     <value>Dépendances :</value>
   </data>
   <data name="XAML_Donate" xml:space="preserve">
-    <value>Donation</value>
+    <value>Faire un don</value>
   </data>
   <data name="XAML_ModsFilter_All" xml:space="preserve">
     <value>Tous</value>
@@ -241,10 +241,10 @@
     <value>Tags :</value>
   </data>
   <data name="XAML_On" xml:space="preserve">
-    <value>On</value>
+    <value>Activé</value>
   </data>
   <data name="XAML_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Désactivé</value>
   </data>
   <data name="XAML_Ask" xml:space="preserve">
     <value>Consulter</value>
@@ -340,13 +340,13 @@
     <value>Nouveaux mods</value>
   </data>
   <data name="XAML_UpdatedMods" xml:space="preserve">
-    <value>Mods mis à jours</value>
+    <value>Mods mis à jour</value>
   </data>
   <data name="XAML_LastWeek" xml:space="preserve">
-    <value>La dernière semaine</value>
+    <value>La semaine dernière</value>
   </data>
   <data name="XAML_LastMonth" xml:space="preserve">
-    <value>Le dernier mois</value>
+    <value>Le mois dernier</value>
   </data>
   <data name="XAML_ModsFilter_WhatsNew" xml:space="preserve">
     <value>Nouveautés</value>
@@ -355,7 +355,7 @@
     <value>Copier l'erreur</value>
   </data>
   <data name="XAML_ShowError" xml:space="preserve">
-    <value>Afficher l'erreur entière</value>
+    <value>Afficher l'erreur entièrement</value>
   </data>
   <data name="XAML_EditSettings" xml:space="preserve">
     <value>Modifier le fichier des paramètres du mod</value>
@@ -409,7 +409,7 @@
     <value>Bibliothèque</value>
   </data>
   <data name="ModLinks_Tags_Expansion" xml:space="preserve">
-    <value>Expansion</value>
+    <value>Extension</value>
   </data>
   <data name="MVVM_Loading1" xml:space="preserve">
     <value>Chargement des mods de modlinks...</value>
@@ -709,27 +709,33 @@
     <value>Charger ce modpack sans remplacer les mods du dossier des mods</value>
   </data>
   <data name="XAML_CheckForUpdates" xml:space="preserve">
-    <value>Check For Updates</value>
+    <value>Rechercher des mises à jour</value>
   </data>
   <data name="XAML_OpenLogsFolder" xml:space="preserve">
-    <value>Open Logs Folder</value>
+    <value>Ouvrir le dossier des logs</value>
   </data>
   <data name="ToggleAPI_Explanation" xml:space="preserve">
-    <value>Enable/Disable the Modding API, the modification to the game files that allow mods to run</value>
+    <value>Activer/Désactiver la Modding API, soit la modification des fichiers du jeu qui permet aux mods de fonctionner</value>
   </data>
   <data name="ViewReadme" xml:space="preserve">
-    <value>View Readme</value>
+    <value>Voir le ReadMe</value>
   </data>
   <data name="ModLinks_Tags_Untagged" xml:space="preserve">
-    <value>Untagged</value>
+    <value>Non-classé</value>
   </data>
   <data name="XAML_GithubMirrorFormatWatermark" xml:space="preserve">
-    <value>Enter format to github mirror. Needs a reload to take effect</value>
+    <value>Indiquez le format du lien miroir vers Github. Nécessite un redémarrage de l'application pour prendre effet</value>
   </data>
   <data name="XAML_InfoLinkDiscord" xml:space="preserve">
     <value>Discord\n</value>
   </data>
   <data name="XAML_UseGithubMirror" xml:space="preserve">
-    <value>Use Github Mirror</value>
+    <value>Utiliser le lien miroir Github</value>
+  </data>
+  <data name="XAML_Modlog" xml:space="preserve">
+    <value>Ouvrir ModLog.txt</value>
+  </data>
+  <data name="XAML_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
   </data>
 </root>
