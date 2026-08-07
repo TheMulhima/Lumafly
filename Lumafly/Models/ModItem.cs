@@ -31,6 +31,7 @@ namespace Lumafly.Models
             string repository,
             string issues,
             string rawReadMeURL,
+            bool isOldStyleMod,
             string[] tags,
             string[] integrations,
             string[] authors,
@@ -49,6 +50,7 @@ namespace Lumafly.Models
             Repository = repository;
             Issues = issues;
             RawReadMeURL = rawReadMeURL;
+            IsOldStyleMod = isOldStyleMod;
             Tags = tags;
             Integrations = integrations;
             Authors = authors;
@@ -82,6 +84,7 @@ namespace Lumafly.Models
         public string   Repository       { get; }
         public string   Issues           { get; }
         public string   RawReadMeURL     { get; }
+        public bool     IsOldStyleMod    { get; }
         
         public string[] Tags             { get; }
         public string[] Integrations     { get; }
@@ -298,6 +301,7 @@ namespace Lumafly.Models
             string? repository = null,
             string? issues = null,
             string? rawReadMeURL = null,
+            bool? isOldStyleMod = null,
             string[]? tags = null,
             string[]? integrations = null,
             string[]? authors = null,
@@ -316,6 +320,7 @@ namespace Lumafly.Models
                 repository ?? string.Empty,
                 issues ?? string.Empty,
                 rawReadMeURL ?? string.Empty,
+                isOldStyleMod ?? false,
                 tags ?? [],
                 integrations ?? [],
                 authors ?? [],

@@ -70,15 +70,12 @@ namespace Lumafly.Services
         // 2 mod toggles shouldn't happen at the same time because if they are conflicting it can cause problems
         private readonly SemaphoreSlim _modToggleSemaphore = new (1);
         private readonly HttpClient _hc;
-        private readonly ISettings _settings;
-
         public Installer(
             ISettings config, 
             IModSource installed, 
             IModDatabase db,
             IFileSystem fs,
             HttpClient hc,
-            ISettings settings,
             ICheckValidityOfAssembly checkValidityOfAssembly)
         {
             _config = config;
@@ -86,7 +83,6 @@ namespace Lumafly.Services
             _db = db;
             _fs = fs;
             _hc = hc;
-            _settings = settings;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
             // run some tasks on installer init
@@ -149,13 +145,52 @@ namespace Lumafly.Services
 
             try
             {
-                await _Toggle(mod, enabled, state);
+                if(mod.IsOldStyleMod)
+                {
+                    await _ToggleOldStyle(mod, enabled, state);
+                }
+                else
+                {
+                    await _Toggle(mod, enabled, state);
+                }
             }
             finally
             {
                 _modToggleSemaphore.Release();
             }
 
+        }
+
+        private async Task _ToggleOldStyle(ModItem mod, bool enabled, ExistsModState state)
+        {
+            CreateNeededDirectories();
+
+            var disabledFolder = Path.Combine(_config.DisabledFolder, mod.Name);
+            var (prev, after) = !enabled
+                ? (disabledFolder, _config.ModsFolder)
+                : (_config.ModsFolder, disabledFolder);
+
+            // just in case the mod was deleted or manually moved
+            if (!_fs.Directory.Exists(prev))
+                throw new ReadableError("because it doesn't exist where it is supposed to. Please try to reinstall the mod");
+
+            _fs.Directory.CreateDirectory(after);
+
+            var modfile_prefix = $"{mod.Name}_";
+            foreach(var v in _fs.Directory.EnumerateFiles(prev, "*", SearchOption.TopDirectoryOnly))
+            {
+                var name = Path.GetFileName(v);
+                if(!name.StartsWith(modfile_prefix))
+                {
+                    continue;
+                }
+
+                _fs.File.Move(v, Path.Combine(after, name), true);
+            }
+
+            mod.State = state with { Enabled = !state.Enabled };
+
+            await _installed.RecordInstalledState(mod);
         }
 
         private async Task _Toggle(ModItem mod, bool enabled, ExistsModState state)
@@ -229,7 +264,7 @@ namespace Lumafly.Services
                 
                 string managed = _config.ManagedFolder;
 
-                var url = await ModDatabase.FetchVanillaAssemblyLink(_settings);
+                var url = await ModDatabase.FetchVanillaAssemblyLink(_config);
 
                 (ArraySegment<byte> data, _) = await DownloadFile(url, _ => { });
                 
@@ -298,7 +333,7 @@ namespace Lumafly.Services
 
                 if (currentGameVersion != vanillaGameVersion)
                 {
-                    Trace.TraceError($"Mismatched Game Version while installing api. {Current}({currentGameVersion}) -> {Vanilla}({Vanilla})");
+                    Trace.TraceError($"Mismatched Game Version while installing api. {Current}({currentGameVersion}) -> {Vanilla}({vanillaGameVersion})");
 
                     // Restore
                     _fs.File.Copy(Path.Combine(managed, Vanilla), Path.Combine(managed, Current), true);
@@ -417,7 +452,14 @@ namespace Lumafly.Services
                 // Shouldn't ever not exist, but rather safe than sorry I guess.
                 CreateNeededDirectories();
 
-                await _Uninstall(mod);
+                if (mod.IsOldStyleMod)
+                {
+                    await _UninstallOldStyle(mod);
+                }
+                else
+                {
+                    await _Uninstall(mod);
+                }
             }
             finally
             {
@@ -461,7 +503,7 @@ namespace Lumafly.Services
                 (data, filename) = cachedModData.Value;
             }
 
-            if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
+            if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState && !_config.IsOldMode)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
             
             if (cachedModData is null && !string.IsNullOrEmpty(mod.Sha256))
@@ -538,6 +580,7 @@ namespace Lumafly.Services
         {
             try
             {
+                if (_config.IsOldMode) return null;
                 if (string.IsNullOrEmpty(mod.Sha256)) return null;
                 
                 if (!_fs.Directory.Exists(_config.CacheFolder)) return null;
@@ -577,14 +620,23 @@ namespace Lumafly.Services
             string base_folder = enable
                 ? _config.ModsFolder
                 : _config.DisabledFolder;
-
+            string? file_prefix = null;
             string mod_folder = Path.Combine(base_folder, mod.Name);
+
+            if(mod.IsOldStyleMod)
+            {
+                if (enable)
+                {
+                    mod_folder = base_folder;
+                }
+                file_prefix = $"{mod.Name}_";
+            }
 
             switch (ext)
             {
                 case ".zip":
                 {
-                    ExtractZip(data, mod_folder);
+                    ExtractZip(data, mod_folder, file_prefix);
 
                     break;
                 }
@@ -593,7 +645,7 @@ namespace Lumafly.Services
                 {
                     Directory.CreateDirectory(mod_folder);
 
-                    await _fs.File.WriteAllBytesAsync(Path.Combine(mod_folder, filename), data.Array!);
+                    await _fs.File.WriteAllBytesAsync(Path.Combine(mod_folder, mod.IsOldStyleMod ? $"{file_prefix}{filename}" : filename), data.Array!);
 
                     break;
                 }
@@ -621,7 +673,7 @@ namespace Lumafly.Services
             string uri, Action<DownloadProgressArgs> setProgress)
         {
             (ArraySegment<byte> bytes, HttpResponseMessage response) = await _hc.DownloadBytesWithProgressAsync(
-                _settings,
+                _config,
                 new Uri(uri), 
                 new Progress<DownloadProgressArgs>(setProgress)
             );
@@ -637,7 +689,7 @@ namespace Lumafly.Services
             return (bytes, filename);
         }
 
-        private void ExtractZip(ArraySegment<byte> data, string root)
+        private void ExtractZip(ArraySegment<byte> data, string root, string? fileNamePrefix = null)
         {
             using var archive = new ZipArchive(data.AsMemory().AsStream());
 
@@ -645,7 +697,29 @@ namespace Lumafly.Services
 
             foreach (ZipArchiveEntry entry in archive.Entries)
             {
-                string file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName));
+                string file_dest;
+                if (entry.FullName.StartsWith(@"hollow_knight_Data\Managed\Mods\") ||
+                    entry.FullName.StartsWith(@"hollow_knight_Data/Managed/Mods/"))
+                {
+                    // 1432 mods style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName[@"hollow_knight_Data\Managed\Mods\".Length..]));
+                }
+                else if (entry.FullName.StartsWith(@"hollow_knight_Data\Managed\") ||
+                    entry.FullName.StartsWith(@"hollow_knight_Data/Managed/"))
+                {
+                    // 1432-60 MAPI style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName[@"hollow_knight_Data\Managed\".Length..]));
+                }
+                else
+                {
+                    // New mods style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName));
+                }
+
+                if(!string.IsNullOrEmpty(fileNamePrefix))
+                {
+                    file_dest = Path.Combine(Path.GetDirectoryName(file_dest)!, fileNamePrefix + Path.GetFileName(file_dest));
+                }
 
                 if (!file_dest.StartsWith(dest_dir_path))
                     throw new IOException("Extracts outside of directory!");
@@ -698,6 +772,46 @@ namespace Lumafly.Services
                 dest_dir_path += Path.DirectorySeparatorChar;
 
             return dest_dir_path;
+        }
+
+        private async Task _UninstallOldStyle(ModItem mod)
+        {
+            if (((ExistsModState)mod.State).Enabled)
+            {
+                var modfile_prefix = $"{mod.Name}_";
+                foreach (var v in _fs.Directory.EnumerateFiles(_config.ModsFolder, "*", SearchOption.TopDirectoryOnly))
+                {
+                    var name = Path.GetFileName(v);
+                    if (!name.StartsWith(modfile_prefix))
+                    {
+                        continue;
+                    }
+
+                    if (_fs.File.Exists(v))
+                    {
+                        _fs.File.Delete(v);
+                    }
+                }
+            }
+            else
+            {
+                string dir = Path.Combine(_config.DisabledFolder, mod.Name);
+                if (_fs.Directory.Exists(dir))
+                {
+                    _fs.Directory.Delete(dir, true);
+                }
+            }
+
+            if (mod.State is NotInModLinksState { ModlinksMod: false } notInModLinksState)
+            {
+                mod.State = notInModLinksState with { Installed = false };
+                _db.Items.Remove(mod);
+            }
+            else
+            {
+                mod.State = new NotInstalledState();
+            }
+            await _installed.RecordUninstall(mod);
         }
 
         private async Task _Uninstall(ModItem mod)

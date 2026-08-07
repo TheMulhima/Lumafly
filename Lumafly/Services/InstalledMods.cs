@@ -43,6 +43,27 @@ namespace Lumafly.Services
         internal static bool ModExists(ISettings config, string name, out bool enabled)
         {
             enabled = false;
+
+            if(config.IsOldMode)
+            {
+                var prefix = $"{name}_";
+                if(Directory.EnumerateFiles(config.ModsFolder, "*.dll").Any(x => 
+                    Path.GetFileName(x).StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                    ))
+                    {
+                    return enabled = true;
+                }
+
+                var disabledModDir = Path.Combine(config.DisabledFolder, name);
+                if(Directory.Exists(disabledModDir))
+                {
+                    if(Directory.EnumerateFiles(disabledModDir, "*.dll", SearchOption.TopDirectoryOnly).FirstOrDefault() != null)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
                 
             if (Directory.Exists(Path.Combine(config.ModsFolder, name)))
                 return enabled = true;
@@ -145,6 +166,11 @@ namespace Lumafly.Services
             {
                 Trace.TraceWarning("Assembly missing, marking API as uninstalled!");
                 db.ApiInstall = new NotInstalledState();
+            }
+
+            if(config.IsOldMode)
+            {
+                db.NotInModlinksMods.Clear();
             }
 
             await db.SaveToDiskAsync();

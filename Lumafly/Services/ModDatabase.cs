@@ -18,13 +18,12 @@ namespace Lumafly.Services
 {
     public class ModDatabase : IModDatabase
     {
-        public const string LINKS_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
+        public const string LINKS_LATEST_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/main";
         // TODO: there is a thing like tags, or branches for when the change happens
-        public const string LINKS_OLD_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/6f68dbcce825b6b0e5464e36fd5ad10fc9ba72fb";
+        public const string LINKS_1578_BASE = "https://raw.githubusercontent.com/hk-modding/modlinks/6f68dbcce825b6b0e5464e36fd5ad10fc9ba72fb";
 
-        private const string FALLBACK_MODLINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ModLinks.xml";
-        private const string FALLBACK_APILINKS_URI = "https://cdn.jsdelivr.net/gh/hk-modding/modlinks@latest/ApiLinks.xml";
-        
+        public const string LINKS_1432_BASE = "https://raw.githubusercontent.com/FrostyTwilight/modlinks-1432/refs/heads/master";
+
         private const string VanillaApiRepo = "https://raw.githubusercontent.com/TheMulhima/Lumafly/static-resources/AssemblyLinks.json";
 
         private static string GetLinksBase(ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly)
@@ -42,16 +41,23 @@ namespace Lumafly.Services
             }
 
             string linksBase;
+            settings.IsOldMode = false;
             if (settings.GameVersion >= new Version("1.5.12620"))
             {
                 // New modding api (latest)
-                linksBase = LINKS_BASE;
+                linksBase = LINKS_LATEST_BASE;
             }
             else if (settings.GameVersion == new Version("1.5.78.11833"))
             {
                 // Old modding api 
                 // See https://discord.com/channels/879125729936298015/913460282750291968/1533483165845557349
-                linksBase = LINKS_OLD_BASE;
+                linksBase = LINKS_1578_BASE;
+            }
+            else if(settings.GameVersion == new Version("1.4.3.2"))
+            {
+                // 1432 modding api
+                linksBase = LINKS_1432_BASE;
+                settings.IsOldMode = true;
             }
             else
             {
@@ -98,6 +104,7 @@ namespace Lumafly.Services
                     repository: mod.Repository,
                     issues: mod.Issues,
                     rawReadMeURL: mod.ReadMe,
+                    isOldStyleMod: settings?.IsOldMode ?? false,
                     dependencies: mod.Dependencies,
                     
                     tags: mod.Tags,
@@ -112,7 +119,7 @@ namespace Lumafly.Services
                 _itemNames.Add(mod.Name);
             }
 
-            if (settings is not null)
+            if (settings is not null && !settings.IsOldMode)
             {
                 foreach (var (externalModName, externalModState) in mods.NotInModlinksMods)
                 {
@@ -174,8 +181,7 @@ namespace Lumafly.Services
 
         private static async Task<ApiLinks> FetchApiLinks(HttpClient hc, ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly)
         {
-            return FromString<ApiLinks>(await FetchWithFallback(hc, settings, new Uri(GetAPILinksUri(settings, checkValidityOfAssembly)), 
-                new Uri(FALLBACK_APILINKS_URI)));
+            return FromString<ApiLinks>(await Fetch(hc, settings, new Uri(GetAPILinksUri(settings, checkValidityOfAssembly))));
         }
         
         private static async Task<ModLinks> FetchModLinks(HttpClient hc, ISettings settings, ICheckValidityOfAssembly checkValidityOfAssembly, bool fetchOfficial)
@@ -215,27 +221,19 @@ namespace Lumafly.Services
                 }
             }
 
-            return FromString<ModLinks>(await FetchWithFallback(hc, settings, new Uri(GetModlinksUri(settings, checkValidityOfAssembly)), new Uri(FALLBACK_MODLINKS_URI)));
+            return FromString<ModLinks>(await Fetch(hc, settings, new Uri(GetModlinksUri(settings, checkValidityOfAssembly))));
             
         }
 
-        private static async Task<string> FetchWithFallback(HttpClient hc, ISettings? settings, Uri uri, Uri fallback)
+        private static async Task<string> Fetch(HttpClient hc, ISettings? settings, Uri uri)
         {
-            try
-            {
-                var cts = new CancellationTokenSource(TIMEOUT);
-                return await hc.GetStringAsync2(settings, uri, cts.Token);
-            }
-            catch (Exception e) when (e is TaskCanceledException or HttpRequestException)
-            {
-                var cts = new CancellationTokenSource(TIMEOUT);
-                return await hc.GetStringAsync2(settings, fallback, cts.Token);
-            }
+            using var cts = new CancellationTokenSource(TIMEOUT);
+            return await hc.GetStringAsync2(settings, uri, cts.Token);
         }
 
         public static async Task<string> FetchVanillaAssemblyLink(ISettings? settings)
         {
-            var cts = new CancellationTokenSource(TIMEOUT);
+            using var cts = new CancellationTokenSource(TIMEOUT);
             var hc = new HttpClient();
             hc.DefaultRequestHeaders.Add("User-Agent", "Lumafly");
             var json = JsonDocument.Parse(await hc.GetStringAsync2(settings, VanillaApiRepo, cts.Token));

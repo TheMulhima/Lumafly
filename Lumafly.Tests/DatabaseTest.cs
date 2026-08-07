@@ -117,6 +117,7 @@ namespace Lumafly.Tests
                     "https://github.com/fifty-six/HollowKnight.QoL",
                     "https://github.com/fifty-six/HollowKnight.QoL",
                     null,
+                    false,
                     [],
                     [],
                     [],
