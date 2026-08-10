@@ -333,13 +333,11 @@ namespace Lumafly.Services
 
                 if (currentGameVersion != vanillaGameVersion)
                 {
-                    Trace.TraceError($"Mismatched Game Version while installing api. {Current}({currentGameVersion}) -> {Vanilla}({vanillaGameVersion})");
-
                     // Restore
                     _fs.File.Copy(Path.Combine(managed, Vanilla), Path.Combine(managed, Current), true);
                     await _installed.RecordApiState(new InstalledState(false, new(), false));
 
-                    throw new InvalidOperationException("Mismatched Game Version while installing api.");
+                    throw new InvalidOperationException($"Mismatched Game Version while installing api. MAPI(v{currentGameVersion}) Vanilla(v{vanillaGameVersion})");
                 }
             }
 
@@ -388,8 +386,7 @@ namespace Lumafly.Services
 
             if(currentGameVersion != fromGameVersion)
             {
-                Trace.TraceError($"Mismatched Game Version: {move_from}({fromGameVersion}) -> {Current}({currentGameVersion})");
-                throw new InvalidOperationException("Mismatched Game Version.");
+                throw new InvalidOperationException($"Mismatched Game Version: {move_from}({fromGameVersion}) -> {Current}({currentGameVersion})");
             }
             
             _fs.File.Move(Path.Combine(managed, Current), Path.Combine(managed, move_to), true);
