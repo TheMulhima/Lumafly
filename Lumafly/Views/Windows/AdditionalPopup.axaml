@@ -4,6 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:ext="clr-namespace:Lumafly.Extensions"
+        xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
         xmlns:viewModels="clr-namespace:Lumafly.ViewModels"
         x:Class="Lumafly.Views.Windows.AdditionalPopup"
         x:DataType="viewModels:AdditionalPopupViewModel"
@@ -26,10 +28,16 @@
         RowDefinitions="15,*,15,Auto,15">
 
         <StackPanel Grid.Row="1" Grid.Column="3">
-            <TextBlock
-                Margin="0 0 0 15"
-                Text="{Binding Info}" 
-                TextWrapping="Wrap"/>
+             <md:MarkdownScrollViewer
+                    Markdown="{Binding Info}"
+                    HorizontalAlignment="Center"
+                    Margin="25 0 20 0">
+                    <md:MarkdownScrollViewer.Styles>
+                        <Style Selector="ctxt|CTextBlock">
+                            <Setter Property="FontSize" Value="16" />
+                        </Style>
+                    </md:MarkdownScrollViewer.Styles>
+                </md:MarkdownScrollViewer>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="3" 
                     Orientation="Horizontal" 
