@@ -303,7 +303,9 @@ namespace Lumafly.Services
         private async Task _InstallApi((string Url, int Version, string SHA256) manifest)
         {
             bool was_vanilla = true;
-            if (await CheckAPI())
+
+            await CheckAPI();
+            if (_checkValidityOfAssembly.GetAPIVersion(Current, out _) != null)
             {
                 if (((InstalledState)_installed.ApiInstall).Version.Major >= manifest.Version)
                     return;
@@ -848,12 +850,18 @@ namespace Lumafly.Services
             _installed.HasVanilla =
                 _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla, Current);
             
-            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current, out _);
+            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current, out var currentGameVersion);
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
-                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded, out _);
+                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded, out var moddedGameVersion);
+
+                if(currentGameVersion != moddedGameVersion)
+                {
+                    // Ignore
+                    current_version = null;
+                }
             }
             
             if (current_version == null)
