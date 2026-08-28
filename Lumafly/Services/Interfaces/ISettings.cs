@@ -27,7 +27,7 @@ namespace Lumafly.Interfaces
         string GithubMirrorFormat { get; set; }
         bool UseGithubMirror { get; set; }
         string LaunchArgs { get; set; }
-
+        string? PrevAdditionalInfoHash { get; set; }
         void Save();
     }
 }

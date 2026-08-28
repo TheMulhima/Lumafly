@@ -1,0 +1,43 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:ext="clr-namespace:Lumafly.Extensions"
+        xmlns:viewModels="clr-namespace:Lumafly.ViewModels"
+        x:Class="Lumafly.Views.Windows.AdditionalPopup"
+        x:DataType="viewModels:AdditionalPopupViewModel"
+        x:CompileBindings="True"
+        SizeToContent="Height"
+        Width="500"
+        WindowStartupLocation="CenterOwner"
+        WindowDecorations="Full"
+        CanResize="True"
+        Title="News">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Margin" Value="15 0 0 0" />
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="MinWidth" Value="80" />
+        </Style>
+    </Window.Styles>
+    <Grid 
+        ColumnDefinitions="15,Auto,15,*,15" 
+        RowDefinitions="15,*,15,Auto,15">
+
+        <StackPanel Grid.Row="1" Grid.Column="3">
+            <TextBlock
+                Margin="0 0 0 15"
+                Text="{Binding Info}" 
+                TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Name="OkButton" 
+                    Content="{ext:Localize XAML_Ok}"
+                    Margin="0 0 15 0"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

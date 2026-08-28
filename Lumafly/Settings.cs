@@ -109,6 +109,8 @@ namespace Lumafly
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
         public string CacheFolder => Path.Combine(ConfigFolderPath, "HKInstallerCache");
 
+        public string? PrevAdditionalInfoHash { get; set; }
+
         internal Settings(string path)
         {
             ManagedFolder = path;
