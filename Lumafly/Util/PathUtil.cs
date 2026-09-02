@@ -23,8 +23,8 @@ namespace Lumafly.Util
         {
             Debug.Assert(!string.IsNullOrEmpty(settings.ManagedFolder));
 
-            var root = Path.GetFullPath(Path.Combine(settings.ManagedFolder, "..", "..", "UnityPlayer.dll"));
-            settings.IsWindowsOrWine = File.Exists(root);
+            var dllPath = Path.GetFullPath(Path.Combine(settings.ManagedFolder, "..", "..", "UnityPlayer.dll"));
+            settings.IsWindowsOrWine = File.Exists(dllPath);
 
             Debug.Assert(!OperatingSystem.IsWindows() || settings.IsWindowsOrWine);
         }
