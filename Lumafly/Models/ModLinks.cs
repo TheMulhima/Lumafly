@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lumafly.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -106,34 +107,21 @@ namespace Lumafly.Models
                 + "}";
         }
 
-        public string SHA256 
+        public Link GetOSLink(ISettings? settings)
         {
-            get
+            if((settings?.IsWindowsOrWine ?? false) || OperatingSystem.IsWindows())
             {
-                if (OperatingSystem.IsWindows())
-                    return Windows.SHA256;
-                if (OperatingSystem.IsMacOS())
-                    return Mac.SHA256;
-                if (OperatingSystem.IsLinux())
-                    return Linux.SHA256;
-
-                throw new NotSupportedException(Environment.OSVersion.Platform.ToString());
+                return Windows;
             }
-        }
-
-        public string OSUrl
-        {
-            get
+            if(OperatingSystem.IsLinux())
             {
-                if (OperatingSystem.IsWindows())
-                    return Windows.URL;
-                if (OperatingSystem.IsMacOS())
-                    return Mac.URL;
-                if (OperatingSystem.IsLinux())
-                    return Linux.URL;
-                
-                throw new NotSupportedException(Environment.OSVersion.Platform.ToString());
+                return Linux;
             }
+            if(OperatingSystem.IsMacOS())
+            {
+                return Mac;
+            }
+            throw new PlatformNotSupportedException();
         }
     }
 

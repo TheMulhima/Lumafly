@@ -91,6 +91,7 @@ namespace Lumafly.ViewModels
 
             Trace.WriteLine("Checking if up to date...");
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
+            settings.CheckPathStatus();
             var appUpdater = new AppUpdater(settings);
             
             await appUpdater.CheckUpToDate();

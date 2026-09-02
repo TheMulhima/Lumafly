@@ -208,6 +208,7 @@ namespace Lumafly.ViewModels
                 return;
 
             _settings.ManagedFolder = path;
+            _settings.CheckPathStatus();
             _settings.Save();
 
             await _mods.Reset();

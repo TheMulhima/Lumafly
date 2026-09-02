@@ -16,6 +16,7 @@ namespace Lumafly.Interfaces
         string ExtraSpaceTaken { get; }
 
         string ManagedFolder { get; set; }
+        bool IsWindowsOrWine { get; set; }
         string CacheFolder { get; }
         Version? GameVersion { get; set; }
         bool IsOldMode { get; set; }

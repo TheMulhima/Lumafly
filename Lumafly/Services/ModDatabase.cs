@@ -93,13 +93,14 @@ namespace Lumafly.Services
         {
             foreach (var mod in ml.Manifests)
             {
+                var oslink = mod.Links.GetOSLink(settings);
                 var item = new ModItem
                 (
                     settings,
-                    link: mod.Links.OSUrl,
+                    link: oslink.URL,
                     version: mod.Version.Value,
                     name: mod.Name,
-                    shasum: mod.Links.SHA256,
+                    shasum: oslink.SHA256,
                     description: mod.Description,
                     repository: mod.Repository,
                     issues: mod.Issues,
@@ -142,7 +143,8 @@ namespace Lumafly.Services
             _items.Sort((a, b) => string.Compare(a.Name, b.Name));
             _items.ForEach(i => i.FindSettingsFile(_settingsFinder));
 
-            Api = (al.Manifest.Links.OSUrl, al.Manifest.Version, al.Manifest.Links.SHA256);
+            var apiOSLink = al.Manifest.Links.GetOSLink(settings);
+            Api = (apiOSLink.URL, al.Manifest.Version, apiOSLink.SHA256);
         }
 
         public ModDatabase(IModSource mods, IGlobalSettingsFinder settingsFinder, (ModLinks ml, ApiLinks al) links, ISettings settings) 

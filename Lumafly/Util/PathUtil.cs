@@ -8,6 +8,8 @@ using Avalonia.Platform.Storage;
 using MsBox.Avalonia.Models;
 using MsBox.Avalonia.Dto;
 using Lumafly.Models;
+using Lumafly.Interfaces;
+using System;
 
 namespace Lumafly.Util
 {
@@ -16,6 +18,16 @@ namespace Lumafly.Util
         // There isn't any [return: MaybeNullWhen(param is null)] so this overload will have to do
         // Not really a huge point but it's nice to have the nullable static analysis
         public static async Task<string?> SelectPathFallible() => await SelectPath(true);
+
+        public static void CheckPathStatus(this ISettings settings)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(settings.ManagedFolder));
+
+            var root = Path.GetFullPath(Path.Combine(settings.ManagedFolder, "..", "..", "UnityPlayer.dll"));
+            settings.IsWindowsOrWine = File.Exists(root);
+
+            Debug.Assert(!OperatingSystem.IsWindows() || settings.IsWindowsOrWine);
+        }
         
         public static async Task<string> SelectPath(bool fail = false)
         {
