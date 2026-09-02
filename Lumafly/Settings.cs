@@ -87,10 +87,10 @@ namespace Lumafly
             ".local/share/Steam/steamapps/common/Hollow Knight",
             ".steam/steam/steamapps/common/Hollow Knight",
             // Flatpak
-            ".var/app/ocm.valvesoftware.Steam/data/Steam/steamapps/common",
+            //".var/app/com.valvesoftware.Steam/data/Steam/steamapps/common",
             // Symlinks to the Steam root on linux
-            ".steam/steam",
-            ".steam/root",
+            //".steam/steam",
+            //".steam/root",
             // Default for macOS
             "Library/Application Support/Steam/steamapps/common/Hollow Knight/hollow_knight.app"
         }
