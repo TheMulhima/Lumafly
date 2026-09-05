@@ -1,5 +1,17 @@
 {
-    "Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Windows/Assembly-CSharp.dll.v",
-    "Mac-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Mac/Assembly-CSharp.dll.v",
-    "Linux-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Scarab/raw/static-resources/Assemblys/Linux/Assembly-CSharp.dll.v"
+    "Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Windows/Assembly-CSharp.dll.v",
+    "Mac-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Mac/Assembly-CSharp.dll.v",
+    "Linux-Assembly-CSharp.dll.v": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Linux/Assembly-CSharp.dll.v",
+    "by_version": {
+        "1.5.78.11833": {
+            "Windows": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Windows/Assembly-CSharp.dll.v",
+            "Mac": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Mac/Assembly-CSharp.dll.v",
+            "Linux": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/Linux/Assembly-CSharp.dll.v"
+        },
+        "1.5.12620": {
+            "Windows": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/1.5.12620/Windows/Assembly-CSharp.dll.v",
+            "Mac": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/1.5.12620/Mac/Assembly-CSharp.dll.v",
+            "Linux": "https://github.com/TheMulhima/Lumafly/raw/static-resources/Assemblys/1.5.12620/Linux/Assembly-CSharp.dll.v"
+        }
+    }
 }
