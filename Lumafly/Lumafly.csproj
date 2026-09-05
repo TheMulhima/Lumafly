@@ -54,7 +54,6 @@
         </PackageReference>
         <PackageReference Include="ReactiveUI.Avalonia" Version="12.1.1" />
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="21.0.0" />
-        <PackageReference Include="Svg.SourceGenerator.Skia" Version="5.2.3" />
         <PackageReference Include="System.IO.Abstractions" Version="22.2.0" />
         <PackageReference Include="System.Reactive" Version="7.0.0" />
     </ItemGroup>

@@ -244,6 +244,8 @@ namespace Lumafly.Services
             // windows assembly is just called that because initially this was overlooked and only windows assembly was downloaded
             if (OperatingSystem.IsMacOS()) jsonKey = "Mac-Assembly-CSharp.dll.v";
             if (OperatingSystem.IsLinux()) jsonKey = "Linux-Assembly-CSharp.dll.v";
+
+            jsonKey = $"{settings?.GameVersion}-${jsonKey}";
             
             json.RootElement.TryGetProperty(jsonKey, out var linkElem);
             
