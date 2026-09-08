@@ -7,14 +7,12 @@ using ReactiveUI;
 
 namespace Lumafly.Views.Windows;
 
-public partial class ErrorPopup : Window
+public partial class AdditionalPopup : Window
 {
-    public ErrorPopup()
+    public AdditionalPopup()
     {
         InitializeComponent();
 
         OkButton.Command = ReactiveCommand.Create(Close);
-        CopyButton.Command = ReactiveCommand.Create(
-            () => Clipboard?.SetTextAsync(ErrorExplanation.Text + "\n\n" + FullErrorText.Text));
     }
 }

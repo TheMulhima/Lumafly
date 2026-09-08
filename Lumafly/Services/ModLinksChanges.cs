@@ -7,7 +7,6 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using DynamicData;
 using Lumafly.Enums;
 using Lumafly.Interfaces;
 using Lumafly.Models;
@@ -249,7 +248,7 @@ public class ModLinksChanges : IModLinksChanges
 
             foreach (var mod in sortedModNamesList.Select(x => currentItems.First(y => y.Name == x)))
             {
-                mod.RecentChangeInfo.AddSortOrder(sortedModNamesList.IndexOf(mod.Name));
+                mod.RecentChangeInfo.AddSortOrder(modNamesList.IndexOf(mod.Name));
             }
         }
         catch(Exception e)

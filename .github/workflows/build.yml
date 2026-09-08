@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on: [push, pull_request]
 
@@ -11,39 +11,39 @@ jobs:
     env:
       NUGET_CERT_REVOCATION_MODE: offline
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Setup .NET for windows build
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Build
       run: |
         cd Lumafly
-        dotnet publish -r win-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
+        dotnet publish -r win-x64 -p:DebugType=embedded
         cd ..
     - name: Upload windows binary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Lumafly-Windows
-        path: Lumafly/bin/Release/net9.0/win-x64/publish/
+        path: Lumafly/bin/Release/net10.0/win-x64/publish/
 
   build-linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Setup .NET for linux build
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Build
       run: | 
         cd Lumafly
-        dotnet publish -r linux-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded
+        dotnet publish -r linux-x64 --self-contained true -p:DebugType=embedded
         cd ..
-        chmod +x Lumafly/bin/Release/net9.0/linux-x64/publish/Lumafly
-        zip -jr linux.zip Lumafly/bin/Release/net9.0/linux-x64/publish/*
+        chmod +x Lumafly/bin/Release/net10.0/linux-x64/publish/Lumafly
+        zip -jr linux.zip Lumafly/bin/Release/net10.0/linux-x64/publish/*
     - name: Upload linux binary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Lumafly-Linux
         path: linux.zip
@@ -53,21 +53,21 @@ jobs:
     env:
       NUGET_CERT_REVOCATION_MODE: offline
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Setup .NET for macos build
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Build
       run: |
         cd Lumafly
-        dotnet publish -r osx-x64 -p:PublishSingleFile=true -p:Configuration=Release --self-contained true
+        dotnet publish -r osx-x64 -p:PublishSingleFile=true --self-contained true
         cd ..
         cd Scripts
-        python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net9.0/osx-x64/publish ../out
+        python3 make_mac_app.py Lumafly.app ../Lumafly/bin/Release/net10.0/osx-x64/publish ../out
         cd ..
     - name: Upload macos binary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Lumafly-MacOS
         path: out/mac.zip
@@ -83,15 +83,15 @@ jobs:
     if: startsWith(github.ref, 'refs/tags')
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Setup .NET for AU build
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with: 
-       path: ./artifacts
+        path: ./artifacts
     - name: Restore dependencies
       run: dotnet restore -r win-x64
     - name: Build
@@ -101,10 +101,10 @@ jobs:
         dotnet publish -r win-x64 -c Release --self-contained true
         cd ..
     - name: Upload windows binary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Lumafly-AU
-        path: Lumafly.AU/bin/Release/net9.0/win-x64/publish/
+        path: Lumafly.AU/bin/Release/net10.0/win-x64/publish/
 
 
   release:
@@ -115,7 +115,7 @@ jobs:
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with: 
           path: ./artifacts
 
@@ -149,7 +149,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags')
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Get tag
         id: vars
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT

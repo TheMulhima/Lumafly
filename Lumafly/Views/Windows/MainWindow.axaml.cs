@@ -27,4 +27,6 @@ public partial class MainWindow : Window
             AppVersion.Margin = new Thickness(1,15,0,-5);
         }
     }
+
+    
 }

@@ -262,7 +262,7 @@
                         x:Name="Search"
                         Name="Search"
                         IsVisible="{ReflectionBinding $parent[pages:ModListView].DataContext.IsNormalSearch}"
-                        Watermark="{ext:Localize XAML_SearchMark}"
+                        PlaceholderText="{ext:Localize XAML_SearchMark}"
                         BorderThickness="0"
                         Margin="6 6"
                         Text="{Binding Search}" />

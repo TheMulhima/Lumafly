@@ -19,6 +19,7 @@ using NetSparkleUpdater.SignatureVerifiers;
 using NetSparkleUpdater.UI.Avalonia;
 using Lumafly.Util;
 using Lumafly.Interfaces;
+using Avalonia.Media;
 
 namespace Lumafly.Services;
 
@@ -32,7 +33,7 @@ public class AppUpdater : IAppUpdater
         _sparkleUpdater = new SparkleUpdater("https://raw.githubusercontent.com/TheMulhima/Lumafly/master/appcast.xml",
             new DSAChecker(SecurityMode.Unsafe)) // use unsafe because I cant be bothered with signing the appcast and stuff
         {
-            UIFactory = new UIFactory(null)
+            UIFactory = new UIFactory()
             {
                 AdditionalReleaseNotesHeaderHTML = """
                 <style> 
@@ -48,19 +49,16 @@ public class AppUpdater : IAppUpdater
                         {2}
                     </div>
                 </div>
-                """,
+                """
             },
-            ShowsUIOnMainThread = true, // required for avalonia
             ClearOldInstallers = RemoveOldAUs,
             TmpDownloadFilePath = Settings.GetOrCreateDirPath(), // download to appdata folder which we have full perms in
             // run installer with exe name and path so lumafly is replaced correctly
             CustomInstallerArguments = Environment.GetCommandLineArgs()[0], // send the full exe path to the installer so it can replace it correctly
-            SecurityProtocolType = SecurityProtocolType.Tls12, // required by github
             // GitHub doesn't support CheckServerFileName, if server is checked, it returns a UUID without any file extension which is not windows friendly
             CheckServerFileName = false,
             RelaunchAfterUpdate = true,
         };
-        
         _sparkleUpdater.DownloadHadError += OnDownloadError;
     }
     
@@ -76,7 +74,7 @@ public class AppUpdater : IAppUpdater
          // if (MainWindowViewModel._Debug) return;
 
         if (OperatingSystem.IsWindows())
-            HandleWindowsUpdate(forced);
+            await HandleWindowsUpdate(forced);
         else
             await HandleManualUpdate(current_version);
     }
@@ -84,14 +82,14 @@ public class AppUpdater : IAppUpdater
     /// <summary>
     /// Automatically download updated from github and replace the current exe using NetSparkleUpdater
     /// </summary>
-    private void HandleWindowsUpdate(bool forced)
+    private async Task HandleWindowsUpdate(bool forced)
     {
         try
         {
             if (forced)
-                _sparkleUpdater.CheckForUpdatesAtUserRequest(ignoreSkippedVersions: true);
+                await _sparkleUpdater.CheckForUpdatesAtUserRequest(ignoreSkippedVersions: true);
             else
-                _sparkleUpdater.StartLoop(doInitialCheck: true, forceInitialCheck: true);
+                await _sparkleUpdater.StartLoop(doInitialCheck: true, forceInitialCheck: true);
 
         }
         catch (Exception e)
@@ -104,7 +102,7 @@ public class AppUpdater : IAppUpdater
     /// <summary>
     /// Show a popup when the update fails or cancelled, Will open the update link on the browser and close the app
     /// </summary>
-    private void OnDownloadError(AppCastItem? item, string path, Exception exception)
+    private void OnDownloadError(AppCastItem? item, string? path, Exception exception)
     {
         Dispatcher.UIThread.InvokeAsync(async () =>
         {

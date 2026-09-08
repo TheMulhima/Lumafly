@@ -10,7 +10,7 @@
         x:CompileBindings="True"
         Height="135" Width="300"
         CanResize="False"
-        SystemDecorations="BorderOnly"
+        WindowDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         Title="Import Pack Options">
     <ScrollViewer>

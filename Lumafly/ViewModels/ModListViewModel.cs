@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -21,6 +20,7 @@ using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Services;
 using Lumafly.Util;
+using ReactiveUI.Primitives;
 
 namespace Lumafly.ViewModels
 {
@@ -81,9 +81,9 @@ namespace Lumafly.ViewModels
         public IEnumerable<string> ModNames { get; }
         public SortableObservableCollection<SelectableItem<string>> TagList { get; }
         public SortableObservableCollection<SelectableItem<string>> AuthorList { get; }
-        public ReactiveCommand<Unit, Unit> ToggleApi { get; }
-        public ReactiveCommand<Unit, Unit> UpdateApi { get; } 
-        public ReactiveCommand<Unit, Unit> ManuallyInstallMod { get; }
+        public ReactiveCommand<RxVoid, RxVoid> ToggleApi { get; }
+        public ReactiveCommand<RxVoid, RxVoid> UpdateApi { get; } 
+        public ReactiveCommand<RxVoid, RxVoid> ManuallyInstallMod { get; }
 
         public ModListViewModel(
             ISettings settings, 

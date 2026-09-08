@@ -8,6 +8,8 @@ using Avalonia.Platform.Storage;
 using MsBox.Avalonia.Models;
 using MsBox.Avalonia.Dto;
 using Lumafly.Models;
+using Lumafly.Interfaces;
+using System;
 
 namespace Lumafly.Util
 {
@@ -16,6 +18,16 @@ namespace Lumafly.Util
         // There isn't any [return: MaybeNullWhen(param is null)] so this overload will have to do
         // Not really a huge point but it's nice to have the nullable static analysis
         public static async Task<string?> SelectPathFallible() => await SelectPath(true);
+
+        public static void CheckPathStatus(this ISettings settings)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(settings.ManagedFolder));
+
+            var dllPath = Path.GetFullPath(Path.Combine(settings.ManagedFolder, "..", "..", "UnityPlayer.dll"));
+            settings.IsWindowsOrWine = File.Exists(dllPath);
+
+            Debug.Assert(!OperatingSystem.IsWindows() || settings.IsWindowsOrWine);
+        }
         
         public static async Task<string> SelectPath(bool fail = false)
         {
@@ -69,28 +81,23 @@ namespace Lumafly.Util
 
         private static async Task<string> SelectMacApp(Window parent, bool fail)
         {
-            // use old API because of inability to rigorously test
-            #pragma warning disable CS0618
-            
-            var dialog = new OpenFileDialog
-            {
-                Title = Resources.PU_SelectApp,
-                Directory = "/Applications",
-                AllowMultiple = false
-            };
-            dialog.Filters?.Add(new FileDialogFilter { Extensions = { "app" } });
-            
-            #pragma warning restore CS0618
-
+            //Require more test!!!!!!!
+            var startLocation = await parent.StorageProvider.TryGetFolderFromPathAsync("/Applications");
             while (true)
             {
-                string[]? result = await dialog.ShowAsync(parent);
-                if (result is null or { Length: 0 })
+                var result = await parent.StorageProvider.OpenFolderPickerAsync(new()
+                {
+                    Title = Resources.PU_SelectApp,
+                    SuggestedStartLocation = startLocation,
+                    AllowMultiple = false
+                });
+
+                if (result.FirstOrDefault() is not { } selected)
                 {
                     await MessageBoxUtil
                         .GetMessageBoxStandardWindow(Resources.PU_InvalidPathTitle, Resources.PU_NoSelectMac).ShowAsPopupAsync(AvaloniaUtils.GetMainWindow());
                 }
-                else if (ValidateWithSuffix(result[0]) is not var (managed, suffix))
+                else if (ValidateWithSuffix(selected.Path.LocalPath) is not var (managed, suffix))
                 {
                     var res = await MessageBoxUtil.GetMessageBoxCustomWindow(new MessageBoxCustomParams()
                     {

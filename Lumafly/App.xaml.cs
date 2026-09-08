@@ -2,9 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using JetBrains.Annotations;
+using Lumafly.Util;
 using Lumafly.ViewModels;
 using Lumafly.Views.Windows;
+using ReactiveUI;
+using ReactiveUI.Builder;
+using System;
 
 namespace Lumafly
 {
@@ -18,6 +23,12 @@ namespace Lumafly
 
         public override void OnFrameworkInitializationCompleted()
         {
+            Dispatcher.UIThread.UnhandledException += (_, e) =>
+            {
+                _ = DisplayErrors.DisplayGenericError("Unhandled error!", e.Exception);
+                e.Handled = true;
+            };
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
