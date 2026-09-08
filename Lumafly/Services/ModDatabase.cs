@@ -233,19 +233,23 @@ namespace Lumafly.Services
             return await hc.GetStringAsync2(settings, uri, cts.Token);
         }
 
-        public static async Task<string> FetchVanillaAssemblyLink(ISettings? settings)
+        public static async Task<string> FetchVanillaAssemblyLink(ISettings settings)
         {
             using var cts = new CancellationTokenSource(TIMEOUT);
             var hc = new HttpClient();
             hc.DefaultRequestHeaders.Add("User-Agent", "Lumafly");
             var json = JsonDocument.Parse(await hc.GetStringAsync2(settings, VanillaApiRepo, cts.Token));
             
-            var jsonKey = "Assembly-CSharp.dll.v";
-            // windows assembly is just called that because initially this was overlooked and only windows assembly was downloaded
-            if (OperatingSystem.IsMacOS()) jsonKey = "Mac-Assembly-CSharp.dll.v";
-            if (OperatingSystem.IsLinux()) jsonKey = "Linux-Assembly-CSharp.dll.v";
-
-            jsonKey = $"{settings?.GameVersion}-${jsonKey}";
+            var platform = "Windows";
+            if(OperatingSystem.IsMacOS())
+            {
+                platform = "Mac";
+            }
+            else if(OperatingSystem.IsLinux() && !settings.IsWindowsOrWine)
+            {
+                platform = "Linux";
+            }
+            var jsonKey = $"{settings?.GameVersion}-{platform}-Assembly-CSharp.dll.v";
             
             json.RootElement.TryGetProperty(jsonKey, out var linkElem);
             
