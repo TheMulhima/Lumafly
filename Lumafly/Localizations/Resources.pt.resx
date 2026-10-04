@@ -736,6 +736,6 @@
     <value>Abrir ModLog.txt</value>
   </data>
   <data name="XAML_LaunchArguments" xml:space="preserve">
-    <value>Launch Arguments</value>
+    <value>Argumentos de Inicialização</value>
   </data>
 </root>
