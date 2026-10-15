@@ -12,7 +12,7 @@
         Width="500"
         Icon="/Assets/error.png"
         WindowStartupLocation="CenterOwner"
-        SystemDecorations="Full"
+        WindowDecorations="Full"
         CanResize="True"
         Title="Error">
     <Window.Styles>

@@ -102,7 +102,7 @@ namespace Lumafly.ViewModels
                     JsonDocument json = JsonDocument.Parse(jsonResponse);
                     json.RootElement.TryGetProperty("download_url", out var downloadUrlProperty);
 
-                    ReadmeLink = json.RootElement.GetProperty("html_url").GetString();
+                    ReadmeLink = json.RootElement.GetProperty("html_url").GetString()!;
 
                     // Make a request to fetch the README content
                     HttpResponseMessage readmeResponse = await _hc.GetAsync(downloadUrlProperty.GetString());

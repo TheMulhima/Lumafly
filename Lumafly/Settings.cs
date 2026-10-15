@@ -32,7 +32,13 @@ namespace Lumafly
         public string CustomModlinksUri { get; set; } = string.Empty;
         public bool UseGithubMirror { get; set; }
         public string GithubMirrorFormat { get; set; } = string.Empty;
-        
+        public bool IsWindowsOrWine { get; set; } = false;
+
+        [JsonIgnore]
+        public Version? GameVersion { get; set; }
+        [JsonIgnore]
+        public bool IsOldMode { get; set; }
+
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SupportedLanguages? PreferredLanguage { get; set; }
         public bool LowStorageMode { get; set; } = false;
@@ -55,7 +61,7 @@ namespace Lumafly
                         size += FileUtil.GetAllFilesInDirectory(dir.FullName).Sum(x => x.Length);
                     }
                 }
-                
+
                 return $"{size / 1024 / 1024} MB";
             }
         }
@@ -81,16 +87,16 @@ namespace Lumafly
             ".local/share/Steam/steamapps/common/Hollow Knight",
             ".steam/steam/steamapps/common/Hollow Knight",
             // Flatpak
-            ".var/app/ocm.valvesoftware.Steam/data/Steam/steamapps/common",
+            //".var/app/com.valvesoftware.Steam/data/Steam/steamapps/common",
             // Symlinks to the Steam root on linux
-            ".steam/steam",
-            ".steam/root",
+            //".steam/steam",
+            //".steam/root",
             // Default for macOS
             "Library/Application Support/Steam/steamapps/common/Hollow Knight/hollow_knight.app"
         }
         .ToImmutableList();
         // @formatter:on
-        
+
         public static string ConfigFolderPath => Path.Combine
         (
             Environment.GetFolderPath
@@ -100,14 +106,16 @@ namespace Lumafly
             ),
             "HKModInstaller"
         );
-        
+
         private static string ConfigPath => Path.Combine(ConfigFolderPath, "HKInstallerSettings.json");
         public string CacheFolder => Path.Combine(ConfigFolderPath, "HKInstallerCache");
+
+        public string? PrevAdditionalInfoHash { get; set; }
 
         internal Settings(string path)
         {
             ManagedFolder = path;
-            
+
             var culture = Thread.CurrentThread.CurrentUICulture;
             if (Enum.TryParse(culture.TwoLetterISOLanguageName, out SupportedLanguages preferredLanguage))
                 PreferredLanguage = preferredLanguage;
@@ -154,7 +162,7 @@ namespace Lumafly
 
             if (TryDetectFromRegistry(out path))
                 return path;
-            
+
             // since it cant detect from registry assume its because it can't access the registry
             await DisplayErrors.AskForAdminReload("Path was not automatically found from registry.");
 
@@ -269,7 +277,7 @@ namespace Lumafly
         {
             string content = JsonSerializer.Serialize(this, new JsonSerializerOptions()
             {
-                WriteIndented = true,
+                WriteIndented = true
             });
 
             GetOrCreateDirPath();

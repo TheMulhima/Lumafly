@@ -1,18 +1,21 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia.Threading;
-using MsBox.Avalonia.Enums;
-using PropertyChanged.SourceGenerator;
+﻿using Avalonia.Threading;
 using Lumafly.Enums;
 using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Services;
 using Lumafly.Util;
+using Lumafly.Views.Windows;
+using MsBox.Avalonia.Enums;
+using PropertyChanged.SourceGenerator;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Lumafly.ViewModels;
 
@@ -161,13 +164,34 @@ public partial class InfoViewModel : ViewModelBase
                 _settings,
                 new Uri(additionalInfoLink),
                 new CancellationTokenSource(ModDatabase.TIMEOUT).Token);
-            
-            if (!string.IsNullOrEmpty(AdditionalInfo)) 
+
+            if (!string.IsNullOrEmpty(AdditionalInfo))
+            {
                 AdditionalInfoVisible = true;
+
+                var hash = Convert.ToHexStringLower(
+                    SHA256.HashData(Encoding.UTF8.GetBytes(AdditionalInfo))
+                    );
+                if(!hash.Equals(_settings.PrevAdditionalInfoHash))
+                {
+                    _settings.PrevAdditionalInfoHash = hash;
+                    _settings.Save();
+
+                    // Popup
+
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        new AdditionalPopup()
+                        {
+                            DataContext = new AdditionalPopupViewModel(AdditionalInfo)
+                        }.ShowDialog(AvaloniaUtils.GetMainWindow());
+                    });
+                }
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // ignored not important
+            Trace.WriteLine(ex);
         }
     }
     

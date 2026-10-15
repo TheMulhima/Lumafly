@@ -170,14 +170,6 @@
                             </StackPanel>
                         </Button>
                         <Button
-                            ToolTip.Tip="{ext:Localize XAML_InfoLinkHKMMToolTip}" ToolTip.ShowDelay="0"
-                            CommandParameter="https://github.com/HKLab/HKModManager">
-                            <StackPanel>
-                                <Svg Path="../../Assets/HKMM.svg" />
-                                <TextBlock Text="{ext:Localize XAML_InfoLinkHKMM}" />
-                            </StackPanel>
-                        </Button>
-                        <Button
                             CommandParameter="https://prashantmohta.github.io/ModdingDocs">
                             <StackPanel>
                                 <PathIcon Data="{StaticResource wrench_regular}" />

@@ -11,7 +11,7 @@
         x:Class="Lumafly.Views.Windows.EditPackWindow"
         x:DataType="viewModels:EditPackWindowViewModel"
         x:CompileBindings="True"
-        SystemDecorations="BorderOnly"
+        WindowDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         Title="{ext:Localize EditPack}">
@@ -106,7 +106,7 @@
                     BorderBrush="#a9a9a9"
                     BorderThickness="1 1 1 0">
                     <TextBox
-                        Watermark="{ext:Localize XAML_SearchMark}"
+                        PlaceholderText="{ext:Localize XAML_SearchMark}"
                         BorderThickness="0"
                         Margin="6 6"
                         Text="{Binding ModSearch}" />

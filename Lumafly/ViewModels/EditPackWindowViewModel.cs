@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Avalonia.Threading;
 using Lumafly.Models;
@@ -87,6 +88,8 @@ public partial class EditPackWindowViewModel : ViewModelBase
         var modLinksMod = _modLookup[mod.Name].State is not NotInModLinksState { ModlinksMod: false };
         if (!modLinksMod)
         {
+            Debug.Assert(PackManager.CurrentPackWindow != null);
+
             Dispatcher.UIThread.Invoke(async () => await MessageBoxUtil
                 .GetMessageBoxStandardWindow("Warning", "This mod is not available on modlinks.")
                 .ShowAsPopupAsync(PackManager.CurrentPackWindow));

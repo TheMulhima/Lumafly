@@ -1,19 +1,21 @@
+using Avalonia;
+using Avalonia.Dialogs;
+using Avalonia.Media;
+using Avalonia.Media.Fonts;
+using JetBrains.Annotations;
+using Lumafly.Enums;
+using Lumafly.Util;
+using ReactiveUI.Avalonia;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Media;
-using Avalonia.Media.Fonts;
-using Avalonia.ReactiveUI;
-using JetBrains.Annotations;
-using Lumafly.Enums;
-using Lumafly.Util;
 
 namespace Lumafly
 {
@@ -209,7 +211,13 @@ namespace Lumafly
                 .Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI()
+                .UseReactiveUI(builder =>
+                {
+                    builder.WithExceptionHandler(Observer.Create<Exception>(ex =>
+                    {
+                        _ = DisplayErrors.DisplayGenericError(ex.Message, ex);
+                    }));
+                })
                 .ConfigureFonts(manager =>
                 {
                     manager.AddFontCollection(new EmbeddedFontCollection(

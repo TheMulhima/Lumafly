@@ -116,9 +116,12 @@ namespace Lumafly.Tests
                     "A collection of various quality of life improvements.",
                     "https://github.com/fifty-six/HollowKnight.QoL",
                     "https://github.com/fifty-six/HollowKnight.QoL",
-                    Array.Empty<string>(),
-                    Array.Empty<string>(),
-                    Array.Empty<string>()
+                    null,
+                    false,
+                    [],
+                    [],
+                    [],
+                    null
                 ),
                 db.Items.First(x => x.Name == "QoL")
             );

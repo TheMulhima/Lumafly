@@ -50,8 +50,7 @@ namespace Lumafly.ViewModels
         [Notify]
         private LoadingViewModel _loadingPage { get; set; }
 
-        [UsedImplicitly]
-        private ViewModelBase Content => Loading || SelectedTabIndex < 0 ? LoadingPage : Tabs[SelectedTabIndex].Item;
+        public ViewModelBase Content => Loading || SelectedTabIndex < 0 ? LoadingPage : Tabs[SelectedTabIndex].Item;
         public IBrush BorderBrush => new SolidColorBrush(Color.FromRgb(0x28, 0x28, 0x28));
         public Thickness BorderThickness => new(1);
         public CornerRadius CornerRadius => new(3);
@@ -92,6 +91,7 @@ namespace Lumafly.ViewModels
 
             Trace.WriteLine("Checking if up to date...");
             Settings settings = Settings.Load() ?? Settings.Create(await GetSettingsPath());
+            settings.CheckPathStatus();
             var appUpdater = new AppUpdater(settings);
             
             await appUpdater.CheckUpToDate();
@@ -138,7 +138,11 @@ namespace Lumafly.ViewModels
             }
 
             HttpClient hc = new HttpClient();
+            CheckValidityOfAssembly checkValidityOfAssembly = new(fs, settings);
             LumaflyMode lumaflyMode;
+
+            checkValidityOfAssembly.GetAPIVersion(Installer.Current, out var gameVersion);
+            Trace.WriteLine($"Detected game version: {gameVersion ?? "unknown"}");
             
             var modLinksCache = Path.Combine(Settings.ConfigFolderPath, "Modlinks.xml");
             var apiLinksCache = Path.Combine(Settings.ConfigFolderPath, "ApiLinks.xml");
@@ -155,7 +159,7 @@ namespace Lumafly.ViewModels
                             settings.RequiresWorkaroundClient
                                 ? HttpSetting.OnlyWorkaround
                                 : HttpSetting.TryBoth,
-                            f => ModDatabase.FetchContent(f, settings, fetchOfficial: false),
+                            f => ModDatabase.FetchContent(f, settings, checkValidityOfAssembly, fetchOfficial: false),
                             AddSettings);
                     }
                     catch (InvalidModlinksException)
@@ -174,7 +178,7 @@ namespace Lumafly.ViewModels
                     settings.RequiresWorkaroundClient
                         ? HttpSetting.OnlyWorkaround
                         : HttpSetting.TryBoth,
-                    f => ModDatabase.FetchContent(f, settings, fetchOfficial: true),
+                    f => ModDatabase.FetchContent(f, settings, checkValidityOfAssembly, fetchOfficial: true),
                     AddSettings);
 
 
@@ -247,7 +251,7 @@ namespace Lumafly.ViewModels
               .AddSingleton<IAppUpdater>(_ => appUpdater)
               
               .AddSingleton<IGlobalSettingsFinder, GlobalSettingsFinder>()
-              .AddSingleton<ICheckValidityOfAssembly, CheckValidityOfAssembly>()
+              .AddSingleton<ICheckValidityOfAssembly>(_ => checkValidityOfAssembly)
               .AddSingleton<IOnlineTextStorage, PastebinTextStorage>()
               .AddSingleton<IFileSystem>(_ => fs)
               .AddSingleton<IModSource>(_ => installedMods)
@@ -579,6 +583,8 @@ namespace Lumafly.ViewModels
             {
                 Trace.TraceError(e.ToString());
                 Trace.Flush();
+
+                await DisplayErrors.DisplayGenericError(e.Message, e);
 
                 if (Debugger.IsAttached)
                     Debugger.Break();

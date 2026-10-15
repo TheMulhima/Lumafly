@@ -9,7 +9,7 @@
         x:Class="Lumafly.Views.Windows.ReadmePopup"
         x:DataType="viewModels:ReadmePopupViewModel"
         x:CompileBindings="True"
-        SystemDecorations="BorderOnly"
+        WindowDecorations="BorderOnly"
         WindowStartupLocation="CenterOwner"
         CanResize="False"
         Title="Readme Viewer">

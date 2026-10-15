@@ -1,5 +1,7 @@
 using Lumafly.Enums;
+using System;
 using System.IO;
+using System.Text.Json.Serialization;
 
 namespace Lumafly.Interfaces
 {
@@ -14,8 +16,10 @@ namespace Lumafly.Interfaces
         string ExtraSpaceTaken { get; }
 
         string ManagedFolder { get; set; }
+        bool IsWindowsOrWine { get; set; }
         string CacheFolder { get; }
-
+        Version? GameVersion { get; set; }
+        bool IsOldMode { get; set; }
         bool RequiresWorkaroundClient { get; set; }
         
         string ModsFolder     => Path.Combine(ManagedFolder, "Mods");
@@ -24,7 +28,7 @@ namespace Lumafly.Interfaces
         string GithubMirrorFormat { get; set; }
         bool UseGithubMirror { get; set; }
         string LaunchArgs { get; set; }
-
+        string? PrevAdditionalInfoHash { get; set; }
         void Save();
     }
 }

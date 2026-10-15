@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using MsBox.Avalonia.Enums;
-using Microsoft.Toolkit.HighPerformance;
+using CommunityToolkit.HighPerformance;
 using Lumafly.Interfaces;
 using Lumafly.Models;
 using Lumafly.Util;
@@ -70,15 +70,12 @@ namespace Lumafly.Services
         // 2 mod toggles shouldn't happen at the same time because if they are conflicting it can cause problems
         private readonly SemaphoreSlim _modToggleSemaphore = new (1);
         private readonly HttpClient _hc;
-        private readonly ISettings _settings;
-
         public Installer(
             ISettings config, 
             IModSource installed, 
             IModDatabase db,
             IFileSystem fs,
             HttpClient hc,
-            ISettings settings,
             ICheckValidityOfAssembly checkValidityOfAssembly)
         {
             _config = config;
@@ -86,7 +83,6 @@ namespace Lumafly.Services
             _db = db;
             _fs = fs;
             _hc = hc;
-            _settings = settings;
             _checkValidityOfAssembly = checkValidityOfAssembly;
 
             // run some tasks on installer init
@@ -149,13 +145,52 @@ namespace Lumafly.Services
 
             try
             {
-                await _Toggle(mod, enabled, state);
+                if(mod.IsOldStyleMod)
+                {
+                    await _ToggleOldStyle(mod, enabled, state);
+                }
+                else
+                {
+                    await _Toggle(mod, enabled, state);
+                }
             }
             finally
             {
                 _modToggleSemaphore.Release();
             }
 
+        }
+
+        private async Task _ToggleOldStyle(ModItem mod, bool enabled, ExistsModState state)
+        {
+            CreateNeededDirectories();
+
+            var disabledFolder = Path.Combine(_config.DisabledFolder, mod.Name);
+            var (prev, after) = !enabled
+                ? (disabledFolder, _config.ModsFolder)
+                : (_config.ModsFolder, disabledFolder);
+
+            // just in case the mod was deleted or manually moved
+            if (!_fs.Directory.Exists(prev))
+                throw new ReadableError("because it doesn't exist where it is supposed to. Please try to reinstall the mod");
+
+            _fs.Directory.CreateDirectory(after);
+
+            var modfile_prefix = $"{mod.Name}_";
+            foreach(var v in _fs.Directory.EnumerateFiles(prev, "*", SearchOption.TopDirectoryOnly))
+            {
+                var name = Path.GetFileName(v);
+                if(!name.StartsWith(modfile_prefix))
+                {
+                    continue;
+                }
+
+                _fs.File.Move(v, Path.Combine(after, name), true);
+            }
+
+            mod.State = state with { Enabled = !state.Enabled };
+
+            await _installed.RecordInstalledState(mod);
         }
 
         private async Task _Toggle(ModItem mod, bool enabled, ExistsModState state)
@@ -228,11 +263,19 @@ namespace Lumafly.Services
                     return;
                 
                 string managed = _config.ManagedFolder;
+                _checkValidityOfAssembly.GetAPIVersion(Current, out var gameVersion);
 
-                var url = await ModDatabase.FetchVanillaAssemblyLink(_settings);
+                var url = await ModDatabase.FetchVanillaAssemblyLink(_config);
 
                 (ArraySegment<byte> data, _) = await DownloadFile(url, _ => { });
-                
+
+                _checkValidityOfAssembly.GetAPIVersion(data.AsMemory().AsStream(), out var vanillaGameVersion);
+
+                if (!GameVersion.Equal(vanillaGameVersion, gameVersion))
+                    throw new ReadableError(
+                        $"The downloaded vanilla assembly is for Hollow Knight {vanillaGameVersion ?? "unknown"}, " +
+                        $"but the installed game is {gameVersion ?? "unknown"}. Please verify integrity of game files instead.");
+
                 await _fs.File.WriteAllBytesAsync(Path.Combine(managed, Vanilla), data.Array!);
 
                 await CheckAPI();
@@ -268,7 +311,9 @@ namespace Lumafly.Services
         private async Task _InstallApi((string Url, int Version, string SHA256) manifest)
         {
             bool was_vanilla = true;
-            if (await CheckAPI())
+
+            await CheckAPI();
+            if (_checkValidityOfAssembly.GetAPIVersion(Current, out _) != null)
             {
                 if (((InstalledState)_installed.ApiInstall).Version.Major >= manifest.Version)
                     return;
@@ -283,6 +328,18 @@ namespace Lumafly.Services
             (ArraySegment<byte> data, string _) = await DownloadFile(api_url, _ => { });
             
             ThrowIfInvalidHash("the API", data, hash);
+
+            string? apiGameVersion = ReadApiGameVersion(data);
+            Debug.Assert(apiGameVersion != null);
+            if (GameVersion.Normalize(apiGameVersion) != _config.GameVersion)
+            {
+                await _installed.RecordApiState(new NotInstalledState());
+
+                throw new ReadableError(
+                    $"The Modding API v{ver} is built for Hollow Knight {apiGameVersion}, " +
+                    $"but the installed game is {_config.GameVersion}. " +
+                    "The Modding API available in modlinks does not support this game version.");
+            }
 
             // Backup the vanilla assembly
             if (was_vanilla)
@@ -317,7 +374,10 @@ namespace Lumafly.Services
 
             var st = (InstalledState) _installed.ApiInstall;
             
-            if (st.Enabled && !_installed.HasVanilla) return;
+            if (st.Enabled && !_installed.HasVanilla)
+            {
+                throw new InvalidOperationException("Invalid Vanilla.");
+            }
 
             var (move_to, move_from) = st.Enabled
                 // If the api is enabled, move the current (modded) dll
@@ -326,6 +386,14 @@ namespace Lumafly.Services
                 // Otherwise, we're enabling the api, so move the current (vanilla) dll
                 // And take from our .m file
                 : (Vanilla, Modded);
+
+            _checkValidityOfAssembly.GetAPIVersion(Current, out var currentGameVersion);
+            _checkValidityOfAssembly.GetAPIVersion(move_from, out var fromGameVersion);
+
+            if(currentGameVersion != fromGameVersion)
+            {
+                throw new InvalidOperationException($"Mismatched Game Version: {move_from}({fromGameVersion}) -> {Current}({currentGameVersion})");
+            }
             
             _fs.File.Move(Path.Combine(managed, Current), Path.Combine(managed, move_to), true);
             _fs.File.Move(Path.Combine(managed, move_from), Path.Combine(managed, Current), true);
@@ -387,7 +455,14 @@ namespace Lumafly.Services
                 // Shouldn't ever not exist, but rather safe than sorry I guess.
                 CreateNeededDirectories();
 
-                await _Uninstall(mod);
+                if (mod.IsOldStyleMod)
+                {
+                    await _UninstallOldStyle(mod);
+                }
+                else
+                {
+                    await _Uninstall(mod);
+                }
             }
             finally
             {
@@ -431,7 +506,7 @@ namespace Lumafly.Services
                 (data, filename) = cachedModData.Value;
             }
 
-            if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState)
+            if (!string.IsNullOrEmpty(mod.Sha256) && mod.State is not NotInModLinksState && !_config.IsOldMode)
                 ThrowIfInvalidHash(mod.Name, data, mod.Sha256);
             
             if (cachedModData is null && !string.IsNullOrEmpty(mod.Sha256))
@@ -508,6 +583,7 @@ namespace Lumafly.Services
         {
             try
             {
+                if (_config.IsOldMode) return null;
                 if (string.IsNullOrEmpty(mod.Sha256)) return null;
                 
                 if (!_fs.Directory.Exists(_config.CacheFolder)) return null;
@@ -547,14 +623,23 @@ namespace Lumafly.Services
             string base_folder = enable
                 ? _config.ModsFolder
                 : _config.DisabledFolder;
-
+            string? file_prefix = null;
             string mod_folder = Path.Combine(base_folder, mod.Name);
+
+            if(mod.IsOldStyleMod)
+            {
+                if (enable)
+                {
+                    mod_folder = base_folder;
+                }
+                file_prefix = $"{mod.Name}_";
+            }
 
             switch (ext)
             {
                 case ".zip":
                 {
-                    ExtractZip(data, mod_folder);
+                    ExtractZip(data, mod_folder, file_prefix);
 
                     break;
                 }
@@ -563,7 +648,7 @@ namespace Lumafly.Services
                 {
                     Directory.CreateDirectory(mod_folder);
 
-                    await _fs.File.WriteAllBytesAsync(Path.Combine(mod_folder, filename), data.Array!);
+                    await _fs.File.WriteAllBytesAsync(Path.Combine(mod_folder, mod.IsOldStyleMod ? $"{file_prefix}{filename}" : filename), data.Array!);
 
                     break;
                 }
@@ -591,7 +676,7 @@ namespace Lumafly.Services
             string uri, Action<DownloadProgressArgs> setProgress)
         {
             (ArraySegment<byte> bytes, HttpResponseMessage response) = await _hc.DownloadBytesWithProgressAsync(
-                _settings,
+                _config,
                 new Uri(uri), 
                 new Progress<DownloadProgressArgs>(setProgress)
             );
@@ -606,8 +691,24 @@ namespace Lumafly.Services
 
             return (bytes, filename);
         }
+        private string? ReadApiGameVersion(ArraySegment<byte> apiZip)
+        {
+            using var archive = new ZipArchive(apiZip.AsMemory().AsStream());
 
-        private void ExtractZip(ArraySegment<byte> data, string root)
+            ZipArchiveEntry? entry = archive.GetEntry(Current);
+            if (entry is null)
+                return null;
+
+            // Cecil needs a seekable stream, which zip entry streams are not
+            using var assembly = new MemoryStream();
+            using (Stream entryStream = entry.Open())
+                entryStream.CopyTo(assembly);
+            assembly.Position = 0;
+            _checkValidityOfAssembly.GetAPIVersion(assembly, out var gameVersion);
+            return gameVersion;
+        }
+
+        private void ExtractZip(ArraySegment<byte> data, string root, string? fileNamePrefix = null)
         {
             using var archive = new ZipArchive(data.AsMemory().AsStream());
 
@@ -615,7 +716,29 @@ namespace Lumafly.Services
 
             foreach (ZipArchiveEntry entry in archive.Entries)
             {
-                string file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName));
+                string file_dest;
+                if (entry.FullName.StartsWith(@"hollow_knight_Data\Managed\Mods\") ||
+                    entry.FullName.StartsWith(@"hollow_knight_Data/Managed/Mods/"))
+                {
+                    // 1432 mods style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName[@"hollow_knight_Data\Managed\Mods\".Length..]));
+                }
+                else if (entry.FullName.StartsWith(@"hollow_knight_Data\Managed\") ||
+                    entry.FullName.StartsWith(@"hollow_knight_Data/Managed/"))
+                {
+                    // 1432-60 MAPI style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName[@"hollow_knight_Data\Managed\".Length..]));
+                }
+                else
+                {
+                    // New mods style
+                    file_dest = Path.GetFullPath(Path.Combine(dest_dir_path, entry.FullName));
+                }
+
+                if(!string.IsNullOrEmpty(fileNamePrefix))
+                {
+                    file_dest = Path.Combine(Path.GetDirectoryName(file_dest)!, fileNamePrefix + Path.GetFileName(file_dest));
+                }
 
                 if (!file_dest.StartsWith(dest_dir_path))
                     throw new IOException("Extracts outside of directory!");
@@ -670,6 +793,46 @@ namespace Lumafly.Services
             return dest_dir_path;
         }
 
+        private async Task _UninstallOldStyle(ModItem mod)
+        {
+            if (((ExistsModState)mod.State).Enabled)
+            {
+                var modfile_prefix = $"{mod.Name}_";
+                foreach (var v in _fs.Directory.EnumerateFiles(_config.ModsFolder, "*", SearchOption.TopDirectoryOnly))
+                {
+                    var name = Path.GetFileName(v);
+                    if (!name.StartsWith(modfile_prefix))
+                    {
+                        continue;
+                    }
+
+                    if (_fs.File.Exists(v))
+                    {
+                        _fs.File.Delete(v);
+                    }
+                }
+            }
+            else
+            {
+                string dir = Path.Combine(_config.DisabledFolder, mod.Name);
+                if (_fs.Directory.Exists(dir))
+                {
+                    _fs.Directory.Delete(dir, true);
+                }
+            }
+
+            if (mod.State is NotInModLinksState { ModlinksMod: false } notInModLinksState)
+            {
+                mod.State = notInModLinksState with { Installed = false };
+                _db.Items.Remove(mod);
+            }
+            else
+            {
+                mod.State = new NotInstalledState();
+            }
+            await _installed.RecordUninstall(mod);
+        }
+
         private async Task _Uninstall(ModItem mod)
         {
             var enabled = ((ExistsModState)mod.State).Enabled;
@@ -705,14 +868,20 @@ namespace Lumafly.Services
         public async Task<bool> CheckAPI()
         {
             _installed.HasVanilla =
-                _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla);
+                _checkValidityOfAssembly.CheckVanillaFileValidity(Vanilla, Current);
             
-            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current);
+            int? current_version = _checkValidityOfAssembly.GetAPIVersion(Current, out var currentGameVersion);
             bool enabled = true;
             if(current_version == null)
             {
                 enabled = false;
-                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded);
+                current_version = _checkValidityOfAssembly.GetAPIVersion(Modded, out var moddedGameVersion);
+
+                if(currentGameVersion != moddedGameVersion)
+                {
+                    // Ignore
+                    current_version = null;
+                }
             }
             
             if (current_version == null)

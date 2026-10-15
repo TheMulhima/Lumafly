@@ -13,6 +13,7 @@ using Lumafly.Enums;
 using Lumafly.Services;
 using Lumafly.Views.Windows;
 using MsBox.Avalonia.Enums;
+using Avalonia.Input.Platform;
 
 namespace Lumafly.ViewModels;
 

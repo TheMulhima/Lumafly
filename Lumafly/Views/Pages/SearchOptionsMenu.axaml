@@ -29,6 +29,7 @@
             Orientation="Horizontal"
             VerticalAlignment="Stretch"
             Background="{DynamicResource RegionColor}"
+            x:CompileBindings="False"
             >
             <ComboBox
                 Margin="0 5 2 2"
@@ -59,7 +60,7 @@
             HorizontalOffset="12"
             HorizontalAlignment="Stretch"
             Header="{ext:Localize XAML_Select_Tags}">
-            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}">
+            <ItemsRepeater ItemsSource="{ReflectionBinding $parent[pages:ModListView].DataContext.TagList}" x:CompileBindings="False">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <customControls:ExcludableCheckBox
@@ -79,7 +80,8 @@
             <ScrollViewer Height="300">
                 <StackPanel>
                     <TextBox
-                        Watermark="{ext:Localize XAML_SearchAuthor}"
+                        x:CompileBindings="False"
+                        PlaceholderText="{ext:Localize XAML_SearchAuthor}"
                         BorderThickness="0"
                         Margin="3 2"
                         Text="{Binding AuthorSearch}"/>

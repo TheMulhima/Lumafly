@@ -18,22 +18,46 @@ public class CheckValidityOfAssembly : ICheckValidityOfAssembly
         _fs = fs;
         _settings = settings;
     }
-    
-    public int? GetAPIVersion(string asmName)
+    public int? GetAPIVersion(string asmName, out string? gameVersion)
     {
+        gameVersion = null;
         try
         {
             string asm = Path.Combine(_settings.ManagedFolder, asmName);
-            if (!File.Exists(asm)) 
+            if (!File.Exists(asm))
                 return null;
+            using var stream = File.Open(asm, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return GetAPIVersion(stream, out gameVersion);
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine(ex);
+            return null;
+        }
+    }
+    public int? GetAPIVersion(Stream asm, out string? gameVersion)
+    {
+        gameVersion = null;
+        try
+        {
+            using AssemblyDefinition asmDefinition = AssemblyDefinition.ReadAssembly(asm, new()
+            {
+                ReadingMode = ReadingMode.Deferred
+            });
 
-            using AssemblyDefinition asmDefinition = AssemblyDefinition.ReadAssembly(asm);
+            var constants = asmDefinition.MainModule.GetType("Constants");
+            var gameVerField = constants?.Fields.FirstOrDefault(x => x.Name == "GAME_VERSION");
+
+            if(gameVerField is null || !gameVerField.IsLiteral)
+                throw new InvalidOperationException("Invalid Assembly-CSharp file");
+
+            gameVersion = (string) gameVerField.Constant;
 
             var modhooks = asmDefinition.MainModule.GetType("Modding.ModHooks");
             if (modhooks is null)  
                 return null;
 
-            FieldDefinition? ver = modhooks.Fields.FirstOrDefault(x => x.Name == "_modVersion");
+            var ver = modhooks.Fields.FirstOrDefault(x => x.Name == "_modVersion");
                 
             if (ver is null || !ver.IsLiteral) throw new InvalidOperationException("Invalid ModdingAPI file");
             
@@ -46,10 +70,28 @@ public class CheckValidityOfAssembly : ICheckValidityOfAssembly
         }
     }
 
-    public bool CheckVanillaFileValidity(string vanillaAssembly)
+    public bool CheckVanillaFileValidity(string vanillaAssembly, string apiAssembly)
     {
         // check if the file is there and the file doesnt have monomod
-        return _fs.File.Exists(Path.Combine(_settings.ManagedFolder, vanillaAssembly)) && 
-               GetAPIVersion(vanillaAssembly) == null;
+
+        if(!_fs.File.Exists(Path.Combine(_settings.ManagedFolder, vanillaAssembly)) ||
+            GetAPIVersion(vanillaAssembly, out var vanillaGameVersion) != null)
+        {
+            return false;
+        }
+
+        if(_fs.File.Exists(Path.Combine(_settings.ManagedFolder, vanillaAssembly)))
+        {
+            GetAPIVersion(apiAssembly, out var apiGameVersion);
+            if(apiGameVersion != null)
+            {
+                if(vanillaGameVersion != apiGameVersion)
+                {
+                    return false; // Different versions can cause crashes
+                }
+            }
+        }
+
+        return true;
     }
 }
