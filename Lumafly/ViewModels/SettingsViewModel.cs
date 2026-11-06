@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
-using HarfBuzzSharp;
 using ReactiveUI;
 using Lumafly.Enums;
 using Lumafly.Interfaces;
@@ -24,6 +23,7 @@ namespace Lumafly.ViewModels
         private readonly ISettings _settings;
         private readonly IModSource _mods;
         private readonly IAppUpdater _updater;
+        private readonly ICheckValidityOfAssembly _checkValidityOfAssembly;
         private bool useGithubMirrorOriginalValue;
         private bool useCustomModlinksOriginalValue;
         private bool cacheDownloadsOriginalValue;
@@ -31,12 +31,15 @@ namespace Lumafly.ViewModels
         
         public ReactiveCommand<RxVoid, RxVoid> ChangePath { get; }
 
-        public SettingsViewModel(ISettings settings, IModSource mods, IAppUpdater updater)
+        public SettingsViewModel(ISettings settings, IModSource mods, IAppUpdater updater, ICheckValidityOfAssembly checkValidityOfAssembly)
         {
             Trace.WriteLine("Initializing SettingsViewModel");
             _settings = settings;
             _mods = mods;
             _updater = updater;
+            _checkValidityOfAssembly = checkValidityOfAssembly;
+            checkValidityOfAssembly.GetAPIVersion(Installer.Current, out var gameVersion);
+            GameVersion = gameVersion;
             
             ChangePath = ReactiveCommand.CreateFromTask(ChangePathAsync);
 
@@ -153,6 +156,8 @@ namespace Lumafly.ViewModels
         
         public string CurrentPath => _settings.ManagedFolder.Replace(@"\\", @"\");
 
+        public string? GameVersion { get; private set; }
+
         private string _customModlinksUri;
 
         public string CustomModlinksUri
@@ -212,7 +217,11 @@ namespace Lumafly.ViewModels
             _settings.Save();
 
             await _mods.Reset();
-            
+
+            _checkValidityOfAssembly.GetAPIVersion(Installer.Current, out var gameVersion);
+            GameVersion = gameVersion;
+
+            RaisePropertyChanged(nameof(GameVersion));
             RaisePropertyChanged(nameof(AskForReload));
         }
 
